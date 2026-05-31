@@ -8,13 +8,25 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Poppins = big white display headings (like tamalsen) · Space Mono = the monospace body voice -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 
 <link rel="stylesheet" href="style.css">
 <script src="script.js" defer></script>
 
+<!--
+  ════════════════════════════════════════════════════════════════
+  📷  사진 넣는 방법 (아주 중요!)
+  ────────────────────────────────────────────────────────────────
+  1) 레포 안에 images 라는 폴더를 만들고 사진을 넣으세요.
+     예) images/ciee.jpg , images/doctorgreen.jpg
+  2) 코드에서 아래처럼 생긴 점선 박스(<div class="imgph">…</div>)를 찾아
+     통째로 지우고, 그 자리에 아래 한 줄을 붙여넣으면 됩니다:
+        <img class="photo" src="images/사진파일이름.jpg" alt="설명">
+  3) 카드 커버(맨 위 큰 영역)는 <span class="glyph">…</span> 줄을 지우고
+        <img class="cover-img" src="images/사진.jpg" alt="">  로 바꾸면 됩니다.
+  ════════════════════════════════════════════════════════════════
+-->
 </head>
 
 <body class="lang-ko">
@@ -26,11 +38,11 @@
   <a href="#home" class="logo">Juwon Lee<span style="color:var(--accent)">.</span><span class="cursor">_</span></a>
   <nav class="main" id="nav">
     <a href="#home"><span class="slash">//</span> home<span class="n">01</span></a>
-    <a href="#expertise"><span class="slash">//</span> <span class="ko">skills</span><span class="en">skills</span><span class="n">02</span></a>
+    <a href="#expertise"><span class="slash">//</span> skills<span class="n">02</span></a>
     <a href="#work"><span class="slash">//</span> work<span class="n">03</span></a>
     <a href="#experience"><span class="slash">//</span> exp<span class="n">04</span></a>
-    <a href="#activities"><span class="slash">//</span> <span class="ko">activities</span><span class="en">activities</span><span class="n">05</span></a>
-    <a href="#awards"><span class="slash">//</span> <span class="ko">awards</span><span class="en">awards</span><span class="n">06</span></a>
+    <a href="#activities"><span class="slash">//</span> activities<span class="n">05</span></a>
+    <a href="#awards"><span class="slash">//</span> awards<span class="n">06</span></a>
     <a href="#contact"><span class="slash">//</span> contact me<span class="n">07</span></a>
   </nav>
   <div class="nav-right">
@@ -54,24 +66,24 @@
 <section id="expertise">
   <div class="wrap">
     <div class="sec-head reveal">
-      <h2 class="sec-title"><span class="ko">My Expertise</span><span class="en">My Expertise</span></h2>
+      <h2 class="sec-title">My Expertise</h2>
     </div>
     <div class="expertise-grid reveal">
       <div class="exp-col">
         <span class="ico">🤖</span>
         <h3><span class="ko">AI · 데이터</span><span class="en">AI &amp; Data</span></h3>
         <span class="code-tag">&lt;h3&gt;</span>
-        <p><span class="ko">딥러닝 모델링과 데이터셋 구축 경험. VGG16 기반 영상 진단, 멀티모달 AI, 추론형 Q&amp;A 데이터 라벨링·검수.</span><span class="en">Deep-learning modeling and dataset building — VGG16 image diagnosis, multimodal AI, reasoning Q&amp;A labeling &amp; QA.</span></p>
+        <p><span class="ko">딥러닝 모델링과 데이터셋 구축 경험. YOLOv8·VGG16 기반 영상 진단, 멀티모달 AI, 추론형 Q&amp;A 데이터 라벨링·검수.</span><span class="en">Deep-learning modeling and dataset building — YOLOv8/VGG16 image diagnosis, multimodal AI, reasoning Q&amp;A labeling &amp; QA.</span></p>
         <span class="code-tag">&lt;/h3&gt;</span>
-        <div class="chips"><span class="chip">Python</span><span class="chip">VGG16 / CNN</span><span class="chip">Multimodal AI</span><span class="chip">Data QA</span></div>
+        <div class="chips"><span class="chip">Python</span><span class="chip">YOLOv8</span><span class="chip">VGG16 / CNN</span><span class="chip">Data QA</span></div>
       </div>
       <div class="exp-col">
         <span class="ico">&lt;/&gt;</span>
         <h3><span class="ko">개발</span><span class="en">Development</span></h3>
         <span class="code-tag">&lt;h3&gt;</span>
-        <p><span class="ko">함수형·객체지향 모두 익숙. 웹 인터랙티브 콘텐츠 제작과 GitHub Pages 배포까지 직접 수행.</span><span class="en">Comfortable with both functional and OOP. Builds interactive web content and ships via GitHub Pages.</span></p>
+        <p><span class="ko">함수형·객체지향 모두 익숙. Next.js 웹앱, IoT 연동, 인터랙티브 콘텐츠 제작과 배포까지 직접 수행.</span><span class="en">Comfortable with both functional and OOP. Builds Next.js web apps, IoT integrations, and interactive content end-to-end.</span></p>
         <span class="code-tag">&lt;/h3&gt;</span>
-        <div class="chips"><span class="chip">JavaScript</span><span class="chip">Java</span><span class="chip">R</span><span class="chip">HTML / CSS</span><span class="chip">Git</span></div>
+        <div class="chips"><span class="chip">JavaScript</span><span class="chip">Next.js</span><span class="chip">Java</span><span class="chip">HTML / CSS</span><span class="chip">Git</span></div>
       </div>
       <div class="exp-col">
         <span class="ico">🎯</span>
@@ -87,6 +99,8 @@
 </section>
 
 <!-- ===== WORK ===== -->
+<!-- 💡 프로젝트 카드를 "클릭"하면 자세한 내용이 팝업으로 뜹니다.
+     자세한 내용은 각 카드 안의 <div class="proj-full" hidden> ... </div> 에 들어있어요. -->
 <section id="work">
   <div class="wrap">
     <div class="work-top">
@@ -95,10 +109,14 @@
         <p><span class="ko">AI·교육·문화유산을 잇는 프로젝트들을 기획부터 개발, 배포까지 직접 진행했습니다. 데이터 분석과 인터랙티브 콘텐츠에 특히 관심이 많습니다.</span><span class="en">From planning to development and deployment — projects connecting AI, education, and cultural heritage. Especially keen on data and interactive content.</span></p>
       </div>
       <div class="featured reveal">
-        <div class="fcover"><span>復</span></div>
+        <div class="fcover">
+          <span>植</span>
+          <!-- 📷 대표 프로젝트 커버 사진: 위 <span>植</span> 줄을 지우고 아래로 교체
+               <img class="cover-img" src="images/doctorgreen-cover.jpg" alt=""> -->
+        </div>
         <div class="label"><span class="ko">대표 프로젝트</span><span class="en">Featured Project</span></div>
-        <div class="pname">나도 복원가!</div>
-        <a href="#" class="btn-fill" target="_blank"><span class="ko">프로젝트 보기</span><span class="en">View Project</span></a>
+        <div class="pname">닥터그린 (doctor-green)</div>
+        <button class="btn-fill" onclick="openProject(document.getElementById('p-doctorgreen'))"><span class="ko">프로젝트 보기</span><span class="en">View Project</span></button>
       </div>
     </div>
 
@@ -111,69 +129,212 @@
       <button data-f="web">Web<span class="cnt">02</span></button>
     </div>
 
-    <div class="draft reveal"><span class="ko">※ 초안 — 링크·이미지·추가/삭제할 프로젝트를 알려주시면 반영합니다.</span><span class="en">※ Draft — tell me links, images, and projects to add/remove.</span></div>
-
     <div class="work-grid">
-      <article class="card reveal" data-cat="web">
-        <div class="cover cv1"><span class="glyph">復</span></div>
+
+      <!-- ── 프로젝트 1 : 닥터그린 (PDF 내용 반영) ── -->
+      <article class="card reveal" id="p-doctorgreen" data-cat="ai" onclick="openProject(this)">
+        <div class="cover cv3">
+          <span class="glyph">植</span>
+          <!-- 📷 커버 사진 교체: 위 glyph 줄을 지우고 <img class="cover-img" src="images/doctorgreen.jpg" alt=""> -->
+        </div>
+        <div class="meta">
+          <div class="cat"><span class="ko">AI · IoT 풀스택</span><span class="en">AI · IoT Full-stack</span></div>
+          <h3><span class="ko">닥터그린 (doctor-green)</span><span class="en">doctor-green</span></h3>
+          <p><span class="ko">YOLOv8 작물 병해충 진단 + IoT 실시간 환경 모니터링을 하나의 웹 플랫폼에서 통합한 스마트팜 솔루션.</span><span class="en">A smart-farm platform unifying YOLOv8 crop-disease diagnosis with real-time IoT environment monitoring.</span></p>
+          <div class="card-more"><span class="ko">자세히 보기 →</span><span class="en">View details →</span></div>
+        </div>
+        <!-- 상세 팝업 내용 (숨김) -->
+        <div class="proj-full" hidden>
+          <div class="md-cover cv3">
+            <span class="glyph">植</span>
+            <!-- 📷 팝업 상단 사진: 위 glyph 줄을 지우고 <img class="cover-img" src="images/doctorgreen-cover.jpg" alt=""> -->
+          </div>
+          <div class="md-cat"><span class="ko">AI · IoT 풀스택 · 개인 프로젝트</span><span class="en">AI · IoT Full-stack · Personal</span></div>
+          <h3 class="md-title"><span class="ko">닥터그린 (doctor-green)</span><span class="en">doctor-green</span></h3>
+          <p class="md-desc"><span class="ko">작물 병해충을 영상으로 진단하는 AI 모듈과, 재배 환경을 실시간 계측·제어하는 IoT 디바이스를 단일 웹 플랫폼에서 통합 운용하는 스마트팜 플랫폼입니다. ESP32 센서 노드가 환경 데이터를 수집하면 중계 서버를 거쳐 Supabase에 적재되고, Next.js 웹앱에서 실시간으로 시각화됩니다.</span><span class="en">A smart-farm platform that unifies an AI module diagnosing crop diseases from images with IoT devices that measure and control the growing environment in real time. ESP32 sensor nodes collect data, relay it through a server into Supabase, and a Next.js web app visualizes it live.</span></p>
+
+          <!-- 📷 시스템 구조도 사진 자리 -->
+          <div class="imgph">
+            <span class="imgph-ic">🗺️</span>
+            <span class="imgph-tx ko">시스템 구조도 / 아키텍처 다이어그램</span>
+            <span class="imgph-tx en">System architecture diagram</span>
+          </div>
+
+          <h4 class="md-h"><span class="ko">주요 내용</span><span class="en">Highlights</span></h4>
+          <ul class="md-list">
+            <li><span class="ko">데이터 흐름: IoT 센싱 → Mac 중계 서버(Flask) → Supabase 적재 → Next.js 웹앱 실시간 시각화</span><span class="en">Data flow: IoT sensing → Mac relay server (Flask) → Supabase → real-time Next.js visualization</span></li>
+            <li><span class="ko">USB 카메라 영상에 YOLOv8을 적용해 작물 병해충 7종 탐지·진단</span><span class="en">Applied YOLOv8 to USB-camera video to detect and diagnose 7 crop-disease classes</span></li>
+            <li><span class="ko">웹앱에서 LED·팬 등 액추에이터를 Supabase Realtime 구독으로 실시간 제어</span><span class="en">Real-time actuator control (LED, fan) from the web app via Supabase Realtime</span></li>
+            <li><span class="ko">YOLOv8 1차 학습(50 epoch) mAP50 ≈ 0.95 달성, 2차 YOLOv8l(150 epoch) 고도화 진행 중</span><span class="en">1st training (50 epoch) reached mAP50 ≈ 0.95; 2nd YOLOv8l (150 epoch) in progress</span></li>
+            <li><span class="ko">Roboflow strawberry-disease-detection-dataset v4 활용, 클래스 불균형 대응 증강 전략 적용</span><span class="en">Used Roboflow strawberry-disease-detection-dataset v4 with augmentation for class imbalance</span></li>
+          </ul>
+
+          <!-- 📷 디바이스 결선도 / 앱 화면 사진 자리 -->
+          <div class="imgph">
+            <span class="imgph-ic">📱</span>
+            <span class="imgph-tx ko">디바이스 결선도 또는 웹앱 화면</span>
+            <span class="imgph-tx en">Device wiring or web-app screenshot</span>
+          </div>
+
+          <h4 class="md-h"><span class="ko">기술 스택</span><span class="en">Tech Stack</span></h4>
+          <div class="chips">
+            <span class="chip">Next.js 16</span><span class="chip">React</span><span class="chip">TypeScript</span><span class="chip">Tailwind</span>
+            <span class="chip">Supabase</span><span class="chip">Flask</span><span class="chip">ESP32 / MicroPython</span><span class="chip">YOLOv8</span><span class="chip">Roboflow</span>
+          </div>
+
+          <div class="md-status"><span class="ko">상태 · 웹앱 Vercel 배포 완료</span><span class="en">Status · Web app deployed on Vercel</span></div>
+
+          <!-- 🔗 링크: href="#" 자리에 실제 주소를 넣으세요 -->
+          <div class="md-links">
+            <a href="#" target="_blank">Live ↗</a>
+            <a href="#" target="_blank">GitHub ↗</a>
+            <a href="#" target="_blank"><span class="ko">보고서 PDF ↗</span><span class="en">Report PDF ↗</span></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── 프로젝트 2 : 나도 복원가! ── -->
+      <article class="card reveal" id="p-restorer" data-cat="web" onclick="openProject(this)">
+        <div class="cover cv1">
+          <span class="glyph">復</span>
+          <!-- 📷 커버 사진 교체: <img class="cover-img" src="images/restorer.jpg" alt=""> -->
+        </div>
         <div class="meta">
           <div class="cat"><span class="ko">서울로봇인공지능과학관</span><span class="en">Seoul Robot &amp; AI Museum</span></div>
           <h3><span class="ko">나도 복원가!</span><span class="en">I'm a Restorer!</span></h3>
-          <p><span class="ko">한국 문화유산을 직접 복원하는 인터랙티브 웹 게임 개발. 서울로봇인공지능과학관 전시연계프로그램에 활용.</span><span class="en">Interactive web game for restoring Korean heritage. Planned and built as exhibition content, deployed on GitHub Pages.</span></p>
-          <div class="links"><a href="#" target="_blank">GitHub ↗</a><a href="#" target="_blank">Live ↗</a></div>
+          <p><span class="ko">한국 문화유산을 직접 복원하는 인터랙티브 웹 게임. 과학관 전시연계 프로그램에 활용.</span><span class="en">An interactive web game for restoring Korean cultural heritage, used as a museum exhibition program.</span></p>
+          <div class="card-more"><span class="ko">자세히 보기 →</span><span class="en">View details →</span></div>
+        </div>
+        <div class="proj-full" hidden>
+          <div class="md-cover cv1">
+            <span class="glyph">復</span>
+            <!-- 📷 <img class="cover-img" src="images/restorer-cover.jpg" alt=""> -->
+          </div>
+          <div class="md-cat"><span class="ko">서울로봇인공지능과학관 · 전시연계</span><span class="en">Seoul Robot &amp; AI Science Museum</span></div>
+          <h3 class="md-title"><span class="ko">나도 복원가!</span><span class="en">I'm a Restorer!</span></h3>
+          <p class="md-desc"><span class="ko">관람객이 직접 한국 문화유산을 복원해 보는 인터랙티브 웹 게임입니다. 과학관 전시 교육 콘텐츠로 기획·개발하여 GitHub Pages에 배포했습니다.</span><span class="en">An interactive web game where visitors restore Korean cultural heritage themselves. Planned and built as museum exhibition-education content and deployed on GitHub Pages.</span></p>
+          <div class="imgph">
+            <span class="imgph-ic">🖼️</span>
+            <span class="imgph-tx ko">게임 화면 캡처를 넣어주세요</span>
+            <span class="imgph-tx en">Add a gameplay screenshot</span>
+          </div>
+          <h4 class="md-h"><span class="ko">주요 내용</span><span class="en">Highlights</span></h4>
+          <ul class="md-list">
+            <li><span class="ko">전시 교육 목적의 인터랙티브 콘텐츠 기획 및 웹 개발</span><span class="en">Planned and developed interactive content for exhibition education</span></li>
+            <li><span class="ko">GitHub Pages 배포로 전시장 태블릿에서 바로 실행</span><span class="en">Deployed via GitHub Pages to run directly on exhibition tablets</span></li>
+          </ul>
+          <h4 class="md-h"><span class="ko">기술 스택</span><span class="en">Tech Stack</span></h4>
+          <div class="chips"><span class="chip">JavaScript</span><span class="chip">HTML / CSS</span><span class="chip">GitHub Pages</span></div>
+          <div class="md-links"><a href="#" target="_blank">GitHub ↗</a><a href="#" target="_blank">Live ↗</a></div>
         </div>
       </article>
 
-      <article class="card reveal" data-cat="ai">
-        <div class="cover cv2"><span class="glyph">藥</span></div>
+      <!-- ── 프로젝트 3 : 약모아 YAKMOA ── -->
+      <article class="card reveal" id="p-yakmoa" data-cat="ai" onclick="openProject(this)">
+        <div class="cover cv2">
+          <span class="glyph">藥</span>
+          <!-- 📷 <img class="cover-img" src="images/yakmoa.jpg" alt=""> -->
+        </div>
         <div class="meta">
+          <div class="cat"><span class="ko">한·일 공동 ICT</span><span class="en">Korea–Japan ICT</span></div>
           <h3><span class="ko">약모아 (YAKMOA)</span><span class="en">YAKMOA</span></h3>
-          <p><span class="ko">멀티모달 AI 기반 의약품 관리 앱. 약 정보 인식·복약 관리 솔루션으로 개발계획서 작성 및 공모전 제출.</span><span class="en">Multimodal-AI medication app for drug recognition and dose management. Authored the dev plan and submitted to a competition.</span></p>
-          <div class="links"><a href="#" target="_blank">GitHub ↗</a><a href="#" target="_blank">Docs ↗</a></div>
+          <p><span class="ko">멀티모달 AI 기반 의약품 관리 앱. 약 정보 인식·복약 관리 솔루션.</span><span class="en">A multimodal-AI medication-management app for drug recognition and dose management.</span></p>
+          <div class="card-more"><span class="ko">자세히 보기 →</span><span class="en">View details →</span></div>
+        </div>
+        <div class="proj-full" hidden>
+          <div class="md-cover cv2">
+            <span class="glyph">藥</span>
+            <!-- 📷 <img class="cover-img" src="images/yakmoa-cover.jpg" alt=""> -->
+          </div>
+          <div class="md-cat"><span class="ko">한·일 공동 ICT 프로젝트</span><span class="en">Korea–Japan Joint ICT</span></div>
+          <h3 class="md-title"><span class="ko">약모아 (YAKMOA)</span><span class="en">YAKMOA</span></h3>
+          <p class="md-desc"><span class="ko">멀티모달 AI를 활용해 약 정보를 인식하고 복약을 관리하도록 돕는 의약품 관리 앱입니다. 개발계획서를 작성하고 공모전에 제출했습니다.</span><span class="en">A medication-management app that uses multimodal AI to recognize drug information and help manage doses. Authored the development plan and submitted to a competition.</span></p>
+          <div class="imgph">
+            <span class="imgph-ic">📱</span>
+            <span class="imgph-tx ko">앱 기획 화면 / 목업을 넣어주세요</span>
+            <span class="imgph-tx en">Add an app mockup</span>
+          </div>
+          <h4 class="md-h"><span class="ko">주요 내용</span><span class="en">Highlights</span></h4>
+          <ul class="md-list">
+            <li><span class="ko">멀티모달 AI 기반 약 정보 인식 및 복약 관리 솔루션 기획</span><span class="en">Designed a multimodal-AI drug-recognition and dose-management solution</span></li>
+            <li><span class="ko">한·일 공동 ICT 프로젝트로 개발계획서 작성 및 공모전 제출</span><span class="en">Authored the dev plan and submitted as a Korea–Japan joint ICT project</span></li>
+          </ul>
+          <h4 class="md-h"><span class="ko">기술 스택</span><span class="en">Tech Stack</span></h4>
+          <div class="chips"><span class="chip">Multimodal AI</span><span class="chip">Mobile App</span><span class="chip">SW Planning</span></div>
+          <div class="md-links"><a href="#" target="_blank">GitHub ↗</a><a href="#" target="_blank">Docs ↗</a></div>
         </div>
       </article>
 
-      <article class="card reveal" data-cat="ai">
-        <div class="cover cv3"><span class="glyph">植</span></div>
+      <!-- ── 프로젝트 4 : 포트폴리오 웹사이트 ── -->
+      <article class="card reveal" id="p-portfolio" data-cat="web" onclick="openProject(this)">
+        <div class="cover cv4">
+          <span class="glyph">WEB</span>
+          <!-- 📷 <img class="cover-img" src="images/portfolio.jpg" alt=""> -->
+        </div>
         <div class="meta">
-          <div class="cat"><span class="ko">MAKENEW · 팀장</span><span class="en">MAKENEW · Team Leader</span></div>
-          <h3><span class="ko">식물 병해 진단 앱</span><span class="en">Plant Disease Diagnosis</span></h3>
-          <p><span class="ko">VGG16 모델 기반 식물 병해 진단 앱 기획 및 개발</span><span class="en">VGG16-based plant-disease app. Led three sub-teams and presented at a national start-up competition.</span></p>
-          <div class="links"><a href="#" target="_blank">GitHub ↗</a><a href="#" target="_blank">Deck ↗</a></div>
+          <div class="cat"><span class="ko">개인 작업</span><span class="en">Personal</span></div>
+          <h3><span class="ko">포트폴리오 웹사이트</span><span class="en">Portfolio Website</span></h3>
+          <p><span class="ko">지금 보고 계신 이 사이트. 다크 테마·한영 전환·인터랙티브 UI를 직접 구현.</span><span class="en">This very site — dark theme, KO/EN toggle, interactive UI, built from scratch.</span></p>
+          <div class="card-more"><span class="ko">자세히 보기 →</span><span class="en">View details →</span></div>
+        </div>
+        <div class="proj-full" hidden>
+          <div class="md-cover cv4">
+            <span class="glyph">WEB</span>
+            <!-- 📷 <img class="cover-img" src="images/portfolio-cover.jpg" alt=""> -->
+          </div>
+          <div class="md-cat"><span class="ko">개인 작업</span><span class="en">Personal</span></div>
+          <h3 class="md-title"><span class="ko">포트폴리오 웹사이트</span><span class="en">Portfolio Website</span></h3>
+          <p class="md-desc"><span class="ko">반응형 다크 테마 포트폴리오. 한·영 전환, 클릭형 아코디언, 프로젝트 상세 팝업, 스크롤 애니메이션 등을 직접 구현하고 Vercel에 배포했습니다.</span><span class="en">A responsive dark-theme portfolio with KO/EN switching, clickable accordions, project detail popups, and scroll animations — built from scratch and deployed on Vercel.</span></p>
+          <div class="imgph">
+            <span class="imgph-ic">💻</span>
+            <span class="imgph-tx ko">사이트 화면 캡처를 넣어주세요</span>
+            <span class="imgph-tx en">Add a screenshot of the site</span>
+          </div>
+          <h4 class="md-h"><span class="ko">기술 스택</span><span class="en">Tech Stack</span></h4>
+          <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">Vercel</span></div>
+          <div class="md-links"><a href="#" target="_blank">Live ↗</a><a href="#" target="_blank">GitHub ↗</a></div>
         </div>
       </article>
+
     </div>
   </div>
 </section>
 
 <!-- ===== EXPERIENCE (accordion) ===== -->
+<!-- 💡 항목을 클릭하면 펼쳐집니다. 펼친 내용 안에 사진 자리(점선 박스)가 있어요. -->
 <section id="experience">
   <div class="wrap">
     <div class="sec-head reveal">
-      <h2 class="sec-title"><span class="ko">경력</span><span class="en">Experience</span></h2>
+      <h2 class="sec-title">Experience</h2>
     </div>
 
-        <div class="acc">
+    <div class="acc">
       <div class="acc-item reveal">
         <div class="acc-head" onclick="toggleAcc(this)">
-          <span class="role"><span class="ko">서울로봇인공지능과학관</span><span class="en">Docent, Developer &amp; Seoul Robot&AI Science Museum</span></span>
+          <span class="role"><span class="ko">도슨트 · 개발 · 서울로봇인공지능과학관</span><span class="en">Docent &amp; Developer @ Seoul Robot &amp; AI Science Museum</span></span>
           <span class="right"><span class="when">2026.03 – Present</span><span class="pm">+</span></span>
         </div>
         <div class="acc-body"><div class="acc-inner">
           <div class="info">
             <div class="where"><span>📍 <b>Seoul, KR</b></span></div>
             <ul>
-              <li><span class="ko">과학관 한국어/영어 전시해설 및 교육프로그램 진행</span><span class="en">Conducted multilingual exhibitions and educational programs</span></li>
-              <li><span class="ko">과학관 전시연계프로그램 기획 및 개발</span><span class="en">Planned and developed educational programs</span></li>
-              <li><span class="ko">과학관-교육청 협업 전시교육프로그램 기획 및 개발</span><span class="en">Planned and developed collaborative educational programs</span></li>
+              <li><span class="ko">과학관 한국어/영어 전시해설 및 교육프로그램 진행</span><span class="en">Conducted Korean/English exhibition tours and education programs</span></li>
+              <li><span class="ko">과학관 전시연계 프로그램 기획 및 개발</span><span class="en">Planned and developed exhibition-linked programs</span></li>
+              <li><span class="ko">과학관–교육청 협업 전시교육 프로그램 기획 및 개발</span><span class="en">Built museum–education office collaborative programs</span></li>
             </ul>
-            <div class="chips"><span class="chip">Data QA</span><span class="chip">Reasoning Dataset</span><span class="chip">AI Data</span></div>
+            <div class="chips"><span class="chip">Docent</span><span class="chip">Bilingual Edu</span><span class="chip">Program Dev</span></div>
+          </div>
+          <!-- 📷 사진 자리 -->
+          <div class="acc-media">
+            <div class="imgph">
+              <span class="imgph-ic">🏛️</span>
+              <span class="imgph-tx ko">활동 사진</span>
+              <span class="imgph-tx en">Photo</span>
+            </div>
           </div>
         </div></div>
       </div>
 
-
-    <div class="acc">
       <div class="acc-item reveal">
         <div class="acc-head" onclick="toggleAcc(this)">
           <span class="role"><span class="ko">데이터 컨트리뷰터 &amp; QA · 셀렉트스타</span><span class="en">Data Contributor &amp; QA @ Select Star</span></span>
@@ -183,17 +344,24 @@
           <div class="info">
             <div class="where"><span>📍 <b>Seoul, KR</b></span></div>
             <ul>
-              <li><span class="ko">데이터 라벨링 품질 검수 및 복합 3-hop 추론 Q&amp;A 데이터셋 구축</span><span class="en">Validated labeling quality, built complex 3-hop reasoning Q&amp;A datasets</span></li>
+              <li><span class="ko">데이터 라벨링 품질 검수 및 복합 3-hop 추론 Q&amp;A 데이터셋 구축</span><span class="en">Validated labeling quality and built complex 3-hop reasoning Q&amp;A datasets</span></li>
               <li><span class="ko">팀 평균 대비 2.5배 데이터 처리량 달성 (정확도·효율성)</span><span class="en">Processed 2.5× the team-average volume with high accuracy</span></li>
             </ul>
             <div class="chips"><span class="chip">Data QA</span><span class="chip">Reasoning Dataset</span><span class="chip">AI Data</span></div>
+          </div>
+          <div class="acc-media">
+            <div class="imgph">
+              <span class="imgph-ic">📊</span>
+              <span class="imgph-tx ko">활동 사진</span>
+              <span class="imgph-tx en">Photo</span>
+            </div>
           </div>
         </div></div>
       </div>
 
       <div class="acc-item reveal">
         <div class="acc-head" onclick="toggleAcc(this)">
-          <span class="role"><span class="ko">과학기술정보통신부 청년인턴</span><span class="en">Youth Intern @ Ministry of Science and ICT</span></span>
+          <span class="role"><span class="ko">청년인턴 · 과학기술정보통신부</span><span class="en">Youth Intern @ Ministry of Science and ICT</span></span>
           <span class="right"><span class="when">2025.04 – 2025.07</span><span class="pm">+</span></span>
         </div>
         <div class="acc-body"><div class="acc-inner">
@@ -204,6 +372,13 @@
               <li><span class="ko">부처 주관 전시·컨퍼런스 보고서 작성 및 이슈 정리</span><span class="en">Wrote reports on ministry exhibitions and conferences with concise briefs</span></li>
             </ul>
             <div class="chips"><span class="chip">Policy</span><span class="chip">Research</span><span class="chip">Reporting</span></div>
+          </div>
+          <div class="acc-media">
+            <div class="imgph">
+              <span class="imgph-ic">🏢</span>
+              <span class="imgph-tx ko">활동 사진</span>
+              <span class="imgph-tx en">Photo</span>
+            </div>
           </div>
         </div></div>
       </div>
@@ -217,9 +392,16 @@
           <div class="info">
             <div class="where"><span>📍 <b>New Brunswick, NJ, USA</b></span></div>
             <ul>
-              <li><span class="ko">25 동계 영어 어학연수 참여</span><span class="en">Completed a one-month intensive English language program as part of a university program</span></li>
+              <li><span class="ko">대학 프로그램의 일환으로 25년 동계 영어 집중 어학연수 참여</span><span class="en">Completed an intensive winter English language program (2025) as part of a university program</span></li>
             </ul>
             <div class="chips"><span class="chip">English</span><span class="chip">Global</span></div>
+          </div>
+          <div class="acc-media">
+            <div class="imgph">
+              <span class="imgph-ic">🎓</span>
+              <span class="imgph-tx ko">활동 사진</span>
+              <span class="imgph-tx en">Photo</span>
+            </div>
           </div>
         </div></div>
       </div>
@@ -227,53 +409,188 @@
   </div>
 </section>
 
-<!-- ===== ACTIVITIES ===== -->
+<!-- ===== ACTIVITIES (accordion) ===== -->
 <section id="activities">
   <div class="wrap">
     <div class="sec-head reveal">
       <h2 class="sec-title"><span class="ko">대외활동</span><span class="en">Activities</span></h2>
     </div>
-    <div class="act-grid">
-      <div class="act reveal">
-        <div class="when">2025.06 – <span class="ko">현재</span><span class="en">Present</span></div>
-        <h3>CIEE SEOULMATE</h3>
-        <div class="role"><span class="ko">외국인 유학생 멘토</span><span class="en">Mentor for international students</span></div>
-        <p><span class="ko">한국어·문화 멘토링 및 교류 프로그램 기획·운영으로 상호 이해를 도왔습니다.</span><span class="en">Mentored international students in Korean language and culture, planning cross-cultural programs.</span></p>
+
+    <div class="acc">
+      <div class="acc-item reveal">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <span class="role">CIEE SEOULMATE <span class="role-sub"><span class="ko">· 외국인 유학생 멘토</span><span class="en">· Mentor</span></span></span>
+          <span class="right"><span class="when">2025.06 – Present</span><span class="pm">+</span></span>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="info">
+            <ul>
+              <li><span class="ko">외국인 유학생에게 한국어·문화 멘토링 제공</span><span class="en">Mentored international students in Korean language and culture</span></li>
+              <li><span class="ko">교류 프로그램 기획·운영으로 상호 이해 증진</span><span class="en">Planned and ran cross-cultural programs to build mutual understanding</span></li>
+            </ul>
+            <div class="chips"><span class="chip">Mentoring</span><span class="chip">Cross-cultural</span></div>
+          </div>
+          <div class="acc-media">
+            <div class="imgph"><span class="imgph-ic">🌏</span><span class="imgph-tx ko">활동 사진</span><span class="imgph-tx en">Photo</span></div>
+          </div>
+        </div></div>
       </div>
-      <div class="act reveal">
-        <div class="when">2024.07 – 2025.02</div>
-        <h3><span class="ko">한경국립대 창업동아리</span><span class="en">Hankyong Start-up Club</span></h3>
-        <div class="role"><span class="ko">팀 리더, MAKENEW</span><span class="en">Team Leader, MAKENEW</span></div>
-        <p><span class="ko">VGG16 기반 식물 병해 진단 앱 개발 총괄, 3개 서브팀 운영 및 전국 대회 발표.</span><span class="en">Led a VGG16 plant-disease app across three sub-teams and presented nationally.</span></p>
+
+      <div class="acc-item reveal">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <span class="role"><span class="ko">한경국립대 창업동아리</span><span class="en">Hankyong Start-up Club</span> <span class="role-sub"><span class="ko">· 팀 리더, MAKENEW</span><span class="en">· Team Leader, MAKENEW</span></span></span>
+          <span class="right"><span class="when">2024.07 – 2025.02</span><span class="pm">+</span></span>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="info">
+            <ul>
+              <li><span class="ko">VGG16 기반 식물 병해 진단 앱 개발 총괄</span><span class="en">Led development of a VGG16-based plant-disease diagnosis app</span></li>
+              <li><span class="ko">개발·마케팅·디자인 3개 서브팀 운영</span><span class="en">Managed three sub-teams: development, marketing, and design</span></li>
+              <li><span class="ko">전국 창업경진대회에서 발표</span><span class="en">Presented at a national start-up competition</span></li>
+            </ul>
+            <div class="chips"><span class="chip">Team Lead</span><span class="chip">VGG16</span><span class="chip">Start-up</span></div>
+          </div>
+          <div class="acc-media">
+            <div class="imgph"><span class="imgph-ic">🌱</span><span class="imgph-tx ko">활동 사진</span><span class="imgph-tx en">Photo</span></div>
+          </div>
+        </div></div>
       </div>
-      <div class="act reveal">
-        <div class="when">2024.07 – 2024.08</div>
-        <h3><span class="ko">LS그룹 &amp; 초록우산</span><span class="en">LS Group &amp; Green Umbrella</span></h3>
-        <div class="role"><span class="ko">과학 강사, LS 드림사이언스</span><span class="en">Science Instructor, LS Dream Science</span></div>
-        <p><span class="ko">초등학생 대상 한 달 과학 프로그램 진행, 실험·시연 기획 및 운영.</span><span class="en">Led a month-long science program for elementary students with hands-on experiments.</span></p>
+
+      <div class="acc-item reveal">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <span class="role"><span class="ko">LS그룹 &amp; 초록우산</span><span class="en">LS Group &amp; Green Umbrella</span> <span class="role-sub"><span class="ko">· 과학 강사</span><span class="en">· Science Instructor</span></span></span>
+          <span class="right"><span class="when">2024.07 – 2024.08</span><span class="pm">+</span></span>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="info">
+            <ul>
+              <li><span class="ko">초등학생 대상 한 달 과학 프로그램(LS 드림사이언스) 진행</span><span class="en">Led a month-long science program (LS Dream Science) for elementary students</span></li>
+              <li><span class="ko">과학 실험·시연 기획 및 운영</span><span class="en">Designed and ran hands-on science experiments and demos</span></li>
+            </ul>
+            <div class="chips"><span class="chip">Teaching</span><span class="chip">STEM</span></div>
+          </div>
+          <div class="acc-media">
+            <div class="imgph"><span class="imgph-ic">🔬</span><span class="imgph-tx ko">활동 사진</span><span class="imgph-tx en">Photo</span></div>
+          </div>
+        </div></div>
       </div>
-      <div class="act reveal">
-        <div class="when">2024.03 – 2025.02</div>
-        <h3>KB <span class="ko">국민은행</span><span class="en">Kookmin Bank</span></h3>
-        <div class="role"><span class="ko">고등학생 멘토, KB LA School</span><span class="en">Mentor, KB LA School</span></div>
-        <p><span class="ko">고등학생 화학·수학 온라인 튜터링, 일부 학생 만점 등 성적 향상 지도.</span><span class="en">Online chemistry &amp; math tutoring for high schoolers, guiding notable improvement.</span></p>
+
+      <div class="acc-item reveal">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <span class="role">KB <span class="ko">국민은행</span><span class="en">Kookmin Bank</span> <span class="role-sub"><span class="ko">· 고등학생 멘토, KB LA School</span><span class="en">· Mentor, KB LA School</span></span></span>
+          <span class="right"><span class="when">2024.03 – 2025.02</span><span class="pm">+</span></span>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="info">
+            <ul>
+              <li><span class="ko">고등학생 화학·수학 온라인 튜터링</span><span class="en">Online chemistry &amp; math tutoring for high-school students</span></li>
+              <li><span class="ko">일부 학생 만점 등 성적 향상 지도</span><span class="en">Guided notable improvement, including perfect scores for some</span></li>
+            </ul>
+            <div class="chips"><span class="chip">Tutoring</span><span class="chip">Chemistry</span><span class="chip">Math</span></div>
+          </div>
+          <div class="acc-media">
+            <div class="imgph"><span class="imgph-ic">📚</span><span class="imgph-tx ko">활동 사진</span><span class="imgph-tx en">Photo</span></div>
+          </div>
+        </div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== AWARDS ===== -->
+<!-- ===== AWARDS (accordion) ===== -->
+<!-- 💡 ✏️ 표시된 부분은 수상 프로젝트/내용을 더 적으시면 됩니다. -->
 <section id="awards">
   <div class="wrap">
     <div class="sec-head reveal">
       <h2 class="sec-title"><span class="ko">수상</span><span class="en">Awards</span></h2>
     </div>
-    <div class="awards">
-      <div class="award reveal"><div class="rank">2nd</div><div class="info"><h3><span class="ko">국립중앙과학관 &amp; 과학관-지역연계 AI 해커톤</span><span class="en">National Science Museum &amp; Community AI Hackathon</span></h3><div class="date">2025.09.12</div></div></div>
-      <div class="award reveal"><div class="rank">3rd</div><div class="info"><h3><span class="ko">과학기술정보통신부 &amp; 여성 IT/SW 창업경진대회</span><span class="en">Women's IT/SW Start-up Competition</span></h3><div class="date">2024.12.05</div></div></div>
-      <div class="award reveal"><div class="rank">3rd</div><div class="info"><h3><span class="ko">한경국립대학교 창업경진대회</span><span class="en">Hankyong National University Start-up Competition</span></h3><div class="date">2024.11.12</div></div></div>
-      <div class="award reveal"><div class="rank">3rd</div><div class="info"><h3><span class="ko">과학기술정보통신부 &amp; 충남 생성형 AI 기술 창업 아이디어 경진대회</span><span class="en">Chungnam Generative AI Tech Start-up Idea Competition</span></h3><div class="date">2024.10.30</div></div></div>
-      <div class="award reveal"><div class="rank">2nd</div><div class="info"><h3><span class="ko">안성시창업아이디어경진대회</span><span class="en">Anseong City Start-up Idea Competition</span></h3><div class="date">2023.11.10</div></div></div>
+
+    <div class="acc awards-acc">
+      <div class="acc-item reveal">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <span class="role"><span class="rank-badge">2nd</span> <span class="ko">국립중앙과학관 &amp; 과학관-지역연계 AI 해커톤</span><span class="en">National Science Museum &amp; Community AI Hackathon</span></span>
+          <span class="right"><span class="when">2025.09.12</span><span class="pm">+</span></span>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="info">
+            <ul>
+              <li><span class="ko">AI 기술을 활용한 솔루션으로 본선 2위 수상</span><span class="en">2nd place with an AI-powered solution in the finals</span></li>
+              <li class="todo"><span class="ko">✏️ 수상 프로젝트·역할을 더 적어주세요</span><span class="en">✏️ Add the project &amp; your role</span></li>
+            </ul>
+          </div>
+          <div class="acc-media">
+            <div class="imgph"><span class="imgph-ic">🏆</span><span class="imgph-tx ko">상장 / 수상 사진</span><span class="imgph-tx en">Certificate / photo</span></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="acc-item reveal">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <span class="role"><span class="rank-badge">3rd</span> <span class="ko">과학기술정보통신부 &amp; 여성 IT/SW 창업경진대회</span><span class="en">Women's IT/SW Start-up Competition</span></span>
+          <span class="right"><span class="when">2024.12.05</span><span class="pm">+</span></span>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="info">
+            <ul>
+              <li class="todo"><span class="ko">✏️ 수상 프로젝트·역할을 적어주세요</span><span class="en">✏️ Add the project &amp; your role</span></li>
+            </ul>
+          </div>
+          <div class="acc-media">
+            <div class="imgph"><span class="imgph-ic">🏆</span><span class="imgph-tx ko">상장 / 수상 사진</span><span class="imgph-tx en">Certificate / photo</span></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="acc-item reveal">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <span class="role"><span class="rank-badge">3rd</span> <span class="ko">한경국립대학교 창업경진대회</span><span class="en">Hankyong National University Start-up Competition</span></span>
+          <span class="right"><span class="when">2024.11.12</span><span class="pm">+</span></span>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="info">
+            <ul>
+              <li class="todo"><span class="ko">✏️ 수상 프로젝트·역할을 적어주세요</span><span class="en">✏️ Add the project &amp; your role</span></li>
+            </ul>
+          </div>
+          <div class="acc-media">
+            <div class="imgph"><span class="imgph-ic">🏆</span><span class="imgph-tx ko">상장 / 수상 사진</span><span class="imgph-tx en">Certificate / photo</span></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="acc-item reveal">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <span class="role"><span class="rank-badge">3rd</span> <span class="ko">과학기술정보통신부 &amp; 충남 생성형 AI 기술 창업 아이디어 경진대회</span><span class="en">Chungnam Generative AI Tech Start-up Idea Competition</span></span>
+          <span class="right"><span class="when">2024.10.30</span><span class="pm">+</span></span>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="info">
+            <ul>
+              <li class="todo"><span class="ko">✏️ 수상 프로젝트·역할을 적어주세요</span><span class="en">✏️ Add the project &amp; your role</span></li>
+            </ul>
+          </div>
+          <div class="acc-media">
+            <div class="imgph"><span class="imgph-ic">🏆</span><span class="imgph-tx ko">상장 / 수상 사진</span><span class="imgph-tx en">Certificate / photo</span></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="acc-item reveal">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <span class="role"><span class="rank-badge">2nd</span> <span class="ko">안성시 창업아이디어 경진대회</span><span class="en">Anseong City Start-up Idea Competition</span></span>
+          <span class="right"><span class="when">2023.11.10</span><span class="pm">+</span></span>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="info">
+            <ul>
+              <li class="todo"><span class="ko">✏️ 수상 프로젝트·역할을 적어주세요</span><span class="en">✏️ Add the project &amp; your role</span></li>
+            </ul>
+          </div>
+          <div class="acc-media">
+            <div class="imgph"><span class="imgph-ic">🏆</span><span class="imgph-tx ko">상장 / 수상 사진</span><span class="imgph-tx en">Certificate / photo</span></div>
+          </div>
+        </div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -305,5 +622,15 @@
   </div>
   <footer>© 2026 Juwon Lee (Henna). All rights reserved.</footer>
 </section>
+
+<!-- ===== PROJECT MODAL (프로젝트 상세 팝업) ===== -->
+<div class="modal" id="projModal" aria-hidden="true">
+  <div class="modal-backdrop" onclick="closeProject()"></div>
+  <div class="modal-panel" role="dialog" aria-modal="true">
+    <button class="modal-x" onclick="closeProject()" aria-label="close">×</button>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
 </body>
 </html>

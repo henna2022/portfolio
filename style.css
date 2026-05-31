@@ -9,6 +9,8 @@
     --txt-dim:#5d6679;
     --accent:#4f8cff;          /* requested blue point color */
     --accent-glow:rgba(79,140,255,.45);
+    --accent-soft:rgba(79,140,255,.14);
+    --line-strong:rgba(255,255,255,.22);
     --display:'Poppins','Pretendard',sans-serif;
     --mono:'Space Mono','Pretendard',monospace;
     --maxw:1180px;
@@ -218,3 +220,79 @@
   @media(max-width:760px){.contact-grid{grid-template-columns:1fr}}
 
   footer{text-align:center;padding:34px 0 46px;font-family:var(--mono);font-size:12px;color:var(--txt-dim);background:var(--bg-deep)}
+
+  /* ════════════════════════════════════════════════
+     ADD-ONS: 사진 자리 · 아코디언 사진칸 · 수상 아코디언 · 프로젝트 팝업
+     ════════════════════════════════════════════════ */
+
+  /* ----- 📷 이미지 placeholder (점선 박스) ----- */
+  .imgph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+    border:1.5px dashed var(--line-strong,rgba(255,255,255,.22));border-radius:12px;
+    background:rgba(255,255,255,.02);min-height:150px;padding:22px;text-align:center}
+  .imgph-ic{font-size:30px;opacity:.8}
+  .imgph-tx{font-family:var(--mono);font-size:12.5px;color:var(--txt-dim)}
+  /* 실제 사진을 넣으면 이렇게 보입니다 */
+  .photo{width:100%;border-radius:12px;display:block;object-fit:cover}
+  .cover-img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
+
+  /* ----- 카드: 클릭 가능 표시 + "자세히 보기" ----- */
+  .card{cursor:pointer}
+  .card .card-more{font-family:var(--mono);font-size:12.5px;color:var(--accent);margin-top:4px;
+    opacity:.85;transition:.25s}
+  .card:hover .card-more{opacity:1;letter-spacing:.03em}
+
+  /* ----- 아코디언: 사진칸(우측) ----- */
+  .acc-media{width:210px;flex-shrink:0}
+  .acc-media .imgph{min-height:130px;height:100%}
+  .acc-media .photo{height:100%;object-fit:cover}
+  @media(max-width:680px){
+    .acc-inner{grid-template-columns:1fr !important}
+    .acc-media{width:100%}
+  }
+
+  /* 활동/경력 부제목 (역할) */
+  .role-sub{font-family:var(--mono);font-weight:400;font-size:13px;color:var(--txt-mid)}
+  @media(max-width:600px){.role-sub{display:block;margin-top:2px}}
+
+  /* ----- 수상 아코디언: 등수 뱃지 ----- */
+  .rank-badge{display:inline-block;font-family:var(--display);font-weight:800;font-size:15px;
+    color:var(--accent);background:var(--accent-soft,rgba(79,140,255,.14));
+    border:1px solid var(--accent);border-radius:8px;padding:1px 9px;margin-right:8px;
+    text-shadow:0 0 18px var(--accent-glow)}
+  .awards-acc .acc-head .role{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+  .todo{color:var(--accent) !important;opacity:.75}
+
+  /* ----- 프로젝트 상세 팝업(모달) ----- */
+  .modal{position:fixed;inset:0;z-index:200;display:none;align-items:flex-start;justify-content:center;
+    padding:6vh 16px}
+  .modal.open{display:flex}
+  .modal-backdrop{position:fixed;inset:0;background:rgba(4,7,13,.78);backdrop-filter:blur(6px)}
+  .modal-panel{position:relative;z-index:1;width:min(720px,100%);max-height:88vh;overflow-y:auto;
+    background:var(--bg-panel);border:1px solid var(--line);border-radius:18px;
+    box-shadow:0 30px 80px -20px rgba(0,0,0,.7);animation:modalin .35s cubic-bezier(.2,.7,.2,1)}
+  @keyframes modalin{from{opacity:0;transform:translateY(24px) scale(.98)}to{opacity:1;transform:none}}
+  .modal-x{position:sticky;top:14px;left:100%;transform:translateX(-58px);z-index:3;
+    width:40px;height:40px;border-radius:50%;border:1px solid var(--line);
+    background:rgba(11,15,26,.7);color:var(--txt);font-size:24px;line-height:1;cursor:pointer;transition:.25s}
+  .modal-x:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+  .modal-body{padding:0 clamp(22px,4vw,40px) 38px;margin-top:-40px}
+  .modal-body .md-cover{height:220px;border-radius:14px;margin-bottom:24px;position:relative;overflow:hidden;
+    display:flex;align-items:center;justify-content:center}
+  .modal-body .md-cover .glyph{font-family:var(--display);font-weight:800;font-size:80px;color:rgba(255,255,255,.9);mix-blend-mode:overlay}
+  .modal-body .md-cover::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.18) 1px,transparent 1px);background-size:15px 15px;opacity:.35}
+  .modal-body .md-cat{font-family:var(--mono);font-size:13px;color:var(--accent);margin-bottom:8px}
+  .modal-body .md-title{font-family:var(--display);font-weight:800;color:#fff;font-size:clamp(24px,4vw,34px);margin-bottom:16px}
+  .modal-body .md-desc{font-family:var(--mono);font-size:14.5px;color:var(--txt-mid);margin-bottom:24px;line-height:1.75}
+  .modal-body .md-h{font-family:var(--display);font-weight:700;color:#fff;font-size:17px;margin:26px 0 12px;
+    padding-bottom:8px;border-bottom:1px solid var(--line)}
+  .modal-body .md-list{list-style:none;display:flex;flex-direction:column;gap:9px}
+  .modal-body .md-list li{font-family:var(--mono);font-size:14px;color:var(--txt-mid);padding-left:20px;position:relative}
+  .modal-body .md-list li::before{content:"▹";position:absolute;left:0;color:var(--accent)}
+  .modal-body .imgph{margin:22px 0}
+  .modal-body .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .modal-body .md-status{font-family:var(--mono);font-size:13px;color:var(--txt);margin-top:22px;
+    display:inline-block;border:1px solid var(--line);border-radius:30px;padding:6px 14px}
+  .modal-body .md-links{display:flex;flex-wrap:wrap;gap:18px;margin-top:24px;font-family:var(--mono);font-size:14px}
+  .modal-body .md-links a{color:var(--accent);border-bottom:1px solid transparent;transition:.25s}
+  .modal-body .md-links a:hover{border-color:var(--accent)}
+  body.modal-lock{overflow:hidden}
