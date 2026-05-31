@@ -20,7 +20,7 @@
   ────────────────────────────────────────────────────────────────
   1) 레포 안에 images 라는 폴더를 만들고 사진을 넣으세요.
      예) images/ciee.jpg , images/doctorgreen.jpg
-  2) 코드에서 아래처럼 생긴 점선 박스(<div class="imgph">…</div>)를 찾아
+  2) 코드에서 아래처럼 생긴 점선 박스(&lt;div class="imgph"&gt;…&lt;/div&gt;)를 찾아
      통째로 지우고, 그 자리에 아래 한 줄을 붙여넣으면 됩니다:
         <img class="photo" src="images/사진파일이름.jpg" alt="설명">
   3) 카드 커버(맨 위 큰 영역)는 <span class="glyph">…</span> 줄을 지우고
@@ -110,9 +110,7 @@
       </div>
       <div class="featured reveal">
         <div class="fcover">
-          <span>植</span>
-          <!-- 📷 대표 프로젝트 커버 사진: 위 <span>植</span> 줄을 지우고 아래로 교체
-               <img class="cover-img" src="images/doctorgreen-cover.jpg" alt=""> -->
+          <img class="cover-img contain" src="portfolio_images/logo/logo_doctorgreen.png" alt="doctor-green">
         </div>
         <div class="label"><span class="ko">대표 프로젝트</span><span class="en">Featured Project</span></div>
         <div class="pname">닥터그린 (doctor-green)</div>
@@ -134,8 +132,7 @@
       <!-- ── 프로젝트 1 : 닥터그린 (PDF 내용 반영) ── -->
       <article class="card reveal" id="p-doctorgreen" data-cat="ai" onclick="openProject(this)">
         <div class="cover cv3">
-          <span class="glyph">植</span>
-          <!-- 📷 커버 사진 교체: 위 glyph 줄을 지우고 <img class="cover-img" src="images/doctorgreen.jpg" alt=""> -->
+          <img class="cover-img contain" src="portfolio_images/logo/logo_doctorgreen.png" alt="doctor-green">
         </div>
         <div class="meta">
           <div class="cat"><span class="ko">AI · IoT 풀스택</span><span class="en">AI · IoT Full-stack</span></div>
@@ -146,14 +143,13 @@
         <!-- 상세 팝업 내용 (숨김) -->
         <div class="proj-full" hidden>
           <div class="md-cover cv3">
-            <span class="glyph">植</span>
-            <!-- 📷 팝업 상단 사진: 위 glyph 줄을 지우고 <img class="cover-img" src="images/doctorgreen-cover.jpg" alt=""> -->
+            <img class="cover-img contain" src="portfolio_images/logo/logo_doctorgreen.png" alt="doctor-green">
           </div>
           <div class="md-cat"><span class="ko">AI · IoT 풀스택 · 개인 프로젝트</span><span class="en">AI · IoT Full-stack · Personal</span></div>
           <h3 class="md-title"><span class="ko">닥터그린 (doctor-green)</span><span class="en">doctor-green</span></h3>
           <p class="md-desc"><span class="ko">작물 병해충을 영상으로 진단하는 AI 모듈과, 재배 환경을 실시간 계측·제어하는 IoT 디바이스를 단일 웹 플랫폼에서 통합 운용하는 스마트팜 플랫폼입니다. ESP32 센서 노드가 환경 데이터를 수집하면 중계 서버를 거쳐 Supabase에 적재되고, Next.js 웹앱에서 실시간으로 시각화됩니다.</span><span class="en">A smart-farm platform that unifies an AI module diagnosing crop diseases from images with IoT devices that measure and control the growing environment in real time. ESP32 sensor nodes collect data, relay it through a server into Supabase, and a Next.js web app visualizes it live.</span></p>
 
-          <!-- 📷 시스템 구조도 사진 자리 -->
+          <!-- 📷 시스템 구조도 사진 자리 (구조도 이미지가 있으면 data-imgs에 경로 추가) -->
           <div class="imgph">
             <span class="imgph-ic">🗺️</span>
             <span class="imgph-tx ko">시스템 구조도 / 아키텍처 다이어그램</span>
@@ -170,7 +166,7 @@
           </ul>
 
           <!-- 📷 디바이스 결선도 / 앱 화면 사진 자리 -->
-          <div class="imgph">
+          <div class="imgph" data-img="portfolio_images/doctorgreen_device.jpg">
             <span class="imgph-ic">📱</span>
             <span class="imgph-tx ko">디바이스 결선도 또는 웹앱 화면</span>
             <span class="imgph-tx en">Device wiring or web-app screenshot</span>
@@ -213,7 +209,7 @@
           <div class="md-cat"><span class="ko">서울로봇인공지능과학관 · 전시연계</span><span class="en">Seoul Robot &amp; AI Science Museum</span></div>
           <h3 class="md-title"><span class="ko">나도 복원가!</span><span class="en">I'm a Restorer!</span></h3>
           <p class="md-desc"><span class="ko">관람객이 직접 한국 문화유산을 복원해 보는 인터랙티브 웹 게임입니다. 과학관 전시 교육 콘텐츠로 기획·개발하여 GitHub Pages에 배포했습니다.</span><span class="en">An interactive web game where visitors restore Korean cultural heritage themselves. Planned and built as museum exhibition-education content and deployed on GitHub Pages.</span></p>
-          <div class="imgph">
+          <div class="imgph" data-img="portfolio_images/restorer.jpg">
             <span class="imgph-ic">🖼️</span>
             <span class="imgph-tx ko">게임 화면 캡처를 넣어주세요</span>
             <span class="imgph-tx en">Add a gameplay screenshot</span>
@@ -246,10 +242,9 @@
             <span class="glyph">藥</span>
             <!-- 📷 <img class="cover-img" src="images/yakmoa-cover.jpg" alt=""> -->
           </div>
-          <div class="md-cat"><span class="ko">한·일 공동 ICT 프로젝트</span><span class="en">Korea–Japan Joint ICT</span></div>
           <h3 class="md-title"><span class="ko">약모아 (YAKMOA)</span><span class="en">YAKMOA</span></h3>
           <p class="md-desc"><span class="ko">멀티모달 AI를 활용해 약 정보를 인식하고 복약을 관리하도록 돕는 의약품 관리 앱입니다. 개발계획서를 작성하고 공모전에 제출했습니다.</span><span class="en">A medication-management app that uses multimodal AI to recognize drug information and help manage doses. Authored the development plan and submitted to a competition.</span></p>
-          <div class="imgph">
+          <div class="imgph" data-img="portfolio_images/yakmoa.jpg">
             <span class="imgph-ic">📱</span>
             <span class="imgph-tx ko">앱 기획 화면 / 목업을 넣어주세요</span>
             <span class="imgph-tx en">Add an app mockup</span>
@@ -285,7 +280,7 @@
           <div class="md-cat"><span class="ko">개인 작업</span><span class="en">Personal</span></div>
           <h3 class="md-title"><span class="ko">포트폴리오 웹사이트</span><span class="en">Portfolio Website</span></h3>
           <p class="md-desc"><span class="ko">반응형 다크 테마 포트폴리오. 한·영 전환, 클릭형 아코디언, 프로젝트 상세 팝업, 스크롤 애니메이션 등을 직접 구현하고 Vercel에 배포했습니다.</span><span class="en">A responsive dark-theme portfolio with KO/EN switching, clickable accordions, project detail popups, and scroll animations — built from scratch and deployed on Vercel.</span></p>
-          <div class="imgph">
+          <div class="imgph" data-img="portfolio_images/portfolio_site.jpg">
             <span class="imgph-ic">💻</span>
             <span class="imgph-tx ko">사이트 화면 캡처를 넣어주세요</span>
             <span class="imgph-tx en">Add a screenshot of the site</span>
@@ -318,15 +313,14 @@
           <div class="info">
             <div class="where"><span>📍 <b>Seoul, KR</b></span></div>
             <ul>
-              <li><span class="ko">과학관 한국어/영어 전시해설 및 교육프로그램 진행</span><span class="en">Conducted Korean/English exhibition tours and education programs</span></li>
-              <li><span class="ko">과학관 전시연계 프로그램 기획 및 개발</span><span class="en">Planned and developed exhibition-linked programs</span></li>
-              <li><span class="ko">과학관–교육청 협업 전시교육 프로그램 기획 및 개발</span><span class="en">Built museum–education office collaborative programs</span></li>
+              <li><span class="ko">과학관 한국어/영어 전시해설 및 교육프로그램 진행</span><span class="en">Deliver exhibition tours and education programs in both Korean and English, making AI and robotics accessible to diverse audiences</span></li>
+              <li><span class="ko">과학관 전시연계 프로그램 기획 및 개발</span><span class="en">Plan and develop exhibition-linked education programs, translating exhibit themes into hands-on learning content</span></li>
+              <li><span class="ko">과학관–교육청 협업 전시교육 프로그램 기획 및 개발</span><span class="en">Co-design collaborative education programs between the museum and the regional education office</span></li>
             </ul>
-            <div class="chips"><span class="chip">Docent</span><span class="chip">Bilingual Edu</span><span class="chip">Program Dev</span></div>
           </div>
           <!-- 📷 사진 자리 -->
           <div class="acc-media">
-            <div class="imgph">
+            <div class="imgph" data-imgs="portfolio_images/experience/docent_1.JPG">
               <span class="imgph-ic">🏛️</span>
               <span class="imgph-tx ko">활동 사진</span>
               <span class="imgph-tx en">Photo</span>
@@ -344,13 +338,12 @@
           <div class="info">
             <div class="where"><span>📍 <b>Seoul, KR</b></span></div>
             <ul>
-              <li><span class="ko">데이터 라벨링 품질 검수 및 복합 3-hop 추론 Q&amp;A 데이터셋 구축</span><span class="en">Validated labeling quality and built complex 3-hop reasoning Q&amp;A datasets</span></li>
-              <li><span class="ko">팀 평균 대비 2.5배 데이터 처리량 달성 (정확도·효율성)</span><span class="en">Processed 2.5× the team-average volume with high accuracy</span></li>
+              <li><span class="ko">데이터 라벨링 품질 검수 및 복합 3-hop 추론 Q&amp;A 데이터셋 구축</span><span class="en">Validated labeling quality and built complex 3-hop reasoning Q&amp;A datasets used to train and evaluate AI models</span></li>
+              <li><span class="ko">팀 평균 대비 2.5배 데이터 처리량 달성 (정확도·효율성)</span><span class="en">Achieved 2.5× the team-average data throughput while maintaining high accuracy, balancing speed with quality</span></li>
             </ul>
-            <div class="chips"><span class="chip">Data QA</span><span class="chip">Reasoning Dataset</span><span class="chip">AI Data</span></div>
           </div>
           <div class="acc-media">
-            <div class="imgph">
+            <div class="imgph" data-img="portfolio_images/exp_selectstar.jpg">
               <span class="imgph-ic">📊</span>
               <span class="imgph-tx ko">활동 사진</span>
               <span class="imgph-tx en">Photo</span>
@@ -368,13 +361,12 @@
           <div class="info">
             <div class="where"><span>📍 <b>Sejong, KR</b></span></div>
             <ul>
-              <li><span class="ko">유료방송 실태조사 개편, 방송법 검토 자료 작성 (Q2 지역 커머스채널 승인 기여)</span><span class="en">Redesigned the Pay-TV survey, drafted a Broadcasting Act review (cleared Q2 commerce-channel approvals)</span></li>
-              <li><span class="ko">부처 주관 전시·컨퍼런스 보고서 작성 및 이슈 정리</span><span class="en">Wrote reports on ministry exhibitions and conferences with concise briefs</span></li>
+              <li><span class="ko">유료방송 실태조사 개편, 방송법 검토 자료 작성 (Q2 지역 커머스채널 승인 기여)</span><span class="en">Redesigned the national Pay-TV survey and drafted Broadcasting Act review materials, contributing to the approval of Q2 regional commerce channels</span></li>
+              <li><span class="ko">부처 주관 전시·컨퍼런스 보고서 작성 및 이슈 정리</span><span class="en">Authored reports on ministry-hosted exhibitions and conferences, distilling complex sessions into concise issue briefs for decision-makers</span></li>
             </ul>
-            <div class="chips"><span class="chip">Policy</span><span class="chip">Research</span><span class="chip">Reporting</span></div>
           </div>
           <div class="acc-media">
-            <div class="imgph">
+            <div class="imgph" data-imgs="portfolio_images/experience/msit_1.JPG,portfolio_images/experience/msit_2.png">
               <span class="imgph-ic">🏢</span>
               <span class="imgph-tx ko">활동 사진</span>
               <span class="imgph-tx en">Photo</span>
@@ -392,12 +384,11 @@
           <div class="info">
             <div class="where"><span>📍 <b>New Brunswick, NJ, USA</b></span></div>
             <ul>
-              <li><span class="ko">대학 프로그램의 일환으로 25년 동계 영어 집중 어학연수 참여</span><span class="en">Completed an intensive winter English language program (2025) as part of a university program</span></li>
+              <li><span class="ko">25년 동계 영어 집중 어학연수 참여</span><span class="en">Completed an intensive winter English program (2025) at Rutgers University, strengthening academic English and cross-cultural communication</span></li>
             </ul>
-            <div class="chips"><span class="chip">English</span><span class="chip">Global</span></div>
           </div>
           <div class="acc-media">
-            <div class="imgph">
+            <div class="imgph" data-img="portfolio_images/exp_rutgers.jpg">
               <span class="imgph-ic">🎓</span>
               <span class="imgph-tx ko">활동 사진</span>
               <span class="imgph-tx en">Photo</span>
@@ -419,19 +410,56 @@
     <div class="acc">
       <div class="acc-item reveal">
         <div class="acc-head" onclick="toggleAcc(this)">
-          <span class="role">CIEE SEOULMATE <span class="role-sub"><span class="ko">· 외국인 유학생 멘토</span><span class="en">· Mentor</span></span></span>
+          <span class="role">CIEE SEOULMATE <span class="role-sub"><span class="ko">· 외국인 유학생 멘토</span><span class="en">· Mentor for International Students</span></span></span>
           <span class="right"><span class="when">2025.06 – Present</span><span class="pm">+</span></span>
         </div>
         <div class="acc-body"><div class="acc-inner">
           <div class="info">
             <ul>
-              <li><span class="ko">외국인 유학생에게 한국어·문화 멘토링 제공</span><span class="en">Mentored international students in Korean language and culture</span></li>
-              <li><span class="ko">교류 프로그램 기획·운영으로 상호 이해 증진</span><span class="en">Planned and ran cross-cultural programs to build mutual understanding</span></li>
+              <li><span class="ko">외국인 유학생에게 한국어·문화 멘토링 제공</span><span class="en">Provide one-on-one mentoring in Korean language and culture to international students, easing their adjustment to life in Korea</span></li>
+              <li><span class="ko">교류 프로그램 기획·운영으로 상호 이해 증진</span><span class="en">Plan and run cross-cultural exchange programs that build mutual understanding between Korean and international students</span></li>
             </ul>
-            <div class="chips"><span class="chip">Mentoring</span><span class="chip">Cross-cultural</span></div>
           </div>
           <div class="acc-media">
-            <div class="imgph"><span class="imgph-ic">🌏</span><span class="imgph-tx ko">활동 사진</span><span class="imgph-tx en">Photo</span></div>
+            <div class="imgph" data-img="portfolio_images/act_ciee.jpg"><span class="imgph-ic">🌏</span><span class="imgph-tx ko">활동 사진</span><span class="imgph-tx en">Photo</span></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="acc-item reveal">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <span class="role"><span class="ko">2025 청소년 SW 동행 해커톤</span><span class="en">2025 Youth SW-Donghaeng Hackathon</span> <span class="role-sub"><span class="ko">· 대학생 멘토 (기획·개발 부문)</span><span class="en">· University Mentor (Planning &amp; Dev)</span></span></span>
+          <span class="right"><span class="when">2025.07</span><span class="pm">+</span></span>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="info">
+            <ul>
+              <li><span class="ko">해커톤 프로젝트 기획·개발 전주기 리딩 — 청소년 참가자의 아이디어가 실제 구동 가능한 SW 솔루션으로 구현되도록 기획 구체화 및 개발 아키텍처 멘토링 수행</span><span class="en">Led the full project lifecycle from planning to development, guiding young participants to turn raw ideas into working software through architecture and design mentoring</span></li>
+              <li><span class="ko">문제 해결 중심의 기술 가이드 제공 — 참가자 개발 수준에 맞춘 맞춤형 코딩 피드백과 디버깅·에러 핸들링 지원으로 제한된 시간 내 MVP 완성</span><span class="en">Provided problem-solving-focused technical guidance, tailoring code feedback to each participant's level and supporting debugging so teams could ship an MVP within the tight hackathon window</span></li>
+              <li><span class="ko">팀 빌딩 및 협업 조율 — 아이디어 충돌·기술적 한계로 난항을 겪는 팀의 소통을 중재하고 역할 분담을 최적화해 완수율 극대화</span><span class="en">Mediated team communication and optimized role allocation for teams stuck on idea conflicts or technical limits, maximizing project completion rates</span></li>
+            </ul>
+          </div>
+          <div class="acc-media">
+            <div class="imgph" data-imgs="portfolio_images/experience/2025swpj_1.png,portfolio_images/experience/2025swpj_2.png,portfolio_images/experience/2025swpj_3.png"><span class="imgph-ic">💻</span><span class="imgph-tx ko">활동 사진</span><span class="imgph-tx en">Photo</span></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="acc-item reveal">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <span class="role"><span class="ko">2024 SW 동행 프로젝트</span><span class="en">2024 SW-Donghaeng Project</span> <span class="role-sub"><span class="ko">· 청년 멘토</span><span class="en">· Youth Mentor</span></span></span>
+          <span class="right"><span class="when">2024.09 – 2024.12</span><span class="pm">+</span></span>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="info">
+            <ul>
+              <li><span class="ko">디지털 기반 문제해결 중심의 장기 멘토링 운영 — 청소년이 주변의 사회 문제를 발굴하고 SW/AI 기술로 해결해 나가는 전 과정을 밀착 지도</span><span class="en">Ran a semester-long mentoring program in which students identified real social problems around them and solved them with SW/AI, guiding the entire process end-to-end</span></li>
+              <li><span class="ko">소프트웨어 설계 및 알고리즘 구현 멘토링 — 코딩이 낯선 학생에게 기초 알고리즘·데이터 활용법을 가르치고 논리적 사고 기반의 문제해결 프로세스 정립</span><span class="en">Taught core algorithms and data-handling to coding beginners, helping them build a logical, structured problem-solving process</span></li>
+              <li><span class="ko">프로젝트 산출물 고도화 및 동기부여 — 아이디어가 실제 결과물로 이어지도록 지속적인 피드백을 제공하고, 끝까지 완수하도록 멘탈 케어·동기부여 수행</span><span class="en">Pushed ideas through to finished deliverables with continuous feedback, while providing the encouragement and mental-care that kept students motivated to the finish line</span></li>
+            </ul>
+          </div>
+          <div class="acc-media">
+            <div class="imgph" data-imgs="portfolio_images/experience/2024swpj_1.png,portfolio_images/experience/2024swpj_2.jpg"><span class="imgph-ic">🧩</span><span class="imgph-tx ko">활동 사진</span><span class="imgph-tx en">Photo</span></div>
           </div>
         </div></div>
       </div>
@@ -444,14 +472,13 @@
         <div class="acc-body"><div class="acc-inner">
           <div class="info">
             <ul>
-              <li><span class="ko">VGG16 기반 식물 병해 진단 앱 개발 총괄</span><span class="en">Led development of a VGG16-based plant-disease diagnosis app</span></li>
-              <li><span class="ko">개발·마케팅·디자인 3개 서브팀 운영</span><span class="en">Managed three sub-teams: development, marketing, and design</span></li>
-              <li><span class="ko">전국 창업경진대회에서 발표</span><span class="en">Presented at a national start-up competition</span></li>
+              <li><span class="ko">VGG16 기반 식물 병해 진단 앱 개발 총괄</span><span class="en">Directed end-to-end development of a VGG16-based plant-disease diagnosis app, from concept to working prototype</span></li>
+              <li><span class="ko">개발·마케팅·디자인 3개 서브팀 운영</span><span class="en">Managed three sub-teams — development, marketing, and design — coordinating their work toward a single product goal</span></li>
+              <li><span class="ko">전국 창업경진대회에서 발표</span><span class="en">Presented the project at a national start-up competition, communicating both the tech and the business case</span></li>
             </ul>
-            <div class="chips"><span class="chip">Team Lead</span><span class="chip">VGG16</span><span class="chip">Start-up</span></div>
           </div>
           <div class="acc-media">
-            <div class="imgph"><span class="imgph-ic">🌱</span><span class="imgph-tx ko">활동 사진</span><span class="imgph-tx en">Photo</span></div>
+            <div class="imgph" data-imgs="portfolio_images/logo/logo_MAKENEW.png"><span class="imgph-ic">🌱</span><span class="imgph-tx ko">활동 사진</span><span class="imgph-tx en">Photo</span></div>
           </div>
         </div></div>
       </div>
@@ -464,13 +491,12 @@
         <div class="acc-body"><div class="acc-inner">
           <div class="info">
             <ul>
-              <li><span class="ko">초등학생 대상 한 달 과학 프로그램(LS 드림사이언스) 진행</span><span class="en">Led a month-long science program (LS Dream Science) for elementary students</span></li>
-              <li><span class="ko">과학 실험·시연 기획 및 운영</span><span class="en">Designed and ran hands-on science experiments and demos</span></li>
+              <li><span class="ko">초등학생 대상 한 달 과학 프로그램(LS 드림사이언스) 진행</span><span class="en">Led a month-long science program (LS Dream Science) for elementary students as the lead instructor</span></li>
+              <li><span class="ko">과학 실험·시연 기획 및 운영</span><span class="en">Designed and ran hands-on experiments and demonstrations that made scientific concepts tangible for young learners</span></li>
             </ul>
-            <div class="chips"><span class="chip">Teaching</span><span class="chip">STEM</span></div>
           </div>
           <div class="acc-media">
-            <div class="imgph"><span class="imgph-ic">🔬</span><span class="imgph-tx ko">활동 사진</span><span class="imgph-tx en">Photo</span></div>
+            <div class="imgph" data-img="portfolio_images/act_ls.jpg"><span class="imgph-ic">🔬</span><span class="imgph-tx ko">활동 사진</span><span class="imgph-tx en">Photo</span></div>
           </div>
         </div></div>
       </div>
@@ -483,13 +509,12 @@
         <div class="acc-body"><div class="acc-inner">
           <div class="info">
             <ul>
-              <li><span class="ko">고등학생 화학·수학 온라인 튜터링</span><span class="en">Online chemistry &amp; math tutoring for high-school students</span></li>
-              <li><span class="ko">일부 학생 만점 등 성적 향상 지도</span><span class="en">Guided notable improvement, including perfect scores for some</span></li>
+              <li><span class="ko">고등학생 화학·수학 온라인 튜터링</span><span class="en">Delivered online chemistry and math tutoring to high-school students throughout the academic year</span></li>
+              <li><span class="ko">일부 학생 만점 등 성적 향상 지도</span><span class="en">Guided measurable grade improvement, with several mentees achieving top or perfect scores</span></li>
             </ul>
-            <div class="chips"><span class="chip">Tutoring</span><span class="chip">Chemistry</span><span class="chip">Math</span></div>
           </div>
           <div class="acc-media">
-            <div class="imgph"><span class="imgph-ic">📚</span><span class="imgph-tx ko">활동 사진</span><span class="imgph-tx en">Photo</span></div>
+            <div class="imgph" data-img="portfolio_images/act_kb.jpg"><span class="imgph-ic">📚</span><span class="imgph-tx ko">활동 사진</span><span class="imgph-tx en">Photo</span></div>
           </div>
         </div></div>
       </div>
@@ -519,7 +544,7 @@
             </ul>
           </div>
           <div class="acc-media">
-            <div class="imgph"><span class="imgph-ic">🏆</span><span class="imgph-tx ko">상장 / 수상 사진</span><span class="imgph-tx en">Certificate / photo</span></div>
+            <div class="imgph" data-imgs="portfolio_images/awards/award2_science_museum_1.jpg,portfolio_images/awards/award2_science_museum_2.png"><span class="imgph-ic">🏆</span><span class="imgph-tx ko">상장 / 수상 사진</span><span class="imgph-tx en">Certificate / photo</span></div>
           </div>
         </div></div>
       </div>
@@ -536,7 +561,7 @@
             </ul>
           </div>
           <div class="acc-media">
-            <div class="imgph"><span class="imgph-ic">🏆</span><span class="imgph-tx ko">상장 / 수상 사진</span><span class="imgph-tx en">Certificate / photo</span></div>
+            <div class="imgph" data-imgs="portfolio_images/awards/award3_ict_sw.png"><span class="imgph-ic">🏆</span><span class="imgph-tx ko">상장 / 수상 사진</span><span class="imgph-tx en">Certificate / photo</span></div>
           </div>
         </div></div>
       </div>
@@ -553,7 +578,7 @@
             </ul>
           </div>
           <div class="acc-media">
-            <div class="imgph"><span class="imgph-ic">🏆</span><span class="imgph-tx ko">상장 / 수상 사진</span><span class="imgph-tx en">Certificate / photo</span></div>
+            <div class="imgph" data-imgs="portfolio_images/awards/hknu_startup.png"><span class="imgph-ic">🏆</span><span class="imgph-tx ko">상장 / 수상 사진</span><span class="imgph-tx en">Certificate / photo</span></div>
           </div>
         </div></div>
       </div>
@@ -570,7 +595,7 @@
             </ul>
           </div>
           <div class="acc-media">
-            <div class="imgph"><span class="imgph-ic">🏆</span><span class="imgph-tx ko">상장 / 수상 사진</span><span class="imgph-tx en">Certificate / photo</span></div>
+            <div class="imgph" data-imgs="portfolio_images/awards/award4_chungnam_1.jpg,portfolio_images/awards/award4_chungnam_2.jpg"><span class="imgph-ic">🏆</span><span class="imgph-tx ko">상장 / 수상 사진</span><span class="imgph-tx en">Certificate / photo</span></div>
           </div>
         </div></div>
       </div>
@@ -587,7 +612,7 @@
             </ul>
           </div>
           <div class="acc-media">
-            <div class="imgph"><span class="imgph-ic">🏆</span><span class="imgph-tx ko">상장 / 수상 사진</span><span class="imgph-tx en">Certificate / photo</span></div>
+            <div class="imgph" data-imgs="portfolio_images/awards/anseong_2nd.jpg"><span class="imgph-ic">🏆</span><span class="imgph-tx ko">상장 / 수상 사진</span><span class="imgph-tx en">Certificate / photo</span></div>
           </div>
         </div></div>
       </div>
@@ -608,16 +633,6 @@
       </div>
     </div>
     <div class="contact-right">
-      <div class="quote reveal">
-        <div class="qm">"</div>
-        <p><span class="ko">팀 평균의 2.5배 데이터를 처리하면서도 정확도를 잃지 않는, 드물게 성실하고 빠른 동료였습니다.</span><span class="en">A rare teammate — fast and accurate, processing 2.5× the team average without sacrificing quality.</span></p>
-        <div class="who">Select Star <small><span class="ko">데이터팀</span><span class="en">Data Team</span></small></div>
-      </div>
-      <div class="quote reveal">
-        <div class="qm">"</div>
-        <p><span class="ko">기획부터 발표까지 팀을 끌고 가는 리더십과, 한·영을 오가는 전달력이 인상적인 멤버였습니다.</span><span class="en">An impressive member — leading the team from planning to pitch, with bilingual KO/EN delivery.</span></p>
-        <div class="who">MAKENEW <small><span class="ko">창업동아리</span><span class="en">Start-up Club</span></small></div>
-      </div>
     </div>
   </div>
   <footer>© 2026 Juwon Lee (Henna). All rights reserved.</footer>
