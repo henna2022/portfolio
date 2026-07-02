@@ -117,8 +117,10 @@
   .hero h1{font-family:var(--display);font-weight:800;color:var(--txt-strong);
     font-size:clamp(58px,15vw,170px);line-height:.9;letter-spacing:-.03em;margin-bottom:22px;text-transform:uppercase}
   .hero .sub{font-family:var(--mono);font-weight:700;color:var(--txt);
-    font-size:clamp(13px,2vw,20px);letter-spacing:.02em;text-transform:uppercase;
-    line-height:1.9;max-width:900px;padding:0 20px}
+    font-size:clamp(13px,1.45vw,20px);letter-spacing:.02em;text-transform:uppercase;
+    line-height:1.9;padding:0 20px}
+  /* 데스크톱에서는 태그라인을 한 줄로 */
+  @media(min-width:861px){.hero .sub{white-space:nowrap}}
   .hero .sub .dot{color:var(--accent)}
   .hero .tag{font-family:var(--mono);color:var(--txt-mid);font-size:clamp(13px,1.6vw,16px);max-width:600px;margin:26px auto 0}
   .scrolldown{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);

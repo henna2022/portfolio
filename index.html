@@ -137,11 +137,13 @@
 
     <div class="filter reveal">
       <span class="lbl"><span class="ko">분류</span><span class="en">Filter by</span></span>
-      <button class="active" data-f="all"><span class="ko">전체</span><span class="en">All</span><span class="cnt">03</span></button>
+      <button class="active" data-f="all"><span class="ko">전체</span><span class="en">All</span><span class="cnt">07</span></button>
       <span class="div">/</span>
-      <button data-f="ai">AI<span class="cnt">02</span></button>
+      <button data-f="ai">AI<span class="cnt">04</span></button>
       <span class="div">/</span>
-      <button data-f="web">Web<span class="cnt">01</span></button>
+      <button data-f="web">Web<span class="cnt">02</span></button>
+      <span class="div">/</span>
+      <button data-f="robot">Robot<span class="cnt">01</span></button>
     </div>
 
     <div class="work-grid">
@@ -276,6 +278,119 @@
           <div class="md-links"><a href="#" target="_blank">GitHub ↗</a><a href="#" target="_blank">Docs ↗</a></div>
         </div>
       </article>
+
+      <!-- ── 프로젝트 4 : 라이미의 AI 그림 연구소 ── -->
+      <article class="card reveal" id="p-artstudio" data-cat="ai" onclick="openProject(this)">
+        <div class="cover cv1">
+          <span class="glyph">畵</span>
+        </div>
+        <div class="meta">
+          <div class="cat"><span class="ko">서울로봇인공지능과학관 · 교육 콘텐츠</span><span class="en">Seoul Robot &amp; AI Museum · Edu Content</span></div>
+          <h3><span class="ko">라이미의 AI 그림 연구소</span><span class="en">Raimi's AI Art Lab</span></h3>
+          <p><span class="ko">관람객이 단계별 선택으로 프롬프트를 완성해 AI 그림을 생성하는 교육용 웹앱. 전시 현장에서 실제 운영 중.</span><span class="en">An education web app where visitors build prompts step-by-step to generate AI art. Running live at the museum.</span></p>
+          <div class="card-more"><span class="ko">자세히 보기 →</span><span class="en">View details →</span></div>
+        </div>
+        <div class="proj-full" hidden>
+          <div class="md-cover cv1"><span class="glyph">畵</span></div>
+          <div class="md-cat"><span class="ko">서울로봇인공지능과학관 · 전시연계 교육 콘텐츠</span><span class="en">Seoul Robot &amp; AI Science Museum · Exhibition-linked Education</span></div>
+          <h3 class="md-title"><span class="ko">라이미의 AI 그림 연구소</span><span class="en">Raimi's AI Art Lab</span></h3>
+          <p class="md-desc"><span class="ko">과학관 캐릭터 '라이미'와 함께 그리고 싶은 그림을 단계별로 골라 프롬프트를 완성하면 AI가 그림을 생성해 주는 교육용 웹앱입니다. 어린이 관람객이 놀이처럼 프롬프트 엔지니어링의 원리를 배우도록 기획·개발해 전시 현장에서 운영하고 있습니다.</span><span class="en">An education web app where visitors compose a prompt step-by-step with the museum character "Raimi" and an AI generates the artwork. Designed so young visitors learn prompt-engineering principles through play; deployed and running at the museum.</span></p>
+          <h4 class="md-h"><span class="ko">주요 내용</span><span class="en">Highlights</span></h4>
+          <ul class="md-list">
+            <li><span class="ko">10단계(+심화 5단계) 선택형 프롬프트 빌더로 프롬프트 구성 원리 학습 설계</span><span class="en">10-step (+5 advanced) choice-based prompt builder that teaches how prompts are composed</span></li>
+            <li><span class="ko">OpenAI 이미지 생성 API 연동 서버리스 백엔드 구축, 생성 이미지에 과학관 로고 워터마크 자동 합성</span><span class="en">Serverless backend calling the OpenAI image-generation API, auto-compositing a museum watermark onto results</span></li>
+            <li><span class="ko">Cloudflare R2·Supabase 이중 저장 구조와 생성 통계 수집</span><span class="en">Dual storage on Cloudflare R2 &amp; Supabase with generation statistics</span></li>
+            <li><span class="ko">한·영 i18n, PWA 지원으로 전시장 태블릿 상시 운영</span><span class="en">KO/EN i18n and PWA support for always-on exhibition tablets</span></li>
+          </ul>
+          <h4 class="md-h"><span class="ko">기술 스택</span><span class="en">Tech Stack</span></h4>
+          <div class="chips"><span class="chip">JavaScript</span><span class="chip">OpenAI API</span><span class="chip">Vercel Serverless</span><span class="chip">Supabase</span><span class="chip">Cloudflare R2</span><span class="chip">PWA</span></div>
+          <div class="md-status"><span class="ko">상태 · 과학관 전시장 운영 중</span><span class="en">Status · Live at the museum</span></div>
+        </div>
+      </article>
+
+      <!-- ── 프로젝트 5 : 라이미의 AI 언어 연구소 ── -->
+      <article class="card reveal" id="p-langlab" data-cat="ai" onclick="openProject(this)">
+        <div class="cover cv2">
+          <span class="glyph">言</span>
+        </div>
+        <div class="meta">
+          <div class="cat"><span class="ko">서울로봇인공지능과학관 · 교육 콘텐츠</span><span class="en">Seoul Robot &amp; AI Museum · Edu Content</span></div>
+          <h3><span class="ko">라이미의 AI 언어 연구소</span><span class="en">Raimi's AI Language Lab</span></h3>
+          <p><span class="ko">음성 합성 기반으로 단어·문장을 듣고 배우는 언어 학습 게임 웹앱.</span><span class="en">A language-learning game web app built on speech synthesis for words and sentences.</span></p>
+          <div class="card-more"><span class="ko">자세히 보기 →</span><span class="en">View details →</span></div>
+        </div>
+        <div class="proj-full" hidden>
+          <div class="md-cover cv2"><span class="glyph">言</span></div>
+          <div class="md-cat"><span class="ko">서울로봇인공지능과학관 · 전시연계 교육 콘텐츠</span><span class="en">Seoul Robot &amp; AI Science Museum · Exhibition-linked Education</span></div>
+          <h3 class="md-title"><span class="ko">라이미의 AI 언어 연구소</span><span class="en">Raimi's AI Language Lab</span></h3>
+          <p class="md-desc"><span class="ko">라이미 캐릭터와 함께 단어와 문장을 듣고 따라 하며 언어와 음성 AI를 체험하는 게임형 학습 웹앱입니다. 브라우저 음성 합성(TTS)을 활용해 별도 서버 없이 동작하도록 설계했습니다.</span><span class="en">A game-style learning web app where visitors listen to and repeat words and sentences with Raimi, experiencing language and speech AI. Built on browser speech synthesis (TTS) to run without a server.</span></p>
+          <h4 class="md-h"><span class="ko">주요 내용</span><span class="en">Highlights</span></h4>
+          <ul class="md-list">
+            <li><span class="ko">단어·문장 학습 게임 흐름(시작–메뉴–게임–완료) 기획 및 개발</span><span class="en">Designed and built the full game flow — start, menu, play, completion</span></li>
+            <li><span class="ko">브라우저 음성 합성 기반 듣기·말하기 학습 콘텐츠 구성</span><span class="en">Listening &amp; speaking content powered by browser speech synthesis</span></li>
+            <li><span class="ko">한·영 지원, PWA로 전시장 태블릿에서 오프라인 구동</span><span class="en">KO/EN support; PWA for offline use on exhibition tablets</span></li>
+          </ul>
+          <h4 class="md-h"><span class="ko">기술 스택</span><span class="en">Tech Stack</span></h4>
+          <div class="chips"><span class="chip">JavaScript</span><span class="chip">Web Speech API</span><span class="chip">PWA</span><span class="chip">HTML / CSS</span></div>
+        </div>
+      </article>
+
+      <!-- ── 프로젝트 6 : 아토 (ATO) ── -->
+      <article class="card reveal" id="p-ato" data-cat="robot" onclick="openProject(this)">
+        <div class="cover cv4">
+          <span class="glyph">兎</span>
+        </div>
+        <div class="meta">
+          <div class="cat"><span class="ko">로보틱스 · 하드웨어</span><span class="en">Robotics · Hardware</span></div>
+          <h3><span class="ko">아토 (ATO)</span><span class="en">ATO</span></h3>
+          <p><span class="ko">1인 가구·고령자를 위한 토끼 모양 정서 교감 로봇. 눈 표정·터치 반응·사운드를 직접 설계하고 제작.</span><span class="en">A rabbit-shaped companion robot for people living alone and seniors — expressive eyes, touch response, and sound, built from scratch.</span></p>
+          <div class="card-more"><span class="ko">자세히 보기 →</span><span class="en">View details →</span></div>
+        </div>
+        <div class="proj-full" hidden>
+          <div class="md-cover cv4"><span class="glyph">兎</span></div>
+          <div class="md-cat"><span class="ko">로보틱스 · 하드웨어 · 개인 프로젝트</span><span class="en">Robotics · Hardware · Personal</span></div>
+          <h3 class="md-title"><span class="ko">아토 (ATO) — 교감 로봇</span><span class="en">ATO — Companion Robot</span></h3>
+          <p class="md-desc"><span class="ko">1인 가구와 고령자를 위한 토끼 모양 정서 교감 로봇입니다. 원형 디스플레이 두 개를 '눈'으로 사용해 표정과 감정을 표현하고, 사람이 다가오거나 쓰다듬으면 센서로 감지해 반응합니다. 회로 설계부터 펌웨어, 3D 프린팅 외형과 극세사 커버 패턴까지 직접 제작했습니다.</span><span class="en">A rabbit-shaped emotional companion robot for single-person households and seniors. Two round displays act as expressive "eyes," and sensors detect approach and petting to trigger reactions. Built end-to-end — circuit design, firmware, 3D-printed body, and plush cover pattern.</span></p>
+          <h4 class="md-h"><span class="ko">주요 내용</span><span class="en">Highlights</span></h4>
+          <ul class="md-list">
+            <li><span class="ko">ESP32 + 원형 LCD(GC9A01) 2개로 깜빡임·시선 이동 등 눈 표정 애니메이션 구현</span><span class="en">Eye-expression animations (blinking, gaze) on dual GC9A01 round LCDs driven by an ESP32</span></li>
+            <li><span class="ko">PIR 접근 감지, 정전식 터치(쓰다듬기), DFPlayer 사운드, 서보 귀·팔 움직임 통합</span><span class="en">Integrated PIR proximity, capacitive petting touch, DFPlayer audio, and servo ear/arm motion</span></li>
+            <li><span class="ko">3D 프린팅 본체와 극세사 재단 패턴 등 외형 제작까지 전 과정 수행</span><span class="en">Full build including 3D-printed body and microfiber sewing patterns</span></li>
+            <li><span class="ko">복약 알림 등 돌봄 기능으로 확장 설계 진행 중</span><span class="en">Extending toward care features such as medication reminders</span></li>
+          </ul>
+          <h4 class="md-h"><span class="ko">기술 스택</span><span class="en">Tech Stack</span></h4>
+          <div class="chips"><span class="chip">ESP32</span><span class="chip">Arduino / C++</span><span class="chip">GC9A01</span><span class="chip">Servo / PIR / Touch</span><span class="chip">3D Printing</span></div>
+          <div class="md-status"><span class="ko">상태 · Phase 1 프로토타입 개발 중</span><span class="en">Status · Phase 1 prototype in progress</span></div>
+        </div>
+      </article>
+
+      <!-- ── 프로젝트 7 : SEOUL RAIM 근무 플랫폼 ── -->
+      <article class="card reveal" id="p-raimapp" data-cat="web" onclick="openProject(this)">
+        <div class="cover cv3">
+          <span class="glyph">勤</span>
+        </div>
+        <div class="meta">
+          <div class="cat"><span class="ko">서울로봇인공지능과학관 · 운영 도구</span><span class="en">Seoul Robot &amp; AI Museum · Ops Tool</span></div>
+          <h3><span class="ko">SEOUL RAIM 근무 플랫폼</span><span class="en">SEOUL RAIM Staff Platform</span></h3>
+          <p><span class="ko">해설사·단기인력의 근무 스케줄, 현황, 공지를 한 곳에서 관리하는 직원용 앱.</span><span class="en">A staff app managing docent &amp; part-timer schedules, live status, and notices in one place.</span></p>
+          <div class="card-more"><span class="ko">자세히 보기 →</span><span class="en">View details →</span></div>
+        </div>
+        <div class="proj-full" hidden>
+          <div class="md-cover cv3"><span class="glyph">勤</span></div>
+          <div class="md-cat"><span class="ko">서울로봇인공지능과학관 · 운영 도구 · 사내 프로젝트</span><span class="en">Seoul Robot &amp; AI Science Museum · Internal Ops Tool</span></div>
+          <h3 class="md-title"><span class="ko">SEOUL RAIM 근무 플랫폼</span><span class="en">SEOUL RAIM Staff Platform</span></h3>
+          <p class="md-desc"><span class="ko">과학관 해설사와 단기인력의 근무를 관리하는 직원용 플랫폼입니다. 날짜별 근무 스케줄 그리드, 직원 명부, 실시간 근무 현황, 공지사항을 하나의 앱에서 확인할 수 있고, 모바일 내부 배포까지 직접 구축했습니다. 현장의 반복 업무를 줄이기 위해 스스로 문제를 정의하고 만든 프로젝트입니다.</span><span class="en">A staff platform for managing the museum's docents and part-time workers — daily schedule grid, roster, live duty status, and notices in one app, with internal mobile distribution. A self-initiated project born from a real operational pain point.</span></p>
+          <h4 class="md-h"><span class="ko">주요 내용</span><span class="en">Highlights</span></h4>
+          <ul class="md-list">
+            <li><span class="ko">스케줄 그리드·직원 명부·근무 현황·공지 화면 등 서비스 전체 기획 및 개발</span><span class="en">Planned and built the entire service — schedule grid, roster, duty status, and notice screens</span></li>
+            <li><span class="ko">단일 HTML 프로토타입을 Vite + React 구조로 리팩토링, Firebase(Firestore) 연동</span><span class="en">Refactored a single-HTML prototype into Vite + React with Firebase (Firestore)</span></li>
+            <li><span class="ko">Capacitor로 iOS·Android 내부 배포 환경 구성</span><span class="en">Set up internal iOS/Android distribution with Capacitor</span></li>
+          </ul>
+          <h4 class="md-h"><span class="ko">기술 스택</span><span class="en">Tech Stack</span></h4>
+          <div class="chips"><span class="chip">React</span><span class="chip">Vite</span><span class="chip">Firebase</span><span class="chip">Capacitor</span><span class="chip">JavaScript</span></div>
+          <div class="md-status"><span class="ko">상태 · 내부 테스트 배포</span><span class="en">Status · Internal test distribution</span></div>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -291,16 +406,17 @@
     <div class="acc">
       <div class="acc-item reveal">
         <div class="acc-head" onclick="toggleAcc(this)">
-          <span class="role"><span class="ko">도슨트 · 개발 · 서울로봇인공지능과학관</span><span class="en">Docent &amp; Developer @ Seoul Robot &amp; AI Science Museum</span></span>
+          <span class="role"><span class="ko">교육 콘텐츠 기획·개발 · 서울로봇인공지능과학관 교육팀</span><span class="en">Education Content Planner &amp; Developer @ Seoul Robot &amp; AI Science Museum</span></span>
           <span class="right"><span class="when">2026.03 – Present</span><span class="pm">+</span></span>
         </div>
         <div class="acc-body"><div class="acc-inner">
           <div class="info">
             <div class="where"><span>📍 <b>Seoul, KR</b></span></div>
             <ul>
-              <li><span class="ko">과학관 한국어/영어 전시해설 및 교육프로그램 진행</span><span class="en">Deliver exhibition tours and education programs in both Korean and English, making AI and robotics accessible to diverse audiences</span></li>
-              <li><span class="ko">과학관 전시연계 프로그램 기획 및 개발</span><span class="en">Plan and develop exhibition-linked education programs, translating exhibit themes into hands-on learning content</span></li>
+              <li><span class="ko">전시연계 교육 프로그램 기획 및 개발 — 'AI 그림 연구소', 'AI 언어 연구소' 등 인터랙티브 교육 웹앱을 직접 개발해 전시 현장에서 운영</span><span class="en">Plan and develop exhibition-linked education programs — built interactive education web apps such as "AI Art Lab" and "AI Language Lab", now running on the museum floor</span></li>
               <li><span class="ko">과학관–교육청 협업 전시교육 프로그램 기획 및 개발</span><span class="en">Co-design collaborative education programs between the museum and the regional education office</span></li>
+              <li><span class="ko">근무 스케줄·현황 관리 앱 등 운영 도구를 직접 개발해 팀 업무 효율화</span><span class="en">Built internal ops tools — including a staff scheduling &amp; status app — to streamline team workflows</span></li>
+              <li><span class="ko">한국어/영어 전시해설 및 교육 프로그램 운영</span><span class="en">Deliver exhibition tours and education programs in Korean and English</span></li>
             </ul>
           </div>
           <!-- 📷 사진 자리 -->
