@@ -1,4 +1,74 @@
-  // ===== language toggle =====
+// ===== intro splash (타이핑 → 페이드아웃) =====
+  (function introSplash(){
+    const intro=document.getElementById('intro');
+    if(!intro) return;
+    const LINES=[['introL1','Hello!'],['introL2','I am Juwon :D']];
+    const TYPE_MS=90;        // 한 글자 타이핑 속도
+    const LINE_PAUSE=420;    // 줄 사이 멈춤
+    const HOLD=900;          // 다 친 뒤 머무는 시간
+    const caret=document.createElement('span');
+    caret.className='caret';caret.textContent='_';
+    let done=false;
+
+    function finish(){
+      if(done) return;
+      done=true;
+      intro.classList.add('fade');
+      document.body.classList.remove('intro-lock');
+      setTimeout(()=>intro.remove(),950);
+    }
+    // 클릭하면 건너뛰기 (전체 문구를 보여준 뒤 페이드)
+    intro.addEventListener('click',()=>{
+      LINES.forEach(([id,txt])=>{document.getElementById(id).textContent=txt;});
+      caret.remove();
+      finish();
+    });
+
+    // 모션 최소화 설정 사용자는 타이핑 없이 짧게 보여주고 페이드
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+      LINES.forEach(([id,txt])=>{document.getElementById(id).textContent=txt;});
+      setTimeout(finish,1000);
+      return;
+    }
+
+    function typeLine(i){
+      if(done) return;
+      if(i>=LINES.length){setTimeout(finish,HOLD);return;}
+      const el=document.getElementById(LINES[i][0]);
+      const txt=LINES[i][1];
+      el.appendChild(caret);
+      let n=0;
+      (function step(){
+        if(done) return;
+        if(n<txt.length){
+          caret.before(document.createTextNode(txt[n++]));
+          setTimeout(step,TYPE_MS);
+        }else{
+          setTimeout(()=>typeLine(i+1),LINE_PAUSE);
+        }
+      })();
+    }
+    setTimeout(()=>typeLine(0),350);
+  })();
+
+// ===== theme toggle (light / dark) =====
+  // 초기 테마는 <head>의 인라인 스크립트가 localStorage/시스템 설정으로 지정
+  function toggleTheme(){
+    const next=document.documentElement.dataset.theme==='light'?'dark':'light';
+    document.documentElement.dataset.theme=next;
+    localStorage.setItem('theme',next);
+    updateThemeBtn();
+  }
+  function updateThemeBtn(){
+    const b=document.getElementById('themeBtn');
+    if(!b) return;
+    const light=document.documentElement.dataset.theme==='light';
+    b.textContent=light?'☾':'☀';   // 누르면 바뀔 모드의 아이콘
+    b.setAttribute('aria-label',light?'다크 모드로 전환':'라이트 모드로 전환');
+  }
+  updateThemeBtn();
+
+// ===== language toggle =====
   function setLang(l){
     document.body.classList.remove('lang-ko','lang-en');
     document.body.classList.add('lang-'+l);
@@ -60,28 +130,38 @@
     });
   });
 
-  // ===== project modal (프로젝트 상세 팝업) =====
-  const modal=document.getElementById('projModal');
-  const modalBody=document.getElementById('modalBody');
+  // ===== project full page =====
+  const projPage=document.getElementById('projectPage');
+  const ppBody=document.getElementById('ppBody');
+  let _activeCard=null;
+
   function openProject(card){
     const full=card.querySelector('.proj-full');
     if(!full) return;
-    modalBody.innerHTML=full.innerHTML;     // 카드 안의 숨겨진 상세내용을 팝업에 복사
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden','false');
+    // DOM 요소 자체를 이동 (이벤트 리스너 및 슬라이드 상태 유지)
+    full.removeAttribute('hidden');
+    ppBody.appendChild(full);
+    _activeCard=card;
+    projPage.classList.add('open');
+    projPage.setAttribute('aria-hidden','false');
     document.body.classList.add('modal-lock');
-    modalBody.parentElement.scrollTop=0;
+    projPage.scrollTop=0;
   }
   function closeProject(){
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden','true');
+    if(_activeCard){
+      const full=ppBody.querySelector('.proj-full');
+      if(full){full.setAttribute('hidden','');_activeCard.appendChild(full);}
+      _activeCard=null;
+    }
+    projPage.classList.remove('open');
+    projPage.setAttribute('aria-hidden','true');
     document.body.classList.remove('modal-lock');
   }
-  // 카드 안의 링크(GitHub 등)를 누르면 팝업이 안 뜨도록
+  // 카드 안의 링크(GitHub 등)를 누르면 전체화면이 안 뜨도록
   document.querySelectorAll('.card .links a, .card .md-links a').forEach(a=>{
     a.addEventListener('click',e=>e.stopPropagation());
   });
-  // ESC 키로 팝업 닫기
+  // ESC 키로 닫기
   addEventListener('keydown',e=>{if(e.key==='Escape') closeProject();});
 
   // ===== reveal on scroll =====
@@ -100,3 +180,74 @@
     }});
   },{rootMargin:'-45% 0px -50% 0px'});
   secs.forEach(s=>s&&so.observe(s));
+
+  // ===== 📷 사진 로더 + 슬라이드 =====
+  // data-imgs="경로1,경로2,..." 가 있는 점선 박스를 실제 사진(여러 장이면 슬라이드)으로 바꿉니다.
+  // 사진이 하나도 안 열리면 점선 박스가 그대로 남습니다.
+  (function loadImageSlides(){
+    document.querySelectorAll('.imgph[data-imgs]').forEach(box=>{
+      const srcs=box.getAttribute('data-imgs').split(',').map(s=>s.trim()).filter(Boolean);
+      if(!srcs.length) return;
+
+      // 각 사진을 미리 로드해서 실제 존재하는 것만 추립니다.
+      Promise.all(srcs.map(src=>new Promise(res=>{
+        const im=new Image();
+        im.onload=()=>res(src);
+        im.onerror=()=>res(null);
+        im.src=src;
+      }))).then(results=>{
+        const ok=results.filter(Boolean);
+        if(!ok.length) return;            // 다 실패 → 점선 박스 유지
+
+        if(ok.length===1){
+          const el=document.createElement('img');
+          el.className='photo'+(/logo/i.test(ok[0])?' contain':'');
+          el.src=ok[0]; el.alt='';
+          box.replaceWith(el);
+        }else{
+          box.replaceWith(buildSlider(ok));
+        }
+        recalcAccordions&&recalcAccordions();
+      });
+    });
+  })();
+
+  // 여러 장을 좌우로 넘기는 슬라이드 컴포넌트 생성
+  function buildSlider(srcs){
+    const wrap=document.createElement('div');
+    wrap.className='slider';
+    const track=document.createElement('div');
+    track.className='slider-track';
+    srcs.forEach(s=>{
+      const im=document.createElement('img');
+      im.className='photo'; im.src=s; im.alt='';
+      track.appendChild(im);
+    });
+    wrap.appendChild(track);
+
+    let idx=0;
+    const go=n=>{
+      idx=(n+srcs.length)%srcs.length;
+      track.style.transform=`translateX(-${idx*100}%)`;
+      dots.forEach((d,i)=>d.classList.toggle('on',i===idx));
+    };
+    const prev=document.createElement('button');
+    prev.className='slider-btn prev'; prev.innerHTML='‹';
+    prev.onclick=e=>{e.stopPropagation();go(idx-1);};
+    const next=document.createElement('button');
+    next.className='slider-btn next'; next.innerHTML='›';
+    next.onclick=e=>{e.stopPropagation();go(idx+1);};
+    wrap.appendChild(prev); wrap.appendChild(next);
+
+    const dotwrap=document.createElement('div');
+    dotwrap.className='slider-dots';
+    const dots=srcs.map((_,i)=>{
+      const d=document.createElement('span');
+      d.className='slider-dot'+(i===0?' on':'');
+      d.onclick=e=>{e.stopPropagation();go(i);};
+      dotwrap.appendChild(d);
+      return d;
+    });
+    wrap.appendChild(dotwrap);
+    return wrap;
+  }
