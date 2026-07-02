@@ -68,6 +68,34 @@
   }
   updateThemeBtn();
 
+// ===== cursor FX (푸른 글로우 + 포인터 따라다니기) =====
+  (function cursorFX(){
+    // 터치 기기·모션 최소화 설정에서는 비활성화
+    if(matchMedia('(hover: none), (pointer: coarse)').matches) return;
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const glow=document.createElement('div');glow.className='cursor-glow';
+    const dot=document.createElement('div');dot.className='cursor-dot';
+    document.body.append(glow,dot);
+    let mx=innerWidth/2,my=innerHeight/2,gx=mx,gy=my,shown=false;
+    addEventListener('mousemove',e=>{
+      mx=e.clientX;my=e.clientY;
+      if(!shown){shown=true;gx=mx;gy=my;glow.style.opacity=1;dot.style.opacity=1;}
+      dot.style.left=mx+'px';dot.style.top=my+'px';
+    });
+    // 창 밖으로 나가면 숨김
+    document.documentElement.addEventListener('mouseleave',()=>{shown=false;glow.style.opacity=0;dot.style.opacity=0;});
+    // 링크·버튼·카드 위에서는 점 → 링으로 변형
+    addEventListener('mouseover',e=>{
+      dot.classList.toggle('on-link',!!e.target.closest('a,button,.card,.acc-head,.slider-dot'));
+    });
+    // 글로우는 살짝 늦게 따라오도록 보간
+    (function loop(){
+      gx+=(mx-gx)*.08;gy+=(my-gy)*.08;
+      glow.style.left=gx+'px';glow.style.top=gy+'px';
+      requestAnimationFrame(loop);
+    })();
+  })();
+
 // ===== language toggle =====
   function setLang(l){
     document.body.classList.remove('lang-ko','lang-en');

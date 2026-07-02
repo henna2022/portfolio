@@ -399,6 +399,24 @@
   }
 
   /* ════════════════════════════════════════════════
+     CURSOR FX — 마우스를 따라다니는 푸른 글로우 + 포인터
+     ════════════════════════════════════════════════ */
+  .cursor-glow{position:fixed;left:0;top:0;width:480px;height:480px;border-radius:50%;
+    pointer-events:none;z-index:95;transform:translate(-50%,-50%);opacity:0;
+    background:radial-gradient(circle,rgba(79,140,255,.24),transparent 65%);
+    mix-blend-mode:screen;transition:opacity .4s}
+  html[data-theme="light"] .cursor-glow{mix-blend-mode:multiply;
+    background:radial-gradient(circle,rgba(79,140,255,.1),transparent 65%)}
+  .cursor-dot{position:fixed;left:0;top:0;width:8px;height:8px;border-radius:50%;
+    pointer-events:none;z-index:1001;transform:translate(-50%,-50%);opacity:0;
+    background:var(--accent);box-shadow:0 0 14px var(--accent-glow);
+    transition:width .25s,height .25s,opacity .4s,background .25s}
+  .cursor-dot.on-link{width:16px;height:16px;background:transparent;
+    border:2px solid var(--accent)}
+  /* 터치 기기에서는 표시하지 않음 */
+  @media (hover:none),(pointer:coarse){.cursor-glow,.cursor-dot{display:none}}
+
+  /* ════════════════════════════════════════════════
      반응형 보강
      ════════════════════════════════════════════════ */
   /* 좁은 화면에서 헤더가 두 줄로 밀리지 않게 */
