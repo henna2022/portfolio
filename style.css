@@ -376,29 +376,6 @@
   .fcover .cover-img.contain{padding:34px}
 
   /* ════════════════════════════════════════════════
-     INTRO SPLASH — 타이핑 후 페이드아웃
-     ════════════════════════════════════════════════ */
-  #intro{position:fixed;inset:0;z-index:999;
-    background:rgba(6,9,15,.96);            /* 검정, 살짝 투명 */
-    backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
-    cursor:pointer;transition:opacity .9s ease}
-  #intro.fade{opacity:0;pointer-events:none}
-  .intro-lines{display:flex;flex-direction:column;align-items:center;gap:8px;padding:0 20px;text-align:center}
-  .intro-line{font-family:var(--mono);font-weight:700;color:#fff;
-    font-size:clamp(28px,7vw,58px);line-height:1.25;min-height:1.25em;
-    letter-spacing:.01em;white-space:nowrap}
-  .intro-line .caret{display:inline-block;color:var(--accent);animation:blink 1s steps(1) infinite}
-  .intro-skip{position:absolute;bottom:36px;font-family:var(--mono);font-size:12px;
-    color:var(--txt-dim);letter-spacing:.08em;text-transform:uppercase;
-    opacity:0;animation:skipIn .6s ease 1.4s forwards}
-  @keyframes skipIn{to{opacity:.7}}
-  body.intro-lock{overflow:hidden}
-  @media(prefers-reduced-motion:reduce){
-    #intro{transition:opacity .3s ease}
-  }
-
-  /* ════════════════════════════════════════════════
      CURSOR FX — 마우스를 따라다니는 푸른 글로우 + 포인터
      ════════════════════════════════════════════════ */
   .cursor-glow{position:fixed;left:0;top:0;width:480px;height:480px;border-radius:50%;
