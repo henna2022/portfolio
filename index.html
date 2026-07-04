@@ -128,11 +128,11 @@
 
     <div class="filter reveal">
       <span class="lbl"><span class="ko">분류</span><span class="en">Filter by</span></span>
-      <button class="active" data-f="all"><span class="ko">전체</span><span class="en">All</span><span class="cnt">07</span></button>
+      <button class="active" data-f="all"><span class="ko">전체</span><span class="en">All</span><span class="cnt">10</span></button>
       <span class="div">/</span>
-      <button data-f="ai">AI<span class="cnt">04</span></button>
+      <button data-f="ai">AI<span class="cnt">06</span></button>
       <span class="div">/</span>
-      <button data-f="web">Web<span class="cnt">02</span></button>
+      <button data-f="web">Web<span class="cnt">03</span></button>
       <span class="div">/</span>
       <button data-f="robot">Robot<span class="cnt">01</span></button>
     </div>
@@ -278,7 +278,7 @@
         <div class="meta">
           <div class="cat"><span class="ko">서울로봇인공지능과학관 · 교육 콘텐츠</span><span class="en">Seoul Robot &amp; AI Museum · Edu Content</span></div>
           <h3><span class="ko">라이미의 AI 그림 연구소</span><span class="en">Raimi's AI Art Lab</span></h3>
-          <p><span class="ko">관람객이 단계별 선택으로 프롬프트를 완성하면 AI가 그림을 그려 주는 교육용 웹앱으로, 지금 전시 현장에서 운영되고 있습니다.</span><span class="en">An education web app where visitors build prompts step-by-step to generate AI art. Running live at the museum.</span></p>
+          <p><span class="ko">관람객이 단계별 선택으로 프롬프트를 완성하면 AI가 그림을 그려 주는 교육용 웹앱으로, 전시 현장에서 하루 평균 140장 이상(주말 550장 이상)이 생성될 만큼 활발히 운영되고 있습니다.</span><span class="en">An education web app where visitors build prompts step-by-step to generate AI art — running live at the museum with 140+ images generated daily (550+ on weekends).</span></p>
           <div class="card-more"><span class="ko">자세히 보기 →</span><span class="en">View details →</span></div>
         </div>
         <div class="proj-full" hidden>
@@ -288,10 +288,11 @@
           <p class="md-desc"><span class="ko">과학관 캐릭터 '라이미'와 함께 그리고 싶은 그림을 단계별로 골라 프롬프트를 완성하면 AI가 그림을 생성해 주는 교육용 웹앱입니다. 어린이 관람객이 놀이처럼 프롬프트 엔지니어링의 원리를 배우도록 기획·개발해 전시 현장에서 운영하고 있습니다.</span><span class="en">An education web app where visitors compose a prompt step-by-step with the museum character "Raimi" and an AI generates the artwork. Designed so young visitors learn prompt-engineering principles through play; deployed and running at the museum.</span></p>
           <h4 class="md-h"><span class="ko">주요 내용</span><span class="en">Highlights</span></h4>
           <ul class="md-list">
-            <li><span class="ko">10단계(+심화 5단계) 선택형 프롬프트 빌더로 프롬프트 구성 원리 학습 설계</span><span class="en">10-step (+5 advanced) choice-based prompt builder that teaches how prompts are composed</span></li>
-            <li><span class="ko">OpenAI 이미지 생성 API 연동 서버리스 백엔드 구축, 생성 이미지에 과학관 로고 워터마크 자동 합성</span><span class="en">Serverless backend calling the OpenAI image-generation API, auto-compositing a museum watermark onto results</span></li>
-            <li><span class="ko">Cloudflare R2·Supabase 이중 저장 구조와 생성 통계 수집</span><span class="en">Dual storage on Cloudflare R2 &amp; Supabase with generation statistics</span></li>
-            <li><span class="ko">한·영 i18n, PWA 지원으로 전시장 태블릿 상시 운영</span><span class="en">KO/EN i18n and PWA support for always-on exhibition tablets</span></li>
+            <li><span class="ko">전시 현장에서 평일 평균 142장, 주말 평균 557장의 그림이 생성되며 활발히 운영 중 — 자체 서버로 생성량을 처음으로 수치화</span><span class="en">Actively used on-site with an average of 142 images generated on weekdays and 557 on weekends — the first time generation volume could be measured, via a custom backend</span></li>
+            <li><span class="ko">기존 GPT 서비스에서 발생하던 접속 충돌 현상을 자체 웹앱·서버 전환으로 100% 해소</span><span class="en">Eliminated 100% of the connection conflicts that occurred with the off-the-shelf GPT service by moving to a custom web app and backend</span></li>
+            <li><span class="ko">관람객이 만든 결과물을 QR 코드로 바로 가져갈 수 있게 하고, 웹앱화로 전시 키오스크의 타 앱 접근을 전면 차단</span><span class="en">Let visitors take their creations home instantly via QR code, and locked down the exhibition kiosk from other apps by shipping it as a web app</span></li>
+            <li><span class="ko">10단계(+심화 5단계) 선택형 프롬프트 빌더로 프롬프트 구성 원리를 놀이처럼 학습하도록 설계</span><span class="en">A 10-step (+5 advanced) choice-based prompt builder that teaches how prompts are composed, through play</span></li>
+            <li><span class="ko">OpenAI 이미지 생성 API 연동 서버리스 백엔드, 생성 이미지에 과학관 로고 워터마크 자동 합성, Cloudflare R2·Supabase 이중 저장</span><span class="en">Serverless backend on the OpenAI image API, auto-watermarking with the museum logo, and dual storage on Cloudflare R2 &amp; Supabase</span></li>
           </ul>
           <h4 class="md-h"><span class="ko">기술 스택</span><span class="en">Tech Stack</span></h4>
           <div class="chips"><span class="chip">JavaScript</span><span class="chip">OpenAI API</span><span class="chip">Vercel Serverless</span><span class="chip">Supabase</span><span class="chip">Cloudflare R2</span><span class="chip">PWA</span></div>
@@ -382,6 +383,89 @@
           <div class="md-status"><span class="ko">상태 · 내부 테스트 배포</span><span class="en">Status · Internal test distribution</span></div>
         </div>
       </article>
+
+      <!-- ── 프로젝트 8 : 양평교육청 스마트팜 교육 프로그램 ── -->
+      <article class="card reveal" id="p-smartfarmedu" data-cat="ai" onclick="openProject(this)">
+        <div class="cover cv2">
+          <span class="glyph">農</span>
+        </div>
+        <div class="meta">
+          <div class="cat"><span class="ko">서울로봇인공지능과학관 × 양평교육청</span><span class="en">Seoul Robot &amp; AI Museum × Yangpyeong Edu Office</span></div>
+          <h3><span class="ko">스마트팜 교육 프로그램</span><span class="en">Smart-Farm Education Program</span></h3>
+          <p><span class="ko">학생들이 IoT 스마트팜과 YOLO 작물 진단을 직접 다뤄 보는 교육 프로그램으로, 서버와 웹앱 환경까지 직접 구축했습니다.</span><span class="en">A hands-on program where students work with an IoT smart farm and YOLO crop diagnosis — built end-to-end including the server and web-app environment.</span></p>
+          <div class="card-more"><span class="ko">자세히 보기 →</span><span class="en">View details →</span></div>
+        </div>
+        <div class="proj-full" hidden>
+          <div class="md-cover cv2"><span class="glyph">農</span></div>
+          <div class="md-cat"><span class="ko">서울로봇인공지능과학관 × 양평교육청 · 전시연계 교육</span><span class="en">Seoul Robot &amp; AI Science Museum × Yangpyeong Education Office</span></div>
+          <h3 class="md-title"><span class="ko">스마트팜 교육 프로그램</span><span class="en">Smart-Farm Education Program</span></h3>
+          <p class="md-desc"><span class="ko">양평교육청과 협업해 학생들이 스마트팜과 AI 작물 진단을 직접 체험하는 교육 프로그램을 기획하고, 수업에 필요한 서버와 웹앱 환경까지 직접 구축했습니다. 학생들이 데이터가 실시간으로 쌓이고 센서 값이 바뀌는 과정을 눈으로 확인하도록 설계했습니다.</span><span class="en">In collaboration with the Yangpyeong Education Office, planned a program where students experience a smart farm and AI crop diagnosis first-hand, and built the server and web-app environment the classes needed. Designed so students can watch data accumulate and sensor values change in real time.</span></p>
+          <h4 class="md-h"><span class="ko">주요 내용</span><span class="en">Highlights</span></h4>
+          <ul class="md-list">
+            <li><span class="ko">위치 기반 날씨 API를 연동해 실제 재배 환경과 연결한 수업 콘텐츠 구성</span><span class="en">Integrated a location-based weather API to tie the lessons to real growing conditions</span></li>
+            <li><span class="ko">YOLO 모델 학습 과정(epoch 실험, loss 최소화)을 학생 눈높이에서 함께 탐색</span><span class="en">Explored the YOLO training process (epoch experiments, loss reduction) at the students' level</span></li>
+            <li><span class="ko">가상 서버의 데이터베이스에 센서 값이 실시간으로 적재·변화하는 과정을 직접 확인하도록 구성</span><span class="en">Let students see sensor values load and change in real time in the virtual server's database</span></li>
+          </ul>
+          <h4 class="md-h"><span class="ko">기술 스택</span><span class="en">Tech Stack</span></h4>
+          <div class="chips"><span class="chip">YOLO</span><span class="chip">Weather API</span><span class="chip">Server</span><span class="chip">Web App</span><span class="chip">IoT</span></div>
+          <div class="md-status"><span class="ko">상태 · 교육 프로그램 운영</span><span class="en">Status · Delivered as an education program</span></div>
+        </div>
+      </article>
+
+      <!-- ── 프로젝트 9 : RAIM 2주년 AI 네컷 포토부스 ── -->
+      <article class="card reveal" id="p-4cut" data-cat="ai" onclick="openProject(this)">
+        <div class="cover cv3">
+          <span class="glyph">影</span>
+        </div>
+        <div class="meta">
+          <div class="cat"><span class="ko">서울로봇인공지능과학관 · 2주년 행사</span><span class="en">Seoul Robot &amp; AI Museum · 2nd Anniversary</span></div>
+          <h3><span class="ko">RAIM AI 네컷 포토부스</span><span class="en">RAIM AI Photo Booth</span></h3>
+          <p><span class="ko">관람객이 과학관 로봇들과 네컷 사진을 찍고 QR로 가져가는 기념 포토부스. AI가 가장 잘 나온 컷을 추천해 줍니다.</span><span class="en">A keepsake photo booth where visitors take four-cut photos with the museum's robots and grab them by QR — with AI recommending the best shot.</span></p>
+          <div class="card-more"><span class="ko">자세히 보기 →</span><span class="en">View details →</span></div>
+        </div>
+        <div class="proj-full" hidden>
+          <div class="md-cover cv3"><span class="glyph">影</span></div>
+          <div class="md-cat"><span class="ko">서울로봇인공지능과학관 · 개관 2주년 행사</span><span class="en">Seoul Robot &amp; AI Science Museum · 2nd Anniversary Event</span></div>
+          <h3 class="md-title"><span class="ko">RAIM AI 네컷 포토부스</span><span class="en">RAIM AI Photo Booth</span></h3>
+          <p class="md-desc"><span class="ko">'과학관에 다녀간 기념으로 가져갈 것이 없다'는 문제의식에서 출발한 프로젝트입니다. 기념품 숍도 입장권도 없는 과학관에서, 관람객이 전시 로봇들과 함께 네컷 사진을 찍고 QR 코드로 바로 가져갈 수 있게 만들어 '기념'의 경험을 더했습니다.</span><span class="en">Born from a simple problem — visitors had nothing to take home from the museum. With no gift shop or ticket, this booth lets people take four-cut photos with the exhibition robots and grab them instantly via QR, adding a sense of keepsake to the visit.</span></p>
+          <h4 class="md-h"><span class="ko">주요 내용</span><span class="en">Highlights</span></h4>
+          <ul class="md-list">
+            <li><span class="ko">관람 경험의 빈틈(기념품 부재)을 문제로 정의하고 포토부스라는 해결책을 직접 기획</span><span class="en">Defined a gap in the visit experience (no keepsake) as the problem and designed the photo booth as the answer</span></li>
+            <li><span class="ko">과학관 로봇 캐릭터와 함께 찍는 네컷 프레임 제작, QR 코드로 사진 반출</span><span class="en">Built four-cut frames featuring the museum's robot characters, with QR-code photo delivery</span></li>
+            <li><span class="ko">여러 컷 중 가장 잘 나온 사진을 골라 추천하는 AI 알고리즘 적용</span><span class="en">Applied an AI algorithm that picks and recommends the best-looking shot among the takes</span></li>
+          </ul>
+          <h4 class="md-h"><span class="ko">기술 스택</span><span class="en">Tech Stack</span></h4>
+          <div class="chips"><span class="chip">JavaScript</span><span class="chip">AI 이미지 선별</span><span class="chip">QR</span><span class="chip">Web App</span></div>
+          <div class="md-status"><span class="ko">상태 · 2주년 행사 대상 개발 중</span><span class="en">Status · In development for the anniversary event</span></div>
+        </div>
+      </article>
+
+      <!-- ── 프로젝트 10 : RAIM 메타버스 ── -->
+      <article class="card reveal" id="p-metaverse" data-cat="web" onclick="openProject(this)">
+        <div class="cover cv1">
+          <span class="glyph">宇</span>
+        </div>
+        <div class="meta">
+          <div class="cat"><span class="ko">서울로봇인공지능과학관 · 전시 콘텐츠</span><span class="en">Seoul Robot &amp; AI Museum · Exhibition Content</span></div>
+          <h3><span class="ko">RAIM 메타버스</span><span class="en">RAIM Metaverse</span></h3>
+          <p><span class="ko">전시를 예약하지 못한 관람객도 온라인으로 둘러볼 수 있도록 상설전시관을 메타버스로 구현하고 있습니다.</span><span class="en">A metaverse of the permanent exhibition so visitors who couldn't book a slot can still explore it online.</span></p>
+          <div class="card-more"><span class="ko">자세히 보기 →</span><span class="en">View details →</span></div>
+        </div>
+        <div class="proj-full" hidden>
+          <div class="md-cover cv1"><span class="glyph">宇</span></div>
+          <div class="md-cat"><span class="ko">서울로봇인공지능과학관 · 전시 접근성 콘텐츠</span><span class="en">Seoul Robot &amp; AI Science Museum · Exhibition Accessibility</span></div>
+          <h3 class="md-title"><span class="ko">RAIM 메타버스</span><span class="en">RAIM Metaverse</span></h3>
+          <p class="md-desc"><span class="ko">현장 예약이 마감되어 전시를 직접 보지 못하는 관람객도 온라인에서 상설전시관을 둘러볼 수 있도록, 전시 공간을 메타버스로 옮기는 프로젝트입니다. 전시 접근성을 넓히는 것을 목표로 개발하고 있습니다.</span><span class="en">A project that moves the permanent exhibition into a metaverse so visitors who can't get an on-site slot can still explore it online — built to widen access to the exhibition.</span></p>
+          <h4 class="md-h"><span class="ko">주요 내용</span><span class="en">Highlights</span></h4>
+          <ul class="md-list">
+            <li><span class="ko">예약 마감으로 관람하지 못하는 관람객을 위한 온라인 상설전시관 구현</span><span class="en">Building an online permanent exhibition for visitors turned away by full bookings</span></li>
+            <li><span class="ko">전시 접근성 확대를 목표로 공간·동선을 메타버스로 재구성</span><span class="en">Reconstructing the space and visitor flow in a metaverse to widen access</span></li>
+          </ul>
+          <h4 class="md-h"><span class="ko">기술 스택</span><span class="en">Tech Stack</span></h4>
+          <div class="chips"><span class="chip">Metaverse</span><span class="chip">Web</span><span class="chip">3D</span></div>
+          <div class="md-status"><span class="ko">상태 · 개발 중</span><span class="en">Status · In development</span></div>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -404,10 +488,10 @@
           <div class="info">
             <div class="where"><span>📍 <b>Seoul, KR</b></span></div>
             <ul>
-              <li><span class="ko">'AI 그림 연구소', 'AI 언어 연구소' 같은 인터랙티브 교육 웹앱을 직접 개발해 전시 현장에서 운영하며, 전시와 연계된 교육 프로그램을 기획하고 있습니다</span><span class="en">Plan and develop exhibition-linked education programs — built interactive education web apps such as "AI Art Lab" and "AI Language Lab", now running on the museum floor</span></li>
-              <li><span class="ko">교육청과 협업하는 전시교육 프로그램도 함께 기획하고 개발합니다</span><span class="en">Co-design collaborative education programs between the museum and the regional education office</span></li>
-              <li><span class="ko">근무 스케줄·현황 관리 앱 같은 운영 도구를 직접 만들어 팀의 반복 업무를 줄였습니다</span><span class="en">Built internal ops tools — including a staff scheduling &amp; status app — to streamline team workflows</span></li>
-              <li><span class="ko">한국어와 영어를 오가며 전시해설과 교육 프로그램도 운영합니다</span><span class="en">Deliver exhibition tours and education programs in Korean and English</span></li>
+              <li><span class="ko">'AI 그림 연구소', 'AI 언어 연구소' 같은 인터랙티브 교육 웹앱을 직접 개발해 전시 현장에서 운영합니다 — AI 그림 연구소는 평일 평균 142장, 주말 평균 557장이 생성될 만큼 활발히 쓰이고 있습니다</span><span class="en">Directly build and run interactive education web apps such as "AI Art Lab" and "AI Language Lab" on the museum floor — the Art Lab alone generates an average of 142 images on weekdays and 557 on weekends</span></li>
+              <li><span class="ko">양평교육청과 협업해 스마트팜 교육 프로그램을 기획하고, 위치기반 날씨 API와 YOLO 학습을 포함한 서버·웹앱 환경까지 직접 구축했습니다</span><span class="en">Co-designed a smart-farm education program with the Yangpyeong Education Office, building the full server &amp; web-app environment — including a weather API and YOLO training</span></li>
+              <li><span class="ko">근무 스케줄·현황 관리 앱, 2주년 AI 네컷 포토부스, 상설전시관 메타버스 등 운영·전시 콘텐츠를 직접 만들며 현장의 문제를 스스로 해결합니다</span><span class="en">Build ops and exhibition content first-hand — a staff scheduling app, an anniversary AI photo booth, a metaverse of the permanent exhibition — solving real on-site problems</span></li>
+              <li><span class="ko">상설·기획 전시를 한국어와 영어로 해설하고, 다목적 교육장 운영도 지원합니다</span><span class="en">Guide permanent and special exhibitions in both Korean and English, and support the multipurpose education rooms</span></li>
             </ul>
           </div>
           <!-- 📷 사진 자리 -->
