@@ -22,11 +22,12 @@
     const glow=document.createElement('div');glow.className='cursor-glow';
     const dot=document.createElement('div');dot.className='cursor-dot';
     document.body.append(glow,dot);
-    let mx=innerWidth/2,my=innerHeight/2,gx=mx,gy=my,shown=false;
+    let shown=false;
     function moveTo(x,y){
-      mx=x;my=y;
-      if(!shown){shown=true;gx=mx;gy=my;glow.style.opacity=1;dot.style.opacity=1;}
-      dot.style.transform='translate3d('+mx+'px,'+my+'px,0) translate(-50%,-50%)';
+      if(!shown){shown=true;glow.style.opacity=1;dot.style.opacity=1;}
+      const t='translate3d('+x+'px,'+y+'px,0) translate(-50%,-50%)';
+      dot.style.transform=t;
+      glow.style.transform=t;   // 글로우를 포인터에 직접 붙여 지연 없이 따라오게 (RAF 보간 제거)
     }
     function hide(){shown=false;glow.style.opacity=0;dot.style.opacity=0;}
     // 마우스
@@ -41,12 +42,6 @@
     addEventListener('touchmove',e=>{const t=e.touches[0];if(t)moveTo(t.clientX,t.clientY);},{passive:true});
     addEventListener('touchend',hide);
     addEventListener('touchcancel',hide);
-    // 글로우는 살짝 늦게 따라오도록 보간
-    (function loop(){
-      gx+=(mx-gx)*.08;gy+=(my-gy)*.08;
-      glow.style.transform='translate3d('+gx+'px,'+gy+'px,0) translate(-50%,-50%)';
-      requestAnimationFrame(loop);
-    })();
   })();
 
 // ===== 히어로: 서브타이틀 가로 폭을 이름(JUWON LEE) 폭에 맞춤 =====
@@ -89,14 +84,6 @@
     ['b-ko','b-en'].forEach(function(id){var b=document.getElementById(id); if(b) b.addEventListener('click',function(){setTimeout(fit,0);});});
     if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
   })();
-
-// ===== 박스(카드·아코디언·스킬 컬럼) 클릭 시 밝아지는 플래시 =====
-  document.querySelectorAll('.card,.acc-head,.exp-col').forEach(function(el){
-    el.addEventListener('click',function(){
-      el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
-      setTimeout(function(){el.classList.remove('flash');},520);
-    });
-  });
 
 // ===== language toggle =====
   function setLang(l){
