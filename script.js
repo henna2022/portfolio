@@ -139,11 +139,33 @@
   // ESC 키로 닫기
   addEventListener('keydown',e=>{if(e.key==='Escape') closeProject();});
 
-  // ===== reveal on scroll =====
-  const io=new IntersectionObserver(es=>{
-    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
-  },{threshold:.12});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  // ===== reveal on scroll (뷰포트에 들어올 때마다 매번 재생) =====
+  const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls=document.querySelectorAll('.reveal');
+
+  // 같은 섹션 안의 반복 요소는 동시에 올라오지 않게 순차(stagger) 지연을 부여
+  const STAGGER=90; // ms
+  [['.work-grid','.card'],['.expertise-grid','.exp-col'],['.acc','.acc-item']].forEach(([groupSel,itemSel])=>{
+    document.querySelectorAll(groupSel).forEach(group=>{
+      group.querySelectorAll(':scope > '+itemSel).forEach((el,i)=>{
+        el.style.transitionDelay=(i*STAGGER)+'ms';
+      });
+    });
+  });
+
+  if(reduceMotion){
+    // 모션 최소화 사용자: 애니메이션 없이 바로 보이게
+    revealEls.forEach(el=>el.classList.add('in'));
+  }else{
+    // threshold:0 → 첫 픽셀이 들어오면 in 추가(아래→위 재생), 완전히 벗어나면 in 제거.
+    // 상단 rootMargin 여유(80px): 위로 이탈할 때 요소가 화면 위로 충분히 나간 뒤에만
+    // in을 지워, 되돌아가는 트랜지션(아래로 40px)이 화면에 살짝 비치지 않게 한다.
+    // 하단은 0으로 두어 아래에서 위로 올라오는 진입 연출은 또렷하게 유지.
+    const io=new IntersectionObserver(es=>{
+      es.forEach(e=>e.target.classList.toggle('in',e.isIntersecting));
+    },{threshold:0,rootMargin:'80px 0px 0px 0px'});
+    revealEls.forEach(el=>io.observe(el));
+  }
 
   // ===== active nav highlight =====
   const links=[...document.querySelectorAll('#nav a')];
@@ -157,11 +179,13 @@
   secs.forEach(s=>s&&so.observe(s));
 
   // ===== 📷 사진 로더 + 슬라이드 =====
-  // data-imgs="경로1,경로2,..." 가 있는 점선 박스를 실제 사진(여러 장이면 슬라이드)으로 바꿉니다.
-  // 사진이 하나도 안 열리면 점선 박스가 그대로 남습니다.
+  // data-imgs="경로1,경로2,..." 또는 data-img="경로" 가 있는 점선 박스를
+  // 실제 사진(여러 장이면 슬라이드)으로 바꿉니다.
+  // 사진이 하나도 안 열리면 점선 박스가 그대로 남습니다(hidden이면 계속 숨김).
   (function loadImageSlides(){
-    document.querySelectorAll('.imgph[data-imgs]').forEach(box=>{
-      const srcs=box.getAttribute('data-imgs').split(',').map(s=>s.trim()).filter(Boolean);
+    document.querySelectorAll('.imgph[data-imgs],.imgph[data-img]').forEach(box=>{
+      const raw=box.getAttribute('data-imgs')||box.getAttribute('data-img')||'';
+      const srcs=raw.split(',').map(s=>s.trim()).filter(Boolean);
       if(!srcs.length) return;
 
       // 각 사진을 미리 로드해서 실제 존재하는 것만 추립니다.
