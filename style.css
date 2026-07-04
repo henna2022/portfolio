@@ -144,12 +144,7 @@
   .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;padding-top:90px}
   .hero .hi{font-family:var(--mono);color:var(--accent);font-size:16px;margin-bottom:18px}
   .hero h1{font-family:var(--display);font-weight:800;color:var(--txt-strong);
-    font-size:clamp(58px,15vw,170px);line-height:.9;letter-spacing:-.03em;margin-bottom:16px;text-transform:uppercase}
-  .hero-words{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;
-    gap:clamp(12px,2.6vw,36px);font-family:var(--mono);font-weight:700;
-    font-size:clamp(14px,1.9vw,25px);letter-spacing:.2em;color:var(--txt-strong);
-    text-transform:uppercase;margin-bottom:22px}
-  .hero-words .wsep{color:var(--accent);letter-spacing:0}
+    font-size:clamp(58px,15vw,170px);line-height:.9;letter-spacing:-.03em;margin-bottom:22px;text-transform:uppercase}
   .hero .sub{font-family:var(--mono);font-weight:700;color:var(--txt);
     font-size:clamp(13px,1.45vw,20px);letter-spacing:.02em;text-transform:uppercase;
     line-height:1.9;padding:0 20px}

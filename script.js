@@ -49,6 +49,27 @@
     })();
   })();
 
+// ===== 히어로: 서브타이틀 가로 폭을 이름(JUWON LEE) 폭에 맞춤 =====
+  (function fitSubToName(){
+    const h1=document.querySelector('.hero h1');
+    const sub=document.querySelector('.hero .sub');
+    if(!h1||!sub) return;
+    function fit(){
+      sub.style.fontSize='';                                    // CSS 기본값으로 리셋 후 측정
+      if(getComputedStyle(sub).whiteSpace!=='nowrap') return;   // 모바일(줄바꿈 상태)에선 건너뜀
+      const nameW=h1.getBoundingClientRect().width;
+      const r=document.createRange(); r.selectNodeContents(sub); // 패딩 제외한 실제 텍스트 폭
+      const textW=r.getBoundingClientRect().width;
+      if(textW>0&&nameW>0){
+        const base=parseFloat(getComputedStyle(sub).fontSize);
+        sub.style.fontSize=(base*nameW/textW).toFixed(2)+'px';
+      }
+    }
+    fit();
+    addEventListener('resize',fit);
+    if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit); // 폰트 로드 후 재보정
+  })();
+
 // ===== language toggle =====
   function setLang(l){
     document.body.classList.remove('lang-ko','lang-en');
