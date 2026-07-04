@@ -459,16 +459,21 @@
   .cursor-glow{position:fixed;left:0;top:0;width:480px;height:480px;border-radius:50%;
     pointer-events:none;z-index:95;transform:translate(-50%,-50%);opacity:0;
     background:radial-gradient(circle,rgba(79,140,255,.24),transparent 65%);
-    mix-blend-mode:screen;transition:opacity .4s}
+    mix-blend-mode:screen;transition:opacity .4s;will-change:transform}
   html[data-theme="light"] .cursor-glow{mix-blend-mode:multiply;
     background:radial-gradient(circle,rgba(79,140,255,.1),transparent 65%)}
   .cursor-dot{position:fixed;left:0;top:0;width:8px;height:8px;border-radius:50%;
     pointer-events:none;z-index:1001;transform:translate(-50%,-50%);opacity:0;
     background:var(--accent);box-shadow:0 0 14px var(--accent-glow);
-    transition:width .25s,height .25s,opacity .4s,background .25s}
+    transition:width .25s,height .25s,opacity .4s,background .25s;will-change:transform}
   .cursor-dot.on-link{width:16px;height:16px;background:transparent;
     border:2px solid var(--accent)}
-  /* 터치 기기에서도 손가락 위치에 글로우를 표시 (JS의 touch 핸들러가 위치 갱신) */
+  /* 터치 기기에서도 손가락 위치에 글로우 표시 — 단, mix-blend-mode/큰 크기는 모바일 GPU를
+     과부하시켜 탭이 튕기므로, 터치기기에선 블렌드 제거 + 크기 축소로 가볍게 렌더 */
+  @media (hover:none),(pointer:coarse),(max-width:760px){
+    .cursor-glow{width:280px;height:280px;mix-blend-mode:normal !important;
+      background:radial-gradient(circle,rgba(79,140,255,.16),transparent 62%) !important}
+  }
 
   /* ════════════════════════════════════════════════
      반응형 보강

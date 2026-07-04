@@ -26,7 +26,7 @@
     function moveTo(x,y){
       mx=x;my=y;
       if(!shown){shown=true;gx=mx;gy=my;glow.style.opacity=1;dot.style.opacity=1;}
-      dot.style.left=mx+'px';dot.style.top=my+'px';
+      dot.style.transform='translate3d('+mx+'px,'+my+'px,0) translate(-50%,-50%)';
     }
     function hide(){shown=false;glow.style.opacity=0;dot.style.opacity=0;}
     // 마우스
@@ -44,7 +44,7 @@
     // 글로우는 살짝 늦게 따라오도록 보간
     (function loop(){
       gx+=(mx-gx)*.08;gy+=(my-gy)*.08;
-      glow.style.left=gx+'px';glow.style.top=gy+'px';
+      glow.style.transform='translate3d('+gx+'px,'+gy+'px,0) translate(-50%,-50%)';
       requestAnimationFrame(loop);
     })();
   })();
