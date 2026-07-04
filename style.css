@@ -160,8 +160,8 @@
   /* ============ EXPERTISE (skills) — divided columns + code motif ============ */
   #expertise{overflow:hidden}
   .expertise-grid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);
-    overflow:hidden;
-    background:linear-gradient(180deg,rgba(255,255,255,.02),transparent)}
+    overflow:hidden;border-radius:16px;
+    background:linear-gradient(180deg,rgba(79,140,255,.09),rgba(79,140,255,.02))}
   .exp-col{padding:42px 34px;position:relative;z-index:1}
 
   /* per-column highlighter color */
