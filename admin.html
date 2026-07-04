@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin · Juwon Lee</title>
+<style>
+  :root{--bg:#0b0f1a;--panel:#0f1422;--line:rgba(255,255,255,.12);--txt:#f2f4f8;--mid:#9aa3b5;--dim:#5d6679;--accent:#4f8cff;--good:#34d399;--bad:#f87171}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--txt);font-family:'Pretendard',-apple-system,'Apple SD Gothic Neo',system-ui,sans-serif;font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  code,.mono{font-family:'Space Mono',ui-monospace,monospace}
+  a{color:var(--accent);text-decoration:none}
+  button{font-family:inherit;cursor:pointer}
+  .wrap{max-width:1100px;margin:0 auto;padding:24px clamp(16px,4vw,32px) 80px}
+
+  /* 로그인 / 권한없음 화면 */
+  .center{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;text-align:center;padding:24px}
+  .center h1{font-family:'Space Mono',monospace;font-size:26px;font-weight:700}
+  .center p{color:var(--mid);max-width:420px}
+  .g-btn{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#1f2430;font-weight:600;border:none;border-radius:10px;padding:12px 20px;font-size:15px}
+  .g-btn svg{width:18px;height:18px}
+  .ghost-btn{background:none;border:1px solid var(--line);color:var(--mid);border-radius:8px;padding:8px 14px}
+  .ghost-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* 대시보드 */
+  header.bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:24px}
+  header.bar h1{font-family:'Space Mono',monospace;font-size:20px}
+  header.bar .who{color:var(--dim);font-size:12px}
+  .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  select,.controls button{background:var(--panel);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:8px 12px;font-size:13px}
+
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:24px}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .kpi .n{font-family:'Space Mono',monospace;font-size:28px;font-weight:700}
+  .kpi .l{color:var(--mid);font-size:12px;margin-top:4px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .card h2{font-size:14px;font-weight:700;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+  .card h2 span{color:var(--dim);font-weight:400;font-size:12px}
+
+  .bars{display:flex;flex-direction:column;gap:8px}
+  .row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;font-size:13px}
+  .row .track{grid-column:1/2;position:relative;background:rgba(255,255,255,.05);border-radius:5px;height:22px;overflow:hidden}
+  .row .fill{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,rgba(79,140,255,.55),rgba(79,140,255,.25));border-radius:5px}
+  .row .lbl{position:absolute;left:8px;top:0;line-height:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 12px)}
+  .row .val{grid-column:2/3;font-family:'Space Mono',monospace;color:var(--mid);min-width:38px;text-align:right}
+  .empty{color:var(--dim);font-size:13px;padding:8px 0}
+
+  .days{display:flex;align-items:flex-end;gap:3px;height:90px}
+  .days .d{flex:1;background:rgba(79,140,255,.45);border-radius:3px 3px 0 0;min-height:2px;position:relative}
+  .days .d:hover::after{content:attr(data-t);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#000;border:1px solid var(--line);padding:2px 6px;border-radius:4px;font-size:11px;white-space:nowrap;font-family:'Space Mono',monospace}
+
+  /* 메시지 */
+  .msg{border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:10px}
+  .msg.unread{border-color:var(--accent)}
+  .msg .top{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--dim);margin-bottom:6px}
+  .msg .from{color:var(--txt);font-weight:600}
+  .msg .body{white-space:pre-wrap}
+  .msg .act{margin-top:8px}
+
+  /* CMS */
+  .cms-item{border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px}
+  .cms-item .meta{display:flex;gap:10px;align-items:center;margin-bottom:8px;font-size:12px;color:var(--mid)}
+  textarea{width:100%;min-height:120px;background:#0b0f1a;color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:10px;font-family:'Space Mono',monospace;font-size:12px}
+  .mini{font-size:12px;padding:6px 10px;border-radius:7px;border:1px solid var(--line);background:none;color:var(--mid)}
+  .mini:hover{border-color:var(--accent);color:var(--accent)}
+  .mini.danger:hover{border-color:var(--bad);color:var(--bad)}
+  .section-title{font-family:'Space Mono',monospace;font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;margin:30px 0 12px}
+  .hint{background:rgba(79,140,255,.08);border:1px solid rgba(79,140,255,.3);border-radius:10px;padding:12px 14px;font-size:12.5px;color:var(--mid);margin-bottom:20px}
+</style>
+</head>
+<body>
+
+<!-- 로그인 -->
+<div id="view-login" class="center" hidden>
+  <h1>Admin<span style="color:var(--accent)">.</span></h1>
+  <p>포트폴리오 관리자 페이지입니다. 등록된 구글 계정만 접근할 수 있습니다.</p>
+  <button class="g-btn" id="loginBtn">
+    <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.6l6.8-6.8C35.6 2.4 30.1 0 24 0 14.6 0 6.4 5.4 2.5 13.2l7.9 6.2C12.3 13.2 17.6 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.1 5.3-4.6 7l7.1 5.5c4.2-3.9 6.6-9.6 6.6-16z"/><path fill="#FBBC05" d="M10.4 28.6c-.5-1.5-.8-3-.8-4.6s.3-3.1.8-4.6l-7.9-6.2C.9 16.5 0 20.1 0 24s.9 7.5 2.5 10.8l7.9-6.2z"/><path fill="#34A853" d="M24 48c6.1 0 11.3-2 15-5.5l-7.1-5.5c-2 1.3-4.6 2.1-7.9 2.1-6.4 0-11.7-3.7-13.6-8.9l-7.9 6.2C6.4 42.6 14.6 48 24 48z"/></svg>
+    Google로 로그인
+  </button>
+  <p id="loginErr" style="color:var(--bad);font-size:13px"></p>
+</div>
+
+<!-- 권한 없음 -->
+<div id="view-denied" class="center" hidden>
+  <h1>접근 권한 없음</h1>
+  <p><span id="deniedEmail" class="mono"></span> 계정은 관리자 목록에 없습니다.</p>
+  <button class="ghost-btn" onclick="signOut()">로그아웃</button>
+</div>
+
+<!-- 대시보드 -->
+<div id="view-app" class="wrap" hidden>
+  <header class="bar">
+    <div>
+      <h1>Portfolio Admin</h1>
+      <div class="who" id="whoami"></div>
+    </div>
+    <div class="controls">
+      <select id="range">
+        <option value="7">최근 7일</option>
+        <option value="30" selected>최근 30일</option>
+        <option value="90">최근 90일</option>
+        <option value="0">전체</option>
+      </select>
+      <button class="ghost-btn" onclick="loadAll()">새로고침</button>
+      <button class="ghost-btn" onclick="signOut()">로그아웃</button>
+    </div>
+  </header>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="grid">
+    <div class="card"><h2>국가별 방문 <span id="c-country-n"></span></h2><div class="bars" id="c-country"></div></div>
+    <div class="card"><h2>일자별 방문</h2><div class="days" id="c-days"></div></div>
+    <div class="card"><h2>기기</h2><div class="bars" id="c-device"></div></div>
+    <div class="card"><h2>언어</h2><div class="bars" id="c-lang"></div></div>
+    <div class="card"><h2>인기 페이지</h2><div class="bars" id="c-pages"></div></div>
+    <div class="card"><h2>유입 경로</h2><div class="bars" id="c-ref"></div></div>
+    <div class="card"><h2>프로젝트 열람 TOP</h2><div class="bars" id="c-proj"></div></div>
+    <div class="card"><h2>CTA 클릭 (연락·링크)</h2><div class="bars" id="c-cta"></div></div>
+  </div>
+
+  <div class="section-title">연락 폼 인박스 <span id="msg-count"></span></div>
+  <div id="messages"></div>
+
+  <div class="section-title">라이트 CMS · 콘텐츠</div>
+  <div class="hint">여기서 저장한 항목은 <code>content</code> 테이블에 보관됩니다. 공개 사이트가 이 데이터를 읽어 카드로 렌더링하도록 연결하는 건 다음 단계로 진행할 수 있어요(지금 사이트는 정적 HTML 그대로 유지 중).</div>
+  <div id="cms"></div>
+  <button class="mini" onclick="newContent()">+ 새 항목</button>
+</div>
+
+<script src="supabase-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  var sb = null, ME = null;
+  var el = function (id) { return document.getElementById(id); };
+  var show = function (v) { ['login', 'denied', 'app'].forEach(function (x) { el('view-' + x).hidden = (x !== v); }); };
+
+  function init() {
+    if (!window.SB_URL || /YOUR-/.test(window.SB_URL)) {
+      show('login'); el('loginErr').textContent = 'supabase-config.js 를 먼저 설정하세요 (SB_URL / SB_ANON_KEY).';
+      el('loginBtn').disabled = true; return;
+    }
+    sb = supabase.createClient(window.SB_URL, window.SB_ANON_KEY);
+    sb.auth.onAuthStateChange(function (_e, session) { route(session); });
+    sb.auth.getSession().then(function (r) { route(r.data.session); });
+  }
+
+  async function route(session) {
+    if (!session) { show('login'); return; }
+    ME = session.user.email;
+    var r = await sb.rpc('is_admin');
+    if (r.data === true) {
+      el('whoami').textContent = ME + ' 로 로그인됨';
+      show('app'); loadAll();
+    } else {
+      el('deniedEmail').textContent = ME; show('denied');
+    }
+  }
+
+  el('loginBtn').onclick = function () {
+    sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.origin + location.pathname } });
+  };
+  function signOut() { sb.auth.signOut(); }
+
+  el('range').onchange = loadAll;
+
+  // ---------- 데이터 로드 + 집계 ----------
+  async function loadAll() {
+    var days = +el('range').value;
+    var q = function (t) { var s = sb.from(t).select('*').order('created_at', { ascending: false }).limit(50000); if (days) s = s.gte('created_at', new Date(Date.now() - days * 864e5).toISOString()); return s; };
+    var pv = await q('page_views'), ev = await q('events'), ms = await sb.from('messages').select('*').order('created_at', { ascending: false });
+    if (pv.error) { alert('불러오기 오류: ' + pv.error.message); return; }
+    renderStats(pv.data || [], ev.data || []);
+    renderMessages(ms.data || []);
+    loadCMS();
+  }
+
+  function countBy(arr, key) {
+    var m = {}; arr.forEach(function (x) { var k = (typeof key === 'function' ? key(x) : x[key]) || '(없음)'; m[k] = (m[k] || 0) + 1; });
+    return Object.keys(m).map(function (k) { return [k, m[k]]; }).sort(function (a, b) { return b[1] - a[1]; });
+  }
+  function bars(id, data, max) {
+    var box = el(id); if (!data.length) { box.innerHTML = '<div class="empty">데이터 없음</div>'; return; }
+    var mx = max || data[0][1] || 1;
+    box.innerHTML = data.slice(0, 8).map(function (d) {
+      return '<div class="row"><div class="track"><div class="fill" style="width:' + Math.max(4, d[1] / mx * 100) + '%"></div><div class="lbl">' + esc(d[0]) + '</div></div><div class="val">' + d[1] + '</div></div>';
+    }).join('');
+  }
+  function esc(s) { return String(s).replace(/[<>&]/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]; }); }
+
+  function renderStats(pv, ev) {
+    var sessions = {}; pv.forEach(function (p) { sessions[p.session_id] = 1; });
+    var durs = pv.map(function (p) { return p.duration_ms; }).filter(function (d) { return d > 0; });
+    var avg = durs.length ? Math.round(durs.reduce(function (a, b) { return a + b; }, 0) / durs.length / 1000) : 0;
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    var todayN = pv.filter(function (p) { return new Date(p.created_at) >= today; }).length;
+
+    el('kpis').innerHTML = [
+      ['총 방문', pv.length], ['순 세션', Object.keys(sessions).length],
+      ['평균 체류', avg + 's'], ['오늘 방문', todayN]
+    ].map(function (k) { return '<div class="kpi"><div class="n">' + k[1] + '</div><div class="l">' + k[0] + '</div></div>'; }).join('');
+
+    bars('c-country', countBy(pv, 'country'));
+    el('c-country-n').textContent = countBy(pv, 'country').length + '개국';
+    bars('c-device', countBy(pv, 'device'));
+    bars('c-lang', countBy(pv, 'lang'));
+    bars('c-pages', countBy(pv, 'path'));
+    bars('c-ref', countBy(pv, function (p) { if (!p.referrer) return 'direct'; try { return new URL(p.referrer).hostname; } catch (e) { return p.referrer; } }));
+    bars('c-proj', countBy(ev.filter(function (e) { return e.type === 'project_open'; }), 'label'));
+    bars('c-cta', countBy(ev.filter(function (e) { return e.type === 'cta_click'; }), 'label'));
+
+    // 일자별
+    var byDay = {}; pv.forEach(function (p) { var d = p.created_at.slice(0, 10); byDay[d] = (byDay[d] || 0) + 1; });
+    var days = +el('range').value || 30; var span = Math.min(days || 30, 60), out = [];
+    for (var i = span - 1; i >= 0; i--) { var dt = new Date(Date.now() - i * 864e5).toISOString().slice(0, 10); out.push([dt, byDay[dt] || 0]); }
+    var mx = Math.max.apply(null, out.map(function (o) { return o[1]; }).concat([1]));
+    el('c-days').innerHTML = out.map(function (o) { return '<div class="d" style="height:' + (o[1] / mx * 100) + '%" data-t="' + o[0] + ': ' + o[1] + '"></div>'; }).join('');
+  }
+
+  // ---------- 메시지 인박스 ----------
+  function renderMessages(ms) {
+    var unread = ms.filter(function (m) { return !m.read; }).length;
+    el('msg-count').textContent = ms.length ? '(' + unread + ' 안읽음 / ' + ms.length + ')' : '';
+    el('messages').innerHTML = ms.length ? ms.map(function (m) {
+      return '<div class="msg ' + (m.read ? '' : 'unread') + '"><div class="top"><span class="from">' + esc(m.name || '이름없음') + ' · ' + esc(m.email || '') + '</span><span>' + new Date(m.created_at).toLocaleString('ko-KR') + '</span></div><div class="body">' + esc(m.body) + '</div><div class="act">' + (m.read ? '' : '<button class="mini" onclick="markRead(' + m.id + ')">읽음 처리</button>') + '</div></div>';
+    }).join('') : '<div class="empty">받은 메시지가 없습니다.</div>';
+  }
+  async function markRead(id) { await sb.from('messages').update({ read: true }).eq('id', id); loadAll(); }
+
+  // ---------- 라이트 CMS ----------
+  async function loadCMS() {
+    var r = await sb.from('content').select('*').order('sort');
+    var rows = r.data || [];
+    el('cms').innerHTML = rows.map(function (c) {
+      return '<div class="cms-item"><div class="meta"><b>' + esc(c.kind) + '</b> · ' + esc(c.slug || '') + ' · sort ' + c.sort + ' · ' + (c.published ? '게시' : '숨김') + '</div>' +
+        '<textarea id="cms-' + c.id + '">' + esc(JSON.stringify(c.data, null, 2)) + '</textarea>' +
+        '<div style="margin-top:8px;display:flex;gap:8px"><button class="mini" onclick="saveContent(' + c.id + ')">저장</button><button class="mini danger" onclick="delContent(' + c.id + ')">삭제</button></div></div>';
+    }).join('') || '<div class="empty">콘텐츠 항목이 없습니다.</div>';
+  }
+  async function newContent() {
+    var kind = prompt('종류 (project / award 등):', 'project'); if (!kind) return;
+    await sb.from('content').insert({ kind: kind, data: {}, sort: 0 }); loadCMS();
+  }
+  async function saveContent(id) {
+    var t = el('cms-' + id).value; var data;
+    try { data = JSON.parse(t); } catch (e) { alert('JSON 형식 오류: ' + e.message); return; }
+    var r = await sb.from('content').update({ data: data, updated_at: new Date().toISOString() }).eq('id', id);
+    if (r.error) alert(r.error.message); else alert('저장됨');
+  }
+  async function delContent(id) { if (!confirm('삭제할까요?')) return; await sb.from('content').delete().eq('id', id); loadCMS(); }
+
+  init();
+</script>
+</body>
+</html>

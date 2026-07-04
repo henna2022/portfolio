@@ -15,26 +15,32 @@
   }
   updateThemeBtn();
 
-// ===== cursor FX (푸른 글로우 + 포인터 따라다니기) =====
+// ===== cursor FX (푸른 글로우 + 포인터 따라다니기 · 터치도 지원) =====
   (function cursorFX(){
-    // 터치 기기·모션 최소화 설정에서는 비활성화
-    if(matchMedia('(hover: none), (pointer: coarse)').matches) return;
+    // 모션 최소화 설정에서만 비활성화 — 터치 기기에서도 손가락 위치에 빛 표시
     if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const glow=document.createElement('div');glow.className='cursor-glow';
     const dot=document.createElement('div');dot.className='cursor-dot';
     document.body.append(glow,dot);
     let mx=innerWidth/2,my=innerHeight/2,gx=mx,gy=my,shown=false;
-    addEventListener('mousemove',e=>{
-      mx=e.clientX;my=e.clientY;
+    function moveTo(x,y){
+      mx=x;my=y;
       if(!shown){shown=true;gx=mx;gy=my;glow.style.opacity=1;dot.style.opacity=1;}
       dot.style.left=mx+'px';dot.style.top=my+'px';
-    });
-    // 창 밖으로 나가면 숨김
-    document.documentElement.addEventListener('mouseleave',()=>{shown=false;glow.style.opacity=0;dot.style.opacity=0;});
+    }
+    function hide(){shown=false;glow.style.opacity=0;dot.style.opacity=0;}
+    // 마우스
+    addEventListener('mousemove',e=>moveTo(e.clientX,e.clientY));
+    document.documentElement.addEventListener('mouseleave',hide);
     // 링크·버튼·카드 위에서는 점 → 링으로 변형
     addEventListener('mouseover',e=>{
       dot.classList.toggle('on-link',!!e.target.closest('a,button,.card,.acc-head,.slider-dot'));
     });
+    // 터치 — 손가락이 닿는 지점에도 동일한 글로우, 떼면 사라짐 (스크롤 방해 없이 passive)
+    addEventListener('touchstart',e=>{const t=e.touches[0];if(t)moveTo(t.clientX,t.clientY);},{passive:true});
+    addEventListener('touchmove',e=>{const t=e.touches[0];if(t)moveTo(t.clientX,t.clientY);},{passive:true});
+    addEventListener('touchend',hide);
+    addEventListener('touchcancel',hide);
     // 글로우는 살짝 늦게 따라오도록 보간
     (function loop(){
       gx+=(mx-gx)*.08;gy+=(my-gy)*.08;
@@ -248,5 +254,35 @@
       return d;
     });
     wrap.appendChild(dotwrap);
+
+    // 터치 스와이프로 넘기기 (왼쪽 → 다음, 오른쪽 → 이전)
+    let sx=0,sy=0,swiping=false;
+    wrap.addEventListener('touchstart',e=>{const t=e.touches[0];sx=t.clientX;sy=t.clientY;swiping=true;},{passive:true});
+    wrap.addEventListener('touchend',e=>{
+      if(!swiping) return; swiping=false;
+      const t=e.changedTouches[0]; const dx=t.clientX-sx, dy=t.clientY-sy;
+      if(Math.abs(dx)>40 && Math.abs(dx)>Math.abs(dy)){ e.stopPropagation(); go(dx<0?idx+1:idx-1); }
+    },{passive:true});
+
     return wrap;
   }
+
+// ===== contact: 메시지 글자수 카운터 + 이메일 복사 =====
+  (function(){
+    const ta=document.querySelector('.cc-form textarea[name="body"]');
+    const cnt=document.getElementById('ccCount');
+    if(ta&&cnt){ const upd=()=>cnt.textContent=ta.value.length; ta.addEventListener('input',upd); upd(); }
+    document.querySelectorAll('.cc-copy').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const txt=btn.getAttribute('data-copy')||'';
+        const ko=btn.querySelector('.ko'), en=btn.querySelector('.en');
+        const done=()=>{
+          btn.classList.add('copied');
+          if(ko)ko.textContent='복사됨'; if(en)en.textContent='Copied';
+          setTimeout(()=>{ btn.classList.remove('copied'); if(ko)ko.textContent='복사'; if(en)en.textContent='Copy'; },1500);
+        };
+        if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done).catch(done); }
+        else { done(); }
+      });
+    });
+  })();
