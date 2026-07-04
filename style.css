@@ -119,11 +119,11 @@
   /* ============ ABOUT ============ */
   #about{overflow:hidden}
   .about-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:clamp(30px,5vw,64px);align-items:center}
-  .about-eyebrow{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:.05em;display:block;margin-bottom:18px}
-  .about-quote{font-family:var(--display);font-weight:800;color:var(--txt-strong);font-size:clamp(22px,2.8vw,33px);line-height:1.4;letter-spacing:-.015em;margin-bottom:30px;word-break:keep-all}
+  .about-eyebrow{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:.05em;display:block;margin-bottom:34px}
+  .about-quote{font-family:var(--display);font-weight:800;color:var(--txt-strong);font-size:clamp(22px,2.8vw,33px);line-height:1.4;letter-spacing:-.015em;margin-bottom:44px;word-break:keep-all}
   .about-prose p{font-family:var(--sans);color:var(--txt-mid);font-size:14.5px;line-height:1.9;letter-spacing:-.01em;margin-bottom:16px;max-width:640px;word-break:keep-all}
   .about-prose p:last-child{margin-bottom:0}
-  .about-card{background:var(--bg-panel);border:1px solid var(--line);border-radius:18px;padding:clamp(24px,3vw,34px);text-align:center}
+  .about-card{background:linear-gradient(180deg,rgba(79,140,255,.09),rgba(79,140,255,.02));border-radius:18px;padding:clamp(24px,3vw,34px);text-align:center}
   .about-photo{position:relative;width:100%;max-width:300px;margin:0 auto 22px;aspect-ratio:1/1.05;border-radius:14px;overflow:hidden;
     box-shadow:0 0 0 1px var(--line),0 22px 60px -22px var(--accent-glow)}
   .about-photo img{width:100%;height:100%;object-fit:cover;display:block}
@@ -197,7 +197,6 @@
 
   /* ============ WORK ============ */
   .work-top{margin-bottom:60px}
-  .work-intro{max-width:760px}
   .work-intro .sec-title{margin-bottom:24px}
   .work-intro p{font-family:var(--sans);color:var(--txt-mid);font-size:15px}
 
@@ -212,6 +211,9 @@
   .work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
   .card{position:relative;border-radius:16px;overflow:hidden;background:var(--bg-panel);border:1px solid var(--line-soft);transition:.4s}
   .card:hover{transform:translateY(-6px);border-color:var(--line)}
+  /* 박스(카드·아코디언) 클릭 시 밝아지는 플래시 애니메이션 */
+  @keyframes boxFlash{0%{filter:brightness(1)}25%{filter:brightness(1.45)}100%{filter:brightness(1)}}
+  .card.flash,.acc-head.flash,.exp-col.flash{animation:boxFlash .5s ease}
   .card .cover{height:220px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
   .card .cover::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.18) 1px,transparent 1px);background-size:15px 15px;opacity:.35}
   .cover-svg{color:rgba(255,255,255,.92);fill:none;stroke:currentColor;stroke-width:1.8;
@@ -435,23 +437,22 @@
   /* ════════════════════════════════════════════════
      CURSOR FX — 마우스를 따라다니는 푸른 글로우 + 포인터
      ════════════════════════════════════════════════ */
-  .cursor-glow{position:fixed;left:0;top:0;width:480px;height:480px;border-radius:50%;
+  /* ⚠️ mix-blend-mode 는 커서가 움직일 때마다 글로우 영역을 배경과 재합성(re-blend)하게 만들어
+     마우스 이동이 느려짐 → 제거하고 일반 알파 블렌딩 사용. 이동은 transform + will-change 로
+     컴포지터에서만 처리하므로 리페인트/재합성 없음. */
+  .cursor-glow{position:fixed;left:0;top:0;width:420px;height:420px;border-radius:50%;
     pointer-events:none;z-index:95;transform:translate(-50%,-50%);opacity:0;
-    background:radial-gradient(circle,rgba(79,140,255,.24),transparent 65%);
-    mix-blend-mode:screen;transition:opacity .4s;will-change:transform}
-  html[data-theme="light"] .cursor-glow{mix-blend-mode:multiply;
-    background:radial-gradient(circle,rgba(79,140,255,.1),transparent 65%)}
+    background:radial-gradient(circle,rgba(79,140,255,.20),transparent 62%);
+    transition:opacity .4s;will-change:transform}
+  html[data-theme="light"] .cursor-glow{background:radial-gradient(circle,rgba(79,140,255,.13),transparent 62%)}
   .cursor-dot{position:fixed;left:0;top:0;width:8px;height:8px;border-radius:50%;
     pointer-events:none;z-index:1001;transform:translate(-50%,-50%);opacity:0;
     background:var(--accent);box-shadow:0 0 14px var(--accent-glow);
     transition:width .25s,height .25s,opacity .4s,background .25s;will-change:transform}
   .cursor-dot.on-link{width:16px;height:16px;background:transparent;
     border:2px solid var(--accent)}
-  /* 터치 기기에서도 손가락 위치에 글로우 표시 — 단, mix-blend-mode/큰 크기는 모바일 GPU를
-     과부하시켜 탭이 튕기므로, 터치기기에선 블렌드 제거 + 크기 축소로 가볍게 렌더 */
   @media (hover:none),(pointer:coarse),(max-width:760px){
-    .cursor-glow{width:280px;height:280px;mix-blend-mode:normal !important;
-      background:radial-gradient(circle,rgba(79,140,255,.16),transparent 62%) !important}
+    .cursor-glow{width:260px;height:260px}
   }
 
   /* ════════════════════════════════════════════════

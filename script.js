@@ -70,6 +70,34 @@
     if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit); // 폰트 로드 후 재보정
   })();
 
+// ===== work-intro: 한 문장을 한 줄에 맞추기 (넓은 화면에서만, 폭 넘치면 폰트 축소) =====
+  (function fitIntroOneLine(){
+    const p=document.querySelector('.work-intro p');
+    if(!p) return;
+    function fit(){
+      p.style.whiteSpace=''; p.style.fontSize='';
+      const avail=p.parentElement.clientWidth;
+      if(avail<720) return;                       // 좁은 화면(모바일)에선 자연 줄바꿈 유지
+      p.style.whiteSpace='nowrap';
+      const base=parseFloat(getComputedStyle(p).fontSize);
+      const r=document.createRange(); r.selectNodeContents(p);
+      const textW=r.getBoundingClientRect().width;
+      if(textW>avail) p.style.fontSize=(base*avail/textW).toFixed(2)+'px';
+    }
+    fit();
+    addEventListener('resize',fit);
+    ['b-ko','b-en'].forEach(function(id){var b=document.getElementById(id); if(b) b.addEventListener('click',function(){setTimeout(fit,0);});});
+    if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
+  })();
+
+// ===== 박스(카드·아코디언·스킬 컬럼) 클릭 시 밝아지는 플래시 =====
+  document.querySelectorAll('.card,.acc-head,.exp-col').forEach(function(el){
+    el.addEventListener('click',function(){
+      el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+      setTimeout(function(){el.classList.remove('flash');},520);
+    });
+  });
+
 // ===== language toggle =====
   function setLang(l){
     document.body.classList.remove('lang-ko','lang-en');
