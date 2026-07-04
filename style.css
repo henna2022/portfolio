@@ -160,10 +160,9 @@
   /* ============ EXPERTISE (skills) — divided columns + code motif ============ */
   #expertise{overflow:hidden}
   .expertise-grid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);
-    border:2px solid var(--line-strong);border-radius:5px;overflow:hidden;
+    overflow:hidden;
     background:linear-gradient(180deg,rgba(255,255,255,.02),transparent)}
   .exp-col{padding:42px 34px;position:relative;z-index:1}
-  .exp-col:not(:last-of-type){border-right:2px solid var(--line-strong)}
 
   /* per-column highlighter color */
   .exp-col--1{--hl:#d6367f}
@@ -209,7 +208,6 @@
 
   @media(max-width:760px){
     .expertise-grid{grid-template-columns:1fr}
-    .exp-col:not(:last-of-type){border-right:none;border-bottom:2px solid var(--line-strong)}
     .exp-head{gap:12px}
     /* ghost code becomes a band below the stacked columns — no overlap with chips */
     .codebg{position:relative;left:auto;bottom:auto;padding:26px 0 6px 24px;font-size:10.5px;opacity:.15}
