@@ -132,7 +132,10 @@
   .about-name{font-family:var(--display);font-weight:800;color:var(--txt-strong);font-size:26px;margin-bottom:12px}
   .about-tagline{font-family:var(--sans);color:var(--txt-mid);font-size:13.5px;line-height:1.75;letter-spacing:-.01em;margin:0 auto 20px;max-width:340px;word-break:keep-all}
   .about-info{list-style:none;display:flex;flex-direction:column;gap:8px;margin:0 auto 22px;text-align:left;max-width:340px}
-  .about-info li{font-family:var(--mono);font-size:12.5px;color:var(--txt-mid);display:flex;gap:8px;align-items:flex-start}
+  .about-info li{font-family:var(--mono);font-size:12.5px;color:var(--txt-mid);display:flex;gap:8px;align-items:flex-start;line-height:1.6}
+  .about-info .edu-text{display:flex;flex-direction:column;gap:3px}
+  .about-info .edu-text b{color:var(--txt-mid);font-weight:700}
+  .about-info .edu-text .ko,.about-info .edu-text .en{color:var(--txt-dim)}
   .about-cv{display:inline-flex;gap:8px;align-items:center;font-family:var(--mono);font-size:13px;color:var(--accent);border:1px solid var(--accent);border-radius:8px;padding:9px 18px;transition:.25s}
   .about-cv:hover{background:var(--accent);color:#fff}
   @media(max-width:820px){.about-grid{grid-template-columns:1fr}.about-card{max-width:440px;margin:0 auto}}
