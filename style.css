@@ -217,6 +217,12 @@
   .cover-svg{color:rgba(255,255,255,.92);fill:none;stroke:currentColor;stroke-width:1.8;
     stroke-linecap:round;stroke-linejoin:round;position:relative;z-index:1;display:block}
   .card .cover .cover-svg{width:84px;height:84px}
+  /* 카드 메인 커버를 이미지 슬라이더/이미지로 채움 (스와이프·화살표로 미리보기, 탭하면 상세) */
+  .card .cover .imgph{position:absolute;inset:0;min-height:0;border:none;background:none;border-radius:0}
+  .card .cover .slider{position:absolute;inset:0;height:100%;border-radius:0;background:transparent}
+  .card .cover .slider-track,.card .cover .slider-track .photo{height:100%}
+  .card .cover > .photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0}
+  .card .cover:has(.slider)::after,.card .cover:has(.photo)::after{display:none}
   .cv1{background:linear-gradient(135deg,#1e3a8a,#4f8cff)}
   .cv2{background:linear-gradient(135deg,#0e7490,#22d3ee)}
   .cv3{background:linear-gradient(135deg,#4338ca,#818cf8)}
