@@ -19,9 +19,9 @@ export const nav = [
 ];
 
 export const hero = {
-  badge: "Portfolio / AI · Robotics · Web",
+  badge: "AI · Robotics · Web",
   headline: "Building interactive learning where AI meets the physical world.",
-  sub: "From crop-diagnosis AI to a rabbit-shaped care robot — I build things that leave the screen, then teach people how they work.",
+  sub: "I'd rather show you than tell you — and I love the moment something finally clicks.",
 };
 
 export type BioWord = { w: string; s: boolean };
