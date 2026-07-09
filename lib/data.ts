@@ -364,7 +364,7 @@ export const activities: Activity[] = [
     role: "University mentor for youth learning",
   },
   {
-    period: "2025.07 — Present",
+    period: "2025.07 — 2025.08",
     title: "Youth SW-Donghaeng Hackathon",
     role: "University mentor · planning & development",
   },

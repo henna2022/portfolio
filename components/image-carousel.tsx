@@ -57,7 +57,7 @@ export function ImageCarousel({
   }
 
   return (
-    <div className="group/carousel relative aspect-[16/10] overflow-hidden rounded-2xl bg-sand-deep">
+    <div className="group/carousel relative aspect-[4/3] overflow-hidden rounded-2xl bg-sand-deep">
       <div
         ref={ref}
         onScroll={onScroll}
@@ -77,6 +77,14 @@ export function ImageCarousel({
             alt={`${alt} — ${i + 1}`}
             loading="lazy"
             draggable={false}
+            onLoad={(e) => {
+              // Portrait shots (certificates) show in full; landscape fills.
+              const im = e.currentTarget;
+              if (im.naturalHeight > im.naturalWidth) {
+                im.classList.remove("object-cover");
+                im.classList.add("object-contain");
+              }
+            }}
             className="h-full w-full shrink-0 snap-center select-none object-cover"
           />
         ))}
