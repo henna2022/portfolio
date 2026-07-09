@@ -402,7 +402,7 @@ export type Award = {
   result: string;
   role: string;
   topic: string;
-  photo?: string;
+  photos: string[];
 };
 
 export const awards: Award[] = [
@@ -414,7 +414,7 @@ export const awards: Award[] = [
     role: "PM & Developer",
     topic:
       "YAKMOA, a multimodal-AI medication-management service for digitally vulnerable users, built on the ATO care robot.",
-    photo: "/portfolio_images/awards/award1_gh.jpg",
+    photos: ["/portfolio_images/awards/award1_gh.jpg"],
   },
   {
     year: "2025",
@@ -424,7 +424,10 @@ export const awards: Award[] = [
     role: "PM & Developer",
     topic:
       "An AI docent concept for museum–community co-prosperity, connecting exhibitions with the local community.",
-    photo: "/portfolio_images/awards/award2_science_museum_1.jpg",
+    photos: [
+      "/portfolio_images/awards/award2_science_museum_1.jpg",
+      "/portfolio_images/awards/award2_science_museum_2.png",
+    ],
   },
   {
     year: "2024",
@@ -434,7 +437,7 @@ export const awards: Award[] = [
     role: "PM & Developer",
     topic:
       "A plant-disease diagnosis app powered by a VGG16 image classifier (Korea IT Businesswomen's Association).",
-    photo: "/portfolio_images/awards/award3_ict_sw.png",
+    photos: ["/portfolio_images/awards/award3_ict_sw.png"],
   },
   {
     year: "2024",
@@ -444,7 +447,10 @@ export const awards: Award[] = [
     role: "PM & Developer",
     topic:
       "A generative-AI tech start-up idea, hosted by the Ministry of Science and ICT.",
-    photo: "/portfolio_images/awards/award4_chungnam_1.jpg",
+    photos: [
+      "/portfolio_images/awards/award4_chungnam_1.jpg",
+      "/portfolio_images/awards/award4_chungnam_2.jpg",
+    ],
   },
   {
     year: "2024",
@@ -453,7 +459,10 @@ export const awards: Award[] = [
     result: "3rd place",
     role: "PM & Developer",
     topic: "An early-stage start-up pitch audition at Hankyong National University.",
-    photo: "/portfolio_images/awards/hknu_photo.jpg",
+    photos: [
+      "/portfolio_images/awards/hknu_photo.jpg",
+      "/portfolio_images/awards/hknu_startup.png",
+    ],
   },
 ];
 
