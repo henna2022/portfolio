@@ -52,7 +52,7 @@ export function Hero() {
 
         <motion.h1
           variants={child}
-          className="font-display max-w-4xl text-[2.75rem] font-semibold leading-[0.98] tracking-[-0.045em] text-ink sm:text-6xl md:text-7xl"
+          className="font-display text-balance max-w-4xl text-[2.75rem] font-semibold leading-[1.05] tracking-[-0.015em] text-ink sm:text-6xl md:text-7xl"
         >
           {hero.headline}
         </motion.h1>

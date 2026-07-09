@@ -21,7 +21,7 @@ export const nav = [
 export const hero = {
   badge: "Portfolio / AI · Robotics · Web",
   headline: "Building interactive learning where AI meets the physical world.",
-  sub: "I turn ideas into working services — from crop-diagnosis models and IoT devices to AI education web apps running live in a museum.",
+  sub: "From crop-diagnosis AI to a rabbit-shaped care robot — I build things that leave the screen, then teach people how they work.",
 };
 
 export type BioWord = { w: string; s: boolean };
@@ -198,7 +198,7 @@ export const projects: Project[] = [
     kicker: "Companion & medication-care robot",
     desc: "A rabbit-shaped companion robot extended with the YAKMOA multimodal medication-care service.",
     year: "2026",
-    role: "Team MAKENEW — hardware & AI",
+    role: "Solo — planning, development, hardware & AI",
     tags: ["ESP32", "Arduino/C++", "GC9A01 LCD", "Servo / PIR / Touch", "3D Printing", "Multimodal AI"],
     stat: "Award",
     overview:
@@ -220,7 +220,7 @@ export const projects: Project[] = [
     kicker: "Docent & part-timer management",
     desc: "A staff app for scheduling, rosters, live duty status, and notices.",
     year: "2026",
-    role: "Development",
+    role: "Solo — planning & development",
     tags: ["React", "Vite", "Firebase / Firestore", "Capacitor"],
     image: "/portfolio_images/projects/raimapp_main.png",
     imageFit: "contain",
@@ -246,7 +246,7 @@ export const projects: Project[] = [
     kicker: "Museum × Yangpyeong Education Office",
     desc: "A hands-on program where students experience IoT smart farming and AI crop diagnosis.",
     year: "2026",
-    role: "Co-design · development",
+    role: "Solo — planning & development",
     tags: ["YOLO", "Weather API", "Server", "Web App", "IoT"],
     overview:
       "A hands-on education program, co-designed with Yangpyeong Education Office, where students experience an IoT smart farm and AI crop diagnosis with a full server and web-app environment.",
@@ -265,7 +265,7 @@ export const projects: Project[] = [
     kicker: "Museum 2nd anniversary",
     desc: "A four-cut photo booth with museum robots; AI recommends the best shot.",
     year: "2026",
-    role: "Development (in progress)",
+    role: "Solo — planning & development (in progress)",
     tags: ["JavaScript", "AI image selection", "QR", "Web App"],
     overview:
       "Visitors take four-cut photos with the museum robots and grab them via QR code, while an AI algorithm recommends the best-looking shot. Built for the museum's 2nd-anniversary event.",
@@ -284,7 +284,7 @@ export const projects: Project[] = [
     kicker: "Online exhibition twin",
     desc: "An online metaverse version of the permanent exhibition.",
     year: "2026",
-    role: "Development (in progress)",
+    role: "Solo — planning & development (in progress)",
     tags: ["Metaverse", "Web", "3D"],
     overview:
       "An online metaverse version of the permanent exhibition for visitors who cannot book an on-site slot — expanding access by reconstructing the space and visitor flow in a metaverse format.",
@@ -366,7 +366,7 @@ export const awards: Award[] = [
     title: "GH Youth Build-Up Start-up Competition",
     detail: "Prize — YAKMOA medication-management service (team MAKENEW)",
     result: "Prize winner",
-    role: "Team MAKENEW — hardware & AI",
+    role: "PM & Developer",
     topic:
       "YAKMOA, a multimodal-AI medication-management service for digitally vulnerable users, built on the ATO care robot.",
     photo: "/portfolio_images/awards/award1_gh.jpg",
@@ -376,7 +376,7 @@ export const awards: Award[] = [
     title: "Science Museum & Community AI Hackathon",
     detail: "2nd place — AI docent for museum–community co-prosperity",
     result: "2nd place",
-    role: "Team project",
+    role: "PM & Developer",
     topic:
       "An AI docent concept for museum–community co-prosperity, connecting exhibitions with the local community.",
     photo: "/portfolio_images/awards/award2_science_museum_1.jpg",
@@ -386,7 +386,7 @@ export const awards: Award[] = [
     title: "ICT·SW Women's Start-up Competition",
     detail: "3rd place — VGG16 plant-disease diagnosis app",
     result: "3rd place",
-    role: "Developer",
+    role: "PM & Developer",
     topic:
       "A plant-disease diagnosis app powered by a VGG16 image classifier (Korea IT Businesswomen's Association).",
     photo: "/portfolio_images/awards/award3_ict_sw.png",
@@ -396,7 +396,7 @@ export const awards: Award[] = [
     title: "Chungnam Generative AI Start-up Idea Competition",
     detail: "3rd place — Ministry of Science and ICT",
     result: "3rd place",
-    role: "Idea & prototype",
+    role: "PM & Developer",
     topic:
       "A generative-AI tech start-up idea, hosted by the Ministry of Science and ICT.",
     photo: "/portfolio_images/awards/award4_chungnam_1.jpg",
@@ -406,7 +406,7 @@ export const awards: Award[] = [
     title: "HKNU StarUP&GO Audition",
     detail: "3rd place — start-up competition",
     result: "3rd place",
-    role: "Founder pitch",
+    role: "PM & Developer",
     topic: "An early-stage start-up pitch audition at Hankyong National University.",
     photo: "/portfolio_images/awards/hknu_photo.jpg",
   },
