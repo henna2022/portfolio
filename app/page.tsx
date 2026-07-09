@@ -6,6 +6,7 @@ import { MarqueeStrip } from "@/components/marquee-strip";
 import { SkillsDrag } from "@/components/skills-drag";
 import { InfoBand } from "@/components/info-band";
 import { Experience } from "@/components/experience";
+import { Activities } from "@/components/activities";
 import { Awards } from "@/components/awards";
 import { Contact } from "@/components/contact";
 
@@ -20,6 +21,7 @@ export default function Home() {
       <SkillsDrag />
       <InfoBand />
       <Experience />
+      <Activities />
       <Awards />
       <Contact />
     </main>

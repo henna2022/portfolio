@@ -351,6 +351,50 @@ export const experience = [
   },
 ];
 
+export type Activity = {
+  period: string;
+  title: string;
+  role: string;
+};
+
+export const activities: Activity[] = [
+  {
+    period: "2026.02 — Present",
+    title: "Geuruteogi Learning Mentoring 'Gachi-Edu'",
+    role: "University mentor for youth learning",
+  },
+  {
+    period: "2025.07 — Present",
+    title: "Youth SW-Donghaeng Hackathon",
+    role: "University mentor · planning & development",
+  },
+  {
+    period: "2025.06 — 2025.12",
+    title: "CIEE SEOULMATE",
+    role: "Mentor for international students",
+  },
+  {
+    period: "2024.09 — 2024.12",
+    title: "SW-Donghaeng Project",
+    role: "Youth mentor for semester-long student projects",
+  },
+  {
+    period: "2024.07 — 2025.02",
+    title: "Hankyong Start-up Club (MAKENEW)",
+    role: "Team leader",
+  },
+  {
+    period: "2024.07 — 2024.08",
+    title: "LS Dream Science Class, 20th",
+    role: "Lead instructor for an elementary science program",
+  },
+  {
+    period: "2024.03 — 2026.02",
+    title: "KB LA School",
+    role: "High-school mentor · math & chemistry (online)",
+  },
+];
+
 export type Award = {
   year: string;
   title: string;
