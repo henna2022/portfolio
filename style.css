@@ -480,3 +480,22 @@
     #ppBody .imgph{min-height:200px}
     .cover-img.contain{padding:20px}
   }
+
+  /* ── 화면 흐름도(flow-fig): 테마(라이트·다크) × 언어(한/영) 4조합 전환 ──
+     두 가지 클래스 표기를 모두 지원: (f-ko/f-en · f-light/f-dark) 및 (flow-ko/flow-en · flow-l/flow-d) */
+  .flow-fig{margin:18px 0 6px;padding:clamp(12px,2.5vw,20px);border:1px solid var(--line-soft);border-radius:16px;background:var(--bg-panel)}
+  .flow-img{display:none;width:100%;height:auto}
+  /* 기본(다크 테마): 현재 언어의 다크 도식 표시 */
+  body.lang-ko .flow-img.f-ko.f-dark,
+  body.lang-ko .flow-img.flow-ko.flow-d{display:block}
+  body.lang-en .flow-img.f-en.f-dark,
+  body.lang-en .flow-img.flow-en.flow-d{display:block}
+  /* 라이트 테마: 다크 숨기고 라이트 도식 표시 */
+  html[data-theme="light"] body.lang-ko .flow-img.f-ko.f-dark,
+  html[data-theme="light"] body.lang-ko .flow-img.flow-ko.flow-d,
+  html[data-theme="light"] body.lang-en .flow-img.f-en.f-dark,
+  html[data-theme="light"] body.lang-en .flow-img.flow-en.flow-d{display:none}
+  html[data-theme="light"] body.lang-ko .flow-img.f-ko.f-light,
+  html[data-theme="light"] body.lang-ko .flow-img.flow-ko.flow-l{display:block}
+  html[data-theme="light"] body.lang-en .flow-img.f-en.f-light,
+  html[data-theme="light"] body.lang-en .flow-img.flow-en.flow-l{display:block}
