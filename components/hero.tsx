@@ -2,6 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import { hero, person } from "@/lib/data";
+import { assetPath } from "@/lib/asset";
 import { ArrowIcon, GridIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
@@ -32,7 +33,7 @@ export function Hero() {
           className="mb-6 flex items-center gap-3 rounded-full border border-ink/10 bg-sand/50 py-1.5 pl-1.5 pr-4"
         >
           <img
-            src={person.photo}
+            src={assetPath(person.photo)}
             alt="Juwon Lee"
             className="h-9 w-9 rounded-full object-cover object-center"
           />

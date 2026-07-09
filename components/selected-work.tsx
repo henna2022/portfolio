@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { projects, type Project } from "@/lib/data";
+import { assetPath } from "@/lib/asset";
 import { ArrowIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
@@ -34,7 +35,7 @@ function CardMedia({ p }: { p: Project }) {
     <div className="relative mb-5 aspect-[16/10] overflow-hidden rounded-2xl bg-sand-deep">
       {p.image ? (
         <img
-          src={p.image}
+          src={assetPath(p.image)}
           alt={p.title}
           loading="lazy"
           className={`h-full w-full transition-transform duration-500 group-hover:scale-[1.04] ${

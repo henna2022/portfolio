@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import type { Project } from "@/lib/data";
+import { assetPath } from "@/lib/asset";
 import { ArrowIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
@@ -92,7 +93,7 @@ export function ProjectDetail({
       >
         {hero ? (
           <img
-            src={hero}
+            src={assetPath(hero)}
             alt={p.title}
             className={
               heroContain
@@ -169,12 +170,12 @@ export function ProjectDetail({
           </p>
           <div className="mx-auto mt-6 max-w-[620px] overflow-hidden rounded-3xl border border-ink/10">
             <img
-              src={p.flowImage.light}
+              src={assetPath(p.flowImage.light)}
               alt={`${p.title} architecture flow`}
               className="block w-full dark:hidden"
             />
             <img
-              src={p.flowImage.dark}
+              src={assetPath(p.flowImage.dark)}
               alt={`${p.title} architecture flow`}
               className="hidden w-full dark:block"
             />
@@ -221,7 +222,7 @@ export function ProjectDetail({
               className="overflow-hidden rounded-4xl bg-sand-deep"
             >
               <img
-                src={src}
+                src={assetPath(src)}
                 alt={p.title}
                 loading="lazy"
                 className="w-full object-cover"

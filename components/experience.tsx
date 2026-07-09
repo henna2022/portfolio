@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { experience } from "@/lib/data";
+import { assetPath } from "@/lib/asset";
 import { ease } from "@/lib/motion";
 
 export function Experience() {
@@ -56,7 +57,7 @@ export function Experience() {
                       className="aspect-[3/4] overflow-hidden rounded-2xl bg-sand-deep"
                     >
                       <img
-                        src={src}
+                        src={assetPath(src)}
                         alt={`${e.org} — on site`}
                         loading="lazy"
                         className="h-full w-full object-cover"

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { awards } from "@/lib/data";
+import { assetPath } from "@/lib/asset";
 import { ArrowIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
@@ -93,7 +94,7 @@ export function Awards() {
                       {a.photo ? (
                         <div className="overflow-hidden rounded-2xl bg-sand-deep">
                           <img
-                            src={a.photo}
+                            src={assetPath(a.photo)}
                             alt={`${a.title} — competition`}
                             loading="lazy"
                             className="h-full max-h-72 w-full object-cover"

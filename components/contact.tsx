@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { person } from "@/lib/data";
+import { assetPath } from "@/lib/asset";
 import { ArrowIcon, GithubIcon, LinkedinIcon, MailIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
@@ -40,7 +41,7 @@ export function Contact() {
           transition={{ duration: 0.7, ease }}
         >
           <img
-            src={person.photo}
+            src={assetPath(person.photo)}
             alt="Juwon Lee"
             className="h-14 w-14 rounded-2xl object-cover object-[center_28%]"
           />

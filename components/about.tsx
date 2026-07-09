@@ -9,6 +9,7 @@ import {
   type MotionValue,
 } from "framer-motion";
 import { about } from "@/lib/data";
+import { assetPath } from "@/lib/asset";
 import { ease } from "@/lib/motion";
 
 function Word({
@@ -72,7 +73,7 @@ export function About() {
           className="absolute -inset-3 rounded-[2.4rem] bg-lime/15 blur-2xl"
         />
         <img
-          src={about.photo}
+          src={assetPath(about.photo)}
           alt="Juwon Lee"
           className="relative h-64 w-64 rounded-[2rem] object-cover object-[center_28%] shadow-[0_30px_60px_-20px_rgba(34,33,30,0.35)] sm:h-72 sm:w-72"
         />
