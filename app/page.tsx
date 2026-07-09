@@ -1,0 +1,27 @@
+import { Header } from "@/components/header";
+import { Hero } from "@/components/hero";
+import { About } from "@/components/about";
+import { SelectedWork } from "@/components/selected-work";
+import { MarqueeStrip } from "@/components/marquee-strip";
+import { SkillsDrag } from "@/components/skills-drag";
+import { InfoBand } from "@/components/info-band";
+import { Experience } from "@/components/experience";
+import { Awards } from "@/components/awards";
+import { Contact } from "@/components/contact";
+
+export default function Home() {
+  return (
+    <main>
+      <Header />
+      <Hero />
+      <About />
+      <SelectedWork />
+      <MarqueeStrip />
+      <SkillsDrag />
+      <InfoBand />
+      <Experience />
+      <Awards />
+      <Contact />
+    </main>
+  );
+}

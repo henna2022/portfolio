@@ -1,0 +1,118 @@
+"use client";
+
+import Link from "next/link";
+import { motion, type Variants } from "framer-motion";
+import { projects, type Project } from "@/lib/data";
+import { ArrowIcon } from "./icons";
+import { ease } from "@/lib/motion";
+
+const MotionLink = motion(Link);
+
+const parent: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08 } },
+};
+
+const card: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
+};
+
+function initials(title: string) {
+  return title
+    .replace(/[^A-Za-z ]/g, "")
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join("");
+}
+
+function CardMedia({ p }: { p: Project }) {
+  const contain = p.imageFit === "contain";
+  return (
+    <div className="relative mb-5 aspect-[16/10] overflow-hidden rounded-2xl bg-sand-deep">
+      {p.image ? (
+        <img
+          src={p.image}
+          alt={p.title}
+          loading="lazy"
+          className={`h-full w-full transition-transform duration-500 group-hover:scale-[1.04] ${
+            contain ? "object-contain p-8" : "object-cover"
+          }`}
+        />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-sand-deep to-sand">
+          <span className="font-display text-5xl font-semibold text-ink/15">
+            {initials(p.title)}
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function SelectedWork() {
+  return (
+    <section id="work" className="mx-auto max-w-shell px-6 py-16">
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, ease }}
+        className="font-display mb-10 text-2xl font-semibold tracking-[-0.02em] sm:text-4xl sm:whitespace-nowrap"
+      >
+        A compact index of recent work.
+      </motion.h2>
+
+      <motion.div
+        variants={parent}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-8%" }}
+        className="grid gap-4 sm:grid-cols-2"
+      >
+        {projects.map((p) => (
+          <MotionLink
+            key={p.slug}
+            href={`/work/${p.slug}`}
+            variants={card}
+            whileHover={{ y: -6 }}
+            transition={{ type: "spring", stiffness: 300, damping: 22 }}
+            className="group flex cursor-pointer flex-col rounded-4xl bg-sand/70 p-5 text-ink"
+          >
+            <CardMedia p={p} />
+
+            <div className="flex flex-1 flex-col px-2 pb-2">
+              <div className="flex items-start justify-between">
+                <span className="text-xs font-medium text-muted">{p.n}</span>
+                <span className="inline-flex items-center gap-1 text-xs font-medium text-muted transition-colors group-hover:text-ink">
+                  View
+                  <ArrowIcon className="h-3.5 w-3.5 -rotate-45 transition-transform group-hover:rotate-0" />
+                </span>
+              </div>
+
+              <h3 className="font-display mt-1 text-2xl font-semibold">
+                {p.title}
+              </h3>
+              <p className="mt-1 text-xs text-muted">{p.kicker}</p>
+              <p className="mt-3 text-sm leading-relaxed text-ink/70">
+                {p.desc}
+              </p>
+              <div className="mt-4 flex flex-wrap gap-1.5">
+                {p.tags.slice(0, 4).map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-full bg-sand-deep px-2.5 py-1 text-[11px] text-ink/60"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </MotionLink>
+        ))}
+      </motion.div>
+    </section>
+  );
+}
