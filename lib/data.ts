@@ -370,6 +370,8 @@ export type Activity = {
   period: string;
   title: string;
   role: string;
+  desc: string;
+  photos: string[];
 };
 
 export const activities: Activity[] = [
@@ -377,36 +379,65 @@ export const activities: Activity[] = [
     period: "2026.02 — Present",
     title: "Geuruteogi Learning Mentoring 'Gachi-Edu'",
     role: "University mentor for youth learning",
+    desc: "A university mentoring program where I coach teenagers one-on-one on study habits and learning strategy through regular sessions.",
+    photos: ["/portfolio_images/activities/act_geuruteogi.jpg"],
   },
   {
     period: "2025.07 — 2025.08",
     title: "Youth SW-Donghaeng Hackathon",
     role: "University mentor · planning & development",
+    desc: "Mentored youth teams through a software hackathon as a university mentor, guiding both planning and development from idea to working demo.",
+    photos: [
+      "/portfolio_images/activities/2025swpj_1.jpg",
+      "/portfolio_images/activities/2025swpj_2.jpg",
+      "/portfolio_images/activities/2025swpj_3.jpg",
+    ],
   },
   {
     period: "2025.06 — 2025.12",
     title: "CIEE SEOULMATE",
     role: "Mentor for international students",
+    desc: "Buddy-mentor for international exchange students in Seoul — language exchange, culture, and settling-in support across a semester.",
+    photos: ["/portfolio_images/activities/act_ciee.jpg"],
   },
   {
     period: "2024.09 — 2024.12",
     title: "SW-Donghaeng Project",
     role: "Youth mentor for semester-long student projects",
+    desc: "A semester-long mentorship where I guided student software projects from topic selection to final presentation.",
+    photos: [
+      "/portfolio_images/activities/2024swpj_1.jpg",
+      "/portfolio_images/activities/2024swpj_2.jpg",
+    ],
   },
   {
     period: "2024.07 — 2025.02",
     title: "Hankyong Start-up Club (MAKENEW)",
     role: "Team leader",
+    desc: "Led team MAKENEW as team leader — the start-up club team behind our award-winning plant-disease diagnosis app and the YAKMOA medication-care service.",
+    photos: [
+      "/portfolio_images/activities/act_makenew1.jpg",
+      "/portfolio_images/activities/act_makenew2.jpg",
+      "/portfolio_images/activities/act_makenew3.jpg",
+    ],
   },
   {
     period: "2024.07 — 2024.08",
     title: "LS Dream Science Class, 20th",
     role: "Lead instructor for an elementary science program",
+    desc: "Lead instructor for an elementary science program, designing and running hands-on experiments for kids.",
+    photos: [
+      "/portfolio_images/activities/act_ls1.jpg",
+      "/portfolio_images/activities/act_ls2.jpg",
+      "/portfolio_images/activities/act_ls3.jpg",
+    ],
   },
   {
     period: "2024.03 — 2026.02",
     title: "KB LA School",
     role: "High-school mentor · math & chemistry (online)",
+    desc: "Two years as a dedicated online mentor for a high-school student — math and chemistry, week in and week out.",
+    photos: [],
   },
 ];
 
