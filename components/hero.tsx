@@ -2,7 +2,10 @@
 
 import { motion, type Variants } from "framer-motion";
 import { hero, person } from "@/lib/data";
+import { heroKo, personKo } from "@/lib/data-ko";
 import { assetPath } from "@/lib/asset";
+import { useLocale } from "@/lib/locale";
+import { dict } from "@/lib/i18n";
 import { ArrowIcon, GridIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
@@ -17,6 +20,9 @@ const child: Variants = {
 };
 
 export function Hero() {
+  const { locale } = useLocale();
+  const t = dict[locale];
+  const ko = locale === "ko";
   return (
     <section
       id="top"
@@ -38,7 +44,7 @@ export function Hero() {
             className="h-9 w-9 rounded-full object-cover object-center"
           />
           <span className="text-sm font-medium text-ink/80">
-            Juwon Lee · {person.role.split(" · ")[0]}
+            Juwon Lee · {(ko ? personKo.role : person.role).split(" · ")[0]}
           </span>
         </motion.div>
 
@@ -54,14 +60,14 @@ export function Hero() {
           variants={child}
           className="font-display text-balance max-w-4xl text-[2.75rem] font-semibold leading-[1.05] tracking-[-0.015em] text-ink sm:text-6xl md:text-7xl"
         >
-          {hero.headline}
+          {ko ? heroKo.headline : hero.headline}
         </motion.h1>
 
         <motion.p
           variants={child}
           className="mt-7 max-w-xl text-base leading-relaxed text-muted sm:text-lg"
         >
-          {hero.sub}
+          {ko ? heroKo.sub : hero.sub}
         </motion.p>
 
         <motion.div
@@ -74,7 +80,7 @@ export function Hero() {
             href="#work"
             className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-cream"
           >
-            View selected work
+            {t.viewWork}
             <ArrowIcon className="text-lime transition-transform group-hover:translate-x-0.5" />
           </motion.a>
           <motion.a
@@ -83,7 +89,7 @@ export function Hero() {
             href="#about"
             className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-6 py-3.5 text-sm font-medium text-ink"
           >
-            Read profile
+            {t.readProfile}
           </motion.a>
         </motion.div>
       </motion.div>

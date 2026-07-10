@@ -6,10 +6,11 @@ export const person = {
   github: "https://github.com/henna2022",
   githubHandle: "henna2022",
   linkedin: "https://www.linkedin.com/in/juwon-lee-677b702b3/",
-  status: "Available",
   photo: "/portfolio_images/profile/juwonlee.jpg",
-  resume: "/resume.pdf",
-  cv: "/cv.pdf",
+  resume: "/files/Juwon_Lee_Resume_EN.pdf",
+  cv: "/files/Juwon_Lee_CV_EN.pdf",
+  resumeKo: "/files/Juwon_Lee_Resume_KO.pdf",
+  cvKo: "/files/Juwon_Lee_CV_KO.pdf",
 };
 
 export const sections = [
@@ -26,7 +27,7 @@ export const sections = [
 export const hero = {
   badge: "AI · Robotics · Web",
   headline: "Building interactive learning where AI meets the physical world.",
-  sub: "I'd rather show you than tell you — and I love the moment something finally clicks.",
+  sub: "I build AI that steps off the screen — robots, sensors, museum floors — and teach people how it works.",
 };
 
 export type BioWord = { w: string; s: boolean };
@@ -161,10 +162,9 @@ export const projects: Project[] = [
     categories: ["Web", "Education"],
     kicker: "Exhibition-linked education content",
     desc: "An interactive game where visitors restore Korean cultural heritage.",
-    year: "2025",
+    year: "2026",
     role: "Development",
     tags: ["JavaScript", "HTML/CSS", "GitHub Pages"],
-    href: "https://henna2022.github.io/ai-restoration-exhibit/",
     repo: "https://github.com/henna2022/ai-restoration-exhibit",
     image: "/portfolio_images/restorer1.jpg",
     overview:
@@ -199,6 +199,10 @@ export const projects: Project[] = [
       "Designed for offline tablet use at exhibitions.",
     ],
     flow: ["Web Speech API", "Browser TTS", "Offline PWA"],
+    flowImage: {
+      light: "/portfolio_images/flow/raimi-language-lab-flow-light.svg",
+      dark: "/portfolio_images/flow/raimi-language-lab-flow-dark.svg",
+    },
     gallery: ["/portfolio_images/projects/langlab1.jpg"],
   },
   {
@@ -223,6 +227,10 @@ export const projects: Project[] = [
       "Won a prize at the GH Youth Build-Up Start-up Competition (team MAKENEW).",
     ],
     flow: ["Sensors (PIR / touch)", "ESP32 / Arduino", "Servo + LCD expression", "YAKMOA multimodal AI"],
+    flowImage: {
+      light: "/portfolio_images/flow/ato-care-robot-flow-light.svg",
+      dark: "/portfolio_images/flow/ato-care-robot-flow-dark.svg",
+    },
   },
   {
     slug: "raim-staff-platform",
@@ -270,6 +278,10 @@ export const projects: Project[] = [
       "Students watch sensor values load and change in real time in a virtual database.",
     ],
     flow: ["IoT sensors", "Weather API", "Server", "Student web app"],
+    flowImage: {
+      light: "/portfolio_images/flow/smart-farm-education-flow-light.svg",
+      dark: "/portfolio_images/flow/smart-farm-education-flow-dark.svg",
+    },
   },
   {
     slug: "raim-photo-booth",
@@ -290,6 +302,10 @@ export const projects: Project[] = [
       "AI selects the best-looking shot among the takes.",
     ],
     flow: ["Capture 4 cuts", "AI best-shot selection", "QR delivery"],
+    flowImage: {
+      light: "/portfolio_images/flow/raim-photo-booth-flow-light.svg",
+      dark: "/portfolio_images/flow/raim-photo-booth-flow-dark.svg",
+    },
   },
   {
     slug: "raim-metaverse",
@@ -378,12 +394,12 @@ export const activities: Activity[] = [
   {
     period: "2026.02 — Present",
     title: "Geuruteogi Learning Mentoring 'Gachi-Edu'",
-    role: "University mentor for youth learning",
-    desc: "A university mentoring program where I coach teenagers one-on-one on study habits and learning strategy through regular sessions.",
+    role: "University mentor for youth learning (6th cohort)",
+    desc: "A university mentoring program where I coach teenagers on study habits and self-directed learning, tailored to each mentee's level.",
     photos: ["/portfolio_images/activities/act_geuruteogi.jpg"],
   },
   {
-    period: "2025.07 — 2025.08",
+    period: "2025.07",
     title: "Youth SW-Donghaeng Hackathon",
     role: "University mentor · planning & development",
     desc: "Mentored youth teams through a software hackathon as a university mentor, guiding both planning and development from idea to working demo.",
@@ -397,14 +413,14 @@ export const activities: Activity[] = [
     period: "2025.06 — 2025.12",
     title: "CIEE SEOULMATE",
     role: "Mentor for international students",
-    desc: "Buddy-mentor for international exchange students in Seoul — language exchange, culture, and settling-in support across a semester.",
+    desc: "One-on-one mentoring in Korean language and culture for international students, plus planning cross-cultural exchange programs between Korean and international students.",
     photos: ["/portfolio_images/activities/act_ciee.jpg"],
   },
   {
     period: "2024.09 — 2024.12",
     title: "SW-Donghaeng Project",
     role: "Youth mentor for semester-long student projects",
-    desc: "A semester-long mentorship where I guided student software projects from topic selection to final presentation.",
+    desc: "A semester-long mentorship where students identified real social problems around them and solved them with SW/AI, guided end-to-end from idea to final deliverable.",
     photos: [
       "/portfolio_images/activities/2024swpj_1.jpg",
       "/portfolio_images/activities/2024swpj_2.jpg",
@@ -436,7 +452,7 @@ export const activities: Activity[] = [
     period: "2024.03 — 2026.02",
     title: "KB LA School",
     role: "High-school mentor · math & chemistry (online)",
-    desc: "Two years as a dedicated online mentor for a high-school student — math and chemistry, week in and week out.",
+    desc: "Two years as a dedicated online high-school mentor — Grade-11 Math I & Chemistry in 2024, Grade-10 Math in 2025 — with mentees reaching top and perfect scores.",
     photos: [],
   },
 ];

@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#0b0f1a"/>
-  <text x="31" y="45" font-family="'Space Mono','Courier New',monospace" font-size="34" font-weight="700" text-anchor="middle" fill="#f2f4f8">J<tspan fill="#4f8cff">.</tspan></text>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#22211E"/>
+  <text x="30" y="46" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="38" font-weight="700" text-anchor="middle" fill="#F5F1E8">J</text>
+  <circle cx="44" cy="43" r="5" fill="#3B82F6"/>
 </svg>

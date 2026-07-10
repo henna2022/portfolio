@@ -9,7 +9,10 @@ import {
   type MotionValue,
 } from "framer-motion";
 import { about } from "@/lib/data";
+import { aboutBioKo, aboutFactsKo } from "@/lib/data-ko";
 import { assetPath } from "@/lib/asset";
+import { useLocale } from "@/lib/locale";
+import { dict } from "@/lib/i18n";
 import { ease } from "@/lib/motion";
 
 function Word({
@@ -41,6 +44,12 @@ function Word({
 export function About() {
   const textRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
+  const { locale } = useLocale();
+  const t = dict[locale];
+  const ko = locale === "ko";
+
+  const bio = ko ? aboutBioKo : about.bio;
+  const facts = ko ? aboutFactsKo : about.facts;
 
   const { scrollYProgress } = useScroll({
     target: textRef,
@@ -49,7 +58,7 @@ export function About() {
 
   // continuous word index across all blocks
   let counter = 0;
-  const blocks = about.bio.map((block) =>
+  const blocks = bio.map((block) =>
     block.map((word) => ({ ...word, i: counter++ })),
   );
   const total = counter;
@@ -111,7 +120,7 @@ export function About() {
         transition={{ duration: 0.5 }}
         className="mt-12 rounded-full bg-ink px-7 py-3.5 text-sm font-medium text-cream"
       >
-        {open ? "See less" : "See more"}
+        {open ? t.seeLess : t.seeMore}
       </motion.button>
 
       <AnimatePresence initial={false}>
@@ -125,7 +134,7 @@ export function About() {
             className="overflow-hidden"
           >
             <dl className="mx-auto mt-10 grid max-w-2xl gap-x-10 gap-y-6 border-t border-ink/10 pt-8 text-left sm:grid-cols-2">
-              {about.facts.map((f) => (
+              {facts.map((f) => (
                 <div key={f.k}>
                   <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
                     {f.k}

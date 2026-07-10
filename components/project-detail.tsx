@@ -3,7 +3,10 @@
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import type { Project } from "@/lib/data";
+import { projectsKo } from "@/lib/data-ko";
 import { assetPath } from "@/lib/asset";
+import { useLocale } from "@/lib/locale";
+import { dict } from "@/lib/i18n";
 import { ArrowIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
@@ -23,6 +26,10 @@ export function ProjectDetail({
   prev: NavLink;
   next: NavLink;
 }) {
+  const { locale } = useLocale();
+  const t = dict[locale];
+  const koP = locale === "ko" ? projectsKo[p.slug] : undefined;
+
   const hero = p.gallery?.[0] ?? p.image;
   const heroContain = p.imageFit === "contain";
   const restGallery = (p.gallery ?? []).slice(1);
@@ -34,7 +41,7 @@ export function ProjectDetail({
         className="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-ink"
       >
         <ArrowIcon className="h-3.5 w-3.5 rotate-180" />
-        All work
+        {t.allWork}
       </Link>
 
       {/* Header */}
@@ -45,19 +52,19 @@ export function ProjectDetail({
         className="mt-8"
       >
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-          {p.category}
+          {koP?.category ?? p.category}
         </p>
         <h1 className="font-display mt-3 max-w-3xl text-4xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-5xl md:text-6xl">
           {p.title}
         </h1>
         <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
-          {p.overview}
+          {koP?.overview ?? p.overview}
         </p>
 
         <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-ink/10 pt-6">
-          <Meta k="Year" v={p.year} />
-          <Meta k="Role" v={p.role} />
-          <Meta k="Focus" v={p.kicker} />
+          <Meta k={t.year} v={p.year} />
+          <Meta k={t.role} v={koP?.role ?? p.role} />
+          <Meta k={t.focus} v={koP?.kicker ?? p.kicker} />
           <div className="flex gap-3 sm:ml-auto">
             {p.href ? (
               <a
@@ -66,7 +73,7 @@ export function ProjectDetail({
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-cream transition-transform hover:scale-[1.03]"
               >
-                Live <ArrowIcon className="h-3.5 w-3.5 text-lime" />
+                {t.live} <ArrowIcon className="h-3.5 w-3.5 text-lime" />
               </a>
             ) : null}
             {p.repo ? (
@@ -76,7 +83,7 @@ export function ProjectDetail({
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-sand"
               >
-                GitHub
+                {t.github}
               </a>
             ) : null}
           </div>
@@ -118,9 +125,11 @@ export function ProjectDetail({
           whileInView="show"
           viewport={{ once: true, margin: "-10%" }}
         >
-          <h2 className="font-display text-2xl font-semibold">Highlights</h2>
+          <h2 className="font-display text-2xl font-semibold">
+            {t.highlights}
+          </h2>
           <ul className="mt-5 space-y-3.5">
-            {p.highlights.map((h) => (
+            {(koP?.highlights ?? p.highlights).map((h) => (
               <li key={h} className="flex gap-3 text-[15px] leading-relaxed text-ink/75">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-lime" />
                 {h}
@@ -139,7 +148,7 @@ export function ProjectDetail({
         >
           <div>
             <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
-              Stack
+              {t.stack}
             </h3>
             <div className="mt-4 flex flex-wrap gap-2">
               {p.tags.map((t) => (
@@ -164,10 +173,10 @@ export function ProjectDetail({
           viewport={{ once: true, margin: "-10%" }}
           className="mt-12"
         >
-          <h2 className="font-display text-2xl font-semibold">Architecture</h2>
-          <p className="mt-1 text-sm text-muted">
-            How the app is structured — screens, roles, and data flow.
-          </p>
+          <h2 className="font-display text-2xl font-semibold">
+            {t.architecture}
+          </h2>
+          <p className="mt-1 text-sm text-muted">{t.architectureSub}</p>
           <div className="mx-auto mt-6 max-w-[620px] overflow-hidden rounded-3xl border border-ink/10">
             <img
               src={assetPath(p.flowImage.light)}
@@ -190,7 +199,7 @@ export function ProjectDetail({
           className="mt-12 rounded-4xl bg-ink p-8 text-cream sm:p-10"
         >
           <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-cream/40">
-            Architecture
+            {t.architecture}
           </h3>
           <div className="mt-6 flex flex-wrap items-center gap-3">
             {p.flow.map((step, i) => (
@@ -238,14 +247,14 @@ export function ProjectDetail({
           href={`/work/${prev.slug}`}
           className="group rounded-4xl bg-sand/60 p-6 transition-colors hover:bg-sand"
         >
-          <span className="text-xs text-muted">← Previous</span>
+          <span className="text-xs text-muted">{t.previous}</span>
           <p className="font-display mt-1 text-xl font-semibold">{prev.title}</p>
         </Link>
         <Link
           href={`/work/${next.slug}`}
           className="group rounded-4xl bg-sand/60 p-6 text-right transition-colors hover:bg-sand"
         >
-          <span className="text-xs text-muted">Next →</span>
+          <span className="text-xs text-muted">{t.next}</span>
           <p className="font-display mt-1 text-xl font-semibold">{next.title}</p>
         </Link>
       </nav>

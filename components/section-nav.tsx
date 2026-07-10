@@ -5,8 +5,12 @@ import { usePathname } from "next/navigation";
 import { useLenis } from "lenis/react";
 import { sections } from "@/lib/data";
 import { assetPath } from "@/lib/asset";
+import { useLocale } from "@/lib/locale";
+import { dict } from "@/lib/i18n";
 
 export function SectionNav() {
+  const { locale } = useLocale();
+  const t = dict[locale];
   const pathname = usePathname();
   const lenis = useLenis();
   const isHome = pathname === "/";
@@ -77,7 +81,7 @@ export function SectionNav() {
                 : "text-ink/55 hover:text-ink"
             }`}
           >
-            {s.label}
+            {t.nav[s.id] ?? s.label}
           </a>
         );
       })}

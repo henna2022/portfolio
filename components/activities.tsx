@@ -3,12 +3,18 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { activities } from "@/lib/data";
+import { activitiesKo } from "@/lib/data-ko";
 import { ImageCarousel } from "./image-carousel";
+import { useLocale } from "@/lib/locale";
+import { dict } from "@/lib/i18n";
 import { ArrowIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
 export function Activities() {
   const [open, setOpen] = useState<number | null>(null);
+  const { locale } = useLocale();
+  const t = dict[locale];
+  const ko = locale === "ko";
 
   return (
     <section id="activities" className="mx-auto max-w-shell px-6 py-16">
@@ -19,12 +25,13 @@ export function Activities() {
         transition={{ duration: 0.7, ease }}
         className="font-display mb-8 text-3xl font-semibold tracking-[-0.02em] sm:text-4xl"
       >
-        Activities
+        {t.activitiesHeading}
       </motion.h2>
 
       <div className="border-t border-ink/10">
         {activities.map((a, i) => {
           const isOpen = open === i;
+          const koA = ko ? activitiesKo[a.title] : undefined;
           return (
             <motion.div
               key={a.title}
@@ -44,10 +51,10 @@ export function Activities() {
                     {a.period}
                   </span>
                   <span className="font-display order-1 text-lg font-medium sm:order-2">
-                    {a.title}
+                    {koA?.title ?? a.title}
                   </span>
                   <span className="order-3 text-sm text-muted sm:text-right">
-                    {a.role}
+                    {koA?.role ?? a.role}
                   </span>
                 </span>
                 <motion.span
@@ -76,7 +83,7 @@ export function Activities() {
               >
                 <div className="grid gap-6 pb-8 pl-0 sm:grid-cols-[1.3fr_1fr] sm:pl-[174px]">
                   <p className="max-w-prose self-center text-sm leading-relaxed text-ink/80">
-                    {a.desc}
+                    {koA?.desc ?? a.desc}
                   </p>
 
                   {a.photos.length > 0 ? (

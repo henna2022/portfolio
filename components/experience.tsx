@@ -2,10 +2,16 @@
 
 import { motion } from "framer-motion";
 import { experience } from "@/lib/data";
+import { experienceKo } from "@/lib/data-ko";
 import { assetPath } from "@/lib/asset";
+import { useLocale } from "@/lib/locale";
+import { dict } from "@/lib/i18n";
 import { ease } from "@/lib/motion";
 
 export function Experience() {
+  const { locale } = useLocale();
+  const t = dict[locale];
+  const ko = locale === "ko";
   return (
     <section id="experience" className="mx-auto max-w-shell px-6 py-16">
       <motion.h2
@@ -15,11 +21,13 @@ export function Experience() {
         transition={{ duration: 0.7, ease }}
         className="font-display mb-10 text-3xl font-semibold tracking-[-0.02em] sm:text-4xl"
       >
-        Experience
+        {t.experienceHeading}
       </motion.h2>
 
       <div className="space-y-3">
-        {experience.map((e, i) => (
+        {experience.map((e, i) => {
+          const koE = ko ? experienceKo[i] : undefined;
+          return (
           <motion.div
             key={e.org}
             initial={{ opacity: 0, y: 24 }}
@@ -30,12 +38,14 @@ export function Experience() {
           >
             <div className="grid gap-4 sm:grid-cols-[1fr_1.6fr]">
               <div>
-                <p className="font-display text-xl font-semibold">{e.org}</p>
-                <p className="mt-1 text-sm text-muted">{e.role}</p>
+                <p className="font-display text-xl font-semibold">
+                  {koE?.org ?? e.org}
+                </p>
+                <p className="mt-1 text-sm text-muted">{koE?.role ?? e.role}</p>
                 <p className="mt-2 text-xs text-muted">{e.period}</p>
               </div>
               <ul className="space-y-2">
-                {e.points.map((pt) => (
+                {(koE?.points ?? e.points).map((pt) => (
                   <li
                     key={pt}
                     className="flex gap-2.5 text-sm leading-relaxed text-ink/75"
@@ -68,14 +78,15 @@ export function Experience() {
                       key={idx}
                       className="flex aspect-[3/4] items-center justify-center rounded-2xl border border-dashed border-ink/15 bg-sand/40 text-xs text-muted"
                     >
-                      Coming soon
+                      {t.comingSoon}
                     </div>
                   );
                 })}
               </div>
             ) : null}
           </motion.div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

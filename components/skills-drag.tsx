@@ -3,9 +3,13 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import { skills } from "@/lib/data";
+import { useLocale } from "@/lib/locale";
+import { dict } from "@/lib/i18n";
 import { ease } from "@/lib/motion";
 
 export function SkillsDrag() {
+  const { locale } = useLocale();
+  const t = dict[locale];
   const ref = useRef<HTMLDivElement>(null);
   const drag = useRef({ active: false, startX: 0, startLeft: 0 });
 
@@ -37,10 +41,10 @@ export function SkillsDrag() {
           transition={{ duration: 0.7, ease }}
           className="font-display text-3xl font-semibold tracking-[-0.02em] sm:text-4xl"
         >
-          My tech stack.
+          {t.skillsHeading}
         </motion.h2>
         <span className="hidden text-xs text-muted sm:block">
-          ← swipe / drag →
+          {t.swipeHint}
         </span>
       </div>
 

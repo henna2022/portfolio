@@ -4,7 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { projects, type Project } from "@/lib/data";
+import { projectsKo } from "@/lib/data-ko";
 import { assetPath } from "@/lib/asset";
+import { useLocale } from "@/lib/locale";
+import { dict } from "@/lib/i18n";
 import { ArrowIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
@@ -46,6 +49,9 @@ function CardMedia({ p }: { p: Project }) {
 
 export function SelectedWork() {
   const [filter, setFilter] = useState("All");
+  const { locale } = useLocale();
+  const t = dict[locale];
+  const ko = locale === "ko";
   const visible =
     filter === "All"
       ? projects
@@ -60,7 +66,7 @@ export function SelectedWork() {
         transition={{ duration: 0.7, ease }}
         className="font-display mb-6 text-2xl font-semibold tracking-[-0.02em] sm:text-4xl sm:whitespace-nowrap"
       >
-        A compact index of recent work.
+        {t.workHeading}
       </motion.h2>
 
       {/* Category filter */}
@@ -78,14 +84,16 @@ export function SelectedWork() {
                   : "border border-ink/15 text-ink/70 hover:bg-sand"
               }`}
             >
-              {f}
+              {f === "All" ? t.filterAll : f}
             </button>
           );
         })}
       </div>
 
       <motion.div layout className="grid gap-4 sm:grid-cols-2">
-          {visible.map((p) => (
+          {visible.map((p) => {
+            const koP = ko ? projectsKo[p.slug] : undefined;
+            return (
             <motion.div
               key={p.slug}
               layout
@@ -105,7 +113,7 @@ export function SelectedWork() {
                       {p.n}
                     </span>
                     <span className="inline-flex items-center gap-1 text-xs font-medium text-muted transition-colors group-hover:text-ink">
-                      View
+                      {t.view}
                       <ArrowIcon className="h-3.5 w-3.5 -rotate-45 transition-transform group-hover:rotate-0" />
                     </span>
                   </div>
@@ -113,9 +121,11 @@ export function SelectedWork() {
                   <h3 className="font-display mt-1 text-2xl font-semibold">
                     {p.title}
                   </h3>
-                  <p className="mt-1 text-xs text-muted">{p.kicker}</p>
+                  <p className="mt-1 text-xs text-muted">
+                    {koP?.kicker ?? p.kicker}
+                  </p>
                   <p className="mt-3 text-sm leading-relaxed text-ink/70">
-                    {p.desc}
+                    {koP?.desc ?? p.desc}
                   </p>
                   <div className="mt-4 flex flex-wrap gap-1.5">
                     {p.tags.slice(0, 4).map((t) => (
@@ -130,7 +140,8 @@ export function SelectedWork() {
                 </div>
               </Link>
             </motion.div>
-          ))}
+            );
+          })}
       </motion.div>
     </section>
   );

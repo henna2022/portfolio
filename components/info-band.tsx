@@ -1,11 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLocale } from "@/lib/locale";
+import { dict } from "@/lib/i18n";
 import { ease } from "@/lib/motion";
 
 const stack = ["Next.js", "YOLOv8", "ESP32", "Supabase", "Python"];
 
 export function InfoBand() {
+  const { locale } = useLocale();
+  const t = dict[locale];
   return (
     <section className="mx-auto max-w-shell px-6 py-10">
       <motion.div
@@ -17,17 +21,16 @@ export function InfoBand() {
       >
         <div className="flex flex-col justify-between gap-8">
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-cream/40">
-            Focus
+            {t.infoFocus}
           </p>
           <p className="font-display text-xl font-medium leading-snug">
-            AI education, robotics, and full-stack products that reach real
-            users.
+            {t.infoFocusText}
           </p>
         </div>
 
         <div className="flex flex-col justify-between gap-8">
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-cream/40">
-            Stack
+            {t.infoStack}
           </p>
           <div className="flex flex-wrap gap-2">
             {stack.map((s) => (
@@ -43,17 +46,9 @@ export function InfoBand() {
 
         <div className="flex flex-col justify-between gap-8">
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-cream/40">
-            Currently
+            {t.infoCurrently}
           </p>
-          <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-lime px-4 py-2 text-sm font-medium text-lime-ink">
-              <span className="h-2 w-2 rounded-full bg-lime-ink" />
-              Open to new opportunities
-            </span>
-            <p className="mt-3 text-sm text-cream/50">
-              AI &amp; Robotics Educator @ Seoul Robot &amp; AI Science Museum
-            </p>
-          </div>
+          <p className="text-sm text-cream/50">{t.infoCurrentlyText}</p>
         </div>
       </motion.div>
     </section>

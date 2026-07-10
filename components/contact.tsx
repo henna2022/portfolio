@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { person } from "@/lib/data";
 import { assetPath } from "@/lib/asset";
+import { useLocale } from "@/lib/locale";
+import { dict } from "@/lib/i18n";
 import { ArrowIcon, GithubIcon, LinkedinIcon, MailIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
@@ -15,17 +17,19 @@ const socials = [
 
 export function Contact() {
   const [today, setToday] = useState("");
+  const { locale } = useLocale();
+  const t = dict[locale];
 
   useEffect(() => {
     setToday(
-      new Date().toLocaleDateString("en-US", {
+      new Date().toLocaleDateString(locale === "ko" ? "ko-KR" : "en-US", {
         weekday: "long",
         year: "numeric",
         month: "numeric",
         day: "numeric",
       }),
     );
-  }, []);
+  }, [locale]);
 
   return (
     <footer
@@ -46,14 +50,14 @@ export function Contact() {
             className="h-14 w-14 rounded-2xl object-cover object-[center_28%]"
           />
           <h2 className="font-display mt-6 max-w-2xl text-4xl font-semibold leading-[1.05] tracking-[-0.02em] sm:text-5xl">
-            Let&apos;s build something worth learning from.
+            {t.contactHeading}
           </h2>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <a
               href={`mailto:${person.email}`}
               className="inline-flex items-center gap-2 rounded-full bg-cream px-6 py-3.5 text-sm font-medium text-ink transition-transform hover:scale-[1.03]"
             >
-              Get in touch <ArrowIcon />
+              {t.getInTouch} <ArrowIcon />
             </a>
             <a
               href={`mailto:${person.email}`}
@@ -81,7 +85,7 @@ export function Contact() {
             ))}
           </div>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-1 text-sm text-cream/50">
-            <span>© 2026 {person.name}</span>
+            <span>{t.footerCopyright}</span>
             {today ? <span>{today}</span> : null}
           </div>
         </div>
