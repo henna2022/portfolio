@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useLenis } from "lenis/react";
 import { sections } from "@/lib/data";
+import { assetPath } from "@/lib/asset";
 
 export function SectionNav() {
   const pathname = usePathname();
@@ -53,7 +54,7 @@ export function SectionNav() {
       duration: 1.15,
       easing: (t: number) => 1 - Math.pow(1 - t, 3),
     });
-    history.replaceState(null, "", id === "top" ? "/" : `/#${id}`);
+    history.replaceState(null, "", assetPath(id === "top" ? "/" : `/#${id}`));
   }
 
   return (
@@ -67,7 +68,7 @@ export function SectionNav() {
           <a
             key={s.id}
             data-id={s.id}
-            href={s.id === "top" ? "/" : `/#${s.id}`}
+            href={assetPath(s.id === "top" ? "/" : `/#${s.id}`)}
             onClick={(e) => handleClick(e, s.id)}
             aria-current={isActive ? "true" : undefined}
             className={`shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors ${

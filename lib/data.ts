@@ -447,8 +447,8 @@ export const awards: Award[] = [
   {
     year: "2024",
     title: "ICT·SW Women's Start-up Competition",
-    detail: "3rd place — VGG16 plant-disease diagnosis app",
-    result: "3rd place",
+    detail: "Excellence Award (우수상) — VGG16 plant-disease diagnosis app",
+    result: "Excellence Award",
     role: "PM & Developer",
     topic:
       "A plant-disease diagnosis app powered by a VGG16 image classifier (Korea IT Businesswomen's Association).",
@@ -457,8 +457,8 @@ export const awards: Award[] = [
   {
     year: "2024",
     title: "Chungnam Generative AI Start-up Idea Competition",
-    detail: "3rd place — Ministry of Science and ICT",
-    result: "3rd place",
+    detail: "Encouragement Award (장려상) — Ministry of Science and ICT",
+    result: "Encouragement Award",
     role: "PM & Developer",
     topic:
       "A generative-AI tech start-up idea, hosted by the Ministry of Science and ICT.",
@@ -470,8 +470,8 @@ export const awards: Award[] = [
   {
     year: "2024",
     title: "HKNU StarUP&GO Audition",
-    detail: "3rd place — start-up competition",
-    result: "3rd place",
+    detail: "Excellence Award (우수상) — start-up competition",
+    result: "Excellence Award",
     role: "PM & Developer",
     topic: "An early-stage start-up pitch audition at Hankyong National University.",
     photos: [
