@@ -57,7 +57,7 @@ export function ProjectDetail({
         <h1 className="font-display mt-3 max-w-3xl text-4xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-5xl md:text-6xl">
           {p.title}
         </h1>
-        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
+        <p className="mt-4 max-w-2xl whitespace-pre-line text-lg leading-relaxed text-muted">
           {koP?.overview ?? p.overview}
         </p>
 

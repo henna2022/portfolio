@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { awards } from "@/lib/data";
 import { awardsKo } from "@/lib/data-ko";
@@ -43,29 +44,51 @@ export function Awards() {
       >
         {awards.map((a) => {
           const koA = ko ? awardsKo[a.title] : undefined;
+          const hasPhotos = a.photos.length > 0;
           return (
           <motion.div
             key={a.title}
             variants={card}
-            className="flex flex-col rounded-4xl bg-sand/70 p-5"
+            className="flex flex-col rounded-4xl bg-sand/70 p-4 sm:p-5"
           >
-            <ImageCarousel images={a.photos} alt={koA?.title ?? a.title} />
+            {hasPhotos ? (
+              <ImageCarousel
+                images={a.photos}
+                alt={koA?.title ?? a.title}
+                aspect="aspect-[16/10] sm:aspect-[4/3]"
+              />
+            ) : null}
 
             <div className="flex flex-1 flex-col px-2 pb-2">
-              <div className="mt-5 flex items-start justify-between gap-3">
+              <div
+                className={`flex items-start justify-between gap-3 ${
+                  hasPhotos ? "mt-5" : "mt-2"
+                }`}
+              >
                 <span className="text-xs font-medium text-muted">{a.year}</span>
                 <span className="rounded-full bg-lime px-2.5 py-1 text-[11px] font-semibold text-lime-ink">
                   {koA?.result ?? a.result}
                 </span>
               </div>
 
-              <h3 className="font-display mt-1 text-xl font-semibold leading-snug">
+              <h3 className="font-display mt-2 text-xl font-semibold leading-snug">
                 {koA?.title ?? a.title}
               </h3>
               <p className="mt-1 text-xs text-muted">{koA?.role ?? a.role}</p>
               <p className="mt-3 text-sm leading-relaxed text-ink/70">
                 {koA?.topic ?? a.topic}
               </p>
+
+              {a.relatedSlug ? (
+                <div className="mt-auto pt-5">
+                  <Link
+                    href={`/work/${a.relatedSlug}`}
+                    className="inline-flex items-center rounded-full bg-ink px-3 py-1.5 text-xs font-medium text-cream transition-transform duration-300 hover:scale-[1.05]"
+                  >
+                    {t.viewProject}
+                  </Link>
+                </div>
+              ) : null}
             </div>
           </motion.div>
           );

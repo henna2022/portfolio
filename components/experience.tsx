@@ -58,13 +58,13 @@ export function Experience() {
             </div>
 
             {"gallery" in e && e.gallery ? (
-              <div className="mt-6 grid grid-cols-3 gap-3">
+              <div className="no-scrollbar mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto sm:grid sm:grid-cols-3 sm:overflow-visible">
                 {[0, 1, 2].map((idx) => {
                   const src = (e.gallery as string[])[idx];
                   return src ? (
                     <div
                       key={idx}
-                      className="aspect-[3/4] overflow-hidden rounded-2xl bg-sand-deep"
+                      className="aspect-[3/4] w-40 shrink-0 snap-start overflow-hidden rounded-2xl bg-sand-deep sm:w-auto"
                     >
                       <img
                         src={assetPath(src)}
@@ -76,7 +76,7 @@ export function Experience() {
                   ) : (
                     <div
                       key={idx}
-                      className="flex aspect-[3/4] items-center justify-center rounded-2xl border border-dashed border-ink/15 bg-sand/40 text-xs text-muted"
+                      className="flex aspect-[3/4] w-40 shrink-0 snap-start items-center justify-center rounded-2xl border border-dashed border-ink/15 bg-sand/40 text-xs text-muted sm:w-auto"
                     >
                       {t.comingSoon}
                     </div>

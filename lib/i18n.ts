@@ -27,9 +27,16 @@ export const dict = {
     workHeading: "A compact index of recent work.",
     filterAll: "All",
     view: "View",
+    viewProject: "View project →",
+
+    sideProjectsHeading: "Side & toy projects",
+    sideProjectsSub: "Smaller experiments built along the way.",
 
     skillsHeading: "My tech stack.",
     swipeHint: "← swipe / drag →",
+    stackHint: "Grouped by what I actually do.",
+
+    deckButton: "Architecture deck (PDF)",
 
     experienceHeading: "Experience",
     activitiesHeading: "Activities",
@@ -86,9 +93,16 @@ export const dict = {
     workHeading: "최근 작업을 간결하게 담았습니다.",
     filterAll: "전체",
     view: "보기",
+    viewProject: "프로젝트 보기 →",
+
+    sideProjectsHeading: "사이드 · 토이 프로젝트",
+    sideProjectsSub: "본업 곁에서 만든 작은 실험들입니다.",
 
     skillsHeading: "나의 기술 스택.",
     swipeHint: "← 스와이프 / 드래그 →",
+    stackHint: "실제로 하는 일을 기준으로 묶었습니다.",
+
+    deckButton: "아키텍처 기술서 (PDF)",
 
     experienceHeading: "경력",
     activitiesHeading: "활동",

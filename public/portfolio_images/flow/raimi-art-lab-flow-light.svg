@@ -1,0 +1,72 @@
+<svg width="680" height="642" viewBox="0 0 680 642" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Raimi's AI Art Studio screen flow</title>
+<desc>Screen flow: app launch to intro and home mode picker, blocks or chat creation, generating with O/X quiz, review on failure, result with QR code, admin stats via ?admin, global reset rules.</desc>
+<defs><marker id="arwE" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<style>
+text{font-family:'Pretendard','Apple SD Gothic Neo','Helvetica Neue',Arial,sans-serif}
+.iaBg{fill:#F5F1E8}.iaPoster{fill:#FFFFFF;stroke:#E4DDCE}.iaLogo{fill:#3B82F6}.iaLogoR{fill:#FFFFFF;font-size:22px;font-weight:600}
+.iaTtl{fill:#22211E;font-size:19px;font-weight:600}.iaSub{fill:#7C786E;font-size:12.5px}.iaHdiv{stroke:#E4DDCE}.iaFdiv{stroke:#E4DDCE}
+.iaSec{fill:#EBE5D9;stroke:#E4DDCE}.iaDot{fill:#3B82F6}.iaLab{fill:#22211E;font-size:12px;font-weight:600}.iaLeg{fill:#7C786E;font-size:11.5px}
+.iaSw1{fill:#FFFFFF;stroke:#D6CEBF}.iaSw2{fill:#EFF4FE;stroke:#C7D9F9}.iaSw3{fill:#3B82F6;stroke:#2E6FDB}.iaSw4{fill:#F5F1E8;stroke:#D6CEBF}
+.iaEbox{fill:#FFFFFF;stroke:#D6CEBF}.iaEt{fill:#22211E;font-size:14px;font-weight:600}.iaEs{fill:#7C786E;font-size:12px}
+.iaArw{stroke:#3B82F6;stroke-width:1.4;fill:none}.iaLeader{stroke:#93B8F0;stroke-width:1;stroke-dasharray:3 3;fill:none}.iaMgr{stroke:#3B82F6;stroke-width:1.5;fill:none}
+.iaMbox{fill:#3B82F6;stroke:#2E6FDB}.iaMt{fill:#FFFFFF;font-size:14px;font-weight:600}.iaMs{fill:#DBE8FD;font-size:12px}
+.iaCcard{fill:#EFF4FE;stroke:#C7D9F9}.iaCt{fill:#22211E;font-size:14px;font-weight:600}.iaCl{fill:#7C786E;font-size:12px}
+.iaPcbox{fill:#E1ECFD;stroke:#A9C7F5}.iaPt{fill:#22211E;font-size:14px;font-weight:600}.iaPs{fill:#7C786E;font-size:12px}
+.iaChip{fill:#F5F1E8;stroke:#D6CEBF}.iaChx{fill:#22211E;font-size:12px}.iaFoot{fill:#7C786E;font-size:11px}
+</style>
+
+<rect class="iaBg" x="0" y="0" width="680" height="642"/>
+<rect class="iaPoster" x="14" y="14" width="652" height="614" rx="18"/>
+
+<rect class="iaLogo" x="34" y="30" width="42" height="42" rx="11"/>
+<text class="iaLogoR" x="55" y="59" text-anchor="middle">R</text>
+<text class="iaTtl" x="88" y="50">Raimi's AI Art Studio</text>
+<text class="iaSub" x="88" y="69">Kids' AI art creation app · screen flow</text>
+<line class="iaHdiv" x1="34" y1="86" x2="646" y2="86"/>
+
+<rect class="iaSw1" x="34" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="53" y="109">Screen</text>
+<rect class="iaSw2" x="130" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="149" y="109">Create mode</text>
+<rect class="iaSw3" x="250" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="269" y="109">Start · finish</text>
+<rect class="iaSw4" x="360" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="379" y="109">Global rule</text>
+
+<rect class="iaSec" x="28" y="126" width="624" height="148" rx="12"/>
+<circle class="iaDot" cx="44" cy="143" r="3"/><text class="iaLab" x="52" y="147">Entry · admin</text>
+<rect class="iaMbox" x="44" y="158" width="180" height="44" rx="10"/><text class="iaMt" x="134" y="180" text-anchor="middle">App launch</text><text class="iaMs" x="134" y="196" text-anchor="middle">URL load · kiosk</text>
+<line class="iaArw" x1="224" y1="180" x2="250" y2="180" marker-end="url(#arwE)"/>
+<rect class="iaEbox" x="252" y="158" width="180" height="44" rx="10"/><text class="iaEt" x="342" y="180" text-anchor="middle">Intro</text><text class="iaEs" x="342" y="196" text-anchor="middle">Meet Raimi · start</text>
+<line class="iaArw" x1="432" y1="180" x2="454" y2="180" marker-end="url(#arwE)"/>
+<rect class="iaEbox" x="456" y="158" width="180" height="44" rx="10"/><text class="iaEt" x="546" y="180" text-anchor="middle">Home · pick mode</text><text class="iaEs" x="546" y="196" text-anchor="middle">Blocks or Chat</text>
+<line class="iaLeader" x1="134" y1="202" x2="134" y2="214" marker-end="url(#arwE)"/>
+<rect class="iaEbox" x="44" y="216" width="220" height="44" rx="10"/><text class="iaEt" x="154" y="238" text-anchor="middle">Admin stats</text><text class="iaEs" x="154" y="254" text-anchor="middle">?admin · usage stats · export</text>
+
+<rect class="iaSec" x="28" y="286" width="624" height="206" rx="12"/>
+<circle class="iaDot" cx="44" cy="303" r="3"/><text class="iaLab" x="52" y="307">Create · generate · result</text>
+<path class="iaArw" d="M546 202 V280 H164 V314" marker-end="url(#arwE)"/>
+<line class="iaArw" x1="496" y1="280" x2="496" y2="314" marker-end="url(#arwE)"/>
+<rect class="iaCcard" x="44" y="318" width="280" height="44" rx="10"/><text class="iaCt" x="184" y="340" text-anchor="middle">Build with blocks</text><text class="iaCl" x="184" y="356" text-anchor="middle">10–15 guided steps</text>
+<rect class="iaCcard" x="356" y="318" width="280" height="44" rx="10"/><text class="iaCt" x="496" y="340" text-anchor="middle">Build by chatting</text><text class="iaCl" x="496" y="356" text-anchor="middle">with Raimi · up to 8 turns</text>
+<line class="iaArw" x1="164" y1="362" x2="164" y2="374" marker-end="url(#arwE)"/>
+<line class="iaArw" x1="420" y1="362" x2="420" y2="374" marker-end="url(#arwE)"/>
+<rect class="iaEbox" x="44" y="376" width="380" height="44" rx="10"/><text class="iaEt" x="234" y="398" text-anchor="middle">Generating art</text><text class="iaEs" x="234" y="414" text-anchor="middle">Drawing + O/X quiz while waiting</text>
+<line class="iaArw" x1="424" y1="390" x2="454" y2="390" marker-end="url(#arwE)"/>
+<text class="iaEs" x="439" y="383" text-anchor="middle">fail</text>
+<line class="iaArw" x1="454" y1="406" x2="424" y2="406" marker-end="url(#arwE)"/>
+<text class="iaEs" x="439" y="419" text-anchor="middle">retry</text>
+<rect class="iaEbox" x="456" y="376" width="180" height="44" rx="10"/><text class="iaEt" x="546" y="398" text-anchor="middle">Review</text><text class="iaEs" x="546" y="414" text-anchor="middle">On failure · retry</text>
+<line class="iaArw" x1="164" y1="420" x2="164" y2="432" marker-end="url(#arwE)"/>
+<text class="iaEs" x="176" y="429">success</text>
+<rect class="iaMbox" x="44" y="434" width="280" height="44" rx="10"/><text class="iaMt" x="184" y="456" text-anchor="middle">Result</text><text class="iaMs" x="184" y="472" text-anchor="middle">Image + QR code takeaway</text>
+<path class="iaLeader" d="M324 456 H644 V180 H640" marker-end="url(#arwE)"/>
+<text class="iaEs" x="484" y="449" text-anchor="middle">make again</text>
+
+<rect class="iaSec" x="28" y="504" width="624" height="82" rx="12"/>
+<circle class="iaDot" cx="44" cy="521" r="3"/><text class="iaLab" x="52" y="525">Global behavior</text>
+<rect class="iaChip" x="44" y="534" width="200" height="36" rx="9"/><text class="iaChx" x="144" y="556" text-anchor="middle">3-min idle → reset to intro</text>
+<rect class="iaChip" x="256" y="534" width="190" height="36" rx="9"/><text class="iaChx" x="351" y="556" text-anchor="middle">KO/EN language toggle</text>
+<rect class="iaChip" x="458" y="534" width="178" height="36" rx="9"/><text class="iaChx" x="547" y="556" text-anchor="middle">Home button everywhere</text>
+
+<line class="iaFdiv" x1="34" y1="606" x2="646" y2="606"/>
+<text class="iaFoot" x="340" y="622" text-anchor="middle">Raimi's AI Art Studio · Screen Flow © Juwon Lee</text>
+
+</svg>

@@ -9,9 +9,11 @@ import { ArrowIcon } from "./icons";
 export function ImageCarousel({
   images,
   alt,
+  aspect = "aspect-[4/3]",
 }: {
   images: string[];
   alt: string;
+  aspect?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const drag = useRef({ active: false, moved: false, startX: 0, startLeft: 0 });
@@ -57,7 +59,9 @@ export function ImageCarousel({
   }
 
   return (
-    <div className="group/carousel relative aspect-[4/3] overflow-hidden rounded-2xl bg-sand-deep">
+    <div
+      className={`group/carousel relative ${aspect} overflow-hidden rounded-2xl bg-sand-deep`}
+    >
       <div
         ref={ref}
         onScroll={onScroll}

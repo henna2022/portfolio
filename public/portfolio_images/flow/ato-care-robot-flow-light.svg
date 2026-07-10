@@ -1,0 +1,66 @@
+<svg width="680" height="602" viewBox="0 0 680 602" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>ATO companion and care robot system flow</title>
+<desc>Inputs (PIR proximity, capacitive touch, button) feed an ESP32 core running Arduino C++, driving dual round-LCD eyes, servo ears and arms, and DFPlayer audio. YAKMOA band: camera with multimodal AI recognizes medicine and drives dose schedules and reminders.</desc>
+<defs><marker id="arwE" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<style>
+text{font-family:'Pretendard','Apple SD Gothic Neo','Helvetica Neue',Arial,sans-serif}
+.iaBg{fill:#F5F1E8}.iaPoster{fill:#FFFFFF;stroke:#E4DDCE}.iaLogo{fill:#3B82F6}.iaLogoR{fill:#FFFFFF;font-size:22px;font-weight:600}
+.iaTtl{fill:#22211E;font-size:19px;font-weight:600}.iaSub{fill:#7C786E;font-size:12.5px}.iaHdiv{stroke:#E4DDCE}.iaFdiv{stroke:#E4DDCE}
+.iaSec{fill:#EBE5D9;stroke:#E4DDCE}.iaDot{fill:#3B82F6}.iaLab{fill:#22211E;font-size:12px;font-weight:600}.iaLeg{fill:#7C786E;font-size:11.5px}
+.iaSw1{fill:#FFFFFF;stroke:#D6CEBF}.iaSw2{fill:#EFF4FE;stroke:#C7D9F9}.iaSw3{fill:#3B82F6;stroke:#2E6FDB}.iaSw4{fill:#F5F1E8;stroke:#D6CEBF}
+.iaEbox{fill:#FFFFFF;stroke:#D6CEBF}.iaEt{fill:#22211E;font-size:14px;font-weight:600}.iaEs{fill:#7C786E;font-size:12px}
+.iaArw{stroke:#3B82F6;stroke-width:1.4;fill:none}.iaLeader{stroke:#93B8F0;stroke-width:1;stroke-dasharray:3 3;fill:none}.iaMgr{stroke:#3B82F6;stroke-width:1.5;fill:none}
+.iaMbox{fill:#3B82F6;stroke:#2E6FDB}.iaMt{fill:#FFFFFF;font-size:14px;font-weight:600}.iaMs{fill:#DBE8FD;font-size:12px}
+.iaCcard{fill:#EFF4FE;stroke:#C7D9F9}.iaCt{fill:#22211E;font-size:14px;font-weight:600}.iaCl{fill:#7C786E;font-size:12px}
+.iaPcbox{fill:#E1ECFD;stroke:#A9C7F5}.iaPt{fill:#22211E;font-size:14px;font-weight:600}.iaPs{fill:#7C786E;font-size:12px}
+.iaChip{fill:#F5F1E8;stroke:#D6CEBF}.iaChx{fill:#22211E;font-size:12px}.iaFoot{fill:#7C786E;font-size:11px}
+</style>
+
+<rect class="iaBg" x="0" y="0" width="680" height="602"/>
+<rect class="iaPoster" x="14" y="14" width="652" height="574" rx="18"/>
+
+<rect class="iaLogo" x="34" y="30" width="42" height="42" rx="11"/>
+<text class="iaLogoR" x="55" y="59" text-anchor="middle">A</text>
+<text class="iaTtl" x="88" y="50">ATO · Companion &amp; Care Robot</text>
+<text class="iaSub" x="88" y="69">ESP32 hardware + multimodal AI medication care</text>
+<line class="iaHdiv" x1="34" y1="86" x2="646" y2="86"/>
+
+<rect class="iaEbox" x="34" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="53" y="109">Input</text>
+<rect class="iaMbox" x="120" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="139" y="109">ESP32 core</text>
+<rect class="iaCcard" x="240" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="259" y="109">Output</text>
+<rect class="iaPcbox" x="330" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="349" y="109">AI care</text>
+
+<rect class="iaSec" x="28" y="126" width="624" height="90" rx="12"/>
+<circle class="iaDot" cx="44" cy="143" r="3"/><text class="iaLab" x="52" y="147">Inputs · interaction sensing</text>
+<rect class="iaEbox" x="44" y="158" width="180" height="44" rx="10"/><text class="iaEt" x="134" y="180" text-anchor="middle">PIR proximity</text><text class="iaEs" x="134" y="196" text-anchor="middle">Detects approach</text>
+<rect class="iaEbox" x="252" y="158" width="180" height="44" rx="10"/><text class="iaEt" x="342" y="180" text-anchor="middle">Capacitive touch</text><text class="iaEs" x="342" y="196" text-anchor="middle">Petting detection</text>
+<rect class="iaEbox" x="460" y="158" width="176" height="44" rx="10"/><text class="iaEt" x="548" y="180" text-anchor="middle">Button</text><text class="iaEs" x="548" y="196" text-anchor="middle">Direct commands</text>
+
+<path class="iaArw" d="M134 202 V222 H250 V258" marker-end="url(#arwE)"/>
+<line class="iaArw" x1="342" y1="202" x2="342" y2="258" marker-end="url(#arwE)"/>
+<path class="iaArw" d="M548 202 V222 H430 V258" marker-end="url(#arwE)"/>
+
+<rect class="iaSec" x="28" y="228" width="624" height="90" rx="12"/>
+<circle class="iaDot" cx="44" cy="245" r="3"/><text class="iaLab" x="52" y="249">Core controller</text>
+<rect class="iaMbox" x="190" y="260" width="300" height="44" rx="10"/><text class="iaMt" x="340" y="282" text-anchor="middle">ESP32 core</text><text class="iaMs" x="340" y="298" text-anchor="middle">Arduino · C++ behavior engine</text>
+
+<path class="iaArw" d="M240 304 V324 H134 V360" marker-end="url(#arwE)"/>
+<line class="iaArw" x1="342" y1="304" x2="342" y2="360" marker-end="url(#arwE)"/>
+<path class="iaArw" d="M440 304 V324 H548 V360" marker-end="url(#arwE)"/>
+
+<rect class="iaSec" x="28" y="330" width="624" height="90" rx="12"/>
+<circle class="iaDot" cx="44" cy="347" r="3"/><text class="iaLab" x="52" y="351">Outputs</text>
+<rect class="iaCcard" x="44" y="362" width="180" height="44" rx="10"/><text class="iaCt" x="134" y="384" text-anchor="middle">Dual round-LCD eyes</text><text class="iaCl" x="134" y="400" text-anchor="middle">Blink · gaze animation</text>
+<rect class="iaCcard" x="252" y="362" width="180" height="44" rx="10"/><text class="iaCt" x="342" y="384" text-anchor="middle">Servo ears &amp; arms</text><text class="iaCl" x="342" y="400" text-anchor="middle">Emotive movement</text>
+<rect class="iaCcard" x="460" y="362" width="176" height="44" rx="10"/><text class="iaCt" x="548" y="384" text-anchor="middle">DFPlayer audio</text><text class="iaCl" x="548" y="400" text-anchor="middle">Sounds &amp; voice</text>
+
+<rect class="iaSec" x="28" y="432" width="624" height="114" rx="12"/>
+<circle class="iaDot" cx="44" cy="449" r="3"/><text class="iaLab" x="52" y="453">YAKMOA · medication care</text>
+<rect class="iaPcbox" x="44" y="464" width="280" height="44" rx="10"/><text class="iaPt" x="184" y="486" text-anchor="middle">Camera · multimodal AI</text><text class="iaPs" x="184" y="502" text-anchor="middle">Recognizes the medicine</text>
+<line class="iaArw" x1="324" y1="486" x2="352" y2="486" marker-end="url(#arwE)"/>
+<rect class="iaPcbox" x="356" y="464" width="280" height="44" rx="10"/><text class="iaPt" x="496" y="486" text-anchor="middle">Dose schedule &amp; reminders</text><text class="iaPs" x="496" y="502" text-anchor="middle">Alerts at the right times</text>
+<text class="iaEs" x="340" y="530" text-anchor="middle">Medication care for digitally vulnerable users — ATO watches over daily doses</text>
+
+<line class="iaFdiv" x1="34" y1="566" x2="646" y2="566"/>
+<text class="iaFoot" x="340" y="582" text-anchor="middle">ATO Companion &amp; Care Robot · System Flow © Juwon Lee</text>
+</svg>

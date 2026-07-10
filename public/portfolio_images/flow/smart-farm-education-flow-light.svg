@@ -1,0 +1,60 @@
+<svg width="680" height="554" viewBox="0 0 680 554" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Smart-Farm Education Program system flow</title>
+<desc>IoT sensor kit to ESP32 node to relay server to live database to student web dashboard; location-based Weather API branch; YOLO crop-disease AI module with diagnosis demo.</desc>
+<defs><marker id="arwE" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<style>
+text{font-family:'Pretendard','Apple SD Gothic Neo','Helvetica Neue',Arial,sans-serif}
+.iaBg{fill:#F5F1E8}.iaPoster{fill:#FFFFFF;stroke:#E4DDCE}.iaLogo{fill:#3B82F6}.iaLogoR{fill:#FFFFFF;font-size:22px;font-weight:600}
+.iaTtl{fill:#22211E;font-size:19px;font-weight:600}.iaSub{fill:#7C786E;font-size:12.5px}.iaHdiv{stroke:#E4DDCE}.iaFdiv{stroke:#E4DDCE}
+.iaSec{fill:#EBE5D9;stroke:#E4DDCE}.iaDot{fill:#3B82F6}.iaLab{fill:#22211E;font-size:12px;font-weight:600}.iaLeg{fill:#7C786E;font-size:11.5px}
+.iaSw1{fill:#FFFFFF;stroke:#D6CEBF}.iaSw2{fill:#EFF4FE;stroke:#C7D9F9}.iaSw3{fill:#3B82F6;stroke:#2E6FDB}.iaSw4{fill:#F5F1E8;stroke:#D6CEBF}
+.iaEbox{fill:#FFFFFF;stroke:#D6CEBF}.iaEt{fill:#22211E;font-size:14px;font-weight:600}.iaEs{fill:#7C786E;font-size:12px}
+.iaArw{stroke:#3B82F6;stroke-width:1.4;fill:none}.iaLeader{stroke:#93B8F0;stroke-width:1;stroke-dasharray:3 3;fill:none}.iaMgr{stroke:#3B82F6;stroke-width:1.5;fill:none}
+.iaMbox{fill:#3B82F6;stroke:#2E6FDB}.iaMt{fill:#FFFFFF;font-size:14px;font-weight:600}.iaMs{fill:#DBE8FD;font-size:12px}
+.iaCcard{fill:#EFF4FE;stroke:#C7D9F9}.iaCt{fill:#22211E;font-size:14px;font-weight:600}.iaCl{fill:#7C786E;font-size:12px}
+.iaPcbox{fill:#E1ECFD;stroke:#A9C7F5}.iaPt{fill:#22211E;font-size:14px;font-weight:600}.iaPs{fill:#7C786E;font-size:12px}
+.iaChip{fill:#F5F1E8;stroke:#D6CEBF}.iaChx{fill:#22211E;font-size:12px}.iaFoot{fill:#7C786E;font-size:11px}
+</style>
+
+<rect class="iaBg" x="0" y="0" width="680" height="554"/>
+<rect class="iaPoster" x="14" y="14" width="652" height="526" rx="18"/>
+
+<rect class="iaLogo" x="34" y="30" width="42" height="42" rx="11"/>
+<text class="iaLogoR" x="55" y="59" text-anchor="middle">S</text>
+<text class="iaTtl" x="88" y="50">Smart-Farm Education Program</text>
+<text class="iaSub" x="88" y="69">Museum × Yangpyeong Education Office · IoT + AI curriculum</text>
+<line class="iaHdiv" x1="34" y1="86" x2="646" y2="86"/>
+
+<rect class="iaEbox" x="34" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="53" y="109">Hardware</text>
+<rect class="iaCcard" x="140" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="159" y="109">Server · Data</text>
+<rect class="iaMbox" x="270" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="289" y="109">Student-facing</text>
+<rect class="iaPcbox" x="410" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="429" y="109">AI module</text>
+
+<rect class="iaSec" x="28" y="126" width="624" height="148" rx="12"/>
+<circle class="iaDot" cx="44" cy="143" r="3"/><text class="iaLab" x="52" y="147">IoT live-data pipeline</text>
+<rect class="iaEbox" x="44" y="158" width="180" height="44" rx="10"/><text class="iaEt" x="134" y="180" text-anchor="middle">IoT sensor kit</text><text class="iaEs" x="134" y="196" text-anchor="middle">Temp · humidity · soil</text>
+<rect class="iaEbox" x="252" y="158" width="170" height="44" rx="10"/><text class="iaEt" x="337" y="180" text-anchor="middle">ESP32 node</text><text class="iaEs" x="337" y="196" text-anchor="middle">Reads &amp; transmits</text>
+<rect class="iaCcard" x="450" y="158" width="186" height="44" rx="10"/><text class="iaCt" x="543" y="180" text-anchor="middle">Relay server</text><text class="iaCl" x="543" y="196" text-anchor="middle">Collects &amp; forwards</text>
+<line class="iaArw" x1="224" y1="180" x2="250" y2="180" marker-end="url(#arwE)"/>
+<line class="iaArw" x1="422" y1="180" x2="448" y2="180" marker-end="url(#arwE)"/>
+<path class="iaArw" d="M543 202 V209 H154 V214" marker-end="url(#arwE)"/>
+<rect class="iaCcard" x="44" y="216" width="220" height="44" rx="10"/><text class="iaCt" x="154" y="238" text-anchor="middle">Live database</text><text class="iaCl" x="154" y="254" text-anchor="middle">Realtime values · history</text>
+<line class="iaArw" x1="264" y1="238" x2="296" y2="238" marker-end="url(#arwE)"/>
+<rect class="iaMbox" x="300" y="216" width="336" height="44" rx="10"/><text class="iaMt" x="468" y="238" text-anchor="middle">Student web dashboard</text><text class="iaMs" x="468" y="254" text-anchor="middle">Watch values change in real time</text>
+
+<rect class="iaSec" x="28" y="286" width="624" height="88" rx="12"/>
+<circle class="iaDot" cx="44" cy="303" r="3"/><text class="iaLab" x="52" y="307">Weather branch · location-based lesson data</text>
+<rect class="iaEbox" x="44" y="316" width="250" height="44" rx="10"/><text class="iaEt" x="169" y="338" text-anchor="middle">Weather API</text><text class="iaEs" x="169" y="354" text-anchor="middle">Local forecast by location</text>
+<line class="iaArw" x1="294" y1="338" x2="316" y2="338" marker-end="url(#arwE)"/>
+<rect class="iaCcard" x="320" y="316" width="316" height="44" rx="10"/><text class="iaCt" x="478" y="338" text-anchor="middle">Lesson material</text><text class="iaCl" x="478" y="354" text-anchor="middle">Outdoor weather vs greenhouse data</text>
+
+<rect class="iaSec" x="28" y="386" width="624" height="112" rx="12"/>
+<circle class="iaDot" cx="44" cy="403" r="3"/><text class="iaLab" x="52" y="407">AI module · crop-disease exploration</text>
+<rect class="iaPcbox" x="44" y="418" width="280" height="44" rx="10"/><text class="iaPt" x="184" y="440" text-anchor="middle">YOLO training exploration</text><text class="iaPs" x="184" y="456" text-anchor="middle">Epoch experiments · loss curves</text>
+<line class="iaArw" x1="324" y1="440" x2="352" y2="440" marker-end="url(#arwE)"/>
+<rect class="iaPcbox" x="356" y="418" width="280" height="44" rx="10"/><text class="iaPt" x="496" y="440" text-anchor="middle">Diagnosis demo</text><text class="iaPs" x="496" y="456" text-anchor="middle">Leaf photo → result in web app</text>
+<text class="iaEs" x="340" y="484" text-anchor="middle">Students tune epochs, read loss curves, then try the trained model in the web app</text>
+
+<line class="iaFdiv" x1="34" y1="518" x2="646" y2="518"/>
+<text class="iaFoot" x="340" y="534" text-anchor="middle">Smart-Farm Education Program · System Flow © Juwon Lee</text>
+</svg>
