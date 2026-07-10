@@ -12,10 +12,15 @@ export const person = {
   cv: "/cv.pdf",
 };
 
-export const nav = [
-  { label: "About", href: "/#about" },
-  { label: "Work", href: "/#work" },
-  { label: "Contact", href: "/#contact" },
+export const sections = [
+  { id: "top", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "work", label: "Work" },
+  { id: "skills", label: "Stack" },
+  { id: "experience", label: "Experience" },
+  { id: "activities", label: "Activities" },
+  { id: "awards", label: "Awards" },
+  { id: "contact", label: "Contact" },
 ];
 
 export const hero = {
@@ -69,6 +74,7 @@ export type Project = {
   n: string;
   title: string;
   category: string;
+  categories: string[];
   kicker: string;
   desc: string;
   year: string;
@@ -92,6 +98,7 @@ export const projects: Project[] = [
     n: "01",
     title: "Doctor-Green",
     category: "AI · IoT Full-stack",
+    categories: ["AI", "IoT", "Web"],
     kicker: "Smart-farm platform · solo project",
     desc: "A smart-farm platform unifying YOLOv8 crop-disease diagnosis with live IoT environment monitoring.",
     year: "2026",
@@ -120,6 +127,7 @@ export const projects: Project[] = [
     n: "02",
     title: "Raimi's AI Art Lab",
     category: "Web App · Education",
+    categories: ["AI", "Web", "Education"],
     kicker: "Live @ Seoul Robot & AI Science Museum",
     desc: "A guided prompt builder where visitors co-create AI artwork with the character Raimi.",
     year: "2026",
@@ -150,6 +158,7 @@ export const projects: Project[] = [
     n: "03",
     title: "I'm a Restorer!",
     category: "Interactive Web Game",
+    categories: ["Web", "Education"],
     kicker: "Exhibition-linked education content",
     desc: "An interactive game where visitors restore Korean cultural heritage.",
     year: "2025",
@@ -175,6 +184,7 @@ export const projects: Project[] = [
     n: "04",
     title: "Raimi's AI Language Lab",
     category: "Language-learning Web App",
+    categories: ["AI", "Web", "Education"],
     kicker: "Speech AI experience",
     desc: "A game-based speech experience where visitors listen and repeat words with Raimi.",
     year: "2026",
@@ -196,6 +206,7 @@ export const projects: Project[] = [
     n: "05",
     title: "ATO — Care Robot",
     category: "AI Healthcare · Care Robot",
+    categories: ["AI", "Robotics"],
     kicker: "Companion & medication-care robot",
     desc: "A rabbit-shaped companion robot extended with the YAKMOA multimodal medication-care service.",
     year: "2026",
@@ -218,6 +229,7 @@ export const projects: Project[] = [
     n: "06",
     title: "SEOUL RAIM Staff Platform",
     category: "Internal Operations Tool",
+    categories: ["Web"],
     kicker: "Docent & part-timer management",
     desc: "A staff app for scheduling, rosters, live duty status, and notices.",
     year: "2026",
@@ -244,6 +256,7 @@ export const projects: Project[] = [
     n: "07",
     title: "Smart-Farm Education Program",
     category: "Education Program",
+    categories: ["AI", "IoT", "Education"],
     kicker: "Museum × Yangpyeong Education Office",
     desc: "A hands-on program where students experience IoT smart farming and AI crop diagnosis.",
     year: "2026",
@@ -263,6 +276,7 @@ export const projects: Project[] = [
     n: "08",
     title: "RAIM AI Photo Booth",
     category: "Keepsake Photo Booth",
+    categories: ["AI", "Web"],
     kicker: "Museum 2nd anniversary",
     desc: "A four-cut photo booth with museum robots; AI recommends the best shot.",
     year: "2026",
@@ -282,6 +296,7 @@ export const projects: Project[] = [
     n: "09",
     title: "RAIM Metaverse",
     category: "Exhibition Accessibility",
+    categories: ["Web"],
     kicker: "Online exhibition twin",
     desc: "An online metaverse version of the permanent exhibition.",
     year: "2026",

@@ -17,7 +17,7 @@ const card: Variants = {
 
 export function Awards() {
   return (
-    <section className="mx-auto max-w-shell px-6 py-16">
+    <section id="awards" className="mx-auto max-w-shell px-6 py-16">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

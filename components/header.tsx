@@ -1,10 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { person, nav } from "@/lib/data";
+import { person } from "@/lib/data";
 import { assetPath } from "@/lib/asset";
 import { DownloadIcon } from "./icons";
 import { ThemeToggle } from "./theme-toggle";
+import { SectionNav } from "./section-nav";
 import { ease } from "@/lib/motion";
 
 export function Header() {
@@ -15,28 +16,17 @@ export function Header() {
       transition={{ duration: 0.6, ease }}
       className="fixed inset-x-0 top-0 z-40 border-b border-ink/5 bg-cream/70 backdrop-blur-md"
     >
-      <div className="mx-auto flex max-w-shell items-center justify-between px-6 py-3">
+      {/* Row 1 — brand + downloads + theme */}
+      <div className="mx-auto flex max-w-shell items-center justify-between gap-4 px-6 py-2.5">
         <a
           href={assetPath("/")}
-          className="flex items-center gap-2 font-display text-lg font-semibold text-ink"
+          className="flex shrink-0 items-center gap-2 font-display text-lg font-semibold text-ink"
         >
           <span className="h-2.5 w-2.5 rounded-full bg-lime" />
           {person.name}
         </a>
 
-        <nav className="hidden items-center gap-8 text-sm text-ink/60 md:flex">
-          {nav.map((n) => (
-            <a
-              key={n.href}
-              href={assetPath(n.href)}
-              className="transition-colors hover:text-ink"
-            >
-              {n.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           <a
             href={assetPath(person.cv)}
             download
@@ -52,6 +42,13 @@ export function Header() {
             <DownloadIcon /> Resume
           </a>
           <ThemeToggle />
+        </div>
+      </div>
+
+      {/* Row 2 — section nav (scroll-spy + smooth-scroll) */}
+      <div className="border-t border-ink/5">
+        <div className="mx-auto max-w-shell px-4 py-1.5">
+          <SectionNav />
         </div>
       </div>
     </motion.header>

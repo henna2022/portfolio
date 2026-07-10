@@ -1,23 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { projects, type Project } from "@/lib/data";
 import { assetPath } from "@/lib/asset";
 import { ArrowIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
-const MotionLink = motion(Link);
-
-const parent: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
-};
-
-const card: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
-};
+const FILTERS = ["All", "AI", "Web", "Robotics", "IoT", "Education"];
 
 function initials(title: string) {
   return title
@@ -54,6 +45,12 @@ function CardMedia({ p }: { p: Project }) {
 }
 
 export function SelectedWork() {
+  const [filter, setFilter] = useState("All");
+  const visible =
+    filter === "All"
+      ? projects
+      : projects.filter((p) => p.categories.includes(filter));
+
   return (
     <section id="work" className="mx-auto max-w-shell px-6 py-16">
       <motion.h2
@@ -61,58 +58,79 @@ export function SelectedWork() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease }}
-        className="font-display mb-10 text-2xl font-semibold tracking-[-0.02em] sm:text-4xl sm:whitespace-nowrap"
+        className="font-display mb-6 text-2xl font-semibold tracking-[-0.02em] sm:text-4xl sm:whitespace-nowrap"
       >
         A compact index of recent work.
       </motion.h2>
 
-      <motion.div
-        variants={parent}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-8%" }}
-        className="grid gap-4 sm:grid-cols-2"
-      >
-        {projects.map((p) => (
-          <MotionLink
-            key={p.slug}
-            href={`/work/${p.slug}`}
-            variants={card}
-            whileHover={{ y: -6 }}
-            transition={{ type: "spring", stiffness: 300, damping: 22 }}
-            className="group flex cursor-pointer flex-col rounded-4xl bg-sand/70 p-5 text-ink"
-          >
-            <CardMedia p={p} />
+      {/* Category filter */}
+      <div className="mb-8 flex flex-wrap gap-2">
+        {FILTERS.map((f) => {
+          const isActive = filter === f;
+          return (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              aria-pressed={isActive}
+              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                isActive
+                  ? "bg-ink text-cream"
+                  : "border border-ink/15 text-ink/70 hover:bg-sand"
+              }`}
+            >
+              {f}
+            </button>
+          );
+        })}
+      </div>
 
-            <div className="flex flex-1 flex-col px-2 pb-2">
-              <div className="flex items-start justify-between">
-                <span className="text-xs font-medium text-muted">{p.n}</span>
-                <span className="inline-flex items-center gap-1 text-xs font-medium text-muted transition-colors group-hover:text-ink">
-                  View
-                  <ArrowIcon className="h-3.5 w-3.5 -rotate-45 transition-transform group-hover:rotate-0" />
-                </span>
-              </div>
+      <motion.div layout className="grid gap-4 sm:grid-cols-2">
+          {visible.map((p) => (
+            <motion.div
+              key={p.slug}
+              layout
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease }}
+            >
+              <Link
+                href={`/work/${p.slug}`}
+                className="group flex h-full cursor-pointer flex-col rounded-4xl bg-sand/70 p-5 text-ink transition-transform duration-300 hover:-translate-y-1.5"
+              >
+                <CardMedia p={p} />
 
-              <h3 className="font-display mt-1 text-2xl font-semibold">
-                {p.title}
-              </h3>
-              <p className="mt-1 text-xs text-muted">{p.kicker}</p>
-              <p className="mt-3 text-sm leading-relaxed text-ink/70">
-                {p.desc}
-              </p>
-              <div className="mt-4 flex flex-wrap gap-1.5">
-                {p.tags.slice(0, 4).map((t) => (
-                  <span
-                    key={t}
-                    className="rounded-full bg-sand-deep px-2.5 py-1 text-[11px] text-ink/60"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </MotionLink>
-        ))}
+                <div className="flex flex-1 flex-col px-2 pb-2">
+                  <div className="flex items-start justify-between">
+                    <span className="text-xs font-medium text-muted">
+                      {p.n}
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-xs font-medium text-muted transition-colors group-hover:text-ink">
+                      View
+                      <ArrowIcon className="h-3.5 w-3.5 -rotate-45 transition-transform group-hover:rotate-0" />
+                    </span>
+                  </div>
+
+                  <h3 className="font-display mt-1 text-2xl font-semibold">
+                    {p.title}
+                  </h3>
+                  <p className="mt-1 text-xs text-muted">{p.kicker}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-ink/70">
+                    {p.desc}
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-1.5">
+                    {p.tags.slice(0, 4).map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-full bg-sand-deep px-2.5 py-1 text-[11px] text-ink/60"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
       </motion.div>
     </section>
   );

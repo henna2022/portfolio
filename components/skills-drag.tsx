@@ -37,7 +37,7 @@ export function SkillsDrag() {
           transition={{ duration: 0.7, ease }}
           className="font-display text-3xl font-semibold tracking-[-0.02em] sm:text-4xl"
         >
-          Models, tools &amp; languages.
+          My tech stack.
         </motion.h2>
         <span className="hidden text-xs text-muted sm:block">
           ← swipe / drag →

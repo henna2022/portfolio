@@ -42,7 +42,7 @@ body {
 }
 
 section[id] {
-  scroll-margin-top: 5rem;
+  scroll-margin-top: 6.5rem;
 }
 
 ::selection {
