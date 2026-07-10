@@ -44,7 +44,7 @@ export function Activities() {
               <button
                 onClick={() => setOpen(isOpen ? null : i)}
                 aria-expanded={isOpen}
-                className="group flex w-full items-center gap-4 py-5 text-left"
+                className="group -mx-3 flex w-[calc(100%+1.5rem)] items-center gap-4 rounded-2xl px-3 py-5 text-left transition-colors hover:bg-sand/40"
               >
                 <span className="grid flex-1 grid-cols-[1fr] items-baseline gap-x-6 gap-y-1 sm:grid-cols-[150px_1fr_auto]">
                   <span className="font-display order-2 text-xs text-muted sm:order-1 sm:text-sm">
@@ -57,13 +57,16 @@ export function Activities() {
                     {koA?.role ?? a.role}
                   </span>
                 </span>
-                <motion.span
-                  animate={{ rotate: isOpen ? 90 : 0 }}
-                  transition={{ duration: 0.3, ease }}
-                  className="shrink-0 text-muted group-hover:text-ink"
-                >
-                  <ArrowIcon className="h-4 w-4" />
-                </motion.span>
+                <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-ink/15 px-3 py-1.5 text-xs font-medium text-ink/70 transition-colors group-hover:border-ink/30 group-hover:text-ink">
+                  {isOpen ? t.seeLess : t.seeMore}
+                  <motion.span
+                    animate={{ rotate: isOpen ? 90 : 0 }}
+                    transition={{ duration: 0.3, ease }}
+                    className="inline-flex"
+                  >
+                    <ArrowIcon className="h-3 w-3" />
+                  </motion.span>
+                </span>
               </button>
 
               {/* Body stays mounted (so it prerenders into the static HTML)

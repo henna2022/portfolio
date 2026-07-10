@@ -4,7 +4,6 @@ import { About } from "@/components/about";
 import { SelectedWork } from "@/components/selected-work";
 import { MarqueeStrip } from "@/components/marquee-strip";
 import { SkillsDrag } from "@/components/skills-drag";
-import { InfoBand } from "@/components/info-band";
 import { Experience } from "@/components/experience";
 import { Activities } from "@/components/activities";
 import { Awards } from "@/components/awards";
@@ -19,7 +18,6 @@ export default function Home() {
       <SelectedWork />
       <MarqueeStrip />
       <SkillsDrag />
-      <InfoBand />
       <Experience />
       <Activities />
       <Awards />

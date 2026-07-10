@@ -6,6 +6,27 @@ import { skillGroupsKo } from "@/lib/data-ko";
 import { useLocale } from "@/lib/locale";
 import { dict } from "@/lib/i18n";
 import { ease } from "@/lib/motion";
+import { assetPath } from "@/lib/asset";
+
+// Simple Icons (monochrome) downloaded into /public/icons. Items missing
+// here (e.g. YOLOv8, Sensors, Slack — no icon on the CDN) render text-only.
+const chipIcons: Record<string, string> = {
+  "Next.js": "nextdotjs.svg",
+  React: "react.svg",
+  TypeScript: "typescript.svg",
+  JavaScript: "javascript.svg",
+  Supabase: "supabase.svg",
+  Firebase: "firebase.svg",
+  Flask: "flask.svg",
+  Tailwind: "tailwindcss.svg",
+  Vercel: "vercel.svg",
+  Python: "python.svg",
+  "Arduino · C++": "arduino.svg",
+  MicroPython: "micropython.svg",
+  Notion: "notion.svg",
+  Roboflow: "roboflow.svg",
+  ESP32: "espressif.svg",
+};
 
 const parent: Variants = {
   hidden: {},
@@ -55,18 +76,37 @@ export function SkillsDrag() {
               <h3 className="font-display text-xl font-semibold tracking-[-0.01em]">
                 {koG?.title ?? g.title}
               </h3>
-              <p className="mt-2 text-lg leading-snug text-ink/80">
-                {koG?.capability ?? g.capability}
-              </p>
               <div className="mt-5 flex flex-wrap gap-1.5">
-                {g.items.map((s) => (
-                  <span
-                    key={s}
-                    className="rounded-full bg-sand-deep px-2.5 py-1 text-[11px] text-ink/60"
-                  >
-                    {s}
-                  </span>
-                ))}
+                {g.items.map((s) => {
+                  const icon = chipIcons[s];
+                  const iconUrl = icon
+                    ? `url(${assetPath(`/icons/${icon}`)})`
+                    : undefined;
+                  return (
+                    <span
+                      key={s}
+                      className="inline-flex items-center gap-2 rounded-full bg-sand-deep px-3 py-1.5 text-xs text-ink/70"
+                    >
+                      {iconUrl ? (
+                        <span
+                          aria-hidden
+                          className="h-3.5 w-3.5 shrink-0 bg-current"
+                          style={{
+                            WebkitMaskImage: iconUrl,
+                            maskImage: iconUrl,
+                            WebkitMaskSize: "contain",
+                            maskSize: "contain",
+                            WebkitMaskRepeat: "no-repeat",
+                            maskRepeat: "no-repeat",
+                            WebkitMaskPosition: "center",
+                            maskPosition: "center",
+                          }}
+                        />
+                      ) : null}
+                      {s}
+                    </span>
+                  );
+                })}
               </div>
             </motion.div>
           );

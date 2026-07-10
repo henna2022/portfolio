@@ -23,7 +23,7 @@ export function Header() {
       className="fixed inset-x-0 top-0 z-40 border-b border-ink/5 bg-cream/70 backdrop-blur-md"
     >
       {/* Row 1 — brand + downloads + theme */}
-      <div className="mx-auto flex max-w-shell items-center justify-between gap-4 px-6 py-2.5">
+      <div className="mx-auto flex max-w-shell items-center justify-between gap-3 px-4 py-2.5 sm:gap-4 sm:px-6">
         <a
           href={assetPath("/")}
           className="flex shrink-0 items-center gap-2 font-display text-lg font-semibold text-ink"
@@ -32,7 +32,7 @@ export function Header() {
           {person.name}
         </a>
 
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <a
             href={assetPath(ko ? person.cvKo : person.cv)}
             download
@@ -43,7 +43,7 @@ export function Header() {
           <a
             href={assetPath(ko ? person.resumeKo : person.resume)}
             download
-            className="inline-flex items-center gap-1.5 rounded-full bg-ink px-3.5 py-2 text-sm font-medium text-cream transition-transform hover:scale-[1.03]"
+            className="inline-flex items-center gap-1.5 rounded-full bg-ink px-3 py-2 text-sm font-medium text-cream transition-transform hover:scale-[1.03] sm:px-3.5"
           >
             <DownloadIcon /> {t.resume}
           </a>

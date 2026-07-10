@@ -45,6 +45,7 @@ body {
 /* Korean locale — Pretendard everywhere (General Sans has no Hangul) */
 html.lang-ko body {
   font-family: "Pretendard Variable", Pretendard, -apple-system, sans-serif;
+  word-break: keep-all; /* don't split Korean words mid-syllable across lines */
 }
 html.lang-ko .font-display {
   font-family: "Pretendard Variable", Pretendard, sans-serif;

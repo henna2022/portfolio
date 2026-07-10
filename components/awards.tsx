@@ -49,7 +49,9 @@ export function Awards() {
           <motion.div
             key={a.title}
             variants={card}
-            className="flex flex-col rounded-4xl bg-sand/70 p-4 sm:p-5"
+            className={`flex flex-col rounded-4xl bg-sand/70 p-4 sm:p-5 ${
+              hasPhotos ? "" : "sm:self-start"
+            }`}
           >
             {hasPhotos ? (
               <ImageCarousel
