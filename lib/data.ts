@@ -567,6 +567,17 @@ export const awards: Award[] = [
     relatedSlug: "ato-care-robot",
   },
   {
+    year: "2024",
+    title: "ICT·SW Women's Start-up Competition",
+    detail: "Excellence Award (우수상) — VGG16 plant-disease diagnosis app",
+    result: "Excellence Award",
+    role: "PM & Developer",
+    topic:
+      "A plant-disease diagnosis app powered by a VGG16 image classifier (Korea IT Businesswomen's Association).",
+    photos: [],
+    relatedSlug: "doctor-green",
+  },
+  {
     year: "2025",
     title: "Science Museum & Community AI Hackathon",
     detail: "2nd place — AI docent for museum–community co-prosperity",
@@ -578,17 +589,6 @@ export const awards: Award[] = [
       "/portfolio_images/awards/award2_science_museum_1.jpg",
       "/portfolio_images/awards/award2_science_museum_2.png",
     ],
-  },
-  {
-    year: "2024",
-    title: "ICT·SW Women's Start-up Competition",
-    detail: "Excellence Award (우수상) — VGG16 plant-disease diagnosis app",
-    result: "Excellence Award",
-    role: "PM & Developer",
-    topic:
-      "A plant-disease diagnosis app powered by a VGG16 image classifier (Korea IT Businesswomen's Association).",
-    photos: [],
-    relatedSlug: "doctor-green",
   },
   {
     year: "2024",

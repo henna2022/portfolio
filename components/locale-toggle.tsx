@@ -8,8 +8,12 @@ const options: { value: Locale; label: string }[] = [
 ];
 
 // Compact EN / KO switch chip, same visual language as the header pills.
+// Korean copy still needs human rework, so the toggle only exists in
+// development builds; production is English-only for now.
 export function LocaleToggle() {
   const { locale, setLocale } = useLocale();
+
+  if (process.env.NODE_ENV !== "development") return null;
 
   return (
     <div

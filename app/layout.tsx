@@ -38,6 +38,7 @@ const themeScript = `
 
 // Runs before paint: applies the saved locale so the Korean font and
 // html.lang are ready before hydration (default is English).
+// Dev-only — production is English-only until the KO copy is reworked.
 const localeScript = `
 (function () {
   try {
@@ -58,7 +59,9 @@ export default function RootLayout({
     <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        <script dangerouslySetInnerHTML={{ __html: localeScript }} />
+        {process.env.NODE_ENV === "development" ? (
+          <script dangerouslySetInnerHTML={{ __html: localeScript }} />
+        ) : null}
       </head>
       <body>
         <LocaleProvider>

@@ -93,7 +93,7 @@ export function Contact() {
 
       {/* Giant faded name */}
       <div className="pointer-events-none select-none px-6">
-        <p className="font-display translate-y-[12%] whitespace-nowrap text-[19vw] font-bold leading-[0.8] tracking-[-0.03em] text-cream/10">
+        <p className="font-display translate-y-[12%] whitespace-nowrap text-[18vw] font-bold leading-[0.8] tracking-[-0.03em] text-cream/10">
           {person.name}
         </p>
       </div>

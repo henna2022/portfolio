@@ -65,6 +65,7 @@ export function About() {
 
   return (
     <section id="about" className="mx-auto max-w-shell px-6 py-20 text-center">
+      <h2 className="sr-only">{t.nav.about}</h2>
       {/* Photo with ambient glow */}
       <motion.div
         initial={{ opacity: 0, y: 30, scale: 0.96 }}
