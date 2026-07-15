@@ -41,7 +41,10 @@ function MajorCard({
 }) {
   const [showFlow, setShowFlow] = useState(false);
   const contain = p.imageFit === "contain";
-  const flow = p.flowImage;
+  // When a project has no screenshot but has an architecture diagram, the
+  // diagram becomes the card cover itself — so no hover crossfade for it.
+  const flowAsCover = !p.image && !!p.flowImage;
+  const flow = flowAsCover ? undefined : p.flowImage;
 
   return (
     <Link
@@ -64,6 +67,21 @@ function MajorCard({
                 contain ? "object-contain p-8" : "object-cover"
               }`}
             />
+          ) : flowAsCover && p.flowImage ? (
+            <>
+              <img
+                src={assetPath(p.flowImage.light)}
+                alt={`${p.title} architecture`}
+                loading="lazy"
+                className="block h-full w-full object-contain p-6 dark:hidden"
+              />
+              <img
+                src={assetPath(p.flowImage.dark)}
+                alt={`${p.title} architecture`}
+                loading="lazy"
+                className="hidden h-full w-full object-contain p-6 dark:block"
+              />
+            </>
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-sand-deep to-sand">
               <span className="font-display text-5xl font-semibold text-ink/15">

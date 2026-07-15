@@ -64,25 +64,15 @@ export const about = {
   ] as BioWord[][],
   facts: [
     { k: "Based in", v: "Seoul, KR" },
-    { k: "Education", v: "Hankyong National University — SW Convergence & Plant Life" },
-    { k: "Also", v: "Rutgers Winter Intensive English (2025)" },
-    { k: "Languages", v: "Korean · English" },
+    {
+      k: "Education",
+      v: "Hankyong National University — SW Convergence & Plant Life (double major) · Rutgers University — Winter Intensive English (2025)",
+    },
+    {
+      k: "Languages & Certifications",
+      v: "Korean (native) · English (fluent) · TOEIC Speaking AL · OPIc AL",
+    },
   ],
-};
-
-// "See more" content for the About section.
-export const aboutMore = {
-  languages: [
-    "TOEIC Speaking AL",
-    "OPIc AL",
-    "Korean (native) · English (fluent)",
-  ],
-  education: [
-    "Hankyong National University — B.Eng. Software Convergence & B.Ag. Plant Life · Environment (double major)",
-    "Rutgers University — Winter Intensive English (2025)",
-  ],
-  interests:
-    "I'm most drawn to where software leaves the screen — computer vision, IoT, and robotics that sense and act in the real world. My goal is to build AI & robotics products that reach real people, and to keep growing as an engineer who ships what matters.",
 };
 
 export type Project = {
@@ -120,30 +110,33 @@ export const projects: Project[] = [
     categories: ["AI", "IoT", "Web"],
     kicker: "Smart-farm platform · solo project",
     desc: "A smart-farm platform unifying YOLOv8 crop-disease diagnosis with live IoT environment monitoring and control. Built solo end to end — from ESP32 sensor nodes to the deployed Next.js dashboard.",
-    year: "2026",
+    year: "2024 — 2026",
     role: "Solo — planning to deployment",
     tags: ["Next.js 16", "TypeScript", "Supabase", "Flask", "ESP32", "YOLOv8", "Roboflow"],
     href: "https://doctor-green-nine.vercel.app/",
     repo: "https://github.com/henna2022/doctor-green",
-    image: "/portfolio_images/logo/logo_doctorgreen.png",
+    image: "/portfolio_images/projects/doctorgreen_app.png",
     imageFit: "contain",
-    stat: "mAP 0.95",
+    stat: "End-to-end solo",
     overview:
-      "Doctor-Green is a smart-farm platform that unifies an AI module diagnosing crop disease from camera video with IoT devices that measure and control the growing environment — all operated on a single web platform, so diagnosis and environment control live on one screen. I planned and built the whole pipeline solo, from sensor to dashboard.\n\nESP32 sensor nodes collect environment data, relay it through a Mac-based Flask server into Supabase, and a Next.js web app visualizes it live. From the same app, actuators such as LEDs and fans are controlled in real time through Supabase Realtime subscriptions. For diagnosis, YOLOv8 runs on USB-camera video to detect and diagnose 7 crop-disease classes.\n\nTraining uses the Roboflow strawberry-disease-detection-dataset v4 with an augmentation strategy for class imbalance; the first run (50 epochs) reached mAP50 ≈ 0.95, and a second YOLOv8l run (150 epochs) is in progress to push accuracy further. The web app is deployed and operating on Vercel.",
+      "Doctor-Green is a smart-farm platform that unifies an AI module diagnosing crop disease from camera video with IoT devices that measure and control the growing environment — all operated on a single web platform, so diagnosis and environment control live on one screen. I planned and built the whole pipeline solo, from sensor to dashboard.\n\nIt grew out of the VGG16 plant-disease-diagnosis app that won the Excellence Award at the 2024 ICT·SW Women's Start-up Competition, and was rebuilt in 2026 as a full smart-farm platform on YOLOv8.\n\nESP32 sensor nodes collect environment data, relay it through a Mac-based Flask server into Supabase, and a Next.js web app visualizes it live. From the same app, actuators such as LEDs and fans are controlled in real time through Supabase Realtime subscriptions. For diagnosis, YOLOv8 runs on USB-camera video to detect and diagnose 7 crop-disease classes.\n\nTraining uses the Roboflow strawberry-disease-detection-dataset v4 with an augmentation strategy for class imbalance; the first run (50 epochs) reached mAP50 ≈ 0.95, and a second YOLOv8l run (150 epochs) is in progress to push accuracy further. The web app is deployed on Vercel as a live demo.",
     highlights: [
       "Data flow built end to end: IoT sensing → Mac relay server (Flask) → Supabase → real-time Next.js visualization.",
       "YOLOv8 on USB-camera video detects and diagnoses 7 crop-disease classes.",
       "Real-time actuator control (LED, fan) from the web app via Supabase Realtime subscriptions.",
       "First training (50 epochs) reached mAP50 ≈ 0.95; second YOLOv8l training (150 epochs) in progress.",
       "Used the Roboflow strawberry-disease-detection-dataset v4 with an augmentation strategy for class imbalance.",
-      "Next.js 16 + TypeScript + Tailwind web app deployed and operating on Vercel.",
+      "Next.js 16 + TypeScript + Tailwind web app deployed on Vercel as a live demo.",
     ],
     flow: ["ESP32 sensors", "Flask relay", "Supabase", "Next.js dashboard"],
     flowImage: {
       light: "/portfolio_images/flow/doctor-green-flow-light.svg",
       dark: "/portfolio_images/flow/doctor-green-flow-dark.svg",
     },
-    gallery: ["/portfolio_images/logo/logo_doctorgreen.png"],
+    gallery: [
+      "/portfolio_images/projects/doctorgreen_app.png",
+      "/portfolio_images/logo/logo_doctorgreen.png",
+    ],
   },
   {
     slug: "raimi-art-lab",
@@ -190,18 +183,18 @@ export const projects: Project[] = [
     kicker: "Companion & medication-care robot",
     desc: "A rabbit-shaped companion robot that makes eye contact — and minds your meds. Built end to end, from circuits and firmware to a 3D-printed body and the YAKMOA multimodal medication-care service.",
     year: "2026",
-    role: "Solo — planning, development, hardware & AI",
+    role: "Robot — solo build · YAKMOA service — 2-person team (PM & Dev)",
     tags: ["ESP32", "Arduino/C++", "GC9A01 LCD", "Servo / PIR / Touch", "3D Printing", "Multimodal AI"],
-    stat: "Award",
+    stat: "GH Prize",
     overview:
-      "ATO is a rabbit-shaped emotional companion robot for single-person households and seniors. Two round displays act as expressive 'eyes' that show emotion, and sensors detect when someone approaches or pets it, triggering reactions.\n\nAn ESP32 drives the dual GC9A01 round LCDs for eye-expression animations such as blinking and gaze shifts, integrated with PIR proximity detection, capacitive petting touch, DFPlayer audio, and servo-driven ear and arm motion. The build covers the entire process — circuit design, firmware, a 3D-printed body, and microfiber cover sewing patterns.\n\nOn top of this, ATO integrates YAKMOA, a multimodal-AI feature that recognizes medicines and manages dose schedules — extending the robot from companionship into medication care. YAKMOA was designed as a medication-management service for digitally vulnerable users and people with disabilities, and won a prize at the GH Youth Build-Up Start-up Competition (team MAKENEW). The robot is currently a Phase 1 prototype, with medication care being integrated.",
+      "ATO is a rabbit-shaped emotional companion robot for single-person households and seniors. Two round displays act as expressive 'eyes' that show emotion, and sensors detect when someone approaches or pets it, triggering reactions.\n\nAn ESP32 drives the dual GC9A01 round LCDs for eye-expression animations such as blinking and gaze shifts, integrated with PIR proximity detection, capacitive petting touch, DFPlayer audio, and servo-driven ear and arm motion. The build covers the entire process — circuit design, firmware, a 3D-printed body, and microfiber cover sewing patterns.\n\nOn top of this, ATO integrates YAKMOA, a multimodal-AI feature that recognizes medicines and manages dose schedules — extending the robot from companionship into medication care. YAKMOA was designed as a medication-management service for digitally vulnerable users and people with disabilities, and won a prize at the GH Youth Build-Up Start-up Competition. The robot itself was built solo end to end; the YAKMOA service was planned and commercialized as the 2-person team MAKENEW, where I was PM & developer. The robot is currently a Phase 1 prototype, with medication care being integrated.",
     highlights: [
       "Eye-expression animations (blinking, gaze) on dual GC9A01 round LCDs driven by an ESP32.",
       "Integrated PIR proximity detection, capacitive petting touch, DFPlayer audio, and servo ear/arm motion.",
-      "Full build across the entire process — circuit design, firmware, a 3D-printed body, and microfiber sewing patterns.",
+      "Robot built 100% solo across the entire process — circuit design, firmware, a 3D-printed body, and microfiber sewing patterns.",
       "Integrated YAKMOA — multimodal-AI medicine recognition and dose management — combining companionship with medication care in one robot.",
       "YAKMOA designed as a medication-management service for digitally vulnerable users and people with disabilities; won a prize at the GH Youth Build-Up Start-up Competition (team MAKENEW).",
-      "As team MAKENEW (2 members), led service planning, user research, and authored the business plan & pitch deck.",
+      "For the YAKMOA service, worked as the 2-person team MAKENEW — as PM & developer, led service planning, user research, and authored the business plan & pitch deck.",
       "Currently a Phase 1 prototype, integrating medication care.",
     ],
     flow: ["Sensors (PIR / touch)", "ESP32 / Arduino", "Servo + LCD expression", "YAKMOA multimodal AI"],
@@ -218,20 +211,21 @@ export const projects: Project[] = [
     category: "Internal Operations Tool",
     categories: ["Web"],
     kicker: "Docent & part-timer management",
-    desc: "A staff app bringing schedules, rosters, live duty status, and notices together in one place. A self-initiated project born from a real operational pain point, built from prototype to internal mobile distribution.",
+    desc: "A staff app bringing schedules, rosters, live duty status, and notices together in one place, used daily by ~20 docents and part-time staff. A self-initiated project born from a real operational pain point, built from prototype to internal mobile distribution.",
     year: "2026",
     role: "Solo — planning & development",
     tags: ["React", "Vite", "Firebase / Firestore", "Capacitor"],
     image: "/portfolio_images/projects/raimapp_main.png",
     imageFit: "contain",
+    stat: "20 staff daily",
     overview:
-      "An internal platform for managing the museum's docents and part-time workers — a self-initiated project where I defined a real operational pain point (repetitive on-site work) and built the answer myself. It brings a per-date schedule grid, staff roster, live duty status, and notices together in a single app.\n\nIt started as a single-HTML prototype and was refactored into a structured Vite + React codebase backed by Firebase (Firestore) for real-time data. The full screen flow was planned and built end to end — login and role-based routing into bottom tabs (home · notices · schedule · status · my page · admin), plus a manager PC console and shared modals.\n\nPackaged with Capacitor for internal iOS / Android distribution, it is currently running as an internal test distribution.",
+      "An internal platform for managing the museum's docents and part-time workers — a self-initiated project where I defined a real operational pain point (repetitive on-site work) and built the answer myself. It brings a per-date schedule grid, staff roster, live duty status, and notices together in a single app.\n\nIt started as a single-HTML prototype and was refactored into a structured Vite + React codebase backed by Firebase (Firestore) for real-time data. The full screen flow was planned and built end to end — login and role-based routing into bottom tabs (home · notices · schedule · status · my page · admin), plus a manager PC console and shared modals.\n\nPackaged with Capacitor for internal iOS / Android distribution, it is currently running as an internal test distribution, used daily by around 20 docents and part-time staff.",
     highlights: [
       "Planned and built the entire service — schedule grid, roster, duty status, and notice screens.",
       "Refactored a single-HTML prototype into a maintainable Vite + React codebase.",
       "Real-time roster and duty status backed by Firebase / Firestore.",
       "Designed the full screen flow — login/role routing → bottom tabs (home · notices · schedule · status · my page · admin) → manager PC console and shared modals.",
-      "Set up internal iOS / Android distribution with Capacitor.",
+      "Set up internal iOS / Android distribution with Capacitor — used daily by ~20 docents and part-time staff.",
       "A self-initiated internal project, started by defining a real operational problem on-site.",
     ],
     flow: ["React + Vite", "Firebase / Firestore", "Capacitor", "iOS / Android internal"],
@@ -249,19 +243,21 @@ export const projects: Project[] = [
     category: "Education Program",
     categories: ["AI", "IoT", "Education"],
     kicker: "Museum × Yangpyeong Education Office",
-    desc: "A hands-on program where students experience IoT smart farming and AI crop diagnosis. Co-designed with Yangpyeong Education Office, including the full server and web-app environment.",
+    desc: "A hands-on program where students experience IoT smart farming and AI crop diagnosis. Commissioned by Yangpyeong Education Office; planned and built solo — full server and web-app environment — and taught to a 15-student high-school cohort.",
     year: "2026",
     role: "Solo — planning & development",
     tags: ["YOLO", "Weather API", "Server", "Web App", "IoT"],
     repo: "https://github.com/henna2022/smartfarm-device",
+    stat: "15-student cohort",
     overview:
-      "A hands-on education program co-designed with the Yangpyeong Education Office, where students experience an IoT smart farm and AI crop diagnosis first-hand. I planned the program and built the full server and web-app environment the classes needed — designed so students watch data accumulate and sensor values change in real time, with their own eyes.\n\nA class runs as a guided flow: students enter the virtual lab, pick a room at the hub, and move through four STEPs — weather, AI vision, IoT, and camera — watching data load into a virtual Supabase before finishing with 'my app complete' and a live hardware demo. A location-based weather API ties the lessons to real growing conditions, and the YOLO training process (epoch experiments, loss reduction) is explored together at the students' level.\n\nThe program was delivered as a museum × education-office collaboration — an exhibition-linked education case built and operated end to end.",
+      "A hands-on education program commissioned by the Yangpyeong Education Office through the museum, where students experience an IoT smart farm and AI crop diagnosis first-hand. I planned the program and built everything it needed solo — the full server and web-app environment — designed so students watch data accumulate and sensor values change in real time, with their own eyes. It ran as a class for a cohort of 15 Yangpyeong high-school students, selected by application.\n\nA class runs as a guided flow: students enter the virtual lab, pick a room at the hub, and move through four STEPs — weather, AI vision, IoT, and camera — watching data load into a virtual Supabase before finishing with 'my app complete' and a live hardware demo. A location-based weather API ties the lessons to real growing conditions, and the YOLO training process (epoch experiments, loss reduction) is explored together at the students' level.\n\nThe program was delivered as a museum × education-office commission — an exhibition-linked education case planned, built, and operated end to end by one person.",
     highlights: [
       "Integrated a location-based weather API to tie lessons to real growing conditions.",
       "Explored the YOLO training process (epoch experiments, loss reduction) at the students' level.",
       "Students watch sensor values load and change in real time in a virtual server's database.",
       "Designed the class flow: open lab → room-picker hub → 4 STEPs (weather · AI vision · IoT · camera) → virtual Supabase → app complete → live demo.",
-      "Built the full server and web-app environment the program needed, and delivered it as a running education program.",
+      "Commissioned by the Yangpyeong Education Office through the museum; planned and built solo, including the full server and web-app environment.",
+      "Delivered as a class to a 15-student cohort of Yangpyeong high-school students, selected by application.",
     ],
     flow: ["IoT sensors", "Weather API", "Server", "Student web app"],
     flowImage: {
@@ -279,7 +275,7 @@ export const projects: Project[] = [
     category: "Interactive Web Game",
     categories: ["Web", "Education"],
     kicker: "Exhibition-linked education content",
-    desc: "An interactive web game where visitors restore Korean cultural heritage themselves. Built as exhibition-linked education content and running on museum tablets.",
+    desc: "An interactive web game where visitors restore Korean cultural heritage themselves. Runs on 8 exhibition tablets in a once-daily program with ~15 participants per session.",
     year: "2026",
     role: "Development",
     tags: ["JavaScript", "HTML/CSS", "GitHub Pages"],
@@ -287,13 +283,13 @@ export const projects: Project[] = [
     repo: "https://github.com/henna2022/ai-restoration-exhibit",
     image: "/portfolio_images/restorer1.jpg",
     overview:
-      "An interactive web game where visitors restore Korean cultural heritage themselves — planned and built as museum exhibition-education content, so visitors don't just look at the exhibition but experience the restoration process hands-on.\n\nImplemented lightly in JavaScript and HTML/CSS and deployed on GitHub Pages, it runs directly on exhibition tablets and operates live as exhibition-linked education content.",
+      "An interactive web game where visitors restore Korean cultural heritage themselves — planned and built as museum exhibition-education content, so visitors don't just look at the exhibition but experience the restoration process hands-on.\n\nImplemented lightly in JavaScript and HTML/CSS and deployed on GitHub Pages, it runs on 8 exhibition tablets as part of a once-daily exhibition-linked program with around 15 participants per session.",
     highlights: [
       "Planned and developed interactive content for exhibition education.",
       "Game format that connects the exhibition with hands-on heritage restoration.",
       "Light JavaScript + HTML/CSS implementation that runs without a server.",
-      "Deployed via GitHub Pages to run directly on exhibition tablets.",
-      "Operating live as exhibition-linked education content.",
+      "Deployed via GitHub Pages to run directly on 8 exhibition tablets.",
+      "Operating live in a once-daily exhibition-linked program with ~15 participants per session.",
     ],
     gallery: [
       "/portfolio_images/restorer1.jpg",
@@ -315,13 +311,13 @@ export const projects: Project[] = [
     repo: "https://github.com/henna2022/raim-ai-studio",
     image: "/portfolio_images/projects/langlab1.jpg",
     overview:
-      "A game-style learning web app where visitors listen to and repeat words and sentences with the Raimi character, experiencing language and speech AI — designed so visitors explore how AI learns language, through play.\n\nThe full game flow — start, menu, play, completion — was planned and built on browser speech synthesis (TTS), so the app runs without any server. It supports both Korean and English, and ships as a PWA for offline use on exhibition tablets.",
+      "A game-style learning web app where visitors listen to and repeat words and sentences with the Raimi character, experiencing language and speech AI — designed so visitors explore how AI learns language, through play.\n\nThe full game flow — start, menu, play, completion — was planned and built on browser speech synthesis (TTS), so the app runs without any server. It supports both Korean and English, and ships as a PWA for offline use on the 3 exhibition tablets it runs on.",
     highlights: [
       "Designed and built the full game flow — start, menu, play, completion.",
       "Listening & speaking content powered by browser speech synthesis (TTS).",
       "Runs entirely in the browser with no server required.",
       "Bilingual Korean / English support.",
-      "Ships as a PWA for offline use on exhibition tablets.",
+      "Ships as a PWA for offline use on the 3 exhibition tablets.",
     ],
     flow: ["Web Speech API", "Browser TTS", "Offline PWA"],
     flowImage: {
@@ -443,7 +439,7 @@ export const experience = [
     gallery: ["/portfolio_images/experience/docent_1.JPG"],
     points: [
       "Build and run interactive AI education web apps used live by museum visitors.",
-      "Co-designed a smart-farm education program with Yangpyeong Education Office, including full server and web-app setup.",
+      "Planned and built a smart-farm education program commissioned by Yangpyeong Education Office — full server and web-app setup — delivered to a 15-student high-school cohort.",
       "Shipped internal ops and exhibition tools — staff scheduler, AI photo booth, and a metaverse exhibit.",
       "Guide exhibitions bilingually (KO / EN) and support multipurpose education rooms.",
     ],
@@ -573,7 +569,7 @@ export const awards: Award[] = [
     result: "Excellence Award",
     role: "PM & Developer",
     topic:
-      "A plant-disease diagnosis app powered by a VGG16 image classifier (Korea IT Businesswomen's Association).",
+      "A plant-disease diagnosis app powered by a VGG16 image classifier — the predecessor of Doctor-Green (Korea IT Businesswomen's Association).",
     photos: [],
     relatedSlug: "doctor-green",
   },
@@ -597,11 +593,12 @@ export const awards: Award[] = [
     result: "Encouragement Award",
     role: "PM & Developer",
     topic:
-      "A generative-AI tech start-up idea, hosted by the Ministry of Science and ICT.",
+      "The 2024 VGG16 version of Doctor-Green — a plant-disease diagnosis app — pitched as a generative/AI start-up idea, hosted by the Ministry of Science and ICT.",
     photos: [
       "/portfolio_images/awards/award4_chungnam_1.jpg",
       "/portfolio_images/awards/award4_chungnam_2.jpg",
     ],
+    relatedSlug: "doctor-green",
   },
   {
     year: "2024",
@@ -609,8 +606,10 @@ export const awards: Award[] = [
     detail: "Excellence Award (우수상) — start-up competition",
     result: "Excellence Award",
     role: "PM & Developer",
-    topic: "An early-stage start-up pitch audition at Hankyong National University.",
+    topic:
+      "Pitched the plant-disease diagnosis app that later grew into Doctor-Green, at Hankyong National University's start-up audition.",
     photos: ["/portfolio_images/awards/hknu_photo.jpg"],
+    relatedSlug: "doctor-green",
   },
 ];
 
