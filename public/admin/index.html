@@ -12,6 +12,9 @@
   @font-face{font-family:'Paperlogy';font-weight:700;font-style:normal;font-display:swap;src:url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-7Bold.woff2') format('woff2')}
   :root{--bg:#0b0f1a;--panel:#0f1422;--line:rgba(255,255,255,.12);--txt:#f2f4f8;--mid:#9aa3b5;--dim:#5d6679;--accent:#4f8cff;--good:#34d399;--bad:#f87171}
   *{margin:0;padding:0;box-sizing:border-box}
+  /* .center 의 display:flex 가 hidden 속성을 이겨버리는 것 방지 —
+     이게 없으면 로그인 화면이 영원히 사라지지 않는다 */
+  [hidden]{display:none !important}
   body{background:var(--bg);color:var(--txt);font-family:'Paperlogy',-apple-system,'Apple SD Gothic Neo',system-ui,sans-serif;font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
   code,.mono{font-family:'Space Mono',ui-monospace,monospace}
   a{color:var(--accent);text-decoration:none}
