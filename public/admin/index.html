@@ -206,7 +206,9 @@
     }
     sb.auth.onAuthStateChange(function (e, session) {
       diag('인증 이벤트: ' + e + (session ? ' (' + session.user.email + ')' : ''));
-      route(session);
+      // 중요: 콜백 "안"에서 rpc 등 다른 supabase 호출을 하면 라이브러리 내부
+      // 잠금이 풀리지 않아 교착상태(무한 대기)에 빠짐 → 콜백 밖으로 미룬다.
+      setTimeout(function () { route(session); }, 0);
     });
     sb.auth.getSession().then(function (r) {
       diag('초기 세션: ' + (r.data.session ? r.data.session.user.email : '없음'));
@@ -233,7 +235,9 @@
     try {
       if (!session) { show('login'); return; }
       ME = session.user.email;
+      diag('관리자 권한 확인 중…');
       var r = await sb.rpc('is_admin');
+      diag('관리자 권한: ' + (r.error ? '오류 — ' + r.error.message : r.data));
       if (r.error) {
         show('login');
         el('loginErr').textContent = '권한 확인 오류: ' + r.error.message;
