@@ -85,6 +85,8 @@ export function About() {
         <img
           src={assetPath(about.photo)}
           alt="Juwon Lee"
+          fetchPriority="high"
+          decoding="async"
           className="relative h-64 w-64 rounded-[2rem] object-cover object-[center_28%] shadow-[0_30px_60px_-20px_rgba(34,33,30,0.35)] sm:h-72 sm:w-72"
         />
       </motion.div>

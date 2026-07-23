@@ -63,6 +63,7 @@ function MajorCard({
               src={assetPath(p.image)}
               alt={p.title}
               loading="lazy"
+              decoding="async"
               className={`h-full w-full ${
                 contain ? "object-contain p-8" : "object-cover"
               }`}
@@ -73,12 +74,14 @@ function MajorCard({
                 src={assetPath(p.flowImage.light)}
                 alt={`${p.title} architecture`}
                 loading="lazy"
+                decoding="async"
                 className="block h-full w-full object-contain p-6 dark:hidden"
               />
               <img
                 src={assetPath(p.flowImage.dark)}
                 alt={`${p.title} architecture`}
                 loading="lazy"
+                decoding="async"
                 className="hidden h-full w-full object-contain p-6 dark:block"
               />
             </>
@@ -101,12 +104,14 @@ function MajorCard({
               src={assetPath(flow.light)}
               alt={`${p.title} architecture`}
               loading="lazy"
+              decoding="async"
               className="block h-full w-full object-contain p-3 dark:hidden"
             />
             <img
               src={assetPath(flow.dark)}
               alt={`${p.title} architecture`}
               loading="lazy"
+              decoding="async"
               className="hidden h-full w-full object-contain p-3 dark:block"
             />
           </div>

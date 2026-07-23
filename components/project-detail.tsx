@@ -181,11 +181,15 @@ export function ProjectDetail({
             <img
               src={assetPath(p.flowImage.light)}
               alt={`${p.title} architecture flow`}
+              loading="lazy"
+              decoding="async"
               className="block w-full dark:hidden"
             />
             <img
               src={assetPath(p.flowImage.dark)}
               alt={`${p.title} architecture flow`}
+              loading="lazy"
+              decoding="async"
               className="hidden w-full dark:block"
             />
           </div>
@@ -234,6 +238,7 @@ export function ProjectDetail({
                 src={assetPath(src)}
                 alt={p.title}
                 loading="lazy"
+                decoding="async"
                 className="w-full object-cover"
               />
             </div>

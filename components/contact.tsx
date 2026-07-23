@@ -47,6 +47,8 @@ export function Contact() {
           <img
             src={assetPath(person.photo)}
             alt="Juwon Lee"
+            loading="lazy"
+            decoding="async"
             className="h-14 w-14 rounded-2xl object-cover object-[center_28%]"
           />
           <h2 className="font-display mt-6 max-w-2xl text-4xl font-semibold leading-[1.05] tracking-[-0.02em] sm:text-5xl">

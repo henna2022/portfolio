@@ -80,6 +80,7 @@ export function ImageCarousel({
             src={assetPath(src)}
             alt={`${alt} — ${i + 1}`}
             loading="lazy"
+            decoding="async"
             draggable={false}
             onLoad={(e) => {
               // Portrait shots (certificates) show in full; landscape fills.
