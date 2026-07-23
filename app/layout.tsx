@@ -103,6 +103,13 @@ html.lang-ko .font-display {
           src="https://static.cloudflareinsights.com/beacon.min.js"
           data-cf-beacon='{"token": "94a926a0e02c413797b19cb641a11f32"}'
         />
+        {/* 자체 방문 통계 (Supabase) — 프로덕션에서만 수집해 dev 방문이 섞이지 않게 함 */}
+        {process.env.NODE_ENV === "production" ? (
+          <>
+            <script src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/supabase-config.js`} defer />
+            <script src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/analytics.js`} defer />
+          </>
+        ) : null}
       </body>
     </html>
   );

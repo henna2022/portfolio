@@ -150,14 +150,15 @@
   var el = function (id) { return document.getElementById(id); };
   var show = function (v) { ['login', 'denied', 'app'].forEach(function (x) { el('view-' + x).hidden = (x !== v); }); };
 
-  // 로그인 화면에 각 단계의 상태를 그대로 보여주는 진단 로그
-  var DIAG = [];
+  // 각 단계의 상태 로그 — 평소엔 콘솔에만, 주소에 ?debug 를 붙이면 화면에도 표시
+  var DIAG = [], SHOW_DIAG = location.search.indexOf('debug') >= 0;
   function diag(line) {
     DIAG.push(line);
+    console.log('[admin]', line);
+    if (!SHOW_DIAG) return;
     var box = el('diagBox');
     box.hidden = false;
     box.textContent = DIAG.join('\n');
-    console.log('[admin]', line);
   }
 
   function init() {

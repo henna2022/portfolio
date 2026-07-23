@@ -16,7 +16,8 @@
   if (!sid) { sid = Date.now().toString(36) + Math.random().toString(36).slice(2, 8); sessionStorage.setItem('pf_sid', sid); }
 
   var isMobile = matchMedia('(hover:none),(pointer:coarse)').matches || innerWidth < 760;
-  var lang = document.body.classList.contains('lang-en') ? 'en' : 'ko';
+  // Next 사이트: KO 모드일 때 html 에 lang-ko 클래스가 붙음 (기본은 EN)
+  var lang = document.documentElement.classList.contains('lang-ko') ? 'ko' : 'en';
 
   // 국가: 세션당 1회만 조회 후 캐시 (원본 IP는 저장하지 않음)
   function withCountry(cb) {
@@ -30,7 +31,7 @@
 
   var pvId = null, start = Date.now(), durationSent = false;
 
-  withCountry(function (country) {
+  function insertView(country) {
     fetch(REST + 'page_views', {
       method: 'POST',
       headers: Object.assign({ Prefer: 'return=representation' }, H),
@@ -44,8 +45,23 @@
         screen_w: innerWidth
       })
     }).then(function (r) { return r.json(); })
-      .then(function (rows) { pvId = rows && rows[0] && rows[0].id; })
+      .then(function (rows) { pvId = rows && rows[0] && rows[0].id; start = Date.now(); durationSent = false; })
       .catch(function () {});
+  }
+
+  withCountry(function (country) {
+    insertView(country);
+    // SPA(Next) 클라이언트 라우팅도 페이지뷰로 기록
+    var push = history.pushState;
+    history.pushState = function () {
+      sendDuration();
+      push.apply(this, arguments);
+      setTimeout(function () { pvId = null; insertView(country); }, 0);
+    };
+    addEventListener('popstate', function () {
+      sendDuration();
+      setTimeout(function () { pvId = null; insertView(country); }, 0);
+    });
   });
 
   // 체류시간: 페이지가 숨겨지거나 떠날 때 1회 전송 (keepalive 로 언로드 중에도 완료)
@@ -69,10 +85,12 @@
 
   // 프로젝트 카드 열람 + CTA 링크 클릭 추적
   document.addEventListener('click', function (e) {
-    var art = e.target.closest && e.target.closest('article.card');
-    if (art && art.id) logEvent('project_open', art.id);
-
     var a = e.target.closest && e.target.closest('a[href]');
+    // Next 사이트: 프로젝트 카드는 /work/<slug> 링크
+    if (a) {
+      var m = (a.getAttribute('href') || '').match(/\/work\/([^\/?#]+)/);
+      if (m) logEvent('project_open', m[1]);
+    }
     if (a) {
       var href = a.getAttribute('href') || '';
       if (href.indexOf('mailto:') === 0) logEvent('cta_click', 'email');
@@ -81,12 +99,6 @@
       else if (/vercel\.app|github\.io/.test(href)) logEvent('cta_click', 'project_live');
     }
   }, true);
-
-  // 언어 토글 사용
-  ['b-ko', 'b-en'].forEach(function (id) {
-    var b = document.getElementById(id);
-    if (b) b.addEventListener('click', function () { logEvent('lang_toggle', id === 'b-en' ? 'en' : 'ko'); });
-  });
 })();
 
 /* ============================================================
