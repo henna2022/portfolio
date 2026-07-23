@@ -6,9 +6,13 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Admin · Juwon Lee</title>
 <style>
+  /* Paperlogy 웹폰트 (OFL, fonts-archive CDN) */
+  @font-face{font-family:'Paperlogy';font-weight:400;font-style:normal;font-display:swap;src:url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-4Regular.woff2') format('woff2')}
+  @font-face{font-family:'Paperlogy';font-weight:500;font-style:normal;font-display:swap;src:url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-5Medium.woff2') format('woff2')}
+  @font-face{font-family:'Paperlogy';font-weight:700;font-style:normal;font-display:swap;src:url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-7Bold.woff2') format('woff2')}
   :root{--bg:#0b0f1a;--panel:#0f1422;--line:rgba(255,255,255,.12);--txt:#f2f4f8;--mid:#9aa3b5;--dim:#5d6679;--accent:#4f8cff;--good:#34d399;--bad:#f87171}
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:var(--bg);color:var(--txt);font-family:'Pretendard',-apple-system,'Apple SD Gothic Neo',system-ui,sans-serif;font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--txt);font-family:'Paperlogy',-apple-system,'Apple SD Gothic Neo',system-ui,sans-serif;font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
   code,.mono{font-family:'Space Mono',ui-monospace,monospace}
   a{color:var(--accent);text-decoration:none}
   button{font-family:inherit;cursor:pointer}
@@ -16,7 +20,7 @@
 
   /* 로그인 / 권한없음 화면 */
   .center{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;text-align:center;padding:24px}
-  .center h1{font-family:'Space Mono',monospace;font-size:26px;font-weight:700}
+  .center h1{font-family:'Paperlogy',sans-serif;font-size:26px;font-weight:700}
   .center p{color:var(--mid);max-width:420px}
   .g-btn{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#1f2430;font-weight:600;border:none;border-radius:10px;padding:12px 20px;font-size:15px}
   .g-btn svg{width:18px;height:18px}
@@ -25,14 +29,14 @@
 
   /* 대시보드 */
   header.bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:24px}
-  header.bar h1{font-family:'Space Mono',monospace;font-size:20px}
+  header.bar h1{font-family:'Paperlogy',sans-serif;font-size:20px;font-weight:700}
   header.bar .who{color:var(--dim);font-size:12px}
   .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
   select,.controls button{background:var(--panel);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:8px 12px;font-size:13px}
 
   .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:24px}
   .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
-  .kpi .n{font-family:'Space Mono',monospace;font-size:28px;font-weight:700}
+  .kpi .n{font-family:'Paperlogy',sans-serif;font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
   .kpi .l{color:var(--mid);font-size:12px;margin-top:4px}
 
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
@@ -45,12 +49,12 @@
   .row .track{grid-column:1/2;position:relative;background:rgba(255,255,255,.05);border-radius:5px;height:22px;overflow:hidden}
   .row .fill{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,rgba(79,140,255,.55),rgba(79,140,255,.25));border-radius:5px}
   .row .lbl{position:absolute;left:8px;top:0;line-height:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 12px)}
-  .row .val{grid-column:2/3;font-family:'Space Mono',monospace;color:var(--mid);min-width:38px;text-align:right}
+  .row .val{grid-column:2/3;font-family:'Paperlogy',sans-serif;font-variant-numeric:tabular-nums;color:var(--mid);min-width:38px;text-align:right}
   .empty{color:var(--dim);font-size:13px;padding:8px 0}
 
   .days{display:flex;align-items:flex-end;gap:3px;height:90px}
   .days .d{flex:1;background:rgba(79,140,255,.45);border-radius:3px 3px 0 0;min-height:2px;position:relative}
-  .days .d:hover::after{content:attr(data-t);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#000;border:1px solid var(--line);padding:2px 6px;border-radius:4px;font-size:11px;white-space:nowrap;font-family:'Space Mono',monospace}
+  .days .d:hover::after{content:attr(data-t);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#000;border:1px solid var(--line);padding:2px 6px;border-radius:4px;font-size:11px;white-space:nowrap;font-family:'Paperlogy',sans-serif}
 
   /* 메시지 */
   .msg{border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:10px}
@@ -67,7 +71,7 @@
   .mini{font-size:12px;padding:6px 10px;border-radius:7px;border:1px solid var(--line);background:none;color:var(--mid)}
   .mini:hover{border-color:var(--accent);color:var(--accent)}
   .mini.danger:hover{border-color:var(--bad);color:var(--bad)}
-  .section-title{font-family:'Space Mono',monospace;font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;margin:30px 0 12px}
+  .section-title{font-family:'Paperlogy',sans-serif;font-weight:500;font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;margin:30px 0 12px}
   .hint{background:rgba(79,140,255,.08);border:1px solid rgba(79,140,255,.3);border-radius:10px;padding:12px 14px;font-size:12.5px;color:var(--mid);margin-bottom:20px}
 </style>
 </head>
