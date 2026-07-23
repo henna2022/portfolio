@@ -47,9 +47,18 @@ function Robot() {
   };
 
   useEffect(() => {
-    // 스킨드메시가 바인드포즈 기준 바운딩으로 잘못 컬링되는 것 방지
     scene.traverse((o) => {
+      // 스킨드메시가 바인드포즈 기준 바운딩으로 잘못 컬링되는 것 방지
       o.frustumCulled = false;
+      // 본체(노랑) 머티리얼을 사이트 액센트 블루로 — 회색 관절은 유지
+      const mesh = o as THREE.Mesh;
+      if (mesh.isMesh && mesh.material) {
+        const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+        mats.forEach((m) => {
+          const std = m as THREE.MeshStandardMaterial;
+          if (std.name === "Main" && std.color) std.color.set("#3B82F6");
+        });
+      }
     });
     play("Robot_Walking", true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -112,12 +121,18 @@ export default function HeroRobot() {
   return (
     <div
       aria-hidden
-      className="pointer-events-auto absolute bottom-0 right-[2%] h-72 w-64 cursor-pointer xl:right-[5%]"
+      className="pointer-events-auto absolute bottom-0 right-[3%] h-40 w-36 cursor-pointer xl:right-[6%] xl:h-44 xl:w-40"
     >
       <Canvas
         dpr={[1, 1.5]}
         camera={{ position: [0, 0.6, 4.2], fov: 32 }}
         gl={{ antialias: true, alpha: true }}
+        onCreated={(state) => {
+          // dev 전용: 콘솔에서 씬 검사·프레이밍 보정용
+          if (process.env.NODE_ENV !== "production") {
+            (window as unknown as { __r3f?: unknown }).__r3f = state;
+          }
+        }}
       >
         <hemisphereLight intensity={1.1} groundColor="#b0a894" />
         <directionalLight position={[3, 5, 4]} intensity={1.4} />
