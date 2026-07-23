@@ -69,7 +69,8 @@ function Robot() {
     if (!g) return;
 
     if (phase.current === "walk") {
-      // 오른쪽 바깥에서 제자리까지 걸어 들어온 뒤 인사
+      // 오른쪽 바깥에서 제자리까지: 진행 방향(관람자 기준 왼쪽 앞)을 보며 걷는다
+      g.rotation.y = THREE.MathUtils.lerp(g.rotation.y, -0.95, 0.15);
       g.position.x = Math.max(0, g.position.x - delta * 1.5);
       if (g.position.x === 0) {
         phase.current = "greet";
@@ -82,17 +83,18 @@ function Robot() {
       return;
     }
 
-    // 시선 추적: 마우스 방향으로 몸을 부드럽게 회전
+    // 도착 후: 정면으로 돌아서고, 이후 마우스 방향으로 부드럽게 시선 추적
     const targetY = state.pointer.x * 0.55;
     const targetX = -state.pointer.y * 0.12;
-    g.rotation.y = THREE.MathUtils.lerp(g.rotation.y, targetY, 0.08);
-    g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, targetX, 0.08);
+    g.rotation.y = THREE.MathUtils.lerp(g.rotation.y, targetY, 0.1);
+    g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, targetX, 0.1);
   });
 
   return (
     <group
       ref={group}
       position={[WALK_FROM_X, -1.25, 0]}
+      rotation={[0, -0.95, 0]}
       onPointerOver={() => oneShot("Robot_Wave")}
       onClick={() =>
         oneShot(REACTIONS[Math.floor(Math.random() * REACTIONS.length)])
@@ -125,7 +127,7 @@ export default function HeroRobot() {
     >
       <Canvas
         dpr={[1, 1.5]}
-        camera={{ position: [0, 0.6, 4.6], fov: 32 }}
+        camera={{ position: [0, 0.6, 5.4], fov: 32 }}
         gl={{ antialias: true, alpha: true }}
         onCreated={(state) => {
           // dev 전용: 콘솔에서 씬 검사·프레이밍 보정용
