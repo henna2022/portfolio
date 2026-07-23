@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { motion, type Variants } from "framer-motion";
 import { hero, person } from "@/lib/data";
 import { heroKo, personKo } from "@/lib/data-ko";
@@ -8,6 +9,9 @@ import { useLocale } from "@/lib/locale";
 import { dict } from "@/lib/i18n";
 import { ArrowIcon, GridIcon } from "./icons";
 import { ease } from "@/lib/motion";
+
+// three.js 런타임은 별도 청크로 지연 로드 — 첫 화면 성능에 영향 없음
+const HeroRobot = dynamic(() => import("./hero-robot"), { ssr: false });
 
 const parent: Variants = {
   hidden: {},
@@ -97,6 +101,9 @@ export function Hero() {
           </motion.a>
         </motion.div>
       </motion.div>
+
+      {/* 걸어 들어와 인사하는 로봇 (데스크톱 전용, 시선 추적 + 클릭 리액션) */}
+      <HeroRobot />
     </section>
   );
 }
