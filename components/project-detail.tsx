@@ -81,7 +81,7 @@ export function ProjectDetail({
                 href={p.repo}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-sand"
+                className="inline-flex items-center gap-2 rounded-full bg-sand/60 px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-sand"
               >
                 {t.github}
               </a>
@@ -154,7 +154,7 @@ export function ProjectDetail({
               {p.tags.map((t) => (
                 <span
                   key={t}
-                  className="rounded-full border border-ink/12 bg-sand/60 px-3 py-1.5 text-xs text-ink/75"
+                  className="rounded-full bg-sand/60 px-3 py-1.5 text-xs text-ink/75"
                 >
                   {t}
                 </span>
@@ -177,7 +177,7 @@ export function ProjectDetail({
             {t.architecture}
           </h2>
           <p className="mt-1 text-sm text-muted">{t.architectureSub}</p>
-          <div className="mx-auto mt-6 max-w-[620px] overflow-hidden rounded-3xl border border-ink/10">
+          <div className="mx-auto mt-6 max-w-[620px] overflow-hidden rounded-3xl bg-sand/40">
             <img
               src={assetPath(p.flowImage.light)}
               alt={`${p.title} architecture flow`}
@@ -208,7 +208,7 @@ export function ProjectDetail({
           <div className="mt-6 flex flex-wrap items-center gap-3">
             {p.flow.map((step, i) => (
               <div key={step} className="flex items-center gap-3">
-                <span className="rounded-2xl border border-cream/15 bg-cream/10 px-4 py-3 text-sm font-medium text-cream">
+                <span className="rounded-2xl bg-cream/10 px-4 py-3 text-sm font-medium text-cream">
                   {step}
                 </span>
                 {i < p.flow!.length - 1 ? (

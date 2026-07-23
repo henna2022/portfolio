@@ -15,7 +15,7 @@ export const heroKo = {
   sub: "로봇, 센서, 과학관 전시장. 화면 밖에서 움직이는 AI를 만들고, 그 원리를 누구나 이해하기 쉽게 전합니다.",
 };
 
-// translated — mirrors the 3-paragraph structure of the English bio
+// translated; mirrors the 3-paragraph structure of the English bio
 export const aboutBioKo: BioWord[][] = [
   [
     { w: "안녕하세요,", s: false },
@@ -76,13 +76,13 @@ export const aboutFactsKo = [
   { k: "활동 지역", v: "서울, 대한민국" },
   {
     k: "학력",
-    v: "청원여자고등학교 (2019 — 2022)\n한경국립대학교 식물생명환경(농학사) · 소프트웨어융합(공학사) 복수전공 (2022 — 현재)",
+    v: "청원여자고등학교 (2019 - 2022)\n한경국립대학교 식물생명환경(농학사) · 소프트웨어융합(공학사) 복수전공 (2022 - 현재)",
   },
   { k: "기타", v: "Rutgers 동계 영어 집중 과정 (2025)" },
   { k: "언어 · 자격", v: "한국어 (모국어) · 영어 (유창) · TOEIC Speaking AL · OPIc AL" },
 ];
 
-// About 섹션 '더 보기' 내용 — data.ts `aboutMore`의 한국어판.
+// About 섹션 '더 보기' 내용. data.ts `aboutMore`의 한국어판.
 export const aboutMoreKo = {
   languages: [
     "TOEIC Speaking AL",

@@ -77,7 +77,7 @@ export function Experience() {
                   ) : (
                     <div
                       key={idx}
-                      className="flex aspect-[3/4] w-40 shrink-0 snap-start items-center justify-center rounded-2xl border border-dashed border-ink/15 bg-sand/40 text-xs text-muted sm:w-auto"
+                      className="flex aspect-[3/4] w-40 shrink-0 snap-start items-center justify-center rounded-2xl bg-sand/60 text-xs text-muted sm:w-auto"
                     >
                       {t.comingSoon}
                     </div>

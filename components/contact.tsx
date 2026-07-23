@@ -71,7 +71,7 @@ export function Contact() {
         </motion.div>
 
         {/* Divider + row */}
-        <div className="mt-14 flex flex-col gap-6 border-t border-cream/15 py-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-6 border-t border-cream/10 py-8 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             {socials.map(({ label, href, Icon }) => (
               <a
@@ -80,7 +80,7 @@ export function Contact() {
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel="noreferrer"
                 aria-label={label}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-cream/25 text-cream transition-colors hover:border-cream hover:bg-cream hover:text-ink"
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-cream/10 text-cream transition-colors hover:bg-cream hover:text-ink"
               >
                 <Icon className="h-5 w-5" />
               </a>

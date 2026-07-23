@@ -57,7 +57,7 @@ export function Activities() {
                     {koA?.role ?? a.role}
                   </span>
                 </span>
-                <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-ink/15 px-3 py-1.5 text-xs font-medium text-ink/70 transition-colors group-hover:border-ink/30 group-hover:text-ink">
+                <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-sand/60 px-3 py-1.5 text-xs font-medium text-ink/70 transition-colors group-hover:bg-sand group-hover:text-ink">
                   {isOpen ? t.seeLess : t.seeMore}
                   <motion.span
                     animate={{ rotate: isOpen ? 90 : 0 }}

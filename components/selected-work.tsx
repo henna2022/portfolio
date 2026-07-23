@@ -231,7 +231,7 @@ export function SelectedWork() {
           transition={{ duration: 0.7, delay: 0.1, ease }}
           download
           href={assetPath("/files/Juwon_Lee_Architecture_Deck.pdf")}
-          className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-sand"
+          className="inline-flex items-center gap-2 rounded-full bg-sand/60 px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-sand"
         >
           <DownloadIcon className="h-3.5 w-3.5" />
           {t.deckButton}
@@ -250,7 +250,7 @@ export function SelectedWork() {
               className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                 isActive
                   ? "bg-ink text-cream"
-                  : "border border-ink/15 text-ink/70 hover:bg-sand"
+                  : "bg-sand/60 text-ink/70 hover:bg-sand"
               }`}
             >
               {f === "All" ? t.filterAll : f}

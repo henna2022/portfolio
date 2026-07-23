@@ -93,7 +93,10 @@
     }
     if (a) {
       var href = a.getAttribute('href') || '';
-      if (href.indexOf('mailto:') === 0) logEvent('cta_click', 'email');
+      if (href.indexOf('Architecture_Deck') >= 0) logEvent('cta_click', 'deck_download');
+      else if (href.indexOf('Resume') >= 0) logEvent('cta_click', 'resume_download');
+      else if (href.indexOf('CV') >= 0) logEvent('cta_click', 'cv_download');
+      else if (href.indexOf('mailto:') === 0) logEvent('cta_click', 'email');
       else if (/linkedin\.com/.test(href)) logEvent('cta_click', 'linkedin');
       else if (/github\.com/.test(href)) logEvent('cta_click', 'github');
       else if (/vercel\.app|github\.io/.test(href)) logEvent('cta_click', 'project_live');

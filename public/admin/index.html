@@ -297,9 +297,15 @@
     var today = new Date(); today.setHours(0, 0, 0, 0);
     var todayN = pv.filter(function (p) { return new Date(p.created_at) >= today; }).length;
 
+    // CTA 클릭 라벨별 집계 (이력서·CV 다운로드, 링크 클릭 KPI 용)
+    var cta = {}; ev.forEach(function (e) { if (e.type === 'cta_click' && e.label) cta[e.label] = (cta[e.label] || 0) + 1; });
+
     el('kpis').innerHTML = [
       ['총 방문', pv.length], ['순 세션', Object.keys(sessions).length],
-      ['평균 체류', avg + 's'], ['오늘 방문', todayN]
+      ['평균 체류', avg + 's'], ['오늘 방문', todayN],
+      ['이력서 다운로드', cta.resume_download || 0], ['CV 다운로드', cta.cv_download || 0],
+      ['GitHub 클릭', cta.github || 0], ['LinkedIn 클릭', cta.linkedin || 0],
+      ['이메일 클릭', cta.email || 0]
     ].map(function (k) { return '<div class="kpi"><div class="n">' + k[1] + '</div><div class="l">' + k[0] + '</div></div>'; }).join('');
 
     bars('c-country', countBy(pv, 'country'));

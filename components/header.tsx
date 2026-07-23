@@ -36,7 +36,7 @@ export function Header() {
           <a
             href={assetPath(ko ? person.cvKo : person.cv)}
             download
-            className="hidden items-center gap-1.5 rounded-full border border-ink/15 px-3.5 py-2 text-sm font-medium text-ink transition-colors hover:bg-sand sm:inline-flex"
+            className="hidden items-center gap-1.5 rounded-full bg-sand/60 px-3.5 py-2 text-sm font-medium text-ink transition-colors hover:bg-sand sm:inline-flex"
           >
             <DownloadIcon /> {t.cv}
           </a>

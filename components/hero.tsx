@@ -36,7 +36,7 @@ export function Hero() {
       >
         <motion.div
           variants={child}
-          className="mb-6 flex items-center gap-3 rounded-full border border-ink/10 bg-sand/50 py-1.5 pl-1.5 pr-4"
+          className="mb-6 flex items-center gap-3 rounded-full bg-sand/60 py-1.5 pl-1.5 pr-4"
         >
           <img
             src={assetPath(person.photo)}
@@ -50,7 +50,7 @@ export function Hero() {
 
         <motion.span
           variants={child}
-          className="mb-8 inline-flex items-center gap-2 rounded-full border border-ink/10 bg-sand/60 px-4 py-1.5 text-xs font-medium tracking-wide text-ink/70"
+          className="mb-8 inline-flex items-center gap-2 rounded-full bg-sand/60 px-4 py-1.5 text-xs font-medium tracking-wide text-ink/70"
         >
           <GridIcon />
           {hero.badge}
@@ -60,8 +60,8 @@ export function Hero() {
           variants={child}
           className={`font-display text-balance max-w-4xl text-[2.75rem] text-ink sm:text-6xl md:text-7xl ${
             ko
-              ? "font-bold leading-[1.24] tracking-[-0.01em]"
-              : "font-semibold leading-[1.05] tracking-[-0.015em]"
+              ? "font-bold leading-[1.34] tracking-[-0.01em]"
+              : "font-semibold leading-[1.14] tracking-[-0.015em]"
           }`}
         >
           {ko ? heroKo.headline : hero.headline}
@@ -91,7 +91,7 @@ export function Hero() {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             href="#about"
-            className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-6 py-3.5 text-sm font-medium text-ink"
+            className="inline-flex items-center gap-2 rounded-full bg-sand/60 px-6 py-3.5 text-sm font-medium text-ink transition-colors hover:bg-sand"
           >
             {t.readProfile}
           </motion.a>

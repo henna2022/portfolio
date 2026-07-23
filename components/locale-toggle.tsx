@@ -19,7 +19,7 @@ export function LocaleToggle() {
     <div
       role="group"
       aria-label="Language"
-      className="flex h-9 items-center rounded-full border border-ink/15 p-1"
+      className="flex h-9 items-center rounded-full bg-sand/60 p-1"
     >
       {options.map((o) => (
         <button

@@ -55,7 +55,7 @@ export const dict = {
     highlights: "Highlights",
     stack: "Stack",
     architecture: "Architecture",
-    architectureSub: "How the app is structured — screens, roles, and data flow.",
+    architectureSub: "How the app is structured: screens, roles, and data flow.",
     previous: "← Previous",
     next: "Next →",
     live: "Live",
@@ -91,7 +91,7 @@ export const dict = {
     seeMore: "더 보기",
     seeLess: "접기",
 
-    // Section headlines stay in English in KO mode (design decision) —
+    // Section headlines stay in English in KO mode (design decision);
     // body copy and hints below them are Korean.
     workHeading: "A compact index of recent work.",
     filterAll: "전체",
