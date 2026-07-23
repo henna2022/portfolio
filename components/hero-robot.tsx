@@ -121,11 +121,11 @@ export default function HeroRobot() {
   return (
     <div
       aria-hidden
-      className="pointer-events-auto absolute bottom-0 right-[3%] h-40 w-36 cursor-pointer xl:right-[6%] xl:h-44 xl:w-40"
+      className="pointer-events-auto absolute bottom-0 right-[3%] h-40 w-44 cursor-pointer xl:right-[5%] xl:h-44 xl:w-52"
     >
       <Canvas
         dpr={[1, 1.5]}
-        camera={{ position: [0, 0.6, 4.2], fov: 32 }}
+        camera={{ position: [0, 0.6, 4.6], fov: 32 }}
         gl={{ antialias: true, alpha: true }}
         onCreated={(state) => {
           // dev 전용: 콘솔에서 씬 검사·프레이밍 보정용
