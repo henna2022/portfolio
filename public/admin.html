@@ -141,6 +141,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
 <script>
   var sb = null, ME = null;
+  // supabase-js 가 URL 을 정리하기 전의 원본 해시/쿼리 (진단용)
+  var RAW_HASH = location.hash, RAW_SEARCH = location.search;
   var el = function (id) { return document.getElementById(id); };
   var show = function (v) { ['login', 'denied', 'app'].forEach(function (x) { el('view-' + x).hidden = (x !== v); }); };
 
@@ -157,20 +159,50 @@
       show('login'); el('loginErr').textContent = 'supabase-config.js 를 먼저 설정하세요 (SB_URL / SB_ANON_KEY).';
       el('loginBtn').disabled = true; return;
     }
-    sb = supabase.createClient(window.SB_URL, window.SB_ANON_KEY);
-    sb.auth.onAuthStateChange(function (_e, session) { route(session); });
+    // PKCE: 토큰을 URL 해시(#) 대신 ?code= 쿼리로 받아 교환 — 해시가 유실되는
+    // 환경(브라우저/확장프로그램)에서도 동작하고 보안도 더 강함.
+    sb = supabase.createClient(window.SB_URL, window.SB_ANON_KEY, { auth: { flowType: 'pkce' } });
+    sb.auth.onAuthStateChange(function (e, session) {
+      console.log('[admin] auth event:', e, session ? session.user.email : null);
+      route(session);
+    });
     sb.auth.getSession().then(function (r) { route(r.data.session); });
+
+    // 자가 진단: 로그인 리다이렉트 후에도 세션이 없으면 어느 단계가
+    // 실패했는지 화면에 표시
+    setTimeout(function () {
+      if (el('view-login').hidden || el('loginErr').textContent) return;
+      sb.auth.getSession().then(function (r) {
+        if (r.data.session) return;
+        if (RAW_HASH.indexOf('access_token') >= 0)
+          el('loginErr').textContent = '진단: 토큰은 도착했지만 세션 저장에 실패했습니다. 브라우저의 저장소(쿠키/로컬스토리지) 차단 설정을 확인하세요.';
+        else if (RAW_SEARCH.indexOf('code=') >= 0)
+          el('loginErr').textContent = '진단: 인증 코드는 도착했지만 교환에 실패했습니다. Supabase Google provider 의 Client Secret 을 다시 확인하세요.';
+        else if (RAW_HASH || document.referrer.indexOf('supabase') >= 0)
+          el('loginErr').textContent = '진단: 인증 응답에 토큰이 없습니다. Supabase 의 Google provider 설정(Client Secret)을 확인하세요.';
+      });
+    }, 1500);
   }
 
   async function route(session) {
-    if (!session) { show('login'); return; }
-    ME = session.user.email;
-    var r = await sb.rpc('is_admin');
-    if (r.data === true) {
-      el('whoami').textContent = ME + ' 로 로그인됨';
-      show('app'); loadAll();
-    } else {
-      el('deniedEmail').textContent = ME; show('denied');
+    try {
+      if (!session) { show('login'); return; }
+      ME = session.user.email;
+      var r = await sb.rpc('is_admin');
+      if (r.error) {
+        show('login');
+        el('loginErr').textContent = '권한 확인 오류: ' + r.error.message;
+        return;
+      }
+      if (r.data === true) {
+        el('whoami').textContent = ME + ' 로 로그인됨';
+        show('app'); loadAll();
+      } else {
+        el('deniedEmail').textContent = ME; show('denied');
+      }
+    } catch (err) {
+      show('login');
+      el('loginErr').textContent = '오류: ' + (err && err.message ? err.message : err);
     }
   }
 
