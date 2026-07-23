@@ -145,6 +145,14 @@
   var show = function (v) { ['login', 'denied', 'app'].forEach(function (x) { el('view-' + x).hidden = (x !== v); }); };
 
   function init() {
+    // 로그인 리다이렉트가 에러와 함께 돌아온 경우 그 내용을 화면에 표시
+    // (예: OAuth 토큰 교환 실패 시 Supabase 가 #error_description=... 으로 돌려보냄)
+    var errm = (location.hash + location.search).match(/error_description=([^&]+)/);
+    if (errm) {
+      var msg = decodeURIComponent(errm[1].replace(/\+/g, ' '));
+      el('loginErr').textContent = '로그인 실패: ' + msg;
+      console.warn('[admin] auth redirect error:', location.hash || location.search);
+    }
     if (!window.SB_URL || /YOUR-/.test(window.SB_URL)) {
       show('login'); el('loginErr').textContent = 'supabase-config.js 를 먼저 설정하세요 (SB_URL / SB_ANON_KEY).';
       el('loginBtn').disabled = true; return;
