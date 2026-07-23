@@ -55,7 +55,7 @@ export function ProjectDetail({
           {koP?.category ?? p.category}
         </p>
         <h1 className="font-display mt-3 max-w-3xl text-4xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-5xl md:text-6xl">
-          {p.title}
+          {koP?.title ?? p.title}
         </h1>
         <p className="mt-4 max-w-2xl whitespace-pre-line text-lg leading-relaxed text-muted">
           {koP?.overview ?? p.overview}
@@ -253,14 +253,18 @@ export function ProjectDetail({
           className="group rounded-4xl bg-sand/60 p-6 transition-colors hover:bg-sand"
         >
           <span className="text-xs text-muted">{t.previous}</span>
-          <p className="font-display mt-1 text-xl font-semibold">{prev.title}</p>
+          <p className="font-display mt-1 text-xl font-semibold">
+            {(locale === "ko" && projectsKo[prev.slug]?.title) || prev.title}
+          </p>
         </Link>
         <Link
           href={`/work/${next.slug}`}
           className="group rounded-4xl bg-sand/60 p-6 text-right transition-colors hover:bg-sand"
         >
           <span className="text-xs text-muted">{t.next}</span>
-          <p className="font-display mt-1 text-xl font-semibold">{next.title}</p>
+          <p className="font-display mt-1 text-xl font-semibold">
+            {(locale === "ko" && projectsKo[next.slug]?.title) || next.title}
+          </p>
         </Link>
       </nav>
     </article>

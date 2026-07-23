@@ -28,6 +28,7 @@ export const dict = {
     filterAll: "All",
     view: "View",
     viewProject: "View project →",
+    newsArticle: "Press coverage ↗",
 
     sideProjectsHeading: "Side & toy projects",
     sideProjectsSub: "Smaller experiments built along the way.",
@@ -90,26 +91,29 @@ export const dict = {
     seeMore: "더 보기",
     seeLess: "접기",
 
-    workHeading: "최근 작업을 간결하게 담았습니다.",
+    // Section headlines stay in English in KO mode (design decision) —
+    // body copy and hints below them are Korean.
+    workHeading: "A compact index of recent work.",
     filterAll: "전체",
     view: "보기",
     viewProject: "프로젝트 보기 →",
+    newsArticle: "관련 기사 ↗",
 
-    sideProjectsHeading: "사이드 · 토이 프로젝트",
+    sideProjectsHeading: "Side & toy projects",
     sideProjectsSub: "본업 곁에서 만든 작은 실험들입니다.",
 
-    skillsHeading: "나의 기술 스택.",
+    skillsHeading: "My tech stack.",
     swipeHint: "← 스와이프 / 드래그 →",
     stackHint: "실제로 하는 일을 기준으로 묶었습니다.",
 
     deckButton: "아키텍처 기술서 (PDF)",
 
-    experienceHeading: "경력",
-    activitiesHeading: "활동",
-    awardsHeading: "수상",
+    experienceHeading: "Experience",
+    activitiesHeading: "Activities",
+    awardsHeading: "Awards",
     comingSoon: "준비 중",
 
-    contactHeading: "배울 가치가 있는 것을, 함께 만들어요.",
+    contactHeading: "Let's build something worth learning from.",
     getInTouch: "연락하기",
     footerCopyright: "© 2026 이주원",
 

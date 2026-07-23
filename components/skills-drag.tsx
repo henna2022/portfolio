@@ -2,7 +2,6 @@
 
 import { motion, type Variants } from "framer-motion";
 import { skillGroups } from "@/lib/data";
-import { skillGroupsKo } from "@/lib/data-ko";
 import { useLocale } from "@/lib/locale";
 import { dict } from "@/lib/i18n";
 import { ease } from "@/lib/motion";
@@ -41,7 +40,6 @@ const card: Variants = {
 export function SkillsDrag() {
   const { locale } = useLocale();
   const t = dict[locale];
-  const ko = locale === "ko";
 
   return (
     <section id="skills" className="mx-auto max-w-shell px-6 py-16">
@@ -55,7 +53,6 @@ export function SkillsDrag() {
         <h2 className="font-display text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">
           {t.skillsHeading}
         </h2>
-        <p className="mt-2 text-sm text-muted">{t.stackHint}</p>
       </motion.div>
 
       <motion.div
@@ -66,15 +63,15 @@ export function SkillsDrag() {
         className="grid gap-4 sm:grid-cols-2"
       >
         {skillGroups.map((g) => {
-          const koG = ko ? skillGroupsKo[g.key] : undefined;
           return (
             <motion.div
               key={g.key}
               variants={card}
               className="flex flex-col rounded-4xl bg-sand/70 p-6"
             >
+              {/* Group titles stay in English in both locales (design decision) */}
               <h3 className="font-display text-xl font-semibold tracking-[-0.01em]">
-                {koG?.title ?? g.title}
+                {g.title}
               </h3>
               <div className="mt-5 flex flex-wrap gap-1.5">
                 {g.items.map((s) => {

@@ -81,14 +81,26 @@ export function Awards() {
                 {koA?.topic ?? a.topic}
               </p>
 
-              {a.relatedSlug ? (
-                <div className="mt-auto pt-5">
-                  <Link
-                    href={`/work/${a.relatedSlug}`}
-                    className="inline-flex items-center rounded-full bg-ink px-3 py-1.5 text-xs font-medium text-cream transition-transform duration-300 hover:scale-[1.05]"
-                  >
-                    {t.viewProject}
-                  </Link>
+              {a.relatedSlug || a.news ? (
+                <div className="mt-auto flex flex-wrap gap-2 pt-5">
+                  {a.relatedSlug ? (
+                    <Link
+                      href={`/work/${a.relatedSlug}`}
+                      className="inline-flex items-center rounded-full bg-ink px-3 py-1.5 text-xs font-medium text-cream transition-transform duration-300 hover:scale-[1.05]"
+                    >
+                      {t.viewProject}
+                    </Link>
+                  ) : null}
+                  {a.news ? (
+                    <a
+                      href={a.news}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center rounded-full border border-ink/15 px-3 py-1.5 text-xs font-medium text-ink/80 transition-colors hover:bg-sand"
+                    >
+                      {t.newsArticle}
+                    </a>
+                  ) : null}
                 </div>
               ) : null}
             </div>

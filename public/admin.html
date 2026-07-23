@@ -133,7 +133,8 @@
 </div>
 
 <script src="supabase-config.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- 버전 고정: 공급망 리스크를 줄이기 위해 @2(항상 최신) 대신 정확한 버전을 사용 -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
 <script>
   var sb = null, ME = null;
   var el = function (id) { return document.getElementById(id); };
@@ -190,7 +191,7 @@
       return '<div class="row"><div class="track"><div class="fill" style="width:' + Math.max(4, d[1] / mx * 100) + '%"></div><div class="lbl">' + esc(d[0]) + '</div></div><div class="val">' + d[1] + '</div></div>';
     }).join('');
   }
-  function esc(s) { return String(s).replace(/[<>&]/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]; }); }
+  function esc(s) { return String(s).replace(/[<>&"']/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 
   function renderStats(pv, ev) {
     var sessions = {}; pv.forEach(function (p) { sessions[p.session_id] = 1; });

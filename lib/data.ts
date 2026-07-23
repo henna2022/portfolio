@@ -54,7 +54,8 @@ export const about = {
       { w: "in", s: false }, { w: "the", s: false }, { w: "real", s: false }, { w: "world.", s: false },
     ],
     [
-      { w: "I", s: false }, { w: "want", s: false }, { w: "to", s: false }, { w: "build", s: false },
+      { w: "I", s: false }, { w: "want", s: false }, { w: "to", s: false },
+      { w: "research", s: false }, { w: "and", s: false }, { w: "develop", s: false },
       { w: "AI", s: true }, { w: "&", s: true }, { w: "robotics", s: true }, { w: "products", s: true },
       { w: "that", s: false }, { w: "reach", s: true }, { w: "real", s: true }, { w: "people,", s: true },
       { w: "and", s: false }, { w: "keep", s: false }, { w: "growing", s: false }, { w: "as", s: false }, { w: "an", s: false },
@@ -66,7 +67,7 @@ export const about = {
     { k: "Based in", v: "Seoul, KR" },
     {
       k: "Education",
-      v: "Hankyong National University — SW Convergence & Plant Life (double major) · Rutgers University — Winter Intensive English (2025)",
+      v: "Cheongwon Girls' High School (2019 — 2022)\nHankyong National University — Plant Life & Environment (B.S.) · SW Convergence (B.Eng.), double major (2022 — present)\nRutgers University — Winter Intensive English (2025)",
     },
     {
       k: "Languages & Certifications",
@@ -474,6 +475,20 @@ export type Activity = {
 
 export const activities: Activity[] = [
   {
+    period: "2026.07 — Present",
+    title: "KB LA School (Middle School)",
+    role: "Middle-school mentor (online)",
+    desc: "Dedicated online mentoring for middle-school students in the KB LA School program.",
+    photos: [],
+  },
+  {
+    period: "2026.03 — Present",
+    title: "Gwangyang AI Smart i-Kium",
+    role: "Instructor · Grade-3 math & English",
+    desc: "Teaching Grade-3 math and English classes in Gwangyang City's AI Smart i-Kium program.",
+    photos: [],
+  },
+  {
     period: "2026.02 — Present",
     title: "Geuruteogi Learning Mentoring 'Gachi-Edu'",
     role: "University mentor for youth learning (6th cohort)",
@@ -548,6 +563,7 @@ export type Award = {
   topic: string;
   photos: string[];
   relatedSlug?: string;
+  news?: string; // external press coverage
 };
 
 export const awards: Award[] = [
@@ -581,6 +597,7 @@ export const awards: Award[] = [
     role: "PM & Developer",
     topic:
       "An AI docent concept for museum–community co-prosperity, connecting exhibitions with the local community.",
+    news: "https://www.ttlnews.com/news/articleView.html?idxno=3030969",
     photos: [
       "/portfolio_images/awards/award2_science_museum_1.jpg",
       "/portfolio_images/awards/award2_science_museum_2.png",

@@ -58,7 +58,11 @@ export function Hero() {
 
         <motion.h1
           variants={child}
-          className="font-display text-balance max-w-4xl text-[2.75rem] font-semibold leading-[1.05] tracking-[-0.015em] text-ink sm:text-6xl md:text-7xl"
+          className={`font-display text-balance max-w-4xl text-[2.75rem] text-ink sm:text-6xl md:text-7xl ${
+            ko
+              ? "font-bold leading-[1.24] tracking-[-0.01em]"
+              : "font-semibold leading-[1.05] tracking-[-0.015em]"
+          }`}
         >
           {ko ? heroKo.headline : hero.headline}
         </motion.h1>

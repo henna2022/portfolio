@@ -139,7 +139,9 @@ function MajorCard({
       <div className="flex flex-1 flex-col px-2 pb-2">
         <span className="text-xs font-medium text-muted">{p.n}</span>
 
-        <h3 className="font-display mt-1 text-2xl font-semibold">{p.title}</h3>
+        <h3 className="font-display mt-1 text-2xl font-semibold">
+          {koP?.title ?? p.title}
+        </h3>
         <p className="mt-1 text-xs text-muted">{koP?.kicker ?? p.kicker}</p>
         <p className="mt-3 text-sm leading-relaxed text-ink/70">
           {koP?.desc ?? p.desc}
@@ -176,7 +178,7 @@ function SideCard({ p, koP }: { p: Project; koP?: ProjectKo }) {
       <div className="flex items-baseline gap-3">
         <span className="text-[11px] font-medium text-muted">{p.n}</span>
         <h4 className="font-display text-lg font-semibold leading-snug">
-          {p.title}
+          {koP?.title ?? p.title}
         </h4>
       </div>
       <p className="mt-1.5 text-[13px] leading-relaxed text-ink/60">

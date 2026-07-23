@@ -142,7 +142,7 @@ export function About() {
                   <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
                     {f.k}
                   </dt>
-                  <dd className="mt-1 text-sm text-ink/80">{f.v}</dd>
+                  <dd className="mt-1 whitespace-pre-line text-sm text-ink/80">{f.v}</dd>
                 </div>
               ))}
             </dl>

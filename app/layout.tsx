@@ -9,7 +9,7 @@ import { LocaleProvider } from "@/lib/locale";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://portfoliojuwonlee211.vercel.app"),
+  metadataBase: new URL("https://henna2022.github.io/portfolio"),
   title: "Juwon Lee — AI & Robotics Educator",
   description:
     "Portfolio of Juwon Lee — AI & Robotics educator and full-stack developer building interactive learning experiences.",
