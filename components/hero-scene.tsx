@@ -89,7 +89,8 @@ function Floor({ dark }: { dark: boolean }) {
   return (
     <group rotation={[0, Math.PI / 4, 0]}>
       <instancedMesh ref={ref} geometry={geo} args={[undefined, undefined, N * N]}>
-        <meshStandardMaterial color={dark ? "#232320" : "#e9e6de"} roughness={0.95} />
+        {/* 쿨톤 화이트-블루 타일 (과학관 무드) */}
+        <meshStandardMaterial color={dark ? "#20242a" : "#e9edf3"} roughness={0.9} />
       </instancedMesh>
     </group>
   );
@@ -152,15 +153,141 @@ function RisingHeadline({ dark, reduced }: { dark: boolean; reduced: boolean }) 
             >
               {line}
               <meshStandardMaterial
-                color={dark ? "#e9e6de" : "#454239"}
-                roughness={0.5}
-                metalness={0.08}
+                color={dark ? "#e6eaf2" : "#262a33"}
+                roughness={0.35}
+                metalness={0.15}
               />
             </Text3D>
           </Center>
           </group>
         </group>
       ))}
+    </group>
+  );
+}
+
+// ── 과학관 전시물 (프리미티브 조합) ──────────────────────────
+// 원자 모형·홀로그램 프로젝터·유리 진열장·기어 전시대로 미래적 무드 연출
+function MuseumProps({ dark }: { dark: boolean }) {
+  const atom = useRef<THREE.Group>(null);
+  const gem = useRef<THREE.Mesh>(null);
+  const gem2 = useRef<THREE.Mesh>(null);
+  const t = useRef(0);
+
+  useFrame((_, delta) => {
+    t.current += Math.min(delta, 0.1);
+    if (atom.current) atom.current.rotation.y += delta * 0.5;
+    if (gem.current) {
+      gem.current.rotation.y += delta * 1.1;
+      gem.current.position.y = 1.02 + Math.sin(t.current * 2) * 0.07;
+    }
+    if (gem2.current) {
+      gem2.current.rotation.y -= delta * 0.9;
+      gem2.current.position.y = 0.95 + Math.sin(t.current * 1.6 + 1) * 0.06;
+    }
+  });
+
+  const ped = dark ? "#2c2f34" : "#f4f6fa";
+  const blue = "#3B82F6";
+  const ring = dark ? "#9db7e8" : "#64748b";
+  const holo = "#8fd0ff";
+
+  return (
+    <group>
+      {/* 원자 모형 전시대 (왼쪽 앞 가장자리) */}
+      <group position={[-4.7, 0, 2.3]}>
+        <mesh position-y={0.18}>
+          <cylinderGeometry args={[0.45, 0.52, 0.36, 24]} />
+          <meshStandardMaterial color={ped} roughness={0.85} />
+        </mesh>
+        <group position-y={0.9} ref={atom}>
+          <mesh>
+            <sphereGeometry args={[0.12, 16, 16]} />
+            <meshStandardMaterial color={blue} emissive={blue} emissiveIntensity={0.3} />
+          </mesh>
+          {[0, Math.PI / 3, -Math.PI / 3].map((r, i) => (
+            <mesh key={i} rotation={[Math.PI / 2.3, 0, r]}>
+              <torusGeometry args={[0.36, 0.018, 8, 40]} />
+              <meshStandardMaterial color={ring} metalness={0.5} roughness={0.3} />
+            </mesh>
+          ))}
+        </group>
+      </group>
+
+      {/* 홀로그램 프로젝터 (전경 중앙-오른쪽, 버튼 뒤편) */}
+      <group position={[0.9, 0, 3.2]}>
+        <mesh position-y={0.14}>
+          <boxGeometry args={[0.95, 0.28, 0.95]} />
+          <meshStandardMaterial color={ped} roughness={0.85} />
+        </mesh>
+        <mesh position-y={0.8}>
+          <coneGeometry args={[0.44, 1.15, 24, 1, true]} />
+          <meshBasicMaterial color={holo} transparent opacity={0.2} side={THREE.DoubleSide} depthWrite={false} />
+        </mesh>
+        <mesh ref={gem} position-y={1.02}>
+          <icosahedronGeometry args={[0.16, 0]} />
+          <meshStandardMaterial color="#a5e3ff" emissive="#38bdf8" emissiveIntensity={0.9} />
+        </mesh>
+      </group>
+
+      {/* 기어 전시대 (왼쪽 원경, 안개 속) */}
+      <group position={[-5.2, 0, -1.6]}>
+        <mesh position-y={0.16}>
+          <cylinderGeometry args={[0.42, 0.48, 0.32, 24]} />
+          <meshStandardMaterial color={ped} roughness={0.85} />
+        </mesh>
+        <mesh position={[0, 0.48, 0]} rotation-x={Math.PI / 2}>
+          <cylinderGeometry args={[0.28, 0.28, 0.09, 12]} />
+          <meshStandardMaterial color={dark ? "#aab8cc" : "#8d9bb0"} metalness={0.7} roughness={0.3} />
+        </mesh>
+        <mesh position={[0.28, 0.62, -0.02]} rotation-x={Math.PI / 2}>
+          <cylinderGeometry args={[0.16, 0.16, 0.09, 10]} />
+          <meshStandardMaterial color={dark ? "#c3d0e2" : "#7686a0"} metalness={0.7} roughness={0.3} />
+        </mesh>
+      </group>
+
+      {/* 유리 진열장 (원경 코너 2개) */}
+      {[
+        [-4.5, -3.6],
+        [4.6, -3.1],
+      ].map(([x, z], i) => (
+        <group key={i} position={[x, 0, z]}>
+          <mesh position-y={0.25}>
+            <boxGeometry args={[1.15, 0.5, 1.15]} />
+            <meshStandardMaterial color={ped} roughness={0.85} />
+          </mesh>
+          <mesh position-y={0.8}>
+            <sphereGeometry args={[0.17, 16, 16]} />
+            <meshStandardMaterial color={blue} emissive={blue} emissiveIntensity={0.35} />
+          </mesh>
+          <mesh position-y={1.2}>
+            <boxGeometry args={[0.95, 1.4, 0.95]} />
+            <meshStandardMaterial
+              color={dark ? "#7aa7d9" : "#bcd7f5"}
+              transparent
+              opacity={0.16}
+              roughness={0.1}
+              metalness={0.1}
+            />
+          </mesh>
+        </group>
+      ))}
+
+      {/* 홀로 패드 (오른쪽 중경) */}
+      <group position={[3.9, 0, -1.9]}>
+        <mesh position-y={0.1}>
+          <cylinderGeometry args={[0.5, 0.56, 0.2, 24]} />
+          <meshStandardMaterial color={ped} roughness={0.85} />
+        </mesh>
+        <mesh position-y={0.7}>
+          <coneGeometry args={[0.36, 0.95, 20, 1, true]} />
+          <meshBasicMaterial color={holo} transparent opacity={0.16} side={THREE.DoubleSide} depthWrite={false} />
+        </mesh>
+        <mesh ref={gem2} position-y={0.95}>
+          <sphereGeometry args={[0.12, 14, 14]} />
+          <meshStandardMaterial color="#a5e3ff" emissive="#38bdf8" emissiveIntensity={0.8} />
+        </mesh>
+      </group>
     </group>
   );
 }
@@ -254,7 +381,7 @@ function RobotOnBlock({ dark, reduced }: { dark: boolean; reduced: boolean }) {
       onClick={() => oneShot(REACTIONS[Math.floor(Math.random() * REACTIONS.length)])}
     >
       <mesh geometry={pedestalGeo} position-y={0.16}>
-        <meshStandardMaterial color={dark ? "#2e2e2a" : "#f7f5f0" } roughness={0.9} />
+        <meshStandardMaterial color={dark ? "#2c2f34" : "#f4f6fa"} roughness={0.9} />
       </mesh>
       <group ref={body} position-y={0.32}>
         <primitive object={scene} scale={0.26} />
@@ -319,9 +446,12 @@ export default function HeroScene({ showText }: { showText: boolean }) {
           }}
         >
           <Rig />
-          <hemisphereLight intensity={1.3} groundColor={dark ? "#111" : "#b0a894"} />
+          {/* 원경이 푸른 안개로 부드럽게 사라지는 과학관 조도 */}
+          <fog attach="fog" args={[dark ? "#0e1218" : "#dbe4f0", 13, 26]} />
+          <hemisphereLight intensity={1.3} groundColor={dark ? "#101318" : "#aab4c4"} />
           <directionalLight position={[4, 7, 5]} intensity={1.6} />
-          <directionalLight position={[-3, 4, 8]} intensity={0.5} />
+          <directionalLight position={[-3, 4, 8]} intensity={0.5} color="#cfe0ff" />
+          <pointLight position={[0, 3, -6]} intensity={0.7} color="#7fb3ff" />
           <Suspense fallback={null}>
             <Floor dark={dark} />
             {/* 접지 그림자 — 글자·로봇이 면 위에 "서 있는" 느낌의 핵심 */}
@@ -334,6 +464,7 @@ export default function HeroScene({ showText }: { showText: boolean }) {
               resolution={512}
             />
             {showText ? <RisingHeadline dark={dark} reduced={reduced} /> : null}
+            <MuseumProps dark={dark} />
             <RobotOnBlock dark={dark} reduced={reduced} />
           </Suspense>
         </Canvas>

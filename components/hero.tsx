@@ -59,8 +59,10 @@ export function Hero() {
         initial={{ opacity: 0, x: "-50%", y: 24 }}
         animate={{ opacity: 1, x: "-50%", y: 0 }}
         transition={{ duration: 0.7, delay: 0.6, ease }}
-        className="absolute bottom-12 left-1/2 z-10 flex flex-wrap items-center justify-center gap-4"
+        className="absolute bottom-12 left-1/2 z-10"
       >
+        {/* 헤드라인과 같은 8도 사선 (framer transform과 충돌하지 않게 내부 래퍼에 적용) */}
+        <div className="flex rotate-[-8deg] flex-wrap items-center justify-center gap-4">
           {/* 3D 슬랩 CTA: 바닥 원근에 맞춰 눕힌 입체 블럭 (rotateX + 두꺼운 밑단) */}
           <motion.a
             whileTap={{ y: 3 }}
@@ -77,6 +79,7 @@ export function Hero() {
           >
             {t.readProfile}
           </motion.a>
+        </div>
       </motion.div>
 
       {/* 3D 씬: 타일 바닥 + 땅에서 올라오는 입체 헤드라인 + 블럭 타고 등장하는 로봇 */}
