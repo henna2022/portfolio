@@ -30,17 +30,18 @@ export function Header() {
         </a>
 
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+          {/* 미니멀 네비에 맞춘 차분한 고스트 스타일 */}
           <a
             href={assetPath(person.cv)}
             download
-            className="hidden items-center gap-1.5 rounded-lg bg-white px-3.5 py-2 text-sm font-medium text-ink shadow-[0_4px_0_rgba(28,27,23,0.14)] transition-all hover:translate-y-[1px] hover:shadow-[0_3px_0_rgba(28,27,23,0.14)] active:translate-y-[3px] active:shadow-[0_1px_0_rgba(28,27,23,0.14)] dark:bg-sand-deep dark:text-cream dark:shadow-[0_4px_0_rgba(0,0,0,0.5)] dark:hover:shadow-[0_3px_0_rgba(0,0,0,0.5)] sm:inline-flex"
+            className="hidden items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-ink/60 transition-colors hover:bg-ink/5 hover:text-ink sm:inline-flex"
           >
             <DownloadIcon /> {t.cv}
           </a>
           <a
             href={assetPath(person.resume)}
             download
-            className="inline-flex items-center gap-1.5 rounded-lg bg-white px-3 py-2 text-sm font-medium text-ink shadow-[0_4px_0_rgba(28,27,23,0.14)] transition-all hover:translate-y-[1px] hover:shadow-[0_3px_0_rgba(28,27,23,0.14)] active:translate-y-[3px] active:shadow-[0_1px_0_rgba(28,27,23,0.14)] dark:bg-sand-deep dark:text-cream dark:shadow-[0_4px_0_rgba(0,0,0,0.5)] dark:hover:shadow-[0_3px_0_rgba(0,0,0,0.5)] sm:px-3.5"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-ink/5 px-3 py-1.5 text-sm font-medium text-ink/80 transition-colors hover:bg-ink/10 hover:text-ink sm:px-3.5"
           >
             <DownloadIcon /> {t.resume}
           </a>
