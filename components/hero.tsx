@@ -2,12 +2,11 @@
 
 import dynamic from "next/dynamic";
 import { motion, type Variants } from "framer-motion";
-import { hero, person } from "@/lib/data";
-import { heroKo, personKo } from "@/lib/data-ko";
-import { assetPath } from "@/lib/asset";
+import { hero } from "@/lib/data";
+import { heroKo } from "@/lib/data-ko";
 import { useLocale } from "@/lib/locale";
 import { dict } from "@/lib/i18n";
-import { ArrowIcon, GridIcon } from "./icons";
+import { ArrowIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
 // three.js 런타임은 별도 청크로 지연 로드 — 첫 화면 성능에 영향 없음
@@ -39,28 +38,6 @@ export function Hero() {
         animate="show"
         className="relative z-10 flex flex-col items-center"
       >
-        <motion.div
-          variants={child}
-          className="mb-6 flex items-center gap-3 rounded-xl bg-white py-1.5 pl-1.5 pr-4 shadow-[0_4px_0_rgba(28,27,23,0.14)] dark:bg-sand-deep dark:shadow-[0_4px_0_rgba(0,0,0,0.5)]"
-        >
-          <img
-            src={assetPath(person.photoSm)}
-            alt="Juwon Lee"
-            className="h-9 w-9 rounded-full object-cover object-center"
-          />
-          <span className="text-sm font-medium text-ink/80">
-            Juwon Lee · {(ko ? personKo.role : person.role).split(" · ")[0]}
-          </span>
-        </motion.div>
-
-        <motion.span
-          variants={child}
-          className="mb-8 inline-flex items-center gap-2 rounded-lg bg-white px-4 py-1.5 text-xs font-medium tracking-wide text-ink/70 shadow-[0_3px_0_rgba(28,27,23,0.12)] dark:bg-sand-deep dark:text-cream/70 dark:shadow-[0_3px_0_rgba(0,0,0,0.5)]"
-        >
-          <GridIcon />
-          {hero.badge}
-        </motion.span>
-
         <motion.h1
           variants={child}
           // EN 데스크톱에서는 3D 입체 글자가 헤드라인을 대신함 —
@@ -74,22 +51,15 @@ export function Hero() {
           {ko ? heroKo.headline : hero.headline}
         </motion.h1>
 
-        <motion.p
-          variants={child}
-          className="mt-7 max-w-xl text-base leading-relaxed text-muted sm:text-lg"
-        >
-          {ko ? heroKo.sub : hero.sub}
-        </motion.p>
-
         <motion.div
           variants={child}
-          className="mt-10 flex flex-wrap items-center justify-center gap-3"
+          className="mt-14 flex flex-wrap items-center justify-center gap-4"
         >
-          {/* 3D 블럭 CTA: 파란 본체 + 진한 파랑 단차 / 흰 블럭 보조 버튼 */}
+          {/* 3D 슬랩 CTA: 바닥 원근에 맞춰 눕힌 입체 블럭 (rotateX + 두꺼운 밑단) */}
           <motion.a
             whileTap={{ y: 3 }}
             href="#work"
-            className="group inline-flex items-center gap-2 rounded-xl bg-lime px-6 py-3.5 text-sm font-medium text-white shadow-[0_5px_0_#1d4ed8] transition-all hover:translate-y-[1px] hover:shadow-[0_4px_0_#1d4ed8]"
+            className="group inline-flex origin-bottom items-center gap-2 rounded-xl bg-lime px-7 py-3.5 text-sm font-semibold text-white shadow-[0_9px_0_#1d4ed8,0_14px_18px_rgba(28,27,23,0.18)] transition-all [transform:perspective(640px)_rotateX(28deg)] hover:translate-y-[2px] hover:shadow-[0_7px_0_#1d4ed8,0_11px_14px_rgba(28,27,23,0.18)]"
           >
             {t.viewWork}
             <ArrowIcon className="transition-transform group-hover:translate-x-0.5" />
@@ -97,7 +67,7 @@ export function Hero() {
           <motion.a
             whileTap={{ y: 3 }}
             href="#about"
-            className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-medium text-ink shadow-[0_5px_0_rgba(28,27,23,0.14)] transition-all hover:translate-y-[1px] hover:shadow-[0_4px_0_rgba(28,27,23,0.14)] dark:bg-sand-deep dark:text-cream dark:shadow-[0_5px_0_rgba(0,0,0,0.5)] dark:hover:shadow-[0_4px_0_rgba(0,0,0,0.5)]"
+            className="inline-flex origin-bottom items-center gap-2 rounded-xl bg-white px-7 py-3.5 text-sm font-semibold text-ink shadow-[0_9px_0_rgba(28,27,23,0.18),0_14px_18px_rgba(28,27,23,0.14)] transition-all [transform:perspective(640px)_rotateX(28deg)] hover:translate-y-[2px] hover:shadow-[0_7px_0_rgba(28,27,23,0.18),0_11px_14px_rgba(28,27,23,0.14)] dark:bg-sand-deep dark:text-cream dark:shadow-[0_9px_0_rgba(0,0,0,0.55),0_14px_18px_rgba(0,0,0,0.35)] dark:hover:shadow-[0_7px_0_rgba(0,0,0,0.55),0_11px_14px_rgba(0,0,0,0.35)]"
           >
             {t.readProfile}
           </motion.a>

@@ -239,8 +239,9 @@ function RobotOnBlock({ dark, reduced }: { dark: boolean; reduced: boolean }) {
     }
 
     // 시선 추적 (로봇만 회전, 블럭은 고정)
-    b.rotation.y = THREE.MathUtils.lerp(b.rotation.y, pointer.x * 0.55, 0.1);
-    b.rotation.x = THREE.MathUtils.lerp(b.rotation.x, -pointer.y * 0.1, 0.1);
+    // 기본적으로 위(카메라)를 올려다보는 자세 + 마우스 따라 미세 조정
+    b.rotation.y = THREE.MathUtils.lerp(b.rotation.y, pointer.x * 0.5, 0.1);
+    b.rotation.x = THREE.MathUtils.lerp(b.rotation.x, 0.42 - pointer.y * 0.12, 0.1);
   });
 
   return (
