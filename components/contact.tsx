@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { person } from "@/lib/data";
 import { assetPath } from "@/lib/asset";
-import { useLocale } from "@/lib/locale";
-import { dict } from "@/lib/i18n";
+import { ui } from "@/lib/i18n";
 import { ArrowIcon, GithubIcon, LinkedinIcon, MailIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
@@ -17,19 +16,18 @@ const socials = [
 
 export function Contact() {
   const [today, setToday] = useState("");
-  const { locale } = useLocale();
-  const t = dict[locale];
+  const t = ui;
 
   useEffect(() => {
     setToday(
-      new Date().toLocaleDateString(locale === "ko" ? "ko-KR" : "en-US", {
+      new Date().toLocaleDateString("en-US", {
         weekday: "long",
         year: "numeric",
         month: "numeric",
         day: "numeric",
       }),
     );
-  }, [locale]);
+  }, []);
 
   return (
     <footer

@@ -2,8 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import { skillGroups } from "@/lib/data";
-import { useLocale } from "@/lib/locale";
-import { dict } from "@/lib/i18n";
+import { ui } from "@/lib/i18n";
 import { ease } from "@/lib/motion";
 import { assetPath } from "@/lib/asset";
 
@@ -38,8 +37,7 @@ const card: Variants = {
 };
 
 export function SkillsDrag() {
-  const { locale } = useLocale();
-  const t = dict[locale];
+  const t = ui;
 
   return (
     <section id="skills" className="mx-auto max-w-shell px-6 py-16">

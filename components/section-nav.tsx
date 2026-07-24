@@ -5,12 +5,10 @@ import { usePathname } from "next/navigation";
 import { useLenis } from "lenis/react";
 import { sections } from "@/lib/data";
 import { assetPath } from "@/lib/asset";
-import { useLocale } from "@/lib/locale";
-import { dict } from "@/lib/i18n";
+import { ui } from "@/lib/i18n";
 
 export function SectionNav() {
-  const { locale } = useLocale();
-  const t = dict[locale];
+  const t = ui;
   const pathname = usePathname();
   const lenis = useLenis();
   const isHome = pathname === "/";
@@ -38,12 +36,6 @@ export function SectionNav() {
     return () => observer.disconnect();
   }, [isHome]);
 
-  // Keep the active chip in view within the horizontally-scrollable nav.
-  useEffect(() => {
-    const el = navRef.current?.querySelector(`[data-id="${active}"]`);
-    el?.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
-  }, [active]);
-
   function handleClick(
     e: React.MouseEvent<HTMLAnchorElement>,
     id: string,
@@ -62,10 +54,10 @@ export function SectionNav() {
   }
 
   return (
+    // 블럭 없는 순수 텍스트 내비 — 8개가 항상 한 줄에 들어가도록 컴팩트하게
     <div
       ref={navRef}
-      // pt/pb: 블럭 밑단(그림자 4px)이 스크롤 영역 안에서 잘리지 않도록 여유 확보
-      className="no-scrollbar flex items-center gap-1.5 overflow-x-auto pb-2 pt-0.5"
+      className="flex items-center justify-center gap-0.5 sm:gap-2"
     >
       {sections.map((s) => {
         const isActive = active === s.id;
@@ -76,11 +68,10 @@ export function SectionNav() {
             href={assetPath(s.id === "top" ? "/" : `/#${s.id}`)}
             onClick={(e) => handleClick(e, s.id)}
             aria-current={isActive ? "true" : undefined}
-            // 3D 블럭 스타일: 흰 블럭 + 아래 단차, 활성 탭은 파란 블럭이 눌린 상태
-            className={`shrink-0 rounded-lg px-3.5 py-1.5 text-sm font-medium transition-all ${
+            className={`shrink-0 px-1.5 py-1 text-xs transition-colors sm:px-2.5 sm:text-sm ${
               isActive
-                ? "translate-y-[2px] bg-lime text-white shadow-[0_2px_0_#1d4ed8]"
-                : "bg-white text-ink/70 shadow-[0_4px_0_rgba(28,27,23,0.14)] hover:translate-y-[1px] hover:text-ink hover:shadow-[0_3px_0_rgba(28,27,23,0.14)] dark:bg-sand-deep dark:text-cream/70 dark:shadow-[0_4px_0_rgba(0,0,0,0.5)] dark:hover:text-cream dark:hover:shadow-[0_3px_0_rgba(0,0,0,0.5)]"
+                ? "font-bold text-lime"
+                : "font-medium text-ink/55 hover:text-ink"
             }`}
           >
             {t.nav[s.id] ?? s.label}

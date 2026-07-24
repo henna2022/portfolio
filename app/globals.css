@@ -41,7 +41,7 @@ body {
   font-family: "General Sans", var(--font-inter);
 }
 
-/* Korean-locale font rules live in app/layout.tsx (dev-only injection) —
+/* (removed) Korean locale was dropped —
    production is EN-only and must not reference/load Pretendard. */
 
 section[id] {

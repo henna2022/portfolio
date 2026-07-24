@@ -11,8 +11,6 @@ export const person = {
   photoSm: "/portfolio_images/profile/juwonlee-sm.jpg",
   resume: "/files/Juwon_Lee_Resume_EN.pdf",
   cv: "/files/Juwon_Lee_CV_EN.pdf",
-  resumeKo: "/files/Juwon_Lee_Resume_KO.pdf",
-  cvKo: "/files/Juwon_Lee_CV_KO.pdf",
 };
 
 export const sections = [

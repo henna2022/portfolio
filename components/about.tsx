@@ -9,10 +9,8 @@ import {
   type MotionValue,
 } from "framer-motion";
 import { about } from "@/lib/data";
-import { aboutBioKo, aboutFactsKo } from "@/lib/data-ko";
 import { assetPath } from "@/lib/asset";
-import { useLocale } from "@/lib/locale";
-import { dict } from "@/lib/i18n";
+import { ui } from "@/lib/i18n";
 import { ease } from "@/lib/motion";
 
 function Word({
@@ -44,12 +42,10 @@ function Word({
 export function About() {
   const textRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
-  const { locale } = useLocale();
-  const t = dict[locale];
-  const ko = locale === "ko";
+  const t = ui;
 
-  const bio = ko ? aboutBioKo : about.bio;
-  const facts = ko ? aboutFactsKo : about.facts;
+  const bio = about.bio;
+  const facts = about.facts;
 
   const { scrollYProgress } = useScroll({
     target: textRef,

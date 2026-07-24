@@ -2,16 +2,12 @@
 
 import { motion } from "framer-motion";
 import { experience } from "@/lib/data";
-import { experienceKo } from "@/lib/data-ko";
 import { assetPath } from "@/lib/asset";
-import { useLocale } from "@/lib/locale";
-import { dict } from "@/lib/i18n";
+import { ui } from "@/lib/i18n";
 import { ease } from "@/lib/motion";
 
 export function Experience() {
-  const { locale } = useLocale();
-  const t = dict[locale];
-  const ko = locale === "ko";
+  const t = ui;
   return (
     <section id="experience" className="mx-auto max-w-shell px-6 py-16">
       <motion.h2
@@ -26,7 +22,6 @@ export function Experience() {
 
       <div className="space-y-3">
         {experience.map((e, i) => {
-          const koE = ko ? experienceKo[i] : undefined;
           return (
           <motion.div
             key={e.org}
@@ -39,13 +34,13 @@ export function Experience() {
             <div className="grid gap-4 sm:grid-cols-[1fr_1.6fr]">
               <div>
                 <p className="font-display text-xl font-semibold">
-                  {koE?.org ?? e.org}
+                  {e.org}
                 </p>
-                <p className="mt-1 text-sm text-muted">{koE?.role ?? e.role}</p>
+                <p className="mt-1 text-sm text-muted">{e.role}</p>
                 <p className="mt-2 text-xs text-muted">{e.period}</p>
               </div>
               <ul className="space-y-2">
-                {(koE?.points ?? e.points).map((pt) => (
+                {e.points.map((pt) => (
                   <li
                     key={pt}
                     className="flex gap-2.5 text-sm leading-relaxed text-ink/75"

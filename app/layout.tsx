@@ -4,7 +4,6 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { ConsoleSignature } from "@/components/console-signature";
-import { LocaleProvider } from "@/lib/locale";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
@@ -37,20 +36,6 @@ const themeScript = `
     var dark = stored ? stored === 'dark'
       : window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (dark) document.documentElement.classList.add('dark');
-  } catch (e) {}
-})();
-`;
-
-// Runs before paint: applies the saved locale so the Korean font and
-// html.lang are ready before hydration (default is English).
-// Dev-only — production is English-only until the KO copy is reworked.
-const localeScript = `
-(function () {
-  try {
-    if (localStorage.getItem('locale') === 'ko') {
-      document.documentElement.lang = 'ko';
-      document.documentElement.classList.add('lang-ko');
-    }
   } catch (e) {}
 })();
 `;
@@ -91,39 +76,13 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        {process.env.NODE_ENV === "development" ? (
-          <>
-            <script dangerouslySetInnerHTML={{ __html: localeScript }} />
-            {/* Pretendard is only needed for the dev-only Korean mode —
-                production is EN-only, so don't ship the webfont CSS there. */}
-            <link
-              rel="stylesheet"
-              href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
-            />
-            <style
-              dangerouslySetInnerHTML={{
-                __html: `
-/* Korean locale — Pretendard everywhere (General Sans has no Hangul) */
-html.lang-ko body {
-  font-family: "Pretendard Variable", Pretendard, -apple-system, sans-serif;
-  word-break: keep-all; /* don't split Korean words mid-syllable across lines */
-}
-html.lang-ko .font-display {
-  font-family: "Pretendard Variable", Pretendard, sans-serif;
-}`,
-              }}
-            />
-          </>
-        ) : null}
       </head>
       <body>
         <ConsoleSignature />
-        <LocaleProvider>
-          <SmoothScroll>
-            <ScrollProgress />
-            {children}
-          </SmoothScroll>
-        </LocaleProvider>
+        <SmoothScroll>
+          <ScrollProgress />
+          {children}
+        </SmoothScroll>
         {/* Cloudflare Web Analytics */}
         <script
           type="module"

@@ -3,9 +3,7 @@
 import dynamic from "next/dynamic";
 import { motion, type Variants } from "framer-motion";
 import { hero } from "@/lib/data";
-import { heroKo } from "@/lib/data-ko";
-import { useLocale } from "@/lib/locale";
-import { dict } from "@/lib/i18n";
+import { ui } from "@/lib/i18n";
 import { ArrowIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
@@ -23,9 +21,7 @@ const child: Variants = {
 };
 
 export function Hero() {
-  const { locale } = useLocale();
-  const t = dict[locale];
-  const ko = locale === "ko";
+  const t = ui;
   return (
     <section
       id="top"
@@ -40,34 +36,26 @@ export function Hero() {
       >
         <motion.h1
           variants={child}
-          // EN 데스크톱에서는 3D 입체 글자가 헤드라인을 대신함 —
-          // DOM h1은 레이아웃 자리만 지키고(invisible) 모바일·KO에서는 그대로 표시
-          className={`font-display text-balance max-w-4xl text-[2.75rem] text-ink sm:text-6xl md:text-7xl ${
-            ko
-              ? "font-bold leading-[1.34] tracking-[-0.01em]"
-              : "font-semibold leading-[1.14] tracking-[-0.015em] lg:invisible"
-          }`}
+          // 데스크톱에서는 3D 입체 글자가 헤드라인을 대신함 —
+          // DOM h1은 레이아웃 자리만 지키고(invisible) 모바일에서는 그대로 표시
+          className="font-display text-balance max-w-4xl text-[2.75rem] font-semibold leading-[1.14] tracking-[-0.015em] text-ink sm:text-6xl md:text-7xl lg:invisible"
         >
-          {ko ? heroKo.headline : hero.headline}
+          {hero.headline}
         </motion.h1>
-
       </motion.div>
 
-      {/* 화면 하단 고정 CTA — 어떤 뷰포트에서도 3D 헤드라인 아래에 위치.
-          (센터링은 framer의 x:-50%로 처리해 y 애니메이션과 충돌하지 않게 함) */}
+      {/* 모바일 전용 CTA — 데스크톱에서는 3D 씬이 벽면 버튼을 렌더링 */}
       <motion.div
         initial={{ opacity: 0, x: "-50%", y: 24 }}
         animate={{ opacity: 1, x: "-50%", y: 0 }}
         transition={{ duration: 0.7, delay: 0.6, ease }}
-        // EN 데스크톱에서는 3D 씬이 벽면 버튼을 렌더링 → DOM 버튼은 모바일·KO 전용
-        className={`absolute bottom-12 left-1/2 z-10 ${!ko ? "lg:hidden" : ""}`}
+        className="absolute bottom-12 left-1/2 z-10 lg:hidden"
       >
         <div className="flex flex-wrap items-center justify-center gap-4">
-          {/* 3D 슬랩 CTA: 바닥 원근에 맞춰 눕힌 입체 블럭 (rotateX + 두꺼운 밑단) */}
           <motion.a
             whileTap={{ y: 3 }}
             href="#work"
-            className="group inline-flex origin-bottom items-center gap-2 rounded-xl bg-lime px-7 py-3.5 text-sm font-semibold text-white shadow-[0_9px_0_#1d4ed8,0_14px_18px_rgba(28,27,23,0.18)] transition-all [transform:perspective(640px)_rotateX(28deg)] hover:translate-y-[2px] hover:shadow-[0_7px_0_#1d4ed8,0_11px_14px_rgba(28,27,23,0.18)]"
+            className="group inline-flex items-center gap-2 rounded-xl bg-lime px-7 py-3.5 text-sm font-semibold text-white shadow-[0_5px_0_#1d4ed8] transition-all hover:translate-y-[1px] hover:shadow-[0_4px_0_#1d4ed8]"
           >
             {t.viewWork}
             <ArrowIcon className="transition-transform group-hover:translate-x-0.5" />
@@ -75,15 +63,15 @@ export function Hero() {
           <motion.a
             whileTap={{ y: 3 }}
             href="#about"
-            className="inline-flex origin-bottom items-center gap-2 rounded-xl bg-white px-7 py-3.5 text-sm font-semibold text-ink shadow-[0_9px_0_rgba(28,27,23,0.18),0_14px_18px_rgba(28,27,23,0.14)] transition-all [transform:perspective(640px)_rotateX(28deg)] hover:translate-y-[2px] hover:shadow-[0_7px_0_rgba(28,27,23,0.18),0_11px_14px_rgba(28,27,23,0.14)] dark:bg-sand-deep dark:text-cream dark:shadow-[0_9px_0_rgba(0,0,0,0.55),0_14px_18px_rgba(0,0,0,0.35)] dark:hover:shadow-[0_7px_0_rgba(0,0,0,0.55),0_11px_14px_rgba(0,0,0,0.35)]"
+            className="inline-flex items-center gap-2 rounded-xl bg-white px-7 py-3.5 text-sm font-semibold text-ink shadow-[0_5px_0_rgba(28,27,23,0.14)] transition-all hover:translate-y-[1px] hover:shadow-[0_4px_0_rgba(28,27,23,0.14)] dark:bg-sand-deep dark:text-cream dark:shadow-[0_5px_0_rgba(0,0,0,0.5)] dark:hover:shadow-[0_4px_0_rgba(0,0,0,0.5)]"
           >
             {t.readProfile}
           </motion.a>
         </div>
       </motion.div>
 
-      {/* 3D 씬: 타일 바닥 + 땅에서 올라오는 입체 헤드라인 + 블럭 타고 등장하는 로봇 */}
-      <HeroScene showText={!ko} />
+      {/* 3D 씬: 과학관 방 코너 + 벽걸이 헤드라인·버튼 + 로봇 */}
+      <HeroScene showText />
     </section>
   );
 }

@@ -3,10 +3,8 @@
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { awards } from "@/lib/data";
-import { awardsKo } from "@/lib/data-ko";
 import { ImageCarousel } from "./image-carousel";
-import { useLocale } from "@/lib/locale";
-import { dict } from "@/lib/i18n";
+import { ui } from "@/lib/i18n";
 import { ease } from "@/lib/motion";
 
 const parent: Variants = {
@@ -20,9 +18,7 @@ const card: Variants = {
 };
 
 export function Awards() {
-  const { locale } = useLocale();
-  const t = dict[locale];
-  const ko = locale === "ko";
+  const t = ui;
   return (
     <section id="awards" className="mx-auto max-w-shell px-6 py-16">
       <motion.h2
@@ -43,7 +39,6 @@ export function Awards() {
         className="grid gap-4 sm:grid-cols-2"
       >
         {awards.map((a) => {
-          const koA = ko ? awardsKo[a.title] : undefined;
           const hasPhotos = a.photos.length > 0;
           return (
           <motion.div
@@ -56,7 +51,7 @@ export function Awards() {
             {hasPhotos ? (
               <ImageCarousel
                 images={a.photos}
-                alt={koA?.title ?? a.title}
+                alt={a.title}
                 aspect="aspect-[16/10] sm:aspect-[4/3]"
               />
             ) : null}
@@ -69,16 +64,16 @@ export function Awards() {
               >
                 <span className="text-xs font-medium text-muted">{a.year}</span>
                 <span className="rounded-full bg-lime px-2.5 py-1 text-[11px] font-semibold text-lime-ink">
-                  {koA?.result ?? a.result}
+                  {a.result}
                 </span>
               </div>
 
               <h3 className="font-display mt-2 text-xl font-semibold leading-snug">
-                {koA?.title ?? a.title}
+                {a.title}
               </h3>
-              <p className="mt-1 text-xs text-muted">{koA?.role ?? a.role}</p>
+              <p className="mt-1 text-xs text-muted">{a.role}</p>
               <p className="mt-3 text-sm leading-relaxed text-ink/70">
-                {koA?.topic ?? a.topic}
+                {a.topic}
               </p>
 
               {a.relatedSlug || a.news ? (

@@ -21,8 +21,7 @@ import {
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three-stdlib";
 import { assetPath } from "@/lib/asset";
-import { useLocale } from "@/lib/locale";
-import { dict } from "@/lib/i18n";
+import { ui } from "@/lib/i18n";
 
 // ─────────────────────────────────────────────────────────────
 // 3D 히어로 씬: 타일 바닥 + 땅에서 올라오는 입체 헤드라인 +
@@ -292,8 +291,7 @@ function Button3D({
 }
 
 function WallButtons({ dark }: { dark: boolean }) {
-  const { locale } = useLocale();
-  const t = dict[locale];
+  const t = ui;
   return (
     <group position={[0.7, 1.05, WALL_Z + 0.28]}>
       <Button3D

@@ -3,10 +3,8 @@
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import type { Project } from "@/lib/data";
-import { projectsKo } from "@/lib/data-ko";
 import { assetPath } from "@/lib/asset";
-import { useLocale } from "@/lib/locale";
-import { dict } from "@/lib/i18n";
+import { ui } from "@/lib/i18n";
 import { ArrowIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
@@ -26,9 +24,7 @@ export function ProjectDetail({
   prev: NavLink;
   next: NavLink;
 }) {
-  const { locale } = useLocale();
-  const t = dict[locale];
-  const koP = locale === "ko" ? projectsKo[p.slug] : undefined;
+  const t = ui;
 
   const hero = p.gallery?.[0] ?? p.image;
   const restGallery = (p.gallery ?? []).slice(1);
@@ -51,19 +47,19 @@ export function ProjectDetail({
         className="mt-8"
       >
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-          {koP?.category ?? p.category}
+          {p.category}
         </p>
         <h1 className="font-display mt-3 max-w-3xl text-4xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-5xl md:text-6xl">
-          {koP?.title ?? p.title}
+          {p.title}
         </h1>
         <p className="mt-4 max-w-2xl whitespace-pre-line text-lg leading-relaxed text-muted">
-          {koP?.overview ?? p.overview}
+          {p.overview}
         </p>
 
         <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-ink/10 pt-6">
           <Meta k={t.year} v={p.year} />
-          <Meta k={t.role} v={koP?.role ?? p.role} />
-          <Meta k={t.focus} v={koP?.kicker ?? p.kicker} />
+          <Meta k={t.role} v={p.role} />
+          <Meta k={t.focus} v={p.kicker} />
           <div className="flex gap-3 sm:ml-auto">
             {p.href ? (
               <a
@@ -124,7 +120,7 @@ export function ProjectDetail({
             {t.highlights}
           </h2>
           <ul className="mt-5 space-y-3.5">
-            {(koP?.highlights ?? p.highlights).map((h) => (
+            {p.highlights.map((h) => (
               <li key={h} className="flex gap-3 text-[15px] leading-relaxed text-ink/75">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-lime" />
                 {h}
@@ -249,7 +245,7 @@ export function ProjectDetail({
         >
           <span className="text-xs text-muted">{t.previous}</span>
           <p className="font-display mt-1 text-xl font-semibold">
-            {(locale === "ko" && projectsKo[prev.slug]?.title) || prev.title}
+            {prev.title}
           </p>
         </Link>
         <Link
@@ -258,7 +254,7 @@ export function ProjectDetail({
         >
           <span className="text-xs text-muted">{t.next}</span>
           <p className="font-display mt-1 text-xl font-semibold">
-            {(locale === "ko" && projectsKo[next.slug]?.title) || next.title}
+            {next.title}
           </p>
         </Link>
       </nav>

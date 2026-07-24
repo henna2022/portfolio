@@ -4,10 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { projects, type Project } from "@/lib/data";
-import { projectsKo, type ProjectKo } from "@/lib/data-ko";
 import { assetPath } from "@/lib/asset";
-import { useLocale } from "@/lib/locale";
-import { dict, type UiStrings } from "@/lib/i18n";
+import { ui, type UiStrings } from "@/lib/i18n";
 import { DownloadIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
@@ -32,11 +30,9 @@ function firstSentence(text: string) {
 // (desktop: crossfade on hover; touch: overlay chip toggle).
 function MajorCard({
   p,
-  koP,
   t,
 }: {
   p: Project;
-  koP?: ProjectKo;
   t: UiStrings;
 }) {
   const [showFlow, setShowFlow] = useState(false);
@@ -142,11 +138,11 @@ function MajorCard({
         <span className="text-xs font-medium text-muted">{p.n}</span>
 
         <h3 className="font-display mt-1 text-2xl font-semibold">
-          {koP?.title ?? p.title}
+          {p.title}
         </h3>
-        <p className="mt-1 text-xs text-muted">{koP?.kicker ?? p.kicker}</p>
+        <p className="mt-1 text-xs text-muted">{p.kicker}</p>
         <p className="mt-3 text-sm leading-relaxed text-ink/70">
-          {koP?.desc ?? p.desc}
+          {p.desc}
         </p>
         <div className="mt-4 flex flex-wrap gap-1.5">
           {p.tags.slice(0, 4).map((tag) => (
@@ -171,7 +167,7 @@ function MajorCard({
 }
 
 // Compact, clearly-secondary card for side & toy projects.
-function SideCard({ p, koP, t }: { p: Project; koP?: ProjectKo; t: UiStrings }) {
+function SideCard({ p, t }: { p: Project; t: UiStrings }) {
   return (
     <Link
       href={`/work/${p.slug}`}
@@ -180,11 +176,11 @@ function SideCard({ p, koP, t }: { p: Project; koP?: ProjectKo; t: UiStrings }) 
       <div className="flex items-baseline gap-3">
         <span className="text-[11px] font-medium text-muted">{p.n}</span>
         <h4 className="font-display text-lg font-semibold leading-snug">
-          {koP?.title ?? p.title}
+          {p.title}
         </h4>
       </div>
       <p className="mt-1.5 text-[13px] leading-relaxed text-ink/60">
-        {firstSentence(koP?.desc ?? p.desc)}
+        {firstSentence(p.desc)}
       </p>
       <div className="mt-3 flex flex-wrap gap-1.5">
         {p.tags.slice(0, 3).map((tag) => (
@@ -208,9 +204,7 @@ function SideCard({ p, koP, t }: { p: Project; koP?: ProjectKo; t: UiStrings }) 
 
 export function SelectedWork() {
   const [filter, setFilter] = useState("All");
-  const { locale } = useLocale();
-  const t = dict[locale];
-  const ko = locale === "ko";
+  const t = ui;
 
   const majors = projects.filter((p) => p.tier === "major");
   const sides = projects.filter((p) => p.tier === "side");
@@ -277,7 +271,7 @@ export function SelectedWork() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease }}
           >
-            <MajorCard p={p} koP={ko ? projectsKo[p.slug] : undefined} t={t} />
+            <MajorCard p={p} t={t} />
           </motion.div>
         ))}
       </motion.div>
@@ -305,7 +299,7 @@ export function SelectedWork() {
             viewport={{ once: true, margin: "-8%" }}
             transition={{ duration: 0.5, delay: i * 0.05, ease }}
           >
-            <SideCard p={p} koP={ko ? projectsKo[p.slug] : undefined} t={t} />
+            <SideCard p={p}  t={t} />
           </motion.div>
         ))}
       </div>
