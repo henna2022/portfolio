@@ -95,12 +95,11 @@ function Floor({ dark }: { dark: boolean }) {
   );
 }
 
-// 바닥 면을 뚫고 올라와 타일 위에 "서는" 입체 헤드라인 3줄.
-// 각 줄은 깊이(z)가 다른 행으로 배치되어 화면에서는 위→아래로 쌓여 보인다.
-// 전역 clock 대신 델타 누적 타이머를 써서 탭 전환·리렌더에 영향받지 않게 한다.
-const LINE_Z = [-3.4, -1.45, 0.5];
+// 바닥에 "누운" 입체 헤드라인 — 도장 찍힌 블록처럼 면을 뚫고 위로 솟는다.
+// 각 줄은 깊이(z)가 다른 행. 전역 clock 대신 델타 누적 타이머 사용.
+const LINE_Z = [-1.3, -0.05, 1.2];
 const LINE_TARGET_Y = [0, 0, 0];
-const LINE_START_Y = -0.85;
+const LINE_START_Y = -0.5;
 
 function RisingHeadline({ dark, reduced }: { dark: boolean; reduced: boolean }) {
   const line0 = useRef<THREE.Group>(null);
@@ -138,10 +137,12 @@ function RisingHeadline({ dark, reduced }: { dark: boolean; reduced: boolean }) 
     <>
       {HEADLINE.map((line, i) => (
         <group key={line} ref={refs[i]} position={[0, LINE_START_Y, LINE_Z[i]]}>
+          {/* 글자를 바닥에 눕힘: 윗면이 하늘을 보고, 두께(extrude)가 위로 솟음 */}
+          <group rotation-x={-Math.PI / 2}>
           <Center disableY disableZ>
             <Text3D
               font={assetPath(FONT)}
-              size={0.46}
+              size={0.5}
               height={0.16}
               bevelEnabled
               bevelSize={0.012}
@@ -156,6 +157,7 @@ function RisingHeadline({ dark, reduced }: { dark: boolean; reduced: boolean }) 
               />
             </Text3D>
           </Center>
+          </group>
         </group>
       ))}
     </>
