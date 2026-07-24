@@ -41,7 +41,7 @@ export function Hero() {
       >
         <motion.div
           variants={child}
-          className="mb-6 flex items-center gap-3 rounded-full bg-sand/60 py-1.5 pl-1.5 pr-4"
+          className="mb-6 flex items-center gap-3 rounded-xl bg-white py-1.5 pl-1.5 pr-4 shadow-[0_4px_0_rgba(28,27,23,0.14)] dark:bg-sand-deep dark:shadow-[0_4px_0_rgba(0,0,0,0.5)]"
         >
           <img
             src={assetPath(person.photoSm)}
@@ -55,7 +55,7 @@ export function Hero() {
 
         <motion.span
           variants={child}
-          className="mb-8 inline-flex items-center gap-2 rounded-full bg-sand/60 px-4 py-1.5 text-xs font-medium tracking-wide text-ink/70"
+          className="mb-8 inline-flex items-center gap-2 rounded-lg bg-white px-4 py-1.5 text-xs font-medium tracking-wide text-ink/70 shadow-[0_3px_0_rgba(28,27,23,0.12)] dark:bg-sand-deep dark:text-cream/70 dark:shadow-[0_3px_0_rgba(0,0,0,0.5)]"
         >
           <GridIcon />
           {hero.badge}
@@ -85,20 +85,19 @@ export function Hero() {
           variants={child}
           className="mt-10 flex flex-wrap items-center justify-center gap-3"
         >
+          {/* 3D 블럭 CTA: 파란 본체 + 진한 파랑 단차 / 흰 블럭 보조 버튼 */}
           <motion.a
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
+            whileTap={{ y: 3 }}
             href="#work"
-            className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-cream"
+            className="group inline-flex items-center gap-2 rounded-xl bg-lime px-6 py-3.5 text-sm font-medium text-white shadow-[0_5px_0_#1d4ed8] transition-all hover:translate-y-[1px] hover:shadow-[0_4px_0_#1d4ed8]"
           >
             {t.viewWork}
-            <ArrowIcon className="text-lime transition-transform group-hover:translate-x-0.5" />
+            <ArrowIcon className="transition-transform group-hover:translate-x-0.5" />
           </motion.a>
           <motion.a
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
+            whileTap={{ y: 3 }}
             href="#about"
-            className="inline-flex items-center gap-2 rounded-full bg-sand/60 px-6 py-3.5 text-sm font-medium text-ink transition-colors hover:bg-sand"
+            className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-medium text-ink shadow-[0_5px_0_rgba(28,27,23,0.14)] transition-all hover:translate-y-[1px] hover:shadow-[0_4px_0_rgba(28,27,23,0.14)] dark:bg-sand-deep dark:text-cream dark:shadow-[0_5px_0_rgba(0,0,0,0.5)] dark:hover:shadow-[0_4px_0_rgba(0,0,0,0.5)]"
           >
             {t.readProfile}
           </motion.a>

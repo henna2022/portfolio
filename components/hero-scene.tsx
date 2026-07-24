@@ -10,7 +10,13 @@ import {
   type ReactNode,
 } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Center, Text3D, useAnimations, useGLTF } from "@react-three/drei";
+import {
+  Center,
+  ContactShadows,
+  Text3D,
+  useAnimations,
+  useGLTF,
+} from "@react-three/drei";
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three-stdlib";
 import { assetPath } from "@/lib/asset";
@@ -55,19 +61,19 @@ function useReducedMotion() {
   return reduced;
 }
 
-// 카메라를 낮은 부감으로 고정
+// 45° 부감 — 타일 바닥이 화면 전체를 덮어 '면 위 세계'로 보이게
 function Rig() {
   const camera = useThree((s) => s.camera);
   useEffect(() => {
-    camera.position.set(0, 2.4, 8.4);
-    camera.lookAt(0, 1.0, 0);
+    camera.position.set(0, 8, 8);
+    camera.lookAt(0, 0, 0);
   }, [camera]);
   return null;
 }
 
 // 대각선으로 깔린 베벨 타일 바닥
 function Floor({ dark }: { dark: boolean }) {
-  const N = 26;
+  const N = 38;
   const geo = useMemo(() => new RoundedBoxGeometry(0.94, 0.18, 0.94, 2, 0.05), []);
   const ref = useRef<THREE.InstancedMesh>(null);
   useEffect(() => {
@@ -89,10 +95,12 @@ function Floor({ dark }: { dark: boolean }) {
   );
 }
 
-// 땅에서 스윽 올라오는 입체 헤드라인 3줄.
+// 바닥 면을 뚫고 올라와 타일 위에 "서는" 입체 헤드라인 3줄.
+// 각 줄은 깊이(z)가 다른 행으로 배치되어 화면에서는 위→아래로 쌓여 보인다.
 // 전역 clock 대신 델타 누적 타이머를 써서 탭 전환·리렌더에 영향받지 않게 한다.
-const LINE_TARGET_Y = [2.15, 1.5, 0.85];
-const LINE_START_Y = -1.7;
+const LINE_Z = [-3.4, -1.45, 0.5];
+const LINE_TARGET_Y = [0, 0, 0];
+const LINE_START_Y = -0.85;
 
 function RisingHeadline({ dark, reduced }: { dark: boolean; reduced: boolean }) {
   const line0 = useRef<THREE.Group>(null);
@@ -114,7 +122,7 @@ function RisingHeadline({ dark, reduced }: { dark: boolean; reduced: boolean }) 
         return cur ? cur.type : null;
       });
     }
-    elapsed.current += Math.min(delta, 0.05); // 백그라운드 복귀 시 점프 방지
+    elapsed.current += Math.min(delta, 0.1); // 백그라운드 복귀 시 점프 방지
     refs.forEach((r, i) => {
       const g = r.current;
       if (!g) return;
@@ -129,11 +137,11 @@ function RisingHeadline({ dark, reduced }: { dark: boolean; reduced: boolean }) 
   return (
     <>
       {HEADLINE.map((line, i) => (
-        <group key={line} ref={refs[i]} position={[0, LINE_START_Y, 0]}>
+        <group key={line} ref={refs[i]} position={[0, LINE_START_Y, LINE_Z[i]]}>
           <Center disableY disableZ>
             <Text3D
               font={assetPath(FONT)}
-              size={0.45}
+              size={0.46}
               height={0.16}
               bevelEnabled
               bevelSize={0.012}
@@ -142,8 +150,9 @@ function RisingHeadline({ dark, reduced }: { dark: boolean; reduced: boolean }) 
             >
               {line}
               <meshStandardMaterial
-                color={dark ? "#e9e6de" : "#2b2a26"}
-                roughness={0.6}
+                color={dark ? "#e9e6de" : "#454239"}
+                roughness={0.5}
+                metalness={0.08}
               />
             </Text3D>
           </Center>
@@ -160,7 +169,7 @@ function RobotOnBlock({ dark, reduced }: { dark: boolean; reduced: boolean }) {
   const { scene, animations } = useGLTF(assetPath(MODEL), assetPath("/draco/"));
   const { actions } = useAnimations(animations, body);
   const phase = useRef<"rise" | "greet" | "idle" | "react">("rise");
-  const pedestalGeo = useMemo(() => new RoundedBoxGeometry(1.15, 0.45, 1.15, 2, 0.06), []);
+  const pedestalGeo = useMemo(() => new RoundedBoxGeometry(0.85, 0.32, 0.85, 2, 0.05), []);
 
   const play = (name: string, loop: boolean) => {
     const key = Object.keys(actions).find((k) => k.endsWith(name));
@@ -213,13 +222,13 @@ function RobotOnBlock({ dark, reduced }: { dark: boolean; reduced: boolean }) {
     const g = rig.current;
     const b = body.current;
     if (!g || !b) return;
-    elapsed.current += Math.min(delta, 0.05);
+    elapsed.current += Math.min(delta, 0.1);
 
     if (phase.current === "rise") {
       const p = reduced
         ? 1
         : THREE.MathUtils.clamp((elapsed.current - ROBOT_START) / ROBOT_DURATION, 0, 1);
-      g.position.y = THREE.MathUtils.lerp(-2.6, 0, easeOutCubic(p));
+      g.position.y = THREE.MathUtils.lerp(-1.6, 0, easeOutCubic(p));
       if (p === 1) {
         phase.current = "greet";
         toIdleAfter(play("Robot_Wave", false));
@@ -235,15 +244,15 @@ function RobotOnBlock({ dark, reduced }: { dark: boolean; reduced: boolean }) {
   return (
     <group
       ref={rig}
-      position={[3.0, -2.6, 0.7]}
+      position={[3.4, -1.6, 2.5]}
       onPointerOver={() => oneShot("Robot_Wave")}
       onClick={() => oneShot(REACTIONS[Math.floor(Math.random() * REACTIONS.length)])}
     >
-      <mesh geometry={pedestalGeo} position-y={0.225}>
-        <meshStandardMaterial color={dark ? "#2e2e2a" : "#f4f2ec"} roughness={0.9} />
+      <mesh geometry={pedestalGeo} position-y={0.16}>
+        <meshStandardMaterial color={dark ? "#2e2e2a" : "#f7f5f0" } roughness={0.9} />
       </mesh>
-      <group ref={body} position-y={0.45}>
-        <primitive object={scene} scale={0.36} />
+      <group ref={body} position-y={0.32}>
+        <primitive object={scene} scale={0.26} />
       </group>
     </group>
   );
@@ -305,10 +314,20 @@ export default function HeroScene({ showText }: { showText: boolean }) {
           }}
         >
           <Rig />
-          <hemisphereLight intensity={1.15} groundColor={dark ? "#111" : "#b0a894"} />
-          <directionalLight position={[4, 7, 5]} intensity={1.3} />
+          <hemisphereLight intensity={1.3} groundColor={dark ? "#111" : "#b0a894"} />
+          <directionalLight position={[4, 7, 5]} intensity={1.6} />
+          <directionalLight position={[-3, 4, 8]} intensity={0.5} />
           <Suspense fallback={null}>
             <Floor dark={dark} />
+            {/* 접지 그림자 — 글자·로봇이 면 위에 "서 있는" 느낌의 핵심 */}
+            <ContactShadows
+              position={[0, 0.01, 0]}
+              opacity={dark ? 0.5 : 0.32}
+              scale={22}
+              blur={2.4}
+              far={4}
+              resolution={512}
+            />
             {showText ? <RisingHeadline dark={dark} reduced={reduced} /> : null}
             <RobotOnBlock dark={dark} reduced={reduced} />
           </Suspense>

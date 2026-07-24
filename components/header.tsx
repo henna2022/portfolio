@@ -36,14 +36,14 @@ export function Header() {
           <a
             href={assetPath(ko ? person.cvKo : person.cv)}
             download
-            className="hidden items-center gap-1.5 rounded-full bg-sand/60 px-3.5 py-2 text-sm font-medium text-ink transition-colors hover:bg-sand sm:inline-flex"
+            className="hidden items-center gap-1.5 rounded-lg bg-white px-3.5 py-2 text-sm font-medium text-ink shadow-[0_4px_0_rgba(28,27,23,0.14)] transition-all hover:translate-y-[1px] hover:shadow-[0_3px_0_rgba(28,27,23,0.14)] active:translate-y-[3px] active:shadow-[0_1px_0_rgba(28,27,23,0.14)] dark:bg-sand-deep dark:text-cream dark:shadow-[0_4px_0_rgba(0,0,0,0.5)] dark:hover:shadow-[0_3px_0_rgba(0,0,0,0.5)] sm:inline-flex"
           >
             <DownloadIcon /> {t.cv}
           </a>
           <a
             href={assetPath(ko ? person.resumeKo : person.resume)}
             download
-            className="inline-flex items-center gap-1.5 rounded-full bg-ink px-3 py-2 text-sm font-medium text-cream transition-transform hover:scale-[1.03] sm:px-3.5"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-white px-3 py-2 text-sm font-medium text-ink shadow-[0_4px_0_rgba(28,27,23,0.14)] transition-all hover:translate-y-[1px] hover:shadow-[0_3px_0_rgba(28,27,23,0.14)] active:translate-y-[3px] active:shadow-[0_1px_0_rgba(28,27,23,0.14)] dark:bg-sand-deep dark:text-cream dark:shadow-[0_4px_0_rgba(0,0,0,0.5)] dark:hover:shadow-[0_3px_0_rgba(0,0,0,0.5)] sm:px-3.5"
           >
             <DownloadIcon /> {t.resume}
           </a>

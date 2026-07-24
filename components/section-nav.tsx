@@ -75,10 +75,11 @@ export function SectionNav() {
             href={assetPath(s.id === "top" ? "/" : `/#${s.id}`)}
             onClick={(e) => handleClick(e, s.id)}
             aria-current={isActive ? "true" : undefined}
-            className={`shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors ${
+            // 3D 블럭 스타일: 흰 블럭 + 아래 단차, 활성 탭은 파란 블럭이 눌린 상태
+            className={`shrink-0 rounded-lg px-3.5 py-1.5 text-sm font-medium transition-all ${
               isActive
-                ? "bg-ink text-cream"
-                : "text-ink/55 hover:text-ink"
+                ? "translate-y-[2px] bg-lime text-white shadow-[0_2px_0_#1d4ed8]"
+                : "bg-white text-ink/70 shadow-[0_4px_0_rgba(28,27,23,0.14)] hover:translate-y-[1px] hover:text-ink hover:shadow-[0_3px_0_rgba(28,27,23,0.14)] dark:bg-sand-deep dark:text-cream/70 dark:shadow-[0_4px_0_rgba(0,0,0,0.5)] dark:hover:text-cream dark:hover:shadow-[0_3px_0_rgba(0,0,0,0.5)]"
             }`}
           >
             {t.nav[s.id] ?? s.label}
