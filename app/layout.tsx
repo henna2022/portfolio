@@ -23,6 +23,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     images: ["/og-cover.png"],
   },
+  // Google Search Console 소유 확인
+  verification: {
+    google: "qX4iEJyGQeDXkw49wZEMiWYnfIyzF4HZgBR7tBcvUMw",
+  },
 };
 
 // Runs before paint: applies saved theme, or the OS preference on first visit.
