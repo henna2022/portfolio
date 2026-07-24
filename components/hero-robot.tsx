@@ -16,7 +16,8 @@ type Phase = "walk" | "greet" | "idle" | "react";
 
 function Robot() {
   const group = useRef<THREE.Group>(null);
-  const { scene, animations } = useGLTF(assetPath(MODEL));
+  // 두 번째 인자: 셀프호스팅한 Draco 디코더 경로 (모델이 draco 압축됨)
+  const { scene, animations } = useGLTF(assetPath(MODEL), assetPath("/draco/"));
   const { actions } = useAnimations(animations, group);
   const phase = useRef<Phase>("walk");
 
@@ -105,7 +106,7 @@ function Robot() {
   );
 }
 
-useGLTF.preload && useGLTF.preload(assetPath(MODEL));
+useGLTF.preload && useGLTF.preload(assetPath(MODEL), assetPath("/draco/"));
 
 export default function HeroRobot() {
   // 데스크톱에서만 마운트 (CSS 숨김만으로는 캔버스가 계속 돌기 때문)

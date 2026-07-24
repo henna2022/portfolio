@@ -16,7 +16,8 @@ export function generateMetadata({
   const p = getProject(params.slug);
   return {
     title: p ? `${p.title} — Juwon Lee` : "Project — Juwon Lee",
-    description: p?.overview,
+    // 검색 결과 스니펫용 — 여러 문단짜리 overview 대신 한 줄 요약을 쓴다
+    description: p?.desc,
   };
 }
 

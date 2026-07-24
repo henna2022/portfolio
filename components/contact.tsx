@@ -45,7 +45,7 @@ export function Contact() {
           transition={{ duration: 0.7, ease }}
         >
           <img
-            src={assetPath(person.photo)}
+            src={assetPath(person.photoSm)}
             alt="Juwon Lee"
             loading="lazy"
             decoding="async"

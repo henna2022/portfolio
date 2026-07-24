@@ -7,6 +7,8 @@ export const person = {
   githubHandle: "henna2022",
   linkedin: "https://www.linkedin.com/in/juwon-lee-677b702b3/",
   photo: "/portfolio_images/profile/juwonlee.jpg",
+  // 헤더 아바타·푸터용 저용량 썸네일 (원본은 About 섹션에서만 사용)
+  photoSm: "/portfolio_images/profile/juwonlee-sm.jpg",
   resume: "/files/Juwon_Lee_Resume_EN.pdf",
   cv: "/files/Juwon_Lee_CV_EN.pdf",
   resumeKo: "/files/Juwon_Lee_Resume_KO.pdf",

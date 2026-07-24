@@ -43,7 +43,7 @@ export function Hero() {
           className="mb-6 flex items-center gap-3 rounded-full bg-sand/60 py-1.5 pl-1.5 pr-4"
         >
           <img
-            src={assetPath(person.photo)}
+            src={assetPath(person.photoSm)}
             alt="Juwon Lee"
             className="h-9 w-9 rounded-full object-cover object-center"
           />
