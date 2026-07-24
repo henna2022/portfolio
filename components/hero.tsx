@@ -30,7 +30,8 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative mx-auto max-w-shell px-6 pb-16 pt-36 text-center sm:pt-40"
+      // 첫 화면을 뷰포트 높이에 맞춰 다음 섹션(프로필 사진)이 폴드 아래로 내려가게 함
+      className="relative mx-auto flex min-h-svh max-w-shell flex-col justify-center px-6 pb-24 pt-28 text-center"
     >
       <motion.div
         variants={parent}
