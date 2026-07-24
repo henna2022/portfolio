@@ -13,6 +13,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
   Center,
   ContactShadows,
+  Html,
   Text3D,
   useAnimations,
   useGLTF,
@@ -20,6 +21,8 @@ import {
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three-stdlib";
 import { assetPath } from "@/lib/asset";
+import { useLocale } from "@/lib/locale";
+import { dict } from "@/lib/i18n";
 
 // ─────────────────────────────────────────────────────────────
 // 3D 히어로 씬: 타일 바닥 + 땅에서 올라오는 입체 헤드라인 +
@@ -62,12 +65,12 @@ function useReducedMotion() {
   return reduced;
 }
 
-// 과학관 "방 안" 시점 — 바닥(아래) + 뒷벽(위)이 보이는 정면 카메라
+// 과학관 "방 안" 시점 — 뒷벽이 화면의 ~80%를 차지하는 수평 정면 카메라
 function Rig() {
   const camera = useThree((s) => s.camera);
   useEffect(() => {
-    camera.position.set(0, 2.3, 7.8);
-    camera.lookAt(0, 1.7, 0);
+    camera.position.set(0, 2.1, 7.4);
+    camera.lookAt(0, 2.1, 0);
   }, [camera]);
   return null;
 }
@@ -91,6 +94,22 @@ function Wall({ dark }: { dark: boolean }) {
         <boxGeometry args={[30, 0.05, 0.02]} />
         <meshStandardMaterial color="#7fb3ff" emissive="#3B82F6" emissiveIntensity={1.2} />
       </mesh>
+
+      {/* 코너에서 만나는 오른쪽 벽 (원근 소실면) */}
+      <group position={[9.2, 0, 9]} rotation-y={-Math.PI / 2}>
+        <mesh position-y={4.5}>
+          <boxGeometry args={[18, 9, 0.3]} />
+          <meshStandardMaterial color={dark ? "#171b20" : "#e8ecf3"} roughness={0.95} />
+        </mesh>
+        <mesh position={[0, 0.22, 0.17]}>
+          <boxGeometry args={[18, 0.44, 0.06]} />
+          <meshStandardMaterial color={dark ? "#242a32" : "#dde3ec"} roughness={0.8} />
+        </mesh>
+        <mesh position={[0, 0.5, 0.18]}>
+          <boxGeometry args={[18, 0.05, 0.02]} />
+          <meshStandardMaterial color="#7fb3ff" emissive="#3B82F6" emissiveIntensity={1.2} />
+        </mesh>
+      </group>
     </group>
   );
 }
@@ -181,8 +200,8 @@ function RisingHeadline({ dark, reduced }: { dark: boolean; reduced: boolean }) 
   });
 
   return (
-    // 벽면 중앙에 8도 사선으로 걸린 문단
-    <group position={[0, HEADLINE_CENTER_Y, 0]} rotation-z={0.14}>
+    // 벽면에 걸린 문단 — 코너 원근이 자연스러운 사선을 만들어 준다
+    <group position={[0, HEADLINE_CENTER_Y, 0]}>
       {HEADLINE.map((line, i) => (
         <group key={line} ref={refs[i]} position={[0, LINE_OFFSET_Y[i], TEXT_START_Z]}>
           <Center disableY disableZ>
@@ -206,6 +225,98 @@ function RisingHeadline({ dark, reduced }: { dark: boolean; reduced: boolean }) 
           </Center>
         </group>
       ))}
+    </group>
+  );
+}
+
+// 벽면에 부착된 CTA 버튼 — 헤드라인과 같은 평면에 있어 원근·기울기가 일치한다
+function WallButtons() {
+  const { locale } = useLocale();
+  const t = dict[locale];
+  return (
+    <Html
+      transform
+      position={[0.7, 1.05, WALL_Z + 0.3]}
+      distanceFactor={4}
+      zIndexRange={[20, 0]}
+    >
+      <div className="flex items-center gap-4">
+        <a
+          href="#work"
+          className="inline-flex items-center gap-2 rounded-xl bg-lime px-7 py-3.5 text-sm font-semibold text-white shadow-[0_6px_0_#1d4ed8] transition-all hover:translate-y-[2px] hover:shadow-[0_4px_0_#1d4ed8]"
+        >
+          {t.viewWork} →
+        </a>
+        <a
+          href="#about"
+          className="inline-flex items-center gap-2 rounded-xl bg-white px-7 py-3.5 text-sm font-semibold text-ink shadow-[0_6px_0_rgba(28,27,23,0.18)] transition-all hover:translate-y-[2px] hover:shadow-[0_4px_0_rgba(28,27,23,0.18)] dark:bg-sand-deep dark:text-cream dark:shadow-[0_6px_0_rgba(0,0,0,0.55)]"
+        >
+          {t.readProfile}
+        </a>
+      </div>
+    </Html>
+  );
+}
+
+// 스탠딩 램프 — 갓 + 발광 전구 + 스포트라이트가 바닥에 빛 웅덩이를 만든다
+function StandingLamp({
+  position,
+  dark,
+}: {
+  position: [number, number, number];
+  dark: boolean;
+}) {
+  const light = useRef<THREE.SpotLight>(null);
+  const target = useRef<THREE.Object3D>(null);
+
+  useEffect(() => {
+    if (light.current && target.current) light.current.target = target.current;
+  }, []);
+
+  return (
+    <group position={position}>
+      {/* 받침 + 기둥 + 갓 */}
+      <mesh position-y={0.05}>
+        <cylinderGeometry args={[0.32, 0.38, 0.1, 20]} />
+        <meshStandardMaterial color={dark ? "#3a3f47" : "#c8d0dc"} metalness={0.5} roughness={0.4} />
+      </mesh>
+      <mesh position-y={1.35}>
+        <cylinderGeometry args={[0.035, 0.035, 2.6, 10]} />
+        <meshStandardMaterial color={dark ? "#3a3f47" : "#c8d0dc"} metalness={0.5} roughness={0.4} />
+      </mesh>
+      <mesh position-y={2.75}>
+        <coneGeometry args={[0.42, 0.5, 20, 1, true]} />
+        <meshStandardMaterial
+          color={dark ? "#4a5058" : "#e6ebf2"}
+          side={THREE.DoubleSide}
+          roughness={0.5}
+        />
+      </mesh>
+      {/* 전구 */}
+      <mesh position-y={2.6}>
+        <sphereGeometry args={[0.12, 14, 14]} />
+        <meshStandardMaterial color="#ffe9c4" emissive="#ffc46b" emissiveIntensity={1.6} />
+      </mesh>
+      {/* 빛 기둥(은은한 원뿔) + 바닥 빛 웅덩이 */}
+      <mesh position-y={1.4}>
+        <coneGeometry args={[1.15, 2.6, 24, 1, true]} />
+        <meshBasicMaterial color="#ffd9a0" transparent opacity={0.1} side={THREE.DoubleSide} depthWrite={false} />
+      </mesh>
+      <mesh position={[0, 0.02, 0.25]} rotation-x={-Math.PI / 2}>
+        <circleGeometry args={[1.25, 28]} />
+        <meshBasicMaterial color="#ffd9a0" transparent opacity={dark ? 0.22 : 0.28} depthWrite={false} />
+      </mesh>
+      {/* 실제 조명 */}
+      <spotLight
+        ref={light}
+        position={[0, 2.6, 0]}
+        angle={0.65}
+        penumbra={0.6}
+        intensity={2.2}
+        color="#ffd9a0"
+        distance={9}
+      />
+      <object3D ref={target} position={[0, 0, 0.6]} />
     </group>
   );
 }
@@ -238,13 +349,15 @@ function MuseumProps({ dark }: { dark: boolean }) {
 
   return (
     <group>
-      {/* 책상 + iMac (왼쪽 벽가) — Desk by dook (Poly Pizza) */}
-      <GLBProp src="/props/desk.glb" position={[-5.3, 0, -4.5]} rotation={[0, 0.5, 0]} scale={1.05} />
-      {/* 실험 장비 (오른쪽 벽가) — Blocks Lab Equipment by Don Carson (Poly Pizza) */}
-      <GLBProp src="/props/lab.glb" position={[4.1, 0, -4.2]} rotation={[0, -0.35, 0]} scale={1.15} />
+      {/* 책상 + iMac (왼쪽 벽가, 의자가 오른쪽) — Desk by dook (Poly Pizza) */}
+      {/* 책상: 두 벽이 만나는 코너에, 모니터가 오른쪽 벽을 향하도록 회전 */}
+      <GLBProp src="/props/desk.glb" position={[7.0, 0, -4.1]} rotation={[0, -1.35, 0]} scale={1.05} />
 
-      {/* 원자 모형 전시대 (왼쪽 중경) */}
-      <group position={[-5.4, 0, -0.6]}>
+      {/* 스탠딩 램프 (방 맨 왼쪽) — 따뜻한 빛 웅덩이 효과 */}
+      <StandingLamp position={[-6.6, 0, -4.2]} dark={dark} />
+
+      {/* 원자 모형 전시대 (벽가 왼쪽) */}
+      <group position={[-4.6, 0, -4.1]}>
         <mesh position-y={0.18}>
           <cylinderGeometry args={[0.45, 0.52, 0.36, 24]} />
           <meshStandardMaterial color={ped} roughness={0.85} />
@@ -281,8 +394,8 @@ function MuseumProps({ dark }: { dark: boolean }) {
 
       {/* 유리 진열장 (벽 앞 좌우) */}
       {[
-        [-6.6, -4.6],
-        [6.7, -4.4],
+        [-4.6, -4.6],
+        [8.4, 1.6],
       ].map(([x, z], i) => (
         <group key={i} position={[x, 0, z]}>
           <mesh position-y={0.25}>
@@ -407,7 +520,7 @@ function RobotOnBlock({ dark, reduced }: { dark: boolean; reduced: boolean }) {
   return (
     <group
       ref={rig}
-      position={[2.7, -1.6, 1.2]}
+      position={[2.9, -1.6, 0.2]}
       onPointerOver={() => oneShot("Robot_Wave")}
       onClick={() => oneShot(REACTIONS[Math.floor(Math.random() * REACTIONS.length)])}
     >
@@ -415,7 +528,7 @@ function RobotOnBlock({ dark, reduced }: { dark: boolean; reduced: boolean }) {
         <meshStandardMaterial color={dark ? "#2c2f34" : "#f4f6fa"} roughness={0.9} />
       </mesh>
       <group ref={body} position-y={0.32}>
-        <primitive object={scene} scale={0.26} />
+        <primitive object={scene} scale={0.3} />
       </group>
     </group>
   );
@@ -423,7 +536,6 @@ function RobotOnBlock({ dark, reduced }: { dark: boolean; reduced: boolean }) {
 
 useGLTF.preload && useGLTF.preload(assetPath(MODEL), assetPath("/draco/"));
 useGLTF.preload && useGLTF.preload(assetPath("/props/desk.glb"), assetPath("/draco/"));
-useGLTF.preload && useGLTF.preload(assetPath("/props/lab.glb"), assetPath("/draco/"));
 
 // WebGL 실패 시 조용히 사라지는 안전장치
 class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
@@ -486,7 +598,14 @@ export default function HeroScene({ showText }: { showText: boolean }) {
           <directionalLight position={[-3, 4, 8]} intensity={0.5} color="#cfe0ff" />
           <pointLight position={[0, 3, -6]} intensity={0.7} color="#7fb3ff" />
           <Suspense fallback={null}>
-            <Wall dark={dark} />
+            {/* 방 코너 뷰: 방 전체를 회전시켜 왼쪽 벽이 비스듬히 화면 대부분을
+                차지하고 오른쪽 코너로 원근이 소실되게 함 (스케치 구도) */}
+            <group rotation-y={0.5} position={[1.8, 0, 0]}>
+              <Wall dark={dark} />
+              {showText ? <RisingHeadline dark={dark} reduced={reduced} /> : null}
+              {showText ? <WallButtons /> : null}
+              <MuseumProps dark={dark} />
+            </group>
             <Floor dark={dark} />
             {/* 접지 그림자 — 글자·로봇이 면 위에 "서 있는" 느낌의 핵심 */}
             <ContactShadows
@@ -497,8 +616,6 @@ export default function HeroScene({ showText }: { showText: boolean }) {
               far={4}
               resolution={512}
             />
-            {showText ? <RisingHeadline dark={dark} reduced={reduced} /> : null}
-            <MuseumProps dark={dark} />
             <RobotOnBlock dark={dark} reduced={reduced} />
           </Suspense>
         </Canvas>
