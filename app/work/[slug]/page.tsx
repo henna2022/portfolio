@@ -33,8 +33,29 @@ export default function ProjectPage({
   const prev = projects[(idx - 1 + projects.length) % projects.length];
   const next = projects[(idx + 1) % projects.length];
 
+  // 검색엔진용 구조화 데이터 — 프로젝트를 작품(CreativeWork)으로 기술
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: p.title,
+    description: p.desc,
+    url: `https://henna2022.github.io/portfolio/work/${p.slug}/`,
+    author: {
+      "@type": "Person",
+      name: "Juwon Lee",
+      url: "https://henna2022.github.io/portfolio/",
+    },
+    ...(p.image
+      ? { image: `https://henna2022.github.io/portfolio${p.image}` }
+      : {}),
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Header />
       <ProjectDetail
         project={p}

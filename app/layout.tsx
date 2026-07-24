@@ -51,6 +51,25 @@ const localeScript = `
 })();
 `;
 
+// 검색엔진용 구조화 데이터 (Person) — 검색 결과에 인물 정보로 노출될 수 있음
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Juwon Lee",
+  alternateName: "이주원",
+  url: "https://henna2022.github.io/portfolio/",
+  image: "https://henna2022.github.io/portfolio/portfolio_images/profile/juwonlee.jpg",
+  jobTitle: "AI & Robotics Educator · Full-Stack Developer",
+  worksFor: {
+    "@type": "Organization",
+    name: "Seoul Robot & AI Science Museum",
+  },
+  sameAs: [
+    "https://github.com/henna2022",
+    "https://www.linkedin.com/in/juwon-lee-677b702b3/",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -64,6 +83,10 @@ export default function RootLayout({
           href="https://static.cloudflareinsights.com"
         />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         {process.env.NODE_ENV === "development" ? (
           <>
             <script dangerouslySetInnerHTML={{ __html: localeScript }} />
