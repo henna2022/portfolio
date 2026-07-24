@@ -238,10 +238,11 @@ function RobotOnBlock({ dark, reduced }: { dark: boolean; reduced: boolean }) {
       return;
     }
 
-    // 시선 추적 (로봇만 회전, 블럭은 고정)
-    // 기본적으로 위(카메라)를 올려다보는 자세 + 마우스 따라 미세 조정
-    b.rotation.y = THREE.MathUtils.lerp(b.rotation.y, pointer.x * 0.5, 0.1);
-    b.rotation.x = THREE.MathUtils.lerp(b.rotation.x, 0.42 - pointer.y * 0.12, 0.1);
+    // 시선: 화면 너머 사람(카메라)을 정면으로 바라보는 자세가 기본.
+    // 로봇(3.4,0,2.5)→카메라(0,8,8) 방향각: yaw≈-0.55, pitch≈0.45
+    // 여기에 마우스 위치를 따라 미세하게 움직인다.
+    b.rotation.y = THREE.MathUtils.lerp(b.rotation.y, -0.55 + pointer.x * 0.3, 0.1);
+    b.rotation.x = THREE.MathUtils.lerp(b.rotation.x, 0.45 - pointer.y * 0.1, 0.1);
   });
 
   return (

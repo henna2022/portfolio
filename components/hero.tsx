@@ -51,10 +51,16 @@ export function Hero() {
           {ko ? heroKo.headline : hero.headline}
         </motion.h1>
 
-        <motion.div
-          variants={child}
-          className="mt-14 flex flex-wrap items-center justify-center gap-4"
-        >
+      </motion.div>
+
+      {/* 화면 하단 고정 CTA — 어떤 뷰포트에서도 3D 헤드라인 아래에 위치.
+          (센터링은 framer의 x:-50%로 처리해 y 애니메이션과 충돌하지 않게 함) */}
+      <motion.div
+        initial={{ opacity: 0, x: "-50%", y: 24 }}
+        animate={{ opacity: 1, x: "-50%", y: 0 }}
+        transition={{ duration: 0.7, delay: 0.6, ease }}
+        className="absolute bottom-12 left-1/2 z-10 flex flex-wrap items-center justify-center gap-4"
+      >
           {/* 3D 슬랩 CTA: 바닥 원근에 맞춰 눕힌 입체 블럭 (rotateX + 두꺼운 밑단) */}
           <motion.a
             whileTap={{ y: 3 }}
@@ -71,7 +77,6 @@ export function Hero() {
           >
             {t.readProfile}
           </motion.a>
-        </motion.div>
       </motion.div>
 
       {/* 3D 씬: 타일 바닥 + 땅에서 올라오는 입체 헤드라인 + 블럭 타고 등장하는 로봇 */}
