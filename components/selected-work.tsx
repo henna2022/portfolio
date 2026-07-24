@@ -40,7 +40,6 @@ function MajorCard({
   t: UiStrings;
 }) {
   const [showFlow, setShowFlow] = useState(false);
-  const contain = p.imageFit === "contain";
   // When a project has no screenshot but has an architecture diagram, the
   // diagram becomes the card cover itself — so no hover crossfade for it.
   const flowAsCover = !p.image && !!p.flowImage;
@@ -51,8 +50,13 @@ function MajorCard({
       href={`/work/${p.slug}`}
       className="group flex h-full cursor-pointer flex-col rounded-4xl bg-sand/70 p-5 text-ink transition-transform duration-300 hover:-translate-y-1.5"
     >
-      {/* Media: project image ↔ architecture diagram */}
-      <div className="relative mb-5 aspect-[16/10] overflow-hidden rounded-2xl bg-sand-deep">
+      {/* Media: project image ↔ architecture diagram
+          flow 다이어그램이 커버일 땐 다이어그램 비율에 맞춰 여백 없이 꽉 채움 */}
+      <div
+        className={`relative mb-5 overflow-hidden rounded-2xl bg-sand-deep ${
+          flowAsCover ? "aspect-[68/55]" : "aspect-[16/10]"
+        }`}
+      >
         <div
           className={`absolute inset-0 transition-opacity duration-500 ${
             showFlow ? "opacity-0" : "opacity-100"
@@ -64,9 +68,7 @@ function MajorCard({
               alt={p.title}
               loading="lazy"
               decoding="async"
-              className={`h-full w-full ${
-                contain ? "object-contain p-8" : "object-cover"
-              }`}
+              className="h-full w-full object-cover"
             />
           ) : flowAsCover && p.flowImage ? (
             <>
@@ -75,14 +77,14 @@ function MajorCard({
                 alt={`${p.title} architecture`}
                 loading="lazy"
                 decoding="async"
-                className="block h-full w-full object-contain p-6 dark:hidden"
+                className="block h-full w-full object-cover dark:hidden"
               />
               <img
                 src={assetPath(p.flowImage.dark)}
                 alt={`${p.title} architecture`}
                 loading="lazy"
                 decoding="async"
-                className="hidden h-full w-full object-contain p-6 dark:block"
+                className="hidden h-full w-full object-cover dark:block"
               />
             </>
           ) : (
@@ -169,7 +171,7 @@ function MajorCard({
 }
 
 // Compact, clearly-secondary card for side & toy projects.
-function SideCard({ p, koP }: { p: Project; koP?: ProjectKo }) {
+function SideCard({ p, koP, t }: { p: Project; koP?: ProjectKo; t: UiStrings }) {
   return (
     <Link
       href={`/work/${p.slug}`}
@@ -193,6 +195,12 @@ function SideCard({ p, koP }: { p: Project; koP?: ProjectKo }) {
             {tag}
           </span>
         ))}
+      </div>
+      {/* 상세 페이지로 가는 명시적 CTA (메이저 카드와 동일 패턴) */}
+      <div className="mt-auto pt-4">
+        <span className="inline-flex items-center rounded-full bg-ink px-3 py-1.5 text-xs font-medium text-cream transition-transform duration-300 group-hover:scale-[1.05]">
+          {t.viewProject}
+        </span>
       </div>
     </Link>
   );
@@ -297,7 +305,7 @@ export function SelectedWork() {
             viewport={{ once: true, margin: "-8%" }}
             transition={{ duration: 0.5, delay: i * 0.05, ease }}
           >
-            <SideCard p={p} koP={ko ? projectsKo[p.slug] : undefined} />
+            <SideCard p={p} koP={ko ? projectsKo[p.slug] : undefined} t={t} />
           </motion.div>
         ))}
       </div>

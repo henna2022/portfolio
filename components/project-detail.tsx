@@ -31,7 +31,6 @@ export function ProjectDetail({
   const koP = locale === "ko" ? projectsKo[p.slug] : undefined;
 
   const hero = p.gallery?.[0] ?? p.image;
-  const heroContain = p.imageFit === "contain";
   const restGallery = (p.gallery ?? []).slice(1);
 
   return (
@@ -102,11 +101,7 @@ export function ProjectDetail({
           <img
             src={assetPath(hero)}
             alt={p.title}
-            className={
-              heroContain
-                ? "mx-auto max-h-[520px] w-full object-contain p-8"
-                : "max-h-[520px] w-full object-cover"
-            }
+            className="max-h-[520px] w-full object-cover"
           />
         ) : (
           <div className="flex aspect-[16/7] w-full items-center justify-center bg-gradient-to-br from-sand-deep to-sand">

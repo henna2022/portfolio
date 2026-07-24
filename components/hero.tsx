@@ -11,7 +11,7 @@ import { ArrowIcon, GridIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
 // three.js 런타임은 별도 청크로 지연 로드 — 첫 화면 성능에 영향 없음
-const HeroRobot = dynamic(() => import("./hero-robot"), { ssr: false });
+const HeroScene = dynamic(() => import("./hero-scene"), { ssr: false });
 
 const parent: Variants = {
   hidden: {},
@@ -37,7 +37,7 @@ export function Hero() {
         variants={parent}
         initial="hidden"
         animate="show"
-        className="flex flex-col items-center"
+        className="relative z-10 flex flex-col items-center"
       >
         <motion.div
           variants={child}
@@ -63,10 +63,12 @@ export function Hero() {
 
         <motion.h1
           variants={child}
+          // EN 데스크톱에서는 3D 입체 글자가 헤드라인을 대신함 —
+          // DOM h1은 레이아웃 자리만 지키고(invisible) 모바일·KO에서는 그대로 표시
           className={`font-display text-balance max-w-4xl text-[2.75rem] text-ink sm:text-6xl md:text-7xl ${
             ko
               ? "font-bold leading-[1.34] tracking-[-0.01em]"
-              : "font-semibold leading-[1.14] tracking-[-0.015em]"
+              : "font-semibold leading-[1.14] tracking-[-0.015em] lg:invisible"
           }`}
         >
           {ko ? heroKo.headline : hero.headline}
@@ -103,8 +105,8 @@ export function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* 걸어 들어와 인사하는 로봇 (데스크톱 전용, 시선 추적 + 클릭 리액션) */}
-      <HeroRobot />
+      {/* 3D 씬: 타일 바닥 + 땅에서 올라오는 입체 헤드라인 + 블럭 타고 등장하는 로봇 */}
+      <HeroScene showText={!ko} />
     </section>
   );
 }
