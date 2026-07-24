@@ -229,32 +229,89 @@ function RisingHeadline({ dark, reduced }: { dark: boolean; reduced: boolean }) 
   );
 }
 
-// 벽면에 부착된 CTA 버튼 — 헤드라인과 같은 평면에 있어 원근·기울기가 일치한다
-function WallButtons() {
+// 벽에서 돌출된 진짜 3D 버튼 — 라운드 블록 메시 + 앞면 라벨(Html).
+// 헤드라인과 같은 벽 평면에 있어 원근이 정확히 일치하고, 옆면 두께가 보인다.
+function Button3D({
+  label,
+  target,
+  primary,
+  position,
+  width,
+  dark,
+}: {
+  label: string;
+  target: string;
+  primary?: boolean;
+  position: [number, number, number];
+  width: number;
+  dark: boolean;
+}) {
+  const [hover, setHover] = useState(false);
+  const geo = useMemo(() => new RoundedBoxGeometry(width, 0.64, 0.26, 3, 0.08), [width]);
+
+  useEffect(() => {
+    document.body.style.cursor = hover ? "pointer" : "auto";
+    return () => {
+      document.body.style.cursor = "auto";
+    };
+  }, [hover]);
+
+  return (
+    <group position={position} scale={hover ? 1.06 : 1}>
+      <mesh
+        geometry={geo}
+        onClick={() => {
+          window.location.hash = target;
+        }}
+        onPointerOver={() => setHover(true)}
+        onPointerOut={() => setHover(false)}
+      >
+        <meshStandardMaterial
+          color={primary ? "#3B82F6" : dark ? "#2c2f34" : "#ffffff"}
+          roughness={0.45}
+        />
+      </mesh>
+      <Html
+        transform
+        position={[0, 0, 0.14]}
+        distanceFactor={4}
+        zIndexRange={[20, 0]}
+        className="pointer-events-none select-none"
+      >
+        <span
+          // text-ink 는 다크모드에서 자동으로 밝은 색으로 뒤집히는 토큰
+          className={`whitespace-nowrap text-sm font-semibold ${
+            primary ? "text-white" : "text-ink"
+          }`}
+        >
+          {label}
+        </span>
+      </Html>
+    </group>
+  );
+}
+
+function WallButtons({ dark }: { dark: boolean }) {
   const { locale } = useLocale();
   const t = dict[locale];
   return (
-    <Html
-      transform
-      position={[0.7, 1.05, WALL_Z + 0.3]}
-      distanceFactor={4}
-      zIndexRange={[20, 0]}
-    >
-      <div className="flex items-center gap-4">
-        <a
-          href="#work"
-          className="inline-flex items-center gap-2 rounded-xl bg-lime px-7 py-3.5 text-sm font-semibold text-white shadow-[0_6px_0_#1d4ed8] transition-all hover:translate-y-[2px] hover:shadow-[0_4px_0_#1d4ed8]"
-        >
-          {t.viewWork} →
-        </a>
-        <a
-          href="#about"
-          className="inline-flex items-center gap-2 rounded-xl bg-white px-7 py-3.5 text-sm font-semibold text-ink shadow-[0_6px_0_rgba(28,27,23,0.18)] transition-all hover:translate-y-[2px] hover:shadow-[0_4px_0_rgba(28,27,23,0.18)] dark:bg-sand-deep dark:text-cream dark:shadow-[0_6px_0_rgba(0,0,0,0.55)]"
-        >
-          {t.readProfile}
-        </a>
-      </div>
-    </Html>
+    <group position={[0.7, 1.05, WALL_Z + 0.28]}>
+      <Button3D
+        dark={dark}
+        primary
+        label={`${t.viewWork} →`}
+        target="#work"
+        position={[-1.4, 0, 0]}
+        width={2.9}
+      />
+      <Button3D
+        dark={dark}
+        label={t.readProfile}
+        target="#about"
+        position={[1.55, 0, 0]}
+        width={2.2}
+      />
+    </group>
   );
 }
 
@@ -271,6 +328,20 @@ function StandingLamp({
 
   useEffect(() => {
     if (light.current && target.current) light.current.target = target.current;
+  }, []);
+
+  // 라디얼 그라디언트 글로우 텍스처 (전구 주변 빛 번짐)
+  const glowTex = useMemo(() => {
+    const c = document.createElement("canvas");
+    c.width = c.height = 128;
+    const g = c.getContext("2d")!;
+    const grd = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+    grd.addColorStop(0, "rgba(255,222,160,0.95)");
+    grd.addColorStop(0.35, "rgba(255,196,107,0.4)");
+    grd.addColorStop(1, "rgba(255,196,107,0)");
+    g.fillStyle = grd;
+    g.fillRect(0, 0, 128, 128);
+    return new THREE.CanvasTexture(c);
   }, []);
 
   return (
@@ -292,11 +363,20 @@ function StandingLamp({
           roughness={0.5}
         />
       </mesh>
-      {/* 전구 */}
+      {/* 전구 + 빛 번짐(블러 글로우) */}
       <mesh position-y={2.6}>
         <sphereGeometry args={[0.12, 14, 14]} />
         <meshStandardMaterial color="#ffe9c4" emissive="#ffc46b" emissiveIntensity={1.6} />
       </mesh>
+      <sprite position-y={2.6} scale={[2.8, 2.8, 1]}>
+        <spriteMaterial
+          map={glowTex}
+          transparent
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+          opacity={dark ? 0.95 : 0.5}
+        />
+      </sprite>
       {/* 빛 기둥(은은한 원뿔) + 바닥 빛 웅덩이 */}
       <mesh position-y={1.4}>
         <coneGeometry args={[1.15, 2.6, 24, 1, true]} />
@@ -310,12 +390,13 @@ function StandingLamp({
       <spotLight
         ref={light}
         position={[0, 2.6, 0]}
-        angle={0.65}
-        penumbra={0.6}
-        intensity={2.2}
+        angle={0.7}
+        penumbra={0.65}
+        intensity={dark ? 4 : 2.2}
         color="#ffd9a0"
-        distance={9}
+        distance={11}
       />
+      <pointLight position={[0, 2.6, 0]} intensity={dark ? 1.2 : 0.4} color="#ffd9a0" distance={7} />
       <object3D ref={target} position={[0, 0, 0.6]} />
     </group>
   );
@@ -353,8 +434,8 @@ function MuseumProps({ dark }: { dark: boolean }) {
       {/* 책상: 두 벽이 만나는 코너에, 모니터가 오른쪽 벽을 향하도록 회전 */}
       <GLBProp src="/props/desk.glb" position={[7.0, 0, -4.1]} rotation={[0, -1.35, 0]} scale={1.05} />
 
-      {/* 스탠딩 램프 (방 맨 왼쪽) — 따뜻한 빛 웅덩이 효과 */}
-      <StandingLamp position={[-6.6, 0, -4.2]} dark={dark} />
+      {/* 스탠딩 램프 (책상 옆) — 따뜻한 빛 웅덩이 + 글로우 */}
+      <StandingLamp position={[4.7, 0, -4.35]} dark={dark} />
 
       {/* 원자 모형 전시대 (벽가 왼쪽) */}
       <group position={[-4.6, 0, -4.1]}>
@@ -520,7 +601,7 @@ function RobotOnBlock({ dark, reduced }: { dark: boolean; reduced: boolean }) {
   return (
     <group
       ref={rig}
-      position={[2.9, -1.6, 0.2]}
+      position={[2.45, -1.6, 0.2]}
       onPointerOver={() => oneShot("Robot_Wave")}
       onClick={() => oneShot(REACTIONS[Math.floor(Math.random() * REACTIONS.length)])}
     >
@@ -593,7 +674,9 @@ export default function HeroScene({ showText }: { showText: boolean }) {
           <Rig />
           {/* 원경이 푸른 안개로 부드럽게 사라지는 과학관 조도 (벽·글자는 선명) */}
           <fog attach="fog" args={[dark ? "#0e1218" : "#dbe4f0", 15, 32]} />
-          <hemisphereLight intensity={1.3} groundColor={dark ? "#101318" : "#aab4c4"} />
+          <hemisphereLight intensity={dark ? 1.15 : 1.3} groundColor={dark ? "#1a2028" : "#aab4c4"} />
+          {/* 다크모드에서 방이 너무 어둡지 않게 은은한 보조광 */}
+          {dark ? <ambientLight intensity={0.4} color="#8fa8cc" /> : null}
           <directionalLight position={[4, 7, 5]} intensity={1.6} />
           <directionalLight position={[-3, 4, 8]} intensity={0.5} color="#cfe0ff" />
           <pointLight position={[0, 3, -6]} intensity={0.7} color="#7fb3ff" />
@@ -603,7 +686,7 @@ export default function HeroScene({ showText }: { showText: boolean }) {
             <group rotation-y={0.5} position={[1.8, 0, 0]}>
               <Wall dark={dark} />
               {showText ? <RisingHeadline dark={dark} reduced={reduced} /> : null}
-              {showText ? <WallButtons /> : null}
+              {showText ? <WallButtons dark={dark} /> : null}
               <MuseumProps dark={dark} />
             </group>
             <Floor dark={dark} />
