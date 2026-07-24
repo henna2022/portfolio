@@ -25,7 +25,6 @@ export function Header() {
           href={assetPath("/")}
           className="flex shrink-0 items-center gap-2 font-display text-lg font-semibold text-ink"
         >
-          <span className="h-2.5 w-2.5 rounded-full bg-lime" />
           {person.name}
         </a>
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { motion, type Variants } from "framer-motion";
 import { hero } from "@/lib/data";
@@ -7,8 +8,27 @@ import { ui } from "@/lib/i18n";
 import { ArrowIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
-// three.js 런타임은 별도 청크로 지연 로드 — 첫 화면 성능에 영향 없음
+// three.js 런타임은 별도 청크로 지연 로드 — 첫 화면 성능에 영향 없음.
+// 아래 useDesktopScene 게이트가 통과할 때만 <HeroScene> 을 마운트하므로,
+// dynamic import 자체(three.js/drei 청크 다운로드)가 모바일/터치 기기에서는
+// 아예 트리거되지 않는다.
 const HeroScene = dynamic(() => import("./hero-scene"), { ssr: false });
+
+// 데스크톱(넓은 화면 + 마우스 호버) + WebGL 지원 여부를 클라이언트에서만 판정.
+// SSR/최초 렌더에서는 null(false) 을 반환해 하이드레이션 불일치를 피한다.
+function useDesktopScene() {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const mq = matchMedia("(min-width: 1024px) and (hover: hover)");
+    const probe = document.createElement("canvas");
+    const hasGL = !!(probe.getContext("webgl2") || probe.getContext("webgl"));
+    const update = () => setReady(mq.matches && hasGL);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+  return ready;
+}
 
 const parent: Variants = {
   hidden: {},
@@ -22,6 +42,7 @@ const child: Variants = {
 
 export function Hero() {
   const t = ui;
+  const desktopScene = useDesktopScene();
   return (
     <section
       id="top"
@@ -70,8 +91,10 @@ export function Hero() {
         </div>
       </motion.div>
 
-      {/* 3D 씬: 과학관 방 코너 + 벽걸이 헤드라인·버튼 + 로봇 */}
-      <HeroScene showText />
+      {/* 3D 씬: 과학관 방 코너 + 벽걸이 헤드라인·버튼 + 로봇.
+          데스크톱 + WebGL 확인 전에는 마운트하지 않아 모바일은 three.js 청크를
+          다운로드조차 하지 않는다 (모바일 CTA 는 위 DOM 버튼이 담당). */}
+      {desktopScene ? <HeroScene showText /> : null}
     </section>
   );
 }

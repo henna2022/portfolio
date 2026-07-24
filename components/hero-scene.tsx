@@ -13,7 +13,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
   Center,
   ContactShadows,
-  Html,
+  Text,
   Text3D,
   useAnimations,
   useGLTF,
@@ -228,8 +228,10 @@ function RisingHeadline({ dark, reduced }: { dark: boolean; reduced: boolean }) 
   );
 }
 
-// 벽에서 돌출된 진짜 3D 버튼 — 라운드 블록 메시 + 앞면 라벨(Html).
+// 벽에서 돌출된 진짜 3D 버튼 — 라운드 블록 메시 + 앞면 라벨(SDF Text).
 // 헤드라인과 같은 벽 평면에 있어 원근이 정확히 일치하고, 옆면 두께가 보인다.
+// 라벨은 troika SDF 텍스트로 버튼 앞면에 평평하게 렌더 — 매 프레임 DOM 재투영이
+// 없어 가볍고, 호버 스케일은 useFrame lerp로 부드럽게 처리한다.
 function Button3D({
   label,
   target,
@@ -245,47 +247,61 @@ function Button3D({
   width: number;
   dark: boolean;
 }) {
-  const [hover, setHover] = useState(false);
+  const group = useRef<THREE.Group>(null);
+  const hover = useRef(false);
   const geo = useMemo(() => new RoundedBoxGeometry(width, 0.64, 0.26, 3, 0.08), [width]);
 
   useEffect(() => {
-    document.body.style.cursor = hover ? "pointer" : "auto";
     return () => {
       document.body.style.cursor = "auto";
     };
-  }, [hover]);
+  }, []);
+
+  // 호버 스케일을 상태 리렌더 대신 매 프레임 lerp 로 구동 — 부드럽고 저렴하다
+  useFrame(() => {
+    const g = group.current;
+    if (!g) return;
+    const goal = hover.current ? 1.06 : 1;
+    const s = THREE.MathUtils.lerp(g.scale.x, goal, 0.2);
+    g.scale.setScalar(s);
+  });
+
+  // text-ink 토큰과 동일: 라이트 #2b303a / 다크 #e6eaf2
+  const labelColor = primary ? "#ffffff" : dark ? "#e6eaf2" : "#2b303a";
 
   return (
-    <group position={position} scale={hover ? 1.06 : 1}>
+    <group ref={group} position={position}>
       <mesh
         geometry={geo}
         onClick={() => {
           window.location.hash = target;
         }}
-        onPointerOver={() => setHover(true)}
-        onPointerOut={() => setHover(false)}
+        onPointerOver={() => {
+          hover.current = true;
+          document.body.style.cursor = "pointer";
+        }}
+        onPointerOut={() => {
+          hover.current = false;
+          document.body.style.cursor = "auto";
+        }}
       >
         <meshStandardMaterial
           color={primary ? "#3B82F6" : dark ? "#2c2f34" : "#ffffff"}
           roughness={0.45}
         />
       </mesh>
-      <Html
-        transform
+      <Text
         position={[0, 0, 0.14]}
-        distanceFactor={4}
-        zIndexRange={[20, 0]}
-        className="pointer-events-none select-none"
+        fontSize={0.26}
+        color={labelColor}
+        anchorX="center"
+        anchorY="middle"
+        letterSpacing={0.01}
+        // 라벨은 클릭/호버가 아래 메시로 전달되도록 포인터 이벤트에서 제외
+        raycast={() => null}
       >
-        <span
-          // text-ink 는 다크모드에서 자동으로 밝은 색으로 뒤집히는 토큰
-          className={`whitespace-nowrap text-sm font-semibold ${
-            primary ? "text-white" : "text-ink"
-          }`}
-        >
-          {label}
-        </span>
-      </Html>
+        {label}
+      </Text>
     </group>
   );
 }
@@ -631,6 +647,9 @@ export default function HeroScene({ showText }: { showText: boolean }) {
   const dark = useDark();
   const reduced = useReducedMotion();
   const [enabled, setEnabled] = useState(false);
+  // 히어로가 화면 밖으로 스크롤되면 렌더 루프를 멈춰 나머지 페이지에 GPU/CPU 양보
+  const [visible, setVisible] = useState(true);
+  const wrapper = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const mq = matchMedia("(min-width: 1024px) and (hover: hover)");
@@ -649,17 +668,33 @@ export default function HeroScene({ showText }: { showText: boolean }) {
     return () => clearTimeout(t);
   }, [enabled]);
 
+  // 히어로 래퍼가 뷰포트에 보일 때만 frameloop 을 돌린다
+  useEffect(() => {
+    if (!enabled) return;
+    const el = wrapper.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [enabled]);
+
   if (!enabled) return null;
 
   return (
     // 섹션은 max-w 컨테이너라서, 바닥이 화면 전체 폭을 덮도록 풀블리드로 확장
     <div
+      ref={wrapper}
       aria-hidden
       className="absolute inset-y-0 left-1/2 z-0 w-screen -translate-x-1/2"
     >
       <SceneBoundary>
         <Canvas
-          dpr={[1, 1.5]}
+          frameloop={visible ? "always" : "never"}
+          dpr={[1, 1.25]}
+          performance={{ min: 0.5 }}
           camera={{ fov: 35 }}
           gl={{ antialias: true, alpha: true }}
           onCreated={(state) => {
@@ -695,7 +730,7 @@ export default function HeroScene({ showText }: { showText: boolean }) {
               scale={22}
               blur={2.4}
               far={4}
-              resolution={512}
+              resolution={256}
             />
             <RobotOnBlock dark={dark} reduced={reduced} />
           </Suspense>
