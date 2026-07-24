@@ -64,7 +64,8 @@ export function SectionNav() {
   return (
     <div
       ref={navRef}
-      className="no-scrollbar flex items-center gap-1 overflow-x-auto"
+      // pt/pb: 블럭 밑단(그림자 4px)이 스크롤 영역 안에서 잘리지 않도록 여유 확보
+      className="no-scrollbar flex items-center gap-1.5 overflow-x-auto pb-2 pt-0.5"
     >
       {sections.map((s) => {
         const isActive = active === s.id;

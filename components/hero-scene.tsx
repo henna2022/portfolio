@@ -134,7 +134,8 @@ function RisingHeadline({ dark, reduced }: { dark: boolean; reduced: boolean }) 
   });
 
   return (
-    <>
+    // 문단 전체를 도장처럼 오른쪽 사선으로 살짝 회전 (바닥 평면 위에서)
+    <group rotation-y={0.14}>
       {HEADLINE.map((line, i) => (
         <group key={line} ref={refs[i]} position={[0, LINE_START_Y, LINE_Z[i]]}>
           {/* 글자를 바닥에 눕힘: 윗면이 하늘을 보고, 두께(extrude)가 위로 솟음 */}
@@ -160,7 +161,7 @@ function RisingHeadline({ dark, reduced }: { dark: boolean; reduced: boolean }) 
           </group>
         </group>
       ))}
-    </>
+    </group>
   );
 }
 
