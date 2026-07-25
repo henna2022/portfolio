@@ -53,7 +53,9 @@ export function Hero() {
         variants={parent}
         initial="hidden"
         animate="show"
-        className="relative z-10 flex flex-col items-center"
+        // 장식용 헤드라인 래퍼 — 투명하지만 z-10 로 canvas 위에 떠서 3D 버튼의
+        // 상단 히트영역을 가로챘다(호버 데드존). 상호작용 대상이 아니므로 이벤트 통과.
+        className="pointer-events-none relative z-10 flex flex-col items-center"
       >
         <motion.h1
           variants={child}

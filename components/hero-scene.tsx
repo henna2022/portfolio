@@ -327,8 +327,6 @@ function Button3D({
 
   return (
     <group ref={group} position={position}>
-      {/* 프라이머리 버튼은 뒤쪽에서 파랗게 발광 (참고 이미지의 빛나는 CTA) */}
-      {primary ? <Glow rgb="59,130,246" scale={[width * 1.5, 2.0]} opacity={0.55} position={[0, 0, -0.2]} /> : null}
       <mesh
         geometry={geo}
         onClick={() => {
@@ -350,7 +348,7 @@ function Button3D({
       </mesh>
       <Text
         position={[0, 0, 0.14]}
-        fontSize={0.26}
+        fontSize={0.21}
         color={labelColor}
         anchorX="center"
         anchorY="middle"
@@ -438,54 +436,54 @@ function StandingLamp({
       {/* 전구 + 빛 번짐(블러 글로우 2겹) */}
       <mesh position-y={2.6}>
         <sphereGeometry args={[0.12, 14, 14]} />
-        <meshStandardMaterial color="#fff2d6" emissive="#ffc46b" emissiveIntensity={2.4} />
+        <meshStandardMaterial color="#fff2d6" emissive="#ffc46b" emissiveIntensity={1.8} />
       </mesh>
-      <sprite position-y={2.6} scale={[4.2, 4.2, 1]}>
+      <sprite position-y={2.6} scale={[3.4, 3.4, 1]}>
         <spriteMaterial
           map={glowTex}
           transparent
           depthWrite={false}
           blending={THREE.AdditiveBlending}
-          opacity={dark ? 1 : 0.6}
+          opacity={dark ? 0.7 : 0.45}
         />
       </sprite>
-      <sprite position-y={2.6} scale={[1.9, 1.9, 1]}>
+      <sprite position-y={2.6} scale={[1.6, 1.6, 1]}>
         <spriteMaterial
           map={glowTex}
           transparent
           depthWrite={false}
           blending={THREE.AdditiveBlending}
-          opacity={dark ? 0.9 : 0.5}
+          opacity={dark ? 0.6 : 0.4}
         />
       </sprite>
       {/* 빛 기둥: 넓고 옅은 외곽 콘 + 밝은 내부 콘 (볼류메트릭) */}
       <mesh position-y={1.4}>
         <coneGeometry args={[1.5, 2.6, 28, 1, true]} />
-        <meshBasicMaterial color="#ffdca6" transparent opacity={dark ? 0.09 : 0.06} side={THREE.DoubleSide} depthWrite={false} blending={THREE.AdditiveBlending} />
+        <meshBasicMaterial color="#ffdca6" transparent opacity={dark ? 0.06 : 0.045} side={THREE.DoubleSide} depthWrite={false} blending={THREE.AdditiveBlending} />
       </mesh>
       <mesh position-y={1.4}>
         <coneGeometry args={[1.0, 2.6, 24, 1, true]} />
-        <meshBasicMaterial color="#ffe6bd" transparent opacity={dark ? 0.2 : 0.12} side={THREE.DoubleSide} depthWrite={false} blending={THREE.AdditiveBlending} />
+        <meshBasicMaterial color="#ffe6bd" transparent opacity={dark ? 0.14 : 0.09} side={THREE.DoubleSide} depthWrite={false} blending={THREE.AdditiveBlending} />
       </mesh>
       {/* 바닥 빛 웅덩이: 발광 원반 + 번짐 스프라이트 */}
       <mesh position={[0, 0.02, 0.25]} rotation-x={-Math.PI / 2}>
         <circleGeometry args={[1.45, 32]} />
-        <meshBasicMaterial color="#ffd9a0" transparent opacity={dark ? 0.28 : 0.3} depthWrite={false} blending={THREE.AdditiveBlending} />
+        <meshBasicMaterial color="#ffd9a0" transparent opacity={dark ? 0.2 : 0.22} depthWrite={false} blending={THREE.AdditiveBlending} />
       </mesh>
-      <sprite position={[0, 0.05, 0.25]} scale={[3.6, 3.6, 1]}>
-        <spriteMaterial map={glowTex} transparent depthWrite={false} blending={THREE.AdditiveBlending} opacity={dark ? 0.5 : 0.3} />
+      <sprite position={[0, 0.05, 0.25]} scale={[3.2, 3.2, 1]}>
+        <spriteMaterial map={glowTex} transparent depthWrite={false} blending={THREE.AdditiveBlending} opacity={dark ? 0.34 : 0.22} />
       </sprite>
-      {/* 실제 조명 — 램프 스포트 강화 + 웜 필 */}
+      {/* 실제 조명 — 램프 스포트 + 웜 필 (은은하게) */}
       <spotLight
         ref={light}
         position={[0, 2.6, 0]}
         angle={0.72}
         penumbra={0.7}
-        intensity={dark ? 6 : 3}
+        intensity={dark ? 4 : 2.2}
         color="#ffdca6"
         distance={13}
       />
-      <pointLight position={[0, 2.6, 0]} intensity={dark ? 1.8 : 0.6} color="#ffd9a0" distance={8} />
+      <pointLight position={[0, 2.6, 0]} intensity={dark ? 1.2 : 0.4} color="#ffd9a0" distance={8} />
       <object3D ref={target} position={[0, 0, 0.6]} />
     </group>
   );
