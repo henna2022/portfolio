@@ -40,10 +40,13 @@ create table if not exists public.page_views (
   lang        text,          -- 'ko' | 'en'
   screen_w    int,
   duration_ms int,           -- 체류시간 (페이지를 떠날 때 1회 갱신)
+  view_uid    text,          -- 방문 행 식별자 (클라이언트 생성) — 체류시간 UPDATE 의 열쇠
   created_at  timestamptz not null default now()
 );
+alter table public.page_views add column if not exists view_uid text;
 create index if not exists page_views_created_idx on public.page_views(created_at);
 create index if not exists page_views_session_idx on public.page_views(session_id);
+create unique index if not exists page_views_view_uid_idx on public.page_views(view_uid);
 
 -- 쓰레기 데이터로 저장소를 채우지 못하도록 길이·범위 제한
 alter table public.page_views drop constraint if exists page_views_sane;
@@ -54,6 +57,7 @@ alter table public.page_views add constraint page_views_sane check (
   char_length(coalesce(country, ''))   <= 80  and
   char_length(coalesce(device, ''))    <= 16  and
   char_length(coalesce(lang, ''))      <= 8   and
+  char_length(coalesce(view_uid, ''))  <= 80  and
   coalesce(screen_w, 0)    between 0 and 20000 and
   coalesce(duration_ms, 0) between 0 and 86400000  -- 최대 24시간
 );
@@ -167,9 +171,22 @@ create policy "admin read admin_emails" on public.admin_emails
 --    → 통계(국가·경로 등) 오염 차단
 -- ============================================================
 revoke insert, update on public.page_views from anon, authenticated;
-grant insert (session_id, path, referrer, country, device, lang, screen_w)
+grant insert (session_id, path, referrer, country, device, lang, screen_w, view_uid)
   on public.page_views to anon, authenticated;
 grant update (duration_ms) on public.page_views to anon, authenticated;
+
+-- 체류시간 UPDATE 는 "?view_uid=eq.<uid>" 로 행을 찾는다.
+-- PostgreSQL 은 UPDATE 의 WHERE 가 읽는 컬럼에 SELECT 권한 + SELECT 정책을 요구하므로,
+-- anon 에게 view_uid "한 컬럼만", 그것도 최근 2시간 행만 읽도록 연다.
+-- (국가·유입경로 등 나머지 컬럼은 anon 이 여전히 읽을 수 없고, 관리자는 authenticated 라 영향 없음)
+-- ⚠️ 조건에 "duration_ms is null" 을 넣지 말 것 — UPDATE 후의 새 행도 SELECT 정책을 통과해야 해서
+--    체류시간을 채우는 순간 42501 로 거부된다. 1회 제한은 UPDATE 정책의 USING 이 담당한다.
+revoke select on public.page_views from anon;
+grant select (view_uid) on public.page_views to anon;
+drop policy if exists "anon match own view row" on public.page_views;
+create policy "anon match own view row" on public.page_views
+  for select to anon
+  using (created_at > now() - interval '2 hours');
 
 revoke insert, update on public.events from anon, authenticated;
 grant insert (session_id, type, label, path)

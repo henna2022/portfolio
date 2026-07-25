@@ -29,13 +29,18 @@
       .catch(function () { sessionStorage.setItem('pf_country', '-'); cb(null); });
   }
 
-  var pvId = null, start = Date.now(), durationSent = false;
+  // 방문 행 식별자는 클라이언트가 만들어 함께 넣는다.
+  // (Prefer: return=representation 은 INSERT 후 RETURNING 을 위해 SELECT 권한을 요구하는데,
+  //  anon 에게는 SELECT 정책이 없어 INSERT 자체가 42501 로 롤백된다 → return=minimal + view_uid)
+  var pvUid = null, viewSeq = 0, start = Date.now(), durationSent = false;
 
   function insertView(country) {
+    var uid = sid + '-' + (viewSeq++) + '-' + Math.random().toString(36).slice(2, 8);
     fetch(REST + 'page_views', {
       method: 'POST',
-      headers: Object.assign({ Prefer: 'return=representation' }, H),
+      headers: Object.assign({ Prefer: 'return=minimal' }, H),
       body: JSON.stringify({
+        view_uid: uid,
         session_id: sid,
         path: location.pathname + location.hash,
         referrer: document.referrer || null,
@@ -44,8 +49,7 @@
         lang: lang,
         screen_w: innerWidth
       })
-    }).then(function (r) { return r.json(); })
-      .then(function (rows) { pvId = rows && rows[0] && rows[0].id; start = Date.now(); durationSent = false; })
+    }).then(function (r) { if (r.ok) { pvUid = uid; start = Date.now(); durationSent = false; } })
       .catch(function () {});
   }
 
@@ -56,18 +60,20 @@
     history.pushState = function () {
       sendDuration();
       push.apply(this, arguments);
-      setTimeout(function () { pvId = null; insertView(country); }, 0);
+      setTimeout(function () { pvUid = null; insertView(country); }, 0);
     };
     addEventListener('popstate', function () {
       sendDuration();
-      setTimeout(function () { pvId = null; insertView(country); }, 0);
+      setTimeout(function () { pvUid = null; insertView(country); }, 0);
     });
   });
 
   // 체류시간: 페이지가 숨겨지거나 떠날 때 1회 전송 (keepalive 로 언로드 중에도 완료)
   function sendDuration() {
-    if (durationSent || !pvId) return; durationSent = true;
-    fetch(REST + 'page_views?id=eq.' + pvId, {
+    if (durationSent || !pvUid) return; durationSent = true;
+    // WHERE 는 view_uid 만 참조한다 (anon 에게 SELECT 가 열린 유일한 컬럼).
+    // "duration_ms is null" 조건은 RLS UPDATE 정책이 이미 강제하므로 여기 넣지 않는다.
+    fetch(REST + 'page_views?view_uid=eq.' + encodeURIComponent(pvUid), {
       method: 'PATCH', keepalive: true, headers: H,
       body: JSON.stringify({ duration_ms: Date.now() - start })
     }).catch(function () {});
