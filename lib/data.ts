@@ -40,18 +40,14 @@ export type StatementToken =
 export const statement: StatementToken[] = [
   { t: "w", w: "I" },
   { t: "w", w: "build", pill: true },
-  { t: "w", w: "AI" },
-  { t: "w", w: "from" },
-  { t: "w", w: "sensor" },
-  { t: "w", w: "to" },
-  { t: "w", w: "screen" },
-  { t: "chip" },
+  { t: "w", w: "the" },
+  { t: "w", w: "space" },
+  { t: "w", w: "where" },
+  { t: "w", w: "people" },
   { t: "w", w: "and" },
-  { t: "w", w: "ship", italic: true },
-  { t: "w", w: "it" },
-  { t: "w", w: "to" },
-  { t: "w", w: "real" },
-  { t: "w", w: "people." },
+  { t: "w", w: "robots" },
+  { t: "chip" },
+  { t: "w", w: "meet.", italic: true },
 ];
 
 // ─── About ──────────────────────────────────────────────────────────────────
