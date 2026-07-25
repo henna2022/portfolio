@@ -43,6 +43,57 @@ const ROBOT_DURATION = 1.1;
 
 const easeOutCubic = (p: number) => 1 - Math.pow(1 - p, 3);
 
+// ── 발광 글로우 스프라이트 (색상별 텍스처 캐시) ───────────────
+// 전구·원자·홀로그램·행성 등 emissive 소품 주변의 빛 번짐을 공용으로 처리.
+// 후처리 bloom 없이도 additive 스프라이트로 "빛이 새어나오는" 느낌을 낸다.
+const glowCache = new Map<string, THREE.CanvasTexture>();
+function glowTexture(rgb: string) {
+  const hit = glowCache.get(rgb);
+  if (hit) return hit;
+  const c = document.createElement("canvas");
+  c.width = c.height = 128;
+  const g = c.getContext("2d")!;
+  const grd = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+  grd.addColorStop(0, `rgba(${rgb},0.95)`);
+  grd.addColorStop(0.4, `rgba(${rgb},0.32)`);
+  grd.addColorStop(1, `rgba(${rgb},0)`);
+  g.fillStyle = grd;
+  g.fillRect(0, 0, 128, 128);
+  const tex = new THREE.CanvasTexture(c);
+  glowCache.set(rgb, tex);
+  return tex;
+}
+
+// <Glow rgb="59,130,246" scale={2} /> — 어디서든 발광 번짐을 얹는다.
+// scale 에 [x,y] 를 주면 가로/세로 비대칭(라이트 라인 streak)도 가능.
+function Glow({
+  rgb,
+  scale = 1,
+  opacity = 0.8,
+  position,
+}: {
+  rgb: string;
+  scale?: number | [number, number];
+  opacity?: number;
+  position?: [number, number, number];
+}) {
+  const tex = useMemo(() => glowTexture(rgb), [rgb]);
+  const s: [number, number, number] = Array.isArray(scale)
+    ? [scale[0], scale[1], 1]
+    : [scale, scale, 1];
+  return (
+    <sprite position={position} scale={s}>
+      <spriteMaterial
+        map={tex}
+        transparent
+        depthWrite={false}
+        blending={THREE.AdditiveBlending}
+        opacity={opacity}
+      />
+    </sprite>
+  );
+}
+
 function useDark() {
   const [dark, setDark] = useState(false);
   useEffect(() => {
@@ -88,11 +139,12 @@ function Wall({ dark }: { dark: boolean }) {
         <boxGeometry args={[30, 0.44, 0.06]} />
         <meshStandardMaterial color={dark ? "#242a32" : "#dde3ec"} roughness={0.8} />
       </mesh>
-      {/* 블루 라이트 라인 (전시관 무드) */}
+      {/* 블루 라이트 라인 (전시관 무드) + 벽으로 새는 네온 번짐 */}
       <mesh position={[0, 0.5, 0.18]}>
         <boxGeometry args={[30, 0.05, 0.02]} />
-        <meshStandardMaterial color="#7fb3ff" emissive="#3B82F6" emissiveIntensity={1.2} />
+        <meshStandardMaterial color="#bcd6ff" emissive="#3B82F6" emissiveIntensity={2.2} />
       </mesh>
+      <Glow rgb="59,130,246" scale={[26, 1.4]} opacity={dark ? 0.5 : 0.32} position={[0, 0.5, 0.3]} />
 
       {/* 코너에서 만나는 오른쪽 벽 (원근 소실면) */}
       <group position={[9.2, 0, 9]} rotation-y={-Math.PI / 2}>
@@ -106,8 +158,9 @@ function Wall({ dark }: { dark: boolean }) {
         </mesh>
         <mesh position={[0, 0.5, 0.18]}>
           <boxGeometry args={[18, 0.05, 0.02]} />
-          <meshStandardMaterial color="#7fb3ff" emissive="#3B82F6" emissiveIntensity={1.2} />
+          <meshStandardMaterial color="#bcd6ff" emissive="#3B82F6" emissiveIntensity={2.2} />
         </mesh>
+        <Glow rgb="59,130,246" scale={[16, 1.4]} opacity={dark ? 0.5 : 0.32} position={[0, 0.5, 0.3]} />
       </group>
     </group>
   );
@@ -215,10 +268,13 @@ function RisingHeadline({ dark, reduced }: { dark: boolean; reduced: boolean }) 
               curveSegments={6}
             >
               {line}
+              {/* 살짝 자체발광시켜 어두운 벽에서도 또렷하게 (스포트라이트 받는 전시 글자) */}
               <meshStandardMaterial
-                color={dark ? "#e6eaf2" : "#2b303a"}
-                roughness={0.4}
+                color={dark ? "#eef2fb" : "#2b303a"}
+                roughness={0.35}
                 metalness={0.1}
+                emissive={dark ? "#93b4ff" : "#8fb0ff"}
+                emissiveIntensity={dark ? 0.35 : 0.12}
               />
             </Text3D>
           </Center>
@@ -271,6 +327,8 @@ function Button3D({
 
   return (
     <group ref={group} position={position}>
+      {/* 프라이머리 버튼은 뒤쪽에서 파랗게 발광 (참고 이미지의 빛나는 CTA) */}
+      {primary ? <Glow rgb="59,130,246" scale={[width * 1.5, 2.0]} opacity={0.55} position={[0, 0, -0.2]} /> : null}
       <mesh
         geometry={geo}
         onClick={() => {
@@ -377,40 +435,57 @@ function StandingLamp({
           roughness={0.5}
         />
       </mesh>
-      {/* 전구 + 빛 번짐(블러 글로우) */}
+      {/* 전구 + 빛 번짐(블러 글로우 2겹) */}
       <mesh position-y={2.6}>
         <sphereGeometry args={[0.12, 14, 14]} />
-        <meshStandardMaterial color="#ffe9c4" emissive="#ffc46b" emissiveIntensity={1.6} />
+        <meshStandardMaterial color="#fff2d6" emissive="#ffc46b" emissiveIntensity={2.4} />
       </mesh>
-      <sprite position-y={2.6} scale={[2.8, 2.8, 1]}>
+      <sprite position-y={2.6} scale={[4.2, 4.2, 1]}>
         <spriteMaterial
           map={glowTex}
           transparent
           depthWrite={false}
           blending={THREE.AdditiveBlending}
-          opacity={dark ? 0.95 : 0.5}
+          opacity={dark ? 1 : 0.6}
         />
       </sprite>
-      {/* 빛 기둥(은은한 원뿔) + 바닥 빛 웅덩이 */}
+      <sprite position-y={2.6} scale={[1.9, 1.9, 1]}>
+        <spriteMaterial
+          map={glowTex}
+          transparent
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+          opacity={dark ? 0.9 : 0.5}
+        />
+      </sprite>
+      {/* 빛 기둥: 넓고 옅은 외곽 콘 + 밝은 내부 콘 (볼류메트릭) */}
       <mesh position-y={1.4}>
-        <coneGeometry args={[1.15, 2.6, 24, 1, true]} />
-        <meshBasicMaterial color="#ffd9a0" transparent opacity={0.1} side={THREE.DoubleSide} depthWrite={false} />
+        <coneGeometry args={[1.5, 2.6, 28, 1, true]} />
+        <meshBasicMaterial color="#ffdca6" transparent opacity={dark ? 0.09 : 0.06} side={THREE.DoubleSide} depthWrite={false} blending={THREE.AdditiveBlending} />
       </mesh>
+      <mesh position-y={1.4}>
+        <coneGeometry args={[1.0, 2.6, 24, 1, true]} />
+        <meshBasicMaterial color="#ffe6bd" transparent opacity={dark ? 0.2 : 0.12} side={THREE.DoubleSide} depthWrite={false} blending={THREE.AdditiveBlending} />
+      </mesh>
+      {/* 바닥 빛 웅덩이: 발광 원반 + 번짐 스프라이트 */}
       <mesh position={[0, 0.02, 0.25]} rotation-x={-Math.PI / 2}>
-        <circleGeometry args={[1.25, 28]} />
-        <meshBasicMaterial color="#ffd9a0" transparent opacity={dark ? 0.22 : 0.28} depthWrite={false} />
+        <circleGeometry args={[1.45, 32]} />
+        <meshBasicMaterial color="#ffd9a0" transparent opacity={dark ? 0.28 : 0.3} depthWrite={false} blending={THREE.AdditiveBlending} />
       </mesh>
-      {/* 실제 조명 */}
+      <sprite position={[0, 0.05, 0.25]} scale={[3.6, 3.6, 1]}>
+        <spriteMaterial map={glowTex} transparent depthWrite={false} blending={THREE.AdditiveBlending} opacity={dark ? 0.5 : 0.3} />
+      </sprite>
+      {/* 실제 조명 — 램프 스포트 강화 + 웜 필 */}
       <spotLight
         ref={light}
         position={[0, 2.6, 0]}
-        angle={0.7}
-        penumbra={0.65}
-        intensity={dark ? 4 : 2.2}
-        color="#ffd9a0"
-        distance={11}
+        angle={0.72}
+        penumbra={0.7}
+        intensity={dark ? 6 : 3}
+        color="#ffdca6"
+        distance={13}
       />
-      <pointLight position={[0, 2.6, 0]} intensity={dark ? 1.2 : 0.4} color="#ffd9a0" distance={7} />
+      <pointLight position={[0, 2.6, 0]} intensity={dark ? 1.8 : 0.6} color="#ffd9a0" distance={8} />
       <object3D ref={target} position={[0, 0, 0.6]} />
     </group>
   );
@@ -457,10 +532,11 @@ function MuseumProps({ dark }: { dark: boolean }) {
           <cylinderGeometry args={[0.45, 0.52, 0.36, 24]} />
           <meshStandardMaterial color={ped} roughness={0.85} />
         </mesh>
+        <Glow rgb="59,130,246" scale={1.15} opacity={0.7} position={[0, 0.9, 0]} />
         <group position-y={0.9} ref={atom}>
           <mesh>
             <sphereGeometry args={[0.12, 16, 16]} />
-            <meshStandardMaterial color={blue} emissive={blue} emissiveIntensity={0.3} />
+            <meshStandardMaterial color={blue} emissive={blue} emissiveIntensity={0.7} />
           </mesh>
           {[0, Math.PI / 3, -Math.PI / 3].map((r, i) => (
             <mesh key={i} rotation={[Math.PI / 2.3, 0, r]}>
@@ -481,9 +557,10 @@ function MuseumProps({ dark }: { dark: boolean }) {
           <coneGeometry args={[0.44, 1.15, 24, 1, true]} />
           <meshBasicMaterial color={holo} transparent opacity={0.2} side={THREE.DoubleSide} depthWrite={false} />
         </mesh>
+        <Glow rgb="56,189,248" scale={1.1} opacity={0.75} position={[0, 1.02, 0]} />
         <mesh ref={gem} position-y={1.02}>
           <icosahedronGeometry args={[0.16, 0]} />
-          <meshStandardMaterial color="#a5e3ff" emissive="#38bdf8" emissiveIntensity={0.9} />
+          <meshStandardMaterial color="#a5e3ff" emissive="#38bdf8" emissiveIntensity={1.3} />
         </mesh>
       </group>
 
@@ -497,9 +574,10 @@ function MuseumProps({ dark }: { dark: boolean }) {
             <boxGeometry args={[1.15, 0.5, 1.15]} />
             <meshStandardMaterial color={ped} roughness={0.85} />
           </mesh>
+          <Glow rgb="59,130,246" scale={1.2} opacity={0.65} position={[0, 0.8, 0]} />
           <mesh position-y={0.8}>
             <sphereGeometry args={[0.17, 16, 16]} />
-            <meshStandardMaterial color={blue} emissive={blue} emissiveIntensity={0.35} />
+            <meshStandardMaterial color={blue} emissive={blue} emissiveIntensity={0.8} />
           </mesh>
           <mesh position-y={1.2}>
             <boxGeometry args={[0.95, 1.4, 0.95]} />
@@ -524,9 +602,10 @@ function MuseumProps({ dark }: { dark: boolean }) {
           <coneGeometry args={[0.36, 0.95, 20, 1, true]} />
           <meshBasicMaterial color={holo} transparent opacity={0.16} side={THREE.DoubleSide} depthWrite={false} />
         </mesh>
+        <Glow rgb="56,189,248" scale={0.95} opacity={0.7} position={[0, 0.95, 0]} />
         <mesh ref={gem2} position-y={0.95}>
           <sphereGeometry args={[0.12, 14, 14]} />
-          <meshStandardMaterial color="#a5e3ff" emissive="#38bdf8" emissiveIntensity={0.8} />
+          <meshStandardMaterial color="#a5e3ff" emissive="#38bdf8" emissiveIntensity={1.2} />
         </mesh>
       </group>
     </group>
@@ -721,6 +800,11 @@ export default function HeroScene({ showText }: { showText: boolean }) {
               {showText ? <RisingHeadline dark={dark} reduced={reduced} /> : null}
               {showText ? <WallButtons dark={dark} /> : null}
               <MuseumProps dark={dark} />
+              {/* ── 씬 액센트광 (방 좌표계) ──
+                  전시 글자를 비추는 쿨 워시 + 로봇 뒤 블루 림 + 로봇 앞 웜 키 */}
+              <pointLight position={[0, 3.4, -3.6]} intensity={dark ? 2.6 : 1.1} color="#b9ccff" distance={12} />
+              <pointLight position={[2.45, 2.8, -1.8]} intensity={dark ? 2.8 : 1.4} color="#5b8cff" distance={6} />
+              <pointLight position={[2.6, 2.4, 2.6]} intensity={dark ? 1.0 : 0.5} color="#ffe3b8" distance={6.5} />
             </group>
             <Floor dark={dark} />
             {/* 접지 그림자 — 글자·로봇이 면 위에 "서 있는" 느낌의 핵심 */}
