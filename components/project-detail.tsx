@@ -94,10 +94,17 @@ export function ProjectDetail({
         className="mt-8 overflow-hidden rounded-4xl bg-sand-deep"
       >
         {hero ? (
+          // imageFit: "contain" 은 UI 스크린샷처럼 잘리면 안 되는 이미지용.
+          // (기존에는 이 필드를 아무 데서도 읽지 않아 항상 object-cover 로 그려졌고,
+          //  max-h 를 넘는 이미지는 위아래가 잘려 나갔다)
           <img
             src={assetPath(hero)}
             alt={p.title}
-            className="max-h-[520px] w-full object-cover"
+            className={
+              p.imageFit === "contain"
+                ? "max-h-[520px] w-full object-contain"
+                : "max-h-[520px] w-full object-cover"
+            }
           />
         ) : (
           <div className="flex aspect-[16/7] w-full items-center justify-center bg-gradient-to-br from-sand-deep to-sand">

@@ -9,13 +9,13 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "sw
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://henna2022.github.io/portfolio"),
-  title: "Juwon Lee | AI & Robotics Educator",
+  title: "Juwon Lee | Applied AI & IoT Product Engineer",
   description:
-    "Portfolio of Juwon Lee, AI & Robotics educator and full-stack developer building interactive learning experiences.",
+    "Portfolio of Juwon Lee, an applied AI and IoT product engineer building systems end to end, from sensor to shipped product.",
   openGraph: {
-    title: "Juwon Lee | AI & Robotics Educator",
+    title: "Juwon Lee | Applied AI & IoT Product Engineer",
     description:
-      "Portfolio of Juwon Lee, AI & Robotics educator and full-stack developer building interactive learning experiences.",
+      "Portfolio of Juwon Lee, an applied AI and IoT product engineer building systems end to end, from sensor to shipped product.",
     images: ["/og-cover.png"],
   },
   twitter: {
@@ -48,7 +48,7 @@ const personJsonLd = {
   alternateName: "이주원",
   url: "https://henna2022.github.io/portfolio/",
   image: "https://henna2022.github.io/portfolio/portfolio_images/profile/juwonlee.jpg",
-  jobTitle: "AI & Robotics Educator · Full-Stack Developer",
+  jobTitle: "Applied AI · IoT Product Engineer · Educator",
   worksFor: {
     "@type": "Organization",
     name: "Seoul Robot & AI Science Museum",

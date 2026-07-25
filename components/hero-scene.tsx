@@ -34,7 +34,7 @@ const MODEL = "/robot.glb";
 // 레귤러 굵기 — 글자 속 공간('e','a')이 시원하게 뚫려 보이도록
 const FONT = "/fonts/helvetiker_regular.typeface.json";
 const REACTIONS = ["Robot_Jump", "Robot_Dance", "Robot_ThumbsUp"];
-const HEADLINE = ["Building interactive", "learning where AI meets", "the physical world."];
+const HEADLINE = ["Building end-to-end", "systems where AI meets", "the physical world."];
 
 // 텍스트 3줄이 순차로 올라온 뒤 로봇이 등장하는 타임라인(초)
 const TEXT_START = 0.2;

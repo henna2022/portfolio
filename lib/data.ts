@@ -1,7 +1,7 @@
 export const person = {
   name: "Juwon Lee",
   hangul: "이주원",
-  role: "AI & Robotics Educator · Full-Stack Developer",
+  role: "Applied AI · IoT Product Engineer · Educator",
   email: "juwonlee211@gmail.com",
   github: "https://github.com/henna2022",
   githubHandle: "henna2022",
@@ -26,7 +26,7 @@ export const sections = [
 
 export const hero = {
   badge: "AI · Robotics · Web",
-  headline: "Building interactive learning where AI meets the physical world.",
+  headline: "Building end-to-end systems where AI meets the physical world.",
   sub: "I build AI that steps off the screen, onto robots, sensors, and museum floors, and teach people how it works.",
 };
 
@@ -40,19 +40,18 @@ export type StatementToken =
 export const statement: StatementToken[] = [
   { t: "w", w: "I" },
   { t: "w", w: "build", pill: true },
-  { t: "w", w: "complex" },
-  { t: "w", w: "technology" },
-  { t: "w", w: "and" },
-  { t: "w", w: "turn" },
-  { t: "w", w: "it" },
-  { t: "w", w: "into" },
+  { t: "w", w: "AI" },
+  { t: "w", w: "from" },
+  { t: "w", w: "sensor" },
+  { t: "w", w: "to" },
+  { t: "w", w: "screen" },
   { t: "chip" },
-  { t: "w", w: "experiences" },
-  { t: "w", w: "anyone" },
-  { t: "w", w: "can" },
-  { t: "w", w: "learn", italic: true },
-  { t: "w", w: "like" },
-  { t: "w", w: "play." },
+  { t: "w", w: "and" },
+  { t: "w", w: "ship", italic: true },
+  { t: "w", w: "it" },
+  { t: "w", w: "to" },
+  { t: "w", w: "real" },
+  { t: "w", w: "people." },
 ];
 
 // ─── About ──────────────────────────────────────────────────────────────────
@@ -60,7 +59,7 @@ export const statement: StatementToken[] = [
 export const about = {
   photo: "/portfolio_images/profile/juwonlee.jpg",
   tagline:
-    "AI & Robotics educator and full-stack developer, connecting sensors, hardware, and AI so intelligence can perceive and act in the physical world.",
+    "Applied AI and IoT product engineer, and educator. I build end to end, from sensor to shipped interface, so intelligence can perceive and act in the physical world.",
   // 카드 하단 요약 — 정체성과 "지금"만 짧게. 나머지 이력은 아래 facts 로 내린다.
   info: [
     {
@@ -232,6 +231,16 @@ export const projects: Project[] = [
       light: "/portfolio_images/flow/smart-farm-education-flow-light.svg",
       dark: "/portfolio_images/flow/smart-farm-education-flow-dark.svg",
     },
+    image: "/portfolio_images/projects/smartfarm-edu-weather.jpg",
+    imageFit: "contain",
+    gallery: [
+      "/portfolio_images/projects/smartfarm-edu-hub.jpg",
+      "/portfolio_images/projects/smartfarm-edu-weather.jpg",
+      "/portfolio_images/projects/smartfarm-edu-yolo.jpg",
+      "/portfolio_images/projects/smartfarm-edu-sensor.jpg",
+      "/portfolio_images/projects/smartfarm-edu-camera.jpg",
+      "/portfolio_images/projects/smartfarm-edu-app.jpg",
+    ],
   },
 
   // ── Side & toy projects ──
@@ -277,7 +286,8 @@ export const projects: Project[] = [
     role: "Planning · development",
     tags: ["Web Speech API", "PWA", "HTML/CSS", "KO / EN"],
     repo: "https://github.com/henna2022/raim-ai-studio",
-    image: "/portfolio_images/projects/langlab1.jpg",
+    image: "/portfolio_images/projects/langlab-home.jpg",
+    imageFit: "contain",
     overview:
       "A game-style learning web app where visitors listen to and repeat words and sentences with the Raimi character, experiencing language and speech AI. It is designed so visitors explore how AI learns language, through play.\n\nThe full game flow (start, menu, play, completion) was planned and built on browser speech synthesis (TTS), so the app runs without any server. It supports both Korean and English, and ships as a PWA for offline use on the 3 exhibition tablets it runs on.",
     highlights: [
@@ -292,7 +302,11 @@ export const projects: Project[] = [
       light: "/portfolio_images/flow/raimi-language-lab-flow-light.svg",
       dark: "/portfolio_images/flow/raimi-language-lab-flow-dark.svg",
     },
-    gallery: ["/portfolio_images/projects/langlab1.jpg"],
+    gallery: [
+      "/portfolio_images/projects/langlab-home.jpg",
+      "/portfolio_images/projects/langlab-intro.jpg",
+      "/portfolio_images/projects/langlab-token.jpg",
+    ],
   },
   {
     slug: "raim-photo-booth",
@@ -356,7 +370,8 @@ export const projects: Project[] = [
     role: "Planning · development · operations",
     tags: ["JavaScript", "OpenAI API", "Vercel Serverless", "Supabase", "Cloudflare R2", "PWA"],
     repo: "https://github.com/henna2022/raim-ai-artstudio",
-    image: "/portfolio_images/projects/ai-studio-1.jpg",
+    image: "/portfolio_images/projects/artlab-mode.jpg",
+    imageFit: "contain",
     stat: "140+/day",
     overview:
       "Visitors compose a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI generates the artwork. Designed so young visitors learn the principles of prompt engineering through play, with a 10-step (+5 advanced) choice-based prompt builder that shows how a prompt is put together.\n\nThe off-the-shelf GPT service used before suffered repeated connection conflicts on the exhibition floor. Moving to a custom web app and serverless backend eliminated 100% of those conflicts; the backend calls the OpenAI image-generation API, auto-watermarks every image with the museum logo, and dual-stores results on Cloudflare R2 and Supabase. Visitors take their creations home instantly via QR code, and shipping it as a web app locked the exhibition kiosk down from other apps.\n\nIt now runs live at the museum, generating an average of 142 images on weekdays and 557 on weekends. It is the first service at the museum whose generation volume could be quantified, through its own backend.",
@@ -374,9 +389,9 @@ export const projects: Project[] = [
       dark: "/portfolio_images/flow/raimi-art-lab-flow-dark.svg",
     },
     gallery: [
-      "/portfolio_images/projects/ai-studio-1.jpg",
-      "/portfolio_images/projects/ai-studio-2.jpg",
-      "/portfolio_images/projects/ai-studio-3.jpg",
+      "/portfolio_images/projects/artlab-home.jpg",
+      "/portfolio_images/projects/artlab-mode.jpg",
+      "/portfolio_images/projects/artlab-builder.jpg",
     ],
   },
   {
