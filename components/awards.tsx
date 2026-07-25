@@ -41,12 +41,11 @@ export function Awards() {
         {awards.map((a) => {
           const hasPhotos = a.photos.length > 0;
           return (
+          // 같은 행의 카드는 항상 같은 높이 (self-start 를 두면 본문 길이만큼 제각각이 된다)
           <motion.div
             key={a.title}
             variants={card}
-            className={`flex flex-col rounded-4xl bg-sand/70 p-4 sm:p-5 ${
-              hasPhotos ? "" : "sm:self-start"
-            }`}
+            className="flex flex-col rounded-4xl bg-sand/70 p-4 sm:p-5"
           >
             {hasPhotos ? (
               <ImageCarousel

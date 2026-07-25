@@ -9,13 +9,13 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "sw
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://henna2022.github.io/portfolio"),
-  title: "Juwon Lee — AI & Robotics Educator",
+  title: "Juwon Lee | AI & Robotics Educator",
   description:
-    "Portfolio of Juwon Lee — AI & Robotics educator and full-stack developer building interactive learning experiences.",
+    "Portfolio of Juwon Lee, AI & Robotics educator and full-stack developer building interactive learning experiences.",
   openGraph: {
-    title: "Juwon Lee — AI & Robotics Educator",
+    title: "Juwon Lee | AI & Robotics Educator",
     description:
-      "Portfolio of Juwon Lee — AI & Robotics educator and full-stack developer building interactive learning experiences.",
+      "Portfolio of Juwon Lee, AI & Robotics educator and full-stack developer building interactive learning experiences.",
     images: ["/og-cover.png"],
   },
   twitter: {
@@ -67,6 +67,19 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
+        {/* General Sans — @import 대신 <head> 의 <link> 로 두어 프리로드 스캐너가
+            HTML 파싱 즉시 받아오게 한다(globals.css 다운로드와 병렬). 폰트 파일은
+            cdn.fontshare.com 에 있어 두 호스트 모두 preconnect 로 핸드셰이크를 미리 연다. */}
+        <link rel="preconnect" href="https://api.fontshare.com" />
+        <link
+          rel="preconnect"
+          href="https://cdn.fontshare.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="stylesheet"
+          href="https://api.fontshare.com/v2/css?f%5B%5D=general-sans@400,500,600,700&display=swap"
+        />
         <link
           rel="preconnect"
           href="https://static.cloudflareinsights.com"

@@ -63,7 +63,7 @@ export function Experience() {
                     >
                       <img
                         src={assetPath(src)}
-                        alt={`${e.org} — on site`}
+                        alt={`${e.org} on site`}
                         loading="lazy"
                         decoding="async"
                         className="h-full w-full object-cover"

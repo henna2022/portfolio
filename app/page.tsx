@@ -1,5 +1,6 @@
 import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
+import { Statement } from "@/components/statement";
 import { About } from "@/components/about";
 import { SelectedWork } from "@/components/selected-work";
 import { MarqueeStrip } from "@/components/marquee-strip";
@@ -14,6 +15,7 @@ export default function Home() {
     <main>
       <Header />
       <Hero />
+      <Statement />
       <About />
       <SelectedWork />
       <MarqueeStrip />

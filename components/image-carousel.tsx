@@ -78,19 +78,13 @@ export function ImageCarousel({
           <img
             key={src}
             src={assetPath(src)}
-            alt={`${alt} — ${i + 1}`}
+            alt={`${alt} (${i + 1})`}
             loading="lazy"
             decoding="async"
             draggable={false}
-            onLoad={(e) => {
-              // Portrait shots (certificates) show in full; landscape fills.
-              const im = e.currentTarget;
-              if (im.naturalHeight > im.naturalWidth) {
-                im.classList.remove("object-cover");
-                im.classList.add("object-contain");
-              }
-            }}
-            className="h-full w-full shrink-0 snap-center select-none object-cover"
+            // 세로 사진도 프레임을 가득 채운다 — 좌우 레터박스 없이 확대해서 crop.
+            // 인물이 대체로 상단에 오므로 중앙보다 살짝 위를 기준점으로 잡는다.
+            className="h-full w-full shrink-0 snap-center select-none object-cover object-[center_35%]"
           />
         ))}
       </div>

@@ -1,4 +1,6 @@
-@import url("https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap");
+/* General Sans 는 layout.tsx 의 <head> 에서 <link> 로 불러온다.
+   여기서 @import 로 두면 "HTML → globals.css → fontshare CSS → 폰트 파일" 3단
+   워터폴이 되어 프리로드 스캐너가 손을 못 댄다(실측 fontshare CSS 만 866ms). */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -46,6 +48,113 @@ body {
 
 section[id] {
   scroll-margin-top: 6.5rem;
+}
+
+/* Statement — italic serif accent word */
+.font-serif-it {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* Statement — ATO face chip.
+   ato.webp 을 4.4배 확대해 얼굴 중심(49.5%, 42%)을 칩 중앙에 맞춘 뒤,
+   눈 위치에만 동공/눈꺼풀을 겹쳐 주기적으로 깜빡이게 한다. */
+.ato-chip {
+  --ato-eyelid: #354c4b;
+  --ato-pupil: #12201b;
+  position: relative;
+  display: inline-block;
+  width: 1.7em;
+  height: 1em;
+  vertical-align: -0.14em;
+  overflow: hidden;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #dbe6ff, #aec6ff);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.35);
+}
+.ato-crop {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 340%;
+  aspect-ratio: 1536 / 1024;
+  transform: translate(-49.5%, -42%);
+}
+.ato-crop img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.ato-eye {
+  position: absolute;
+  width: 4.4%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+}
+.ato-eye-l {
+  left: 44.9%;
+  top: 44.6%;
+}
+.ato-eye-r {
+  left: 54.2%;
+  top: 44.4%;
+}
+.ato-pupil {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 56%;
+  height: 56%;
+  border-radius: 50%;
+  background: var(--ato-pupil);
+  transform: translate(-50%, -50%);
+}
+.ato-lid {
+  position: absolute;
+  inset: -12%;
+  border-radius: 50% 50% 46% 46%;
+  background: var(--ato-eyelid);
+  transform: scaleY(0);
+  transform-origin: top center;
+  animation: atoBlink 6.5s infinite;
+}
+.ato-eye-r .ato-lid {
+  animation-delay: 0.03s;
+}
+@keyframes atoBlink {
+  0%,
+  95.5%,
+  100% {
+    transform: scaleY(0);
+  }
+  97%,
+  97.8% {
+    transform: scaleY(1);
+  }
+}
+/* 호버하면 살짝 갸웃 — 커서를 올려볼 이유 */
+.ato-chip:hover {
+  animation: atoWiggle 0.5s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+@keyframes atoWiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  30% {
+    transform: rotate(-5deg) scale(1.06);
+  }
+  65% {
+    transform: rotate(4deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ato-lid,
+  .ato-chip:hover {
+    animation: none;
+  }
 }
 
 ::selection {

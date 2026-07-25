@@ -30,49 +30,81 @@ export const hero = {
   sub: "I build AI that steps off the screen, onto robots, sensors, and museum floors, and teach people how it works.",
 };
 
-export type BioWord = { w: string; s: boolean };
+// ─── Statement ──────────────────────────────────────────────────────────────
+// 히어로 3D 씬 바로 아래 오는 sticky 선언문. 스크롤 진행도에 따라 단어가 하나씩
+// 점등되고, `pill`(반전 필)·`italic`(세리프 이탤릭)·`chip`(아토 얼굴)이 포인트.
+export type StatementToken =
+  | { t: "w"; w: string; pill?: boolean; italic?: boolean }
+  | { t: "chip" };
 
+export const statement: StatementToken[] = [
+  { t: "w", w: "I" },
+  { t: "w", w: "build", pill: true },
+  { t: "w", w: "complex" },
+  { t: "w", w: "technology" },
+  { t: "w", w: "and" },
+  { t: "w", w: "turn" },
+  { t: "w", w: "it" },
+  { t: "w", w: "into" },
+  { t: "chip" },
+  { t: "w", w: "experiences" },
+  { t: "w", w: "anyone" },
+  { t: "w", w: "can" },
+  { t: "w", w: "learn", italic: true },
+  { t: "w", w: "like" },
+  { t: "w", w: "play." },
+];
+
+// ─── About ──────────────────────────────────────────────────────────────────
+// 좌: 초상 카드(사진·태그라인·이력 요약·다운로드) / 우: 인용문 + 산문(더 보기).
 export const about = {
   photo: "/portfolio_images/profile/juwonlee.jpg",
-  bio: [
-    [
-      { w: "Hi,", s: false }, { w: "I'm", s: false }, { w: "Juwon", s: true }, { w: "Lee.", s: true },
-      { w: "I", s: false }, { w: "turn", s: false }, { w: "ideas", s: false }, { w: "into", s: false },
-      { w: "working", s: true }, { w: "products", s: true },
-      { w: "and", s: false }, { w: "make", s: false }, { w: "hard", s: false }, { w: "technology", s: false },
-      { w: "feel", s: true }, { w: "simple.", s: true },
-      { w: "The", s: false }, { w: "moment", s: false }, { w: "it", s: false },
-      { w: "clicks", s: true }, { w: "for", s: false }, { w: "someone", s: false },
-      { w: "is", s: false }, { w: "what", s: false }, { w: "I", s: false }, { w: "chase.", s: false },
-    ],
-    [
-      { w: "I'm", s: false }, { w: "most", s: false }, { w: "drawn", s: false }, { w: "to", s: false },
-      { w: "where", s: false }, { w: "software", s: false }, { w: "leaves", s: false }, { w: "the", s: false }, { w: "screen:", s: false },
-      { w: "computer", s: true }, { w: "vision,", s: true }, { w: "IoT,", s: true },
-      { w: "and", s: false }, { w: "robotics", s: true },
-      { w: "that", s: false }, { w: "sense", s: true }, { w: "and", s: true }, { w: "act", s: true },
-      { w: "in", s: false }, { w: "the", s: false }, { w: "real", s: false }, { w: "world.", s: false },
-    ],
-    [
-      { w: "I", s: false }, { w: "want", s: false }, { w: "to", s: false },
-      { w: "research", s: false }, { w: "and", s: false }, { w: "develop", s: false },
-      { w: "AI", s: true }, { w: "&", s: true }, { w: "robotics", s: true }, { w: "products", s: true },
-      { w: "that", s: false }, { w: "reach", s: true }, { w: "real", s: true }, { w: "people,", s: true },
-      { w: "and", s: false }, { w: "keep", s: false }, { w: "growing", s: false }, { w: "as", s: false }, { w: "an", s: false },
-      { w: "engineer", s: true },
-      { w: "who", s: false }, { w: "ships", s: true }, { w: "what", s: true }, { w: "matters.", s: true },
-    ],
-  ] as BioWord[][],
+  tagline:
+    "AI & Robotics educator and full-stack developer, connecting sensors, hardware, and AI so intelligence can perceive and act in the physical world.",
+  // 카드 하단 요약 — 정체성과 "지금"만 짧게. 나머지 이력은 아래 facts 로 내린다.
+  info: [
+    {
+      icon: "🎓",
+      title: "Hankyong National University",
+      lines: [
+        "Plant Life & Environment (B.Ag.)",
+        "Software Convergence (B.Eng.), double major",
+      ],
+    },
+    {
+      icon: "🏛️",
+      lines: ["Seoul Robot & AI Science Museum · Education Content (current)"],
+    },
+    { icon: "📍", lines: ["Seoul, KR"] },
+  ],
+  // '더 보기' 안쪽에 붙는 부차적 이력·자격 (카드가 한 화면을 넘지 않도록 분리)
   facts: [
-    { k: "Based in", v: "Seoul, KR" },
     {
       k: "Education",
-      v: "Cheongwon Girls' High School (2019 - 2022)\nHankyong National University: Plant Life & Environment (B.S.) · SW Convergence (B.Eng.), double major (2022 - present)\nRutgers University: Winter Intensive English (2025)",
+      v: "Hankyong National University (2022 – present)\nRutgers University · Winter Intensive English (2025)\nCheongwon Girls' High School (2019 – 2022)",
     },
     {
       k: "Languages & Certifications",
       v: "Korean (native) · English (fluent) · TOEIC Speaking AL · OPIc AL",
     },
+  ],
+  // 인용문 — `em` 로 감싼 조각은 액센트 하이라이트 처리
+  quote: [
+    { text: "“I love turning ideas into " },
+    { text: "working services", em: true },
+    { text: ", and making that technology easy for everyone to " },
+    { text: "understand", em: true },
+    { text: ".”" },
+  ],
+  // 앞 2문단은 항상 노출, 나머지는 '더 보기' 안쪽
+  prose: [
+    "Hi, I'm Juwon Lee, a developer and educator who cares most about the moment an idea becomes a working service that actually reaches people's lives.",
+    "I started in AI and data, building image-diagnosis models with YOLOv8 and VGG16, and constructing and validating reasoning Q&A datasets, covering the whole pipeline from modeling to data quality.",
+  ],
+  proseMore: [
+    "And I'm drawn to making that intelligence act in the physical world beyond the screen. From an IoT smart farm (doctor-green) to a companion & medication-care robot (ATO), I build projects that connect sensors and hardware with AI, end to end.",
+    "Above all, I'm someone who conveys technology. At the Seoul Robot & AI Science Museum I build and run interactive education web apps, meet visitors in both Korean and English, and mentor students. I'm serious about designing even hard technology so it's understood like play.",
+    "I've only just crossed the starting line, but I'll keep solving real, complex problems with intelligent systems, growing into a slightly better engineer every day.",
   ],
 };
 

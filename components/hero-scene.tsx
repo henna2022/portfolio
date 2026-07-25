@@ -3,6 +3,7 @@
 import {
   Component,
   Suspense,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -10,6 +11,7 @@ import {
   type ReactNode,
 } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useLenis } from "lenis/react";
 import {
   Center,
   ContactShadows,
@@ -190,18 +192,53 @@ function GLBProp({
 // 대각선으로 깔린 베벨 타일 바닥
 function Floor({ dark }: { dark: boolean }) {
   const N = 38;
-  const geo = useMemo(() => new RoundedBoxGeometry(0.94, 0.18, 0.94, 2, 0.05), []);
+  // 베벨 세그먼트 2 → 1. 타일 1개당 300 → 108 삼각형. 타일이 화면에서 40px 남짓이라
+  // 외형 차이는 없다.
+  const geo = useMemo(() => new RoundedBoxGeometry(0.94, 0.18, 0.94, 1, 0.05), []);
   const ref = useRef<THREE.InstancedMesh>(null);
+  const camera = useThree((s) => s.camera);
+  const size = useThree((s) => s.size);
+
+  // InstancedMesh 는 인스턴스 단위 프러스텀 컬링이 없어서, 아무 처리도 안 하면
+  // 화면 밖·안개 너머 타일까지 매 프레임 전부 그린다. 카메라는 Rig 가 한 번
+  // 세팅한 뒤 고정이므로 여기서 한 번만 걸러내면 된다 — 보이는 그림은 그대로다.
   useEffect(() => {
+    const mesh = ref.current;
+    if (!mesh) return;
+    camera.updateMatrixWorld();
+    camera.updateProjectionMatrix();
+
+    const rot = new THREE.Matrix4().makeRotationY(Math.PI / 4);
     const m = new THREE.Matrix4();
+    const world = new THREE.Vector3();
+    const view = new THREE.Vector3();
     let i = 0;
+
     for (let x = 0; x < N; x++)
       for (let z = 0; z < N; z++) {
-        m.setPosition(x - N / 2 + 0.5, -0.09, z - N / 2 + 0.5);
-        ref.current!.setMatrixAt(i++, m);
+        const lx = x - N / 2 + 0.5;
+        const lz = z - N / 2 + 0.5;
+        world.set(lx, -0.09, lz).applyMatrix4(rot);
+        view.copy(world).applyMatrix4(camera.matrixWorldInverse);
+
+        if (view.z > -0.5) continue; // 카메라 뒤
+        if (view.length() > 34) continue; // 안개(15~32)로 완전히 묻히는 거리
+
+        const ndc = world.clone().project(camera);
+        // 가까운 타일일수록 화면에서 크게 잡히므로 여유를 거리에 반비례해 준다.
+        const margin = 1 + 2.2 / Math.max(2, -view.z);
+        if (Math.abs(ndc.x) > margin || Math.abs(ndc.y) > margin) continue;
+
+        m.setPosition(lx, -0.09, lz);
+        mesh.setMatrixAt(i++, m);
       }
-    ref.current!.instanceMatrix.needsUpdate = true;
-  }, []);
+
+    mesh.count = i; // 남은 것만 그린다
+    mesh.instanceMatrix.needsUpdate = true;
+    if (process.env.NODE_ENV !== "production")
+      (window as unknown as { __floorTiles?: string }).__floorTiles = `${i}/${N * N}`;
+  }, [camera, size]);
+
   return (
     <group rotation={[0, Math.PI / 4, 0]}>
       <instancedMesh ref={ref} geometry={geo} args={[undefined, undefined, N * N]}>
@@ -265,7 +302,10 @@ function RisingHeadline({ dark, reduced }: { dark: boolean; reduced: boolean }) 
               bevelEnabled
               bevelSize={0.008}
               bevelThickness={0.012}
-              curveSegments={6}
+              // 6 → 4. 헤드라인 3줄이 58,088 → 40,552 삼각형(씬 최대 항목이었다).
+              // 글자가 화면에서 60px 남짓이라 곡선 분할 차이는 보이지 않고,
+              // 베벨은 그대로 둬서 모서리에 빛이 걸리는 입체감은 유지된다.
+              curveSegments={4}
             >
               {line}
               {/* 살짝 자체발광시켜 어두운 벽에서도 또렷하게 (스포트라이트 받는 전시 글자) */}
@@ -295,6 +335,7 @@ function Button3D({
   position,
   width,
   dark,
+  onNavigate,
 }: {
   label: string;
   target: string;
@@ -302,6 +343,7 @@ function Button3D({
   position: [number, number, number];
   width: number;
   dark: boolean;
+  onNavigate: (target: string) => void;
 }) {
   const group = useRef<THREE.Group>(null);
   const hover = useRef(false);
@@ -329,8 +371,10 @@ function Button3D({
     <group ref={group} position={position}>
       <mesh
         geometry={geo}
-        onClick={() => {
-          window.location.hash = target;
+        onClick={(e) => {
+          // 뒤쪽 메시(로봇 등)로 클릭이 새지 않게 차단
+          e.stopPropagation();
+          onNavigate(target);
         }}
         onPointerOver={() => {
           hover.current = true;
@@ -362,7 +406,13 @@ function Button3D({
   );
 }
 
-function WallButtons({ dark }: { dark: boolean }) {
+function WallButtons({
+  dark,
+  onNavigate,
+}: {
+  dark: boolean;
+  onNavigate: (target: string) => void;
+}) {
   const t = ui;
   return (
     <group position={[0.7, 1.05, WALL_Z + 0.28]}>
@@ -373,6 +423,7 @@ function WallButtons({ dark }: { dark: boolean }) {
         target="#work"
         position={[-1.4, 0, 0]}
         width={2.9}
+        onNavigate={onNavigate}
       />
       <Button3D
         dark={dark}
@@ -380,6 +431,7 @@ function WallButtons({ dark }: { dark: boolean }) {
         target="#about"
         position={[1.55, 0, 0]}
         width={2.2}
+        onNavigate={onNavigate}
       />
     </group>
   );
@@ -396,9 +448,11 @@ function StandingLamp({
   const light = useRef<THREE.SpotLight>(null);
   const target = useRef<THREE.Object3D>(null);
 
+  // 라이트 모드에서는 스포트라이트가 언마운트되므로, 테마가 바뀌어 다시 켜질 때
+  // 타깃을 새로 연결해 준다 (deps 를 비워두면 두 번째 마운트에서 조명이 엉뚱한 곳을 본다)
   useEffect(() => {
     if (light.current && target.current) light.current.target = target.current;
-  }, []);
+  }, [dark]);
 
   // 라디얼 그라디언트 글로우 텍스처 (전구 주변 빛 번짐)
   const glowTex = useMemo(() => {
@@ -433,57 +487,70 @@ function StandingLamp({
           roughness={0.5}
         />
       </mesh>
-      {/* 전구 + 빛 번짐(블러 글로우 2겹) */}
-      <mesh position-y={2.6}>
-        <sphereGeometry args={[0.12, 14, 14]} />
-        <meshStandardMaterial color="#fff2d6" emissive="#ffc46b" emissiveIntensity={1.8} />
-      </mesh>
-      <sprite position-y={2.6} scale={[3.4, 3.4, 1]}>
-        <spriteMaterial
-          map={glowTex}
-          transparent
-          depthWrite={false}
-          blending={THREE.AdditiveBlending}
-          opacity={dark ? 0.7 : 0.45}
-        />
-      </sprite>
-      <sprite position-y={2.6} scale={[1.6, 1.6, 1]}>
-        <spriteMaterial
-          map={glowTex}
-          transparent
-          depthWrite={false}
-          blending={THREE.AdditiveBlending}
-          opacity={dark ? 0.6 : 0.4}
-        />
-      </sprite>
-      {/* 빛 기둥: 넓고 옅은 외곽 콘 + 밝은 내부 콘 (볼류메트릭) */}
-      <mesh position-y={1.4}>
-        <coneGeometry args={[1.5, 2.6, 28, 1, true]} />
-        <meshBasicMaterial color="#ffdca6" transparent opacity={dark ? 0.06 : 0.045} side={THREE.DoubleSide} depthWrite={false} blending={THREE.AdditiveBlending} />
-      </mesh>
-      <mesh position-y={1.4}>
-        <coneGeometry args={[1.0, 2.6, 24, 1, true]} />
-        <meshBasicMaterial color="#ffe6bd" transparent opacity={dark ? 0.14 : 0.09} side={THREE.DoubleSide} depthWrite={false} blending={THREE.AdditiveBlending} />
-      </mesh>
-      {/* 바닥 빛 웅덩이: 발광 원반 + 번짐 스프라이트 */}
-      <mesh position={[0, 0.02, 0.25]} rotation-x={-Math.PI / 2}>
-        <circleGeometry args={[1.45, 32]} />
-        <meshBasicMaterial color="#ffd9a0" transparent opacity={dark ? 0.2 : 0.22} depthWrite={false} blending={THREE.AdditiveBlending} />
-      </mesh>
-      <sprite position={[0, 0.05, 0.25]} scale={[3.2, 3.2, 1]}>
-        <spriteMaterial map={glowTex} transparent depthWrite={false} blending={THREE.AdditiveBlending} opacity={dark ? 0.34 : 0.22} />
-      </sprite>
-      {/* 실제 조명 — 램프 스포트 + 웜 필 (은은하게) */}
-      <spotLight
-        ref={light}
-        position={[0, 2.6, 0]}
-        angle={0.72}
-        penumbra={0.7}
-        intensity={dark ? 4 : 2.2}
-        color="#ffdca6"
-        distance={13}
-      />
-      <pointLight position={[0, 2.6, 0]} intensity={dark ? 1.2 : 0.4} color="#ffd9a0" distance={8} />
+      {/* 라이트 모드에서는 실내가 이미 밝아 램프를 꺼 둔다. 전구 발광·글로우·
+          빛기둥·바닥 웅덩이가 통째로 사라지면서 화면을 크게 덮던 가산 블렌딩
+          오버드로와 동적 조명 2개(스포트 + 포인트)도 함께 빠진다. */}
+      {dark ? (
+        <>
+          {/* 전구 + 빛 번짐(블러 글로우 2겹) */}
+          <mesh position-y={2.6}>
+            <sphereGeometry args={[0.12, 14, 14]} />
+            <meshStandardMaterial color="#fff2d6" emissive="#ffc46b" emissiveIntensity={1.8} />
+          </mesh>
+          <sprite position-y={2.6} scale={[3.4, 3.4, 1]}>
+            <spriteMaterial
+              map={glowTex}
+              transparent
+              depthWrite={false}
+              blending={THREE.AdditiveBlending}
+              opacity={0.7}
+            />
+          </sprite>
+          <sprite position-y={2.6} scale={[1.6, 1.6, 1]}>
+            <spriteMaterial
+              map={glowTex}
+              transparent
+              depthWrite={false}
+              blending={THREE.AdditiveBlending}
+              opacity={0.6}
+            />
+          </sprite>
+          {/* 빛 기둥: 넓고 옅은 외곽 콘 + 밝은 내부 콘 (볼류메트릭) */}
+          <mesh position-y={1.4}>
+            <coneGeometry args={[1.5, 2.6, 28, 1, true]} />
+            <meshBasicMaterial color="#ffdca6" transparent opacity={0.06} side={THREE.DoubleSide} depthWrite={false} blending={THREE.AdditiveBlending} />
+          </mesh>
+          <mesh position-y={1.4}>
+            <coneGeometry args={[1.0, 2.6, 24, 1, true]} />
+            <meshBasicMaterial color="#ffe6bd" transparent opacity={0.14} side={THREE.DoubleSide} depthWrite={false} blending={THREE.AdditiveBlending} />
+          </mesh>
+          {/* 바닥 빛 웅덩이: 발광 원반 + 번짐 스프라이트 */}
+          <mesh position={[0, 0.02, 0.25]} rotation-x={-Math.PI / 2}>
+            <circleGeometry args={[1.45, 32]} />
+            <meshBasicMaterial color="#ffd9a0" transparent opacity={0.2} depthWrite={false} blending={THREE.AdditiveBlending} />
+          </mesh>
+          <sprite position={[0, 0.05, 0.25]} scale={[3.2, 3.2, 1]}>
+            <spriteMaterial map={glowTex} transparent depthWrite={false} blending={THREE.AdditiveBlending} opacity={0.34} />
+          </sprite>
+          {/* 실제 조명 — 램프 스포트 + 웜 필 (은은하게) */}
+          <spotLight
+            ref={light}
+            position={[0, 2.6, 0]}
+            angle={0.72}
+            penumbra={0.7}
+            intensity={4}
+            color="#ffdca6"
+            distance={13}
+          />
+          <pointLight position={[0, 2.6, 0]} intensity={1.2} color="#ffd9a0" distance={8} />
+        </>
+      ) : (
+        /* 꺼진 전구 — 발광 없이 유리알만 남긴다 */
+        <mesh position-y={2.6}>
+          <sphereGeometry args={[0.12, 14, 14]} />
+          <meshStandardMaterial color="#eee8da" roughness={0.3} metalness={0.1} />
+        </mesh>
+      )}
       <object3D ref={target} position={[0, 0, 0.6]} />
     </group>
   );
@@ -706,8 +773,18 @@ function RobotOnBlock({ dark, reduced }: { dark: boolean; reduced: boolean }) {
   );
 }
 
+// 이 청크는 데스크톱 + WebGL 게이트를 통과했을 때만 로드되므로, 여기서 미리
+// 받아두면 모바일에 부담을 주지 않는다.
 useGLTF.preload && useGLTF.preload(assetPath(MODEL), assetPath("/draco/"));
 useGLTF.preload && useGLTF.preload(assetPath("/props/desk.glb"), assetPath("/draco/"));
+// Text3D 의 타입페이스는 컴포넌트가 마운트된 뒤에야 요청돼 GLB 뒤로 밀린다.
+// 미리 받아 HTTP 캐시에 올려두면 GLB·draco 와 같은 구간에서 병렬로 내려온다.
+// (본문까지 읽어야 캐시에 기록되므로 arrayBuffer 로 끝까지 소비한다)
+if (typeof window !== "undefined") {
+  fetch(assetPath(FONT))
+    .then((r) => r.arrayBuffer())
+    .catch(() => {});
+}
 
 // WebGL 실패 시 조용히 사라지는 안전장치
 class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
@@ -723,6 +800,38 @@ class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean
 export default function HeroScene({ showText }: { showText: boolean }) {
   const dark = useDark();
   const reduced = useReducedMotion();
+  // Lenis 인스턴스는 <Canvas> 바깥(같은 React 트리)에서만 컨텍스트로 잡힌다.
+  // R3F 는 별도 리컨실러라 Canvas 안에서는 useLenis() 가 동작하지 않으므로,
+  // 여기서 만든 핸들러를 prop 으로 내려보낸다. (location.hash 직접 대입은
+  // Lenis 의 스크롤 하이재킹과 충돌해 이동이 씹히던 원인)
+  const lenis = useLenis();
+  const navigate = useCallback(
+    (target: string) => {
+      const el = document.querySelector(target);
+      if (!el) return;
+      if (lenis) {
+        const start = window.scrollY;
+        const goal = el.getBoundingClientRect().top + start - 88;
+        lenis.scrollTo(el as HTMLElement, {
+          offset: -88,
+          duration: 1.15,
+          easing: (t: number) => 1 - Math.pow(1 - t, 3),
+        });
+        // Lenis 의 부드러운 스크롤은 rAF 보간이라, 프레임이 굶으면(무거운 3D 씬 +
+        // 저사양 GPU) 애니메이션이 진행되지 않아 클릭이 씹힌 것처럼 보인다.
+        // 일정 시간 안에 움직이지 않으면 즉시 점프로 보정한다.
+        window.setTimeout(() => {
+          if (Math.abs(window.scrollY - start) < 8) {
+            lenis.scrollTo(goal, { immediate: true });
+          }
+        }, 350);
+      } else {
+        el.scrollIntoView();
+      }
+      history.replaceState(null, "", assetPath(`/${target}`));
+    },
+    [lenis],
+  );
   const [enabled, setEnabled] = useState(false);
   // 히어로가 화면 밖으로 스크롤되면 렌더 루프를 멈춰 나머지 페이지에 GPU/CPU 양보
   const [visible, setVisible] = useState(true);
@@ -796,7 +905,9 @@ export default function HeroScene({ showText }: { showText: boolean }) {
             <group rotation-y={0.5} position={[1.8, 0, 0]}>
               <Wall dark={dark} />
               {showText ? <RisingHeadline dark={dark} reduced={reduced} /> : null}
-              {showText ? <WallButtons dark={dark} /> : null}
+              {showText ? (
+                <WallButtons dark={dark} onNavigate={navigate} />
+              ) : null}
               <MuseumProps dark={dark} />
               {/* ── 씬 액센트광 (방 좌표계) ──
                   전시 글자를 비추는 쿨 워시 + 로봇 뒤 블루 림 + 로봇 앞 웜 키 */}
@@ -806,13 +917,20 @@ export default function HeroScene({ showText }: { showText: boolean }) {
             </group>
             <Floor dark={dark} />
             {/* 접지 그림자 — 글자·로봇이 면 위에 "서 있는" 느낌의 핵심 */}
+            {/* frames 를 두지 않으면(기본 Infinity) 매 프레임 씬 전체를 그림자용으로
+                한 번 더 렌더하고 블러까지 돌린다 — 사실상 씬 비용이 두 배.
+                로봇 등장이 ROBOT_START+ROBOT_DURATION(2.6초)에 끝나고 이후에는
+                제자리 회전뿐이라 접지 그림자가 바뀌지 않으므로, 인트로를 덮을
+                만큼만 굽고 멈춘다. (120Hz 화면에서도 4초 이상 확보) */}
             <ContactShadows
+              frames={500}
               position={[0, 0.01, 0]}
               opacity={dark ? 0.5 : 0.32}
               scale={22}
               blur={2.4}
               far={4}
-              resolution={256}
+              // blur 2.4 로 어차피 뭉개지는 블롭이라 256 → 128 로 낮춰도 차이가 없다
+              resolution={128}
             />
             <RobotOnBlock dark={dark} reduced={reduced} />
           </Suspense>
