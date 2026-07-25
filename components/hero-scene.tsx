@@ -810,21 +810,10 @@ export default function HeroScene({ showText }: { showText: boolean }) {
       const el = document.querySelector(target);
       if (!el) return;
       if (lenis) {
-        const start = window.scrollY;
-        const goal = el.getBoundingClientRect().top + start - 88;
-        lenis.scrollTo(el as HTMLElement, {
-          offset: -88,
-          duration: 1.15,
-          easing: (t: number) => 1 - Math.pow(1 - t, 3),
-        });
-        // Lenis 의 부드러운 스크롤은 rAF 보간이라, 프레임이 굶으면(무거운 3D 씬 +
-        // 저사양 GPU) 애니메이션이 진행되지 않아 클릭이 씹힌 것처럼 보인다.
-        // 일정 시간 안에 움직이지 않으면 즉시 점프로 보정한다.
-        window.setTimeout(() => {
-          if (Math.abs(window.scrollY - start) < 8) {
-            lenis.scrollTo(goal, { immediate: true });
-          }
-        }, 350);
+        // 중간 구간을 빠르게 훑고 내려가는 게 아니라 곧바로 해당 섹션으로 이동한다.
+        // (immediate 는 Lenis 내부 스크롤 값까지 함께 맞춰줘서, 이후 휠 입력이
+        //  이전 위치에서 이어지는 문제가 없다)
+        lenis.scrollTo(el as HTMLElement, { offset: -88, immediate: true });
       } else {
         el.scrollIntoView();
       }

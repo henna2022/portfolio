@@ -1,6 +1,3 @@
-/* General Sans 는 layout.tsx 의 <head> 에서 <link> 로 불러온다.
-   여기서 @import 로 두면 "HTML → globals.css → fontshare CSS → 폰트 파일" 3단
-   워터폴이 되어 프리로드 스캐너가 손을 못 댄다(실측 fontshare CSS 만 866ms). */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -40,7 +37,8 @@ body {
 }
 
 .font-display {
-  font-family: "General Sans", var(--font-inter);
+  /* next/font/local 이 심어주는 셀프호스팅 폰트 (외부 호스트 왕복 없음) */
+  font-family: var(--font-display), var(--font-inter), sans-serif;
 }
 
 /* (removed) Korean locale was dropped —

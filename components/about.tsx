@@ -2,11 +2,28 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { about, person } from "@/lib/data";
+import { about, person, type ProseParagraph } from "@/lib/data";
 import { assetPath } from "@/lib/asset";
 import { ui } from "@/lib/i18n";
 import { DownloadIcon } from "./icons";
 import { ease, fadeUp, viewportOnce } from "@/lib/motion";
+
+// 산문 문단 — `b: true` 조각만 굵게. 훑어봐도 핵심 문장이 먼저 잡히도록.
+function Prose({ paragraph }: { paragraph: ProseParagraph }) {
+  return (
+    <p className="max-w-[640px] text-[15px] leading-[1.95] tracking-[-0.01em] text-muted">
+      {paragraph.map((seg, i) =>
+        seg.b ? (
+          <strong key={i} className="font-semibold text-ink">
+            {seg.text}
+          </strong>
+        ) : (
+          <span key={i}>{seg.text}</span>
+        ),
+      )}
+    </p>
+  );
+}
 
 // 손으로 그린 듯한 화살표 — '더 보기' 토글에서 펼침/접힘을 표시
 function CurlyArrow({ className = "" }: { className?: string }) {
@@ -140,13 +157,8 @@ export function About() {
           </h3>
 
           <div className="space-y-4">
-            {about.prose.map((p) => (
-              <p
-                key={p}
-                className="max-w-[640px] text-[15px] leading-[1.95] tracking-[-0.01em] text-muted"
-              >
-                {p}
-              </p>
+            {about.prose.map((p, i) => (
+              <Prose key={i} paragraph={p} />
             ))}
 
             {/* 항상 마운트해 두고 높이만 전환 — aria-controls 가 늘 유효하다 */}
@@ -157,13 +169,8 @@ export function About() {
               aria-hidden={!open}
             >
               <div ref={moreRef} className="space-y-4 pt-4">
-                {about.proseMore.map((p) => (
-                  <p
-                    key={p}
-                    className="max-w-[640px] text-[15px] leading-[1.95] tracking-[-0.01em] text-muted"
-                  >
-                    {p}
-                  </p>
+                {about.proseMore.map((p, i) => (
+                  <Prose key={i} paragraph={p} />
                 ))}
                 {/* 카드에서 내려온 부차적 이력·자격 */}
                 <dl className="grid max-w-[640px] gap-x-10 gap-y-5 border-t border-ink/10 pt-6 sm:grid-cols-2">

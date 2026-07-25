@@ -16,7 +16,8 @@ const config: Config = {
         "lime-ink": "#FFFFFF",
       },
       fontFamily: {
-        display: ['"General Sans"', "sans-serif"],
+        // next/font/local 이 주입하는 셀프호스팅 General Sans (외부 호스트 왕복 없음)
+        display: ["var(--font-display)", "sans-serif"],
         sans: ["var(--font-inter)", "Inter", "sans-serif"],
       },
       borderRadius: {

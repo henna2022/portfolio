@@ -1,11 +1,27 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { ConsoleSignature } from "@/components/console-signature";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+
+// General Sans 를 셀프호스팅한다. fontshare 를 쓰면 api.fontshare.com 에서 CSS 를
+// 받고(실측 830ms) 다시 cdn.fontshare.com 으로 폰트를 받으러 가느라 외부 호스트
+// 두 곳의 DNS·TLS 핸드셰이크가 크리티컬 패스에 얹힌다. 같은 도메인 파일로 두면
+// next/font 가 <head> 에 preload 를 자동으로 넣어 문서와 같은 커넥션에서 병렬로 받는다.
+const generalSans = localFont({
+  src: [
+    { path: "../public/fonts/GeneralSans-400.woff2", weight: "400", style: "normal" },
+    { path: "../public/fonts/GeneralSans-500.woff2", weight: "500", style: "normal" },
+    { path: "../public/fonts/GeneralSans-600.woff2", weight: "600", style: "normal" },
+    { path: "../public/fonts/GeneralSans-700.woff2", weight: "700", style: "normal" },
+  ],
+  variable: "--font-display",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://henna2022.github.io/portfolio"),
@@ -65,21 +81,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${inter.variable} ${generalSans.variable}`}
+      suppressHydrationWarning
+    >
       <head>
-        {/* General Sans — @import 대신 <head> 의 <link> 로 두어 프리로드 스캐너가
-            HTML 파싱 즉시 받아오게 한다(globals.css 다운로드와 병렬). 폰트 파일은
-            cdn.fontshare.com 에 있어 두 호스트 모두 preconnect 로 핸드셰이크를 미리 연다. */}
-        <link rel="preconnect" href="https://api.fontshare.com" />
-        <link
-          rel="preconnect"
-          href="https://cdn.fontshare.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="stylesheet"
-          href="https://api.fontshare.com/v2/css?f%5B%5D=general-sans@400,500,600,700&display=swap"
-        />
         <link
           rel="preconnect"
           href="https://static.cloudflareinsights.com"

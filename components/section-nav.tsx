@@ -68,9 +68,10 @@ export function SectionNav() {
             href={assetPath(s.id === "top" ? "/" : `/#${s.id}`)}
             onClick={(e) => handleClick(e, s.id)}
             aria-current={isActive ? "true" : undefined}
-            className={`shrink-0 px-1.5 py-1 text-xs transition-colors sm:px-2.5 sm:text-sm ${
+            // 활성 항목은 굵기·색만으로는 잘 안 잡혀서 밑줄 인디케이터를 함께 둔다
+            className={`relative shrink-0 px-1.5 py-1 text-xs transition-colors sm:px-2.5 sm:text-sm ${
               isActive
-                ? "font-bold text-lime"
+                ? "font-bold text-lime after:absolute after:inset-x-1.5 after:-bottom-0.5 after:h-[2px] after:rounded-full after:bg-lime after:content-[''] sm:after:inset-x-2.5"
                 : "font-medium text-ink/55 hover:text-ink"
             }`}
           >

@@ -40,18 +40,23 @@ export type StatementToken =
 export const statement: StatementToken[] = [
   { t: "w", w: "I" },
   { t: "w", w: "build", pill: true },
-  { t: "w", w: "the" },
-  { t: "w", w: "space" },
-  { t: "w", w: "where" },
-  { t: "w", w: "people" },
-  { t: "w", w: "and" },
-  { t: "w", w: "robots" },
+  { t: "w", w: "software" },
+  { t: "w", w: "that" },
+  { t: "w", w: "puts" },
   { t: "chip" },
-  { t: "w", w: "meet.", italic: true },
+  { t: "w", w: "AI" },
+  { t: "w", w: "to" },
+  { t: "w", w: "work", italic: true },
+  { t: "w", w: "for" },
+  { t: "w", w: "real" },
+  { t: "w", w: "people." },
 ];
 
 // ─── About ──────────────────────────────────────────────────────────────────
 // 좌: 초상 카드(사진·태그라인·이력 요약·다운로드) / 우: 인용문 + 산문(더 보기).
+// 산문은 문단 = 조각 배열. `b: true` 인 조각만 굵게 렌더한다.
+export type ProseSegment = { text: string; b?: boolean };
+export type ProseParagraph = ProseSegment[];
 export const about = {
   photo: "/portfolio_images/profile/juwonlee.jpg",
   tagline:
@@ -85,22 +90,49 @@ export const about = {
   ],
   // 인용문 — `em` 로 감싼 조각은 액센트 하이라이트 처리
   quote: [
-    { text: "“I love turning ideas into " },
-    { text: "working services", em: true },
-    { text: ", and making that technology easy for everyone to " },
-    { text: "understand", em: true },
+    { text: "“I turn ideas into " },
+    { text: "software that ships", em: true },
+    { text: ", and I care just as much about making it " },
+    { text: "understood", em: true },
     { text: ".”" },
   ],
-  // 앞 2문단은 항상 노출, 나머지는 '더 보기' 안쪽
+  // 앞 2문단은 항상 노출, 나머지는 '더 보기' 안쪽.
+  // `b: true` 조각은 굵게 — 훑어봐도 핵심 문장이 먼저 눈에 들어오게 한다.
   prose: [
-    "Hi, I'm Juwon Lee, a developer and educator who cares most about the moment an idea becomes a working service that actually reaches people's lives.",
-    "I started in AI and data, building image-diagnosis models with YOLOv8 and VGG16, and constructing and validating reasoning Q&A datasets, covering the whole pipeline from modeling to data quality.",
-  ],
+    [
+      { text: "Hi, I'm Juwon Lee, a " },
+      { text: "software developer", b: true },
+      { text: " who cares most about the moment an idea becomes something people actually use. On every project so far I've owned the work " },
+      { text: "from planning through deployment", b: true },
+      { text: "." },
+    ],
+    [
+      { text: "My core is " },
+      { text: "web and application development", b: true },
+      { text: ": Next.js and React on the front, with Supabase, Firebase and serverless functions behind them. I wire " },
+      { text: "AI in as a working component rather than a demo", b: true },
+      { text: ", from a YOLOv8 diagnosis pipeline to an OpenAI image backend that watermarks and stores everything it generates." },
+    ],
+  ] as ProseParagraph[],
   proseMore: [
-    "And I'm drawn to making that intelligence act in the physical world beyond the screen. From an IoT smart farm (doctor-green) to a companion & medication-care robot (ATO), I build projects that connect sensors and hardware with AI, end to end.",
-    "Above all, I'm someone who conveys technology. At the Seoul Robot & AI Science Museum I build and run interactive education web apps, meet visitors in both Korean and English, and mentor students. I'm serious about designing even hard technology so it's understood like play.",
-    "I've only just crossed the starting line, but I'll keep solving real, complex problems with intelligent systems, growing into a slightly better engineer every day.",
-  ],
+    [
+      { text: "That software mostly lands in places people stand in. At the Seoul Robot & AI Science Museum my Art Lab runs live on the exhibition floor, generating " },
+      { text: "142 images on an average weekday and 557 on weekends", b: true },
+      { text: ", the first service there whose volume could be measured through its own backend. Doctor-Green reaches down to ESP32 sensor nodes, and ATO is the one project where I built the hardware too." },
+    ],
+    [
+      { text: "I also spend a lot of my time " },
+      { text: "teaching, and I want to keep doing it", b: true },
+      { text: ". I planned and built a smart-farm program for the Yangpyeong Education Office and taught it to a 15-student cohort, I meet museum visitors in Korean and English, and I mentor students. " },
+      { text: "Building something and explaining it well are the same job to me", b: true },
+      { text: ": both come down to making a complex system make sense." },
+    ],
+    [
+      { text: "I've only just crossed the starting line, but I'll keep " },
+      { text: "shipping software that solves real problems", b: true },
+      { text: ", and getting a little better at it every day." },
+    ],
+  ] as ProseParagraph[],
 };
 
 export type Project = {
