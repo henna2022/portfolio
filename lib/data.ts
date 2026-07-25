@@ -118,7 +118,9 @@ export const about = {
     [
       { text: "That software mostly lands in places people stand in. At the Seoul Robot & AI Science Museum my Art Lab runs live on the exhibition floor, generating " },
       { text: "142 images on an average weekday and 557 on weekends", b: true },
-      { text: ", the first service there whose volume could be measured through its own backend. Doctor-Green reaches down to ESP32 sensor nodes, and ATO is the one project where I built the hardware too." },
+      { text: ", the first service there whose volume could be measured through its own backend. Doctor-Green reaches down to " },
+      { text: "ESP32 sensor nodes", b: true },
+      { text: ", and with ATO I took it all the way to the hardware: firmware, servos, and an LCD face." },
     ],
     [
       { text: "I also spend a lot of my time " },
