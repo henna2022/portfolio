@@ -6,6 +6,7 @@ import type { Project } from "@/lib/data";
 import { assetPath } from "@/lib/asset";
 import { ui } from "@/lib/i18n";
 import { ArrowIcon } from "./icons";
+import { ImageCarousel } from "./image-carousel";
 import { ease } from "@/lib/motion";
 
 const reveal: Variants = {
@@ -26,8 +27,9 @@ export function ProjectDetail({
 }) {
   const t = ui;
 
-  const hero = p.gallery?.[0] ?? p.image;
-  const restGallery = (p.gallery ?? []).slice(1);
+  // 갤러리를 나눠 흩어놓지 않고 슬라이드 하나로 모아 한눈에 넘겨보게 한다.
+  // (이전에는 gallery[0] 만 히어로, 나머지는 아래쪽 2단 그리드로 분리돼 있었다)
+  const shots = p.gallery?.length ? p.gallery : p.image ? [p.image] : [];
 
   return (
     <article className="mx-auto max-w-shell px-6 pb-8 pt-28">
@@ -91,23 +93,18 @@ export function ProjectDetail({
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-10%" }}
-        className="mt-8 overflow-hidden rounded-4xl bg-sand-deep"
+        className="mt-8"
       >
-        {hero ? (
-          // imageFit: "contain" 은 UI 스크린샷처럼 잘리면 안 되는 이미지용.
-          // (기존에는 이 필드를 아무 데서도 읽지 않아 항상 object-cover 로 그려졌고,
-          //  max-h 를 넘는 이미지는 위아래가 잘려 나갔다)
-          <img
-            src={assetPath(hero)}
+        {shots.length > 0 ? (
+          // imageFit: "contain" 은 UI 스크린샷처럼 잘리면 안 되는 이미지용
+          <ImageCarousel
+            images={shots}
             alt={p.title}
-            className={
-              p.imageFit === "contain"
-                ? "max-h-[520px] w-full object-contain"
-                : "max-h-[520px] w-full object-cover"
-            }
+            aspect="aspect-[3/2]"
+            fit={p.imageFit === "contain" ? "contain" : "cover"}
           />
         ) : (
-          <div className="flex aspect-[16/7] w-full items-center justify-center bg-gradient-to-br from-sand-deep to-sand">
+          <div className="flex aspect-[16/7] w-full items-center justify-center rounded-4xl bg-gradient-to-br from-sand-deep to-sand">
             <span className="font-display text-6xl font-semibold text-ink/15">
               {p.title.replace(/[^A-Za-z ]/g, "").trim().split(" ").slice(0, 2).map((w) => w[0]).join("")}
             </span>
@@ -215,32 +212,6 @@ export function ProjectDetail({
               </div>
             ))}
           </div>
-        </motion.section>
-      ) : null}
-
-      {/* Gallery */}
-      {restGallery.length > 0 ? (
-        <motion.section
-          variants={reveal}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-10%" }}
-          className="mt-6 grid gap-4 sm:grid-cols-2"
-        >
-          {restGallery.map((src) => (
-            <div
-              key={src}
-              className="overflow-hidden rounded-4xl bg-sand-deep"
-            >
-              <img
-                src={assetPath(src)}
-                alt={p.title}
-                loading="lazy"
-                decoding="async"
-                className="w-full object-cover"
-              />
-            </div>
-          ))}
         </motion.section>
       ) : null}
 

@@ -10,10 +10,14 @@ export function ImageCarousel({
   images,
   alt,
   aspect = "aspect-[4/3]",
+  fit = "cover",
 }: {
   images: string[];
   alt: string;
   aspect?: string;
+  // "cover" = 프레임을 가득 채우고 넘치면 crop (사진용)
+  // "contain" = 전체를 다 보여줌 (UI 스크린샷처럼 잘리면 안 되는 경우)
+  fit?: "cover" | "contain";
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const drag = useRef({ active: false, moved: false, startX: 0, startLeft: 0 });
@@ -29,7 +33,19 @@ export function ImageCarousel({
   function goTo(i: number) {
     const el = ref.current;
     if (!el) return;
-    el.scrollTo({ left: i * el.clientWidth, behavior: "smooth" });
+    const left = i * el.clientWidth;
+    const from = el.scrollLeft;
+    el.scrollTo({ left, behavior: "smooth" });
+    // behavior:"smooth" 는 rAF 로 보간된다. 탭이 스로틀되거나 기기가 바쁘면
+    // 프레임이 오지 않아 스크롤이 아예 진행되지 않고 화살표가 먹통처럼 보인다.
+    // 잠깐 뒤에도 안 움직였으면 즉시 이동으로 보정한다.
+    window.setTimeout(() => {
+      const now = ref.current;
+      if (now && Math.abs(now.scrollLeft - from) < 4 && from !== left) {
+        now.scrollTo({ left, behavior: "auto" });
+        setIdx(i);
+      }
+    }, 320);
   }
 
   function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
@@ -82,9 +98,14 @@ export function ImageCarousel({
             loading="lazy"
             decoding="async"
             draggable={false}
-            // 세로 사진도 프레임을 가득 채운다 — 좌우 레터박스 없이 확대해서 crop.
-            // 인물이 대체로 상단에 오므로 중앙보다 살짝 위를 기준점으로 잡는다.
-            className="h-full w-full shrink-0 snap-center select-none object-cover object-[center_35%]"
+            className={`h-full w-full shrink-0 snap-center select-none ${
+              fit === "contain"
+                ? // UI 스크린샷 — 전체가 다 보여야 하므로 프레임 안에 맞춘다
+                  "object-contain"
+                : // 사진 — 좌우 레터박스 없이 가득 채운다.
+                  // 인물이 대체로 상단에 오므로 중앙보다 살짝 위를 기준점으로.
+                  "object-cover object-[center_35%]"
+            }`}
           />
         ))}
       </div>
