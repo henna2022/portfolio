@@ -132,18 +132,24 @@ export function ImageCarousel({
             <ArrowIcon className="h-4 w-4" />
           </button>
 
-          {/* dots */}
-          <div className="absolute inset-x-0 bottom-3 flex items-center justify-center gap-1.5">
+          {/* dots — 점 자체는 작게 두되 버튼은 24px 이상으로 키워 탭 영역을 확보한다
+              (WCAG 2.5.8 최소 타겟 크기. 6px 점은 모바일에서 사실상 못 누른다) */}
+          <div className="absolute inset-x-0 bottom-1 flex items-center justify-center">
             {images.map((_, i) => (
               <button
                 key={i}
                 type="button"
                 aria-label={`Go to image ${i + 1}`}
+                aria-current={i === idx ? "true" : undefined}
                 onClick={() => goTo(i)}
-                className={`h-1.5 rounded-full transition-all ${
-                  i === idx ? "w-4 bg-cream" : "w-1.5 bg-cream/50"
-                }`}
-              />
+                className="flex h-6 w-6 items-center justify-center"
+              >
+                <span
+                  className={`h-1.5 rounded-full transition-all ${
+                    i === idx ? "w-4 bg-cream" : "w-1.5 bg-cream/50"
+                  }`}
+                />
+              </button>
             ))}
           </div>
         </>

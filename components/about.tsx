@@ -68,6 +68,18 @@ export function About() {
     return () => ro.disconnect();
   }, []);
 
+  // ResizeObserver 가 아직 한 번도 안 돌았으면 높이가 0 이라 눌러도 아무 일이
+  // 없는 것처럼 보인다. 토글하는 순간 다시 재서 그 경우를 막는다.
+  function toggle() {
+    setOpen((v) => {
+      if (!v) {
+        const h = moreRef.current?.scrollHeight ?? 0;
+        if (h > 0 && h !== moreHeight) setMoreHeight(h);
+      }
+      return !v;
+    });
+  }
+
   return (
     <section id="about" className="mx-auto max-w-shell px-6 py-20">
       <h2 className="sr-only">{t.nav.about}</h2>
@@ -193,7 +205,7 @@ export function About() {
           <div className="mt-7 flex flex-wrap items-center justify-between gap-3">
             <motion.button
               type="button"
-              onClick={() => setOpen((v) => !v)}
+              onClick={toggle}
               aria-expanded={open}
               aria-controls="aboutMore"
               whileTap={{ scale: 0.97 }}

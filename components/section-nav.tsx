@@ -45,11 +45,21 @@ export function SectionNav() {
     if (!target) return;
     e.preventDefault();
     setActive(id);
+    const start = window.scrollY;
+    const goal = target.getBoundingClientRect().top + start - 88;
     lenis.scrollTo(target, {
       offset: -88,
       duration: 1.15,
       easing: (t: number) => 1 - Math.pow(1 - t, 3),
     });
+    // Lenis 의 부드러운 스크롤은 rAF 보간이라, 탭이 스로틀되거나 기기가 바쁘면
+    // 한 프레임도 진행되지 않아 클릭이 씹힌 것처럼 보인다. 잠깐 뒤에도 제자리면
+    // 즉시 이동으로 보정한다 (3D 벽 버튼·캐러셀과 같은 처리).
+    window.setTimeout(() => {
+      if (Math.abs(window.scrollY - start) < 8 && Math.abs(goal - start) > 8) {
+        lenis.scrollTo(goal, { immediate: true });
+      }
+    }, 350);
     history.replaceState(null, "", assetPath(id === "top" ? "/" : `/#${id}`));
   }
 
