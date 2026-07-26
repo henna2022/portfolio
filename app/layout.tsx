@@ -25,13 +25,13 @@ const generalSans = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://henna2022.github.io/portfolio"),
-  title: "Juwon Lee | Applied AI & IoT Product Engineer",
+  title: "Juwon Lee | AI Product Engineer",
   description:
-    "Portfolio of Juwon Lee, an applied AI and IoT product engineer building systems end to end, from sensor to shipped product.",
+    "Portfolio of Juwon Lee, an AI product engineer building systems end to end, from sensor to shipped product.",
   openGraph: {
-    title: "Juwon Lee | Applied AI & IoT Product Engineer",
+    title: "Juwon Lee | AI Product Engineer",
     description:
-      "Portfolio of Juwon Lee, an applied AI and IoT product engineer building systems end to end, from sensor to shipped product.",
+      "Portfolio of Juwon Lee, an AI product engineer building systems end to end, from sensor to shipped product.",
     images: ["/og-cover.png"],
   },
   twitter: {
@@ -64,7 +64,7 @@ const personJsonLd = {
   alternateName: "이주원",
   url: "https://henna2022.github.io/portfolio/",
   image: "https://henna2022.github.io/portfolio/portfolio_images/profile/juwonlee.jpg",
-  jobTitle: "Applied AI · IoT Product Engineer · Educator",
+  jobTitle: "AI Product Engineer",
   worksFor: {
     "@type": "Organization",
     name: "Seoul Robot & AI Science Museum",

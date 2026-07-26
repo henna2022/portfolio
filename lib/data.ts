@@ -1,7 +1,7 @@
 export const person = {
   name: "Juwon Lee",
   hangul: "이주원",
-  role: "Applied AI · IoT Product Engineer · Educator",
+  role: "AI Product Engineer",
   email: "juwonlee211@gmail.com",
   github: "https://github.com/henna2022",
   githubHandle: "henna2022",
@@ -60,7 +60,7 @@ export type ProseParagraph = ProseSegment[];
 export const about = {
   photo: "/portfolio_images/profile/juwonlee.jpg",
   tagline:
-    "Applied AI and IoT product engineer, and educator. I build end to end, from sensor to shipped interface, so intelligence can perceive and act in the physical world.",
+    "AI product engineer. I build end to end, from sensor to shipped interface, so intelligence can perceive and act in the physical world.",
   // 카드 하단 요약 — 정체성과 "지금"만 짧게. 나머지 이력은 아래 facts 로 내린다.
   info: [
     {
@@ -513,7 +513,7 @@ export const skillGroups: SkillGroup[] = [
 export const experience = [
   {
     org: "Seoul Robot & AI Science Museum",
-    role: "Education R&D · Full-stack Developer",
+    role: "Education R&D · Developer",
     period: "2026.03 - Present",
     gallery: [
       "/portfolio_images/experience/docent_1.JPG",
