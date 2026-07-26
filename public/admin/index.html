@@ -50,6 +50,8 @@
   header.bar h1{font-family:'Paperlogy',sans-serif;font-size:20px;font-weight:700}
   .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
   select,.controls button{background:var(--panel);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:8px 12px;font-size:13px}
+  .daterange{display:inline-flex;gap:6px;align-items:center;color:var(--dim)}
+  input[type=date]{background:var(--panel);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:7px 10px;font-size:13px;font-family:inherit;color-scheme:dark}
 
   /* 모바일: 사이드바를 상단 가로 스크롤 바로 전환 */
   @media (max-width:760px){
@@ -85,8 +87,15 @@
   .row .val{grid-column:2/3;font-family:'Paperlogy',sans-serif;font-variant-numeric:tabular-nums;color:var(--mid);min-width:38px;text-align:right}
   .empty{color:var(--dim);font-size:13px;padding:8px 0}
 
-  .days{display:flex;align-items:flex-end;gap:3px;height:90px}
+  .days{display:flex;align-items:flex-end;gap:3px;height:104px;padding-top:16px}
   .days .d{flex:1;background:rgba(79,140,255,.45);border-radius:3px 3px 0 0;min-height:2px;position:relative}
+  /* 막대 위 상시 표시 수치 (호버 불필요) */
+  .days .d .v{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:2px;font-size:10px;line-height:1.2;color:var(--mid);font-variant-numeric:tabular-nums;pointer-events:none}
+  @media (max-width:500px){.days .d .v{font-size:8.5px}}
+  /* 막대가 많을 때(45개 초과)는 상시 수치를 숨기고 호버 툴팁만 남긴다 */
+  .days.dense{gap:1px}
+  .days.dense .d .v{display:none}
+  .days-range{display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--dim);font-variant-numeric:tabular-nums}
   .days .d:hover::after{content:attr(data-t);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#000;border:1px solid var(--line);padding:2px 6px;border-radius:4px;font-size:11px;white-space:nowrap;font-family:'Paperlogy',sans-serif}
 
   /* 메시지 */
@@ -193,7 +202,11 @@
           <option value="30" selected>최근 30일</option>
           <option value="90">최근 90일</option>
           <option value="0">전체</option>
+          <option value="custom">기간 직접 설정</option>
         </select>
+        <span class="daterange" id="customRange" hidden>
+          <input type="date" id="dateFrom" aria-label="시작일"><span>~</span><input type="date" id="dateTo" aria-label="종료일">
+        </span>
         <button class="ghost-btn" onclick="loadAll()">새로고침</button>
       </div>
     </header>
@@ -202,7 +215,18 @@
     <section id="sec-overview" hidden>
       <div class="kpis" id="kpis"></div>
       <div class="grid">
-        <div class="card" style="grid-column:1/-1"><h2>일자별 방문</h2><div class="days" id="c-days"></div></div>
+        <div class="card" style="grid-column:1/-1">
+          <h2>방문 추이
+            <select id="unit" aria-label="집계 단위">
+              <option value="day" selected>일별</option>
+              <option value="week">주별</option>
+              <option value="month">월별</option>
+            </select>
+          </h2>
+          <div class="days" id="c-days"></div>
+          <div class="days-range" id="c-days-range"></div>
+          <div class="map-note" id="c-days-note"></div>
+        </div>
       </div>
     </section>
 
@@ -341,6 +365,14 @@ delete from events     where created_at &lt; now() - interval '180 days';</pre>
   var initialTab = (RAW_HASH || '').replace('#', '');
   go(TABS[initialTab] ? initialTab : 'overview');
 
+  // 데이터 로드 전에도 빈 화면처럼 보이지 않게 플레이스홀더를 깔아둔다
+  function kpiRow(id, list) {
+    el(id).innerHTML = list.map(function (k) { return '<div class="kpi"><div class="n">' + k[1] + '</div><div class="l">' + k[0] + '</div></div>'; }).join('');
+  }
+  kpiRow('kpis', [['총 방문', '—'], ['순 세션', '—'], ['평균 체류', '—'], ['오늘 방문', '—']]);
+  kpiRow('kpis-cta', [['이력서 다운로드', '—'], ['CV 다운로드', '—'], ['소개 덱 다운로드', '—'], ['GitHub 클릭', '—'], ['LinkedIn 클릭', '—'], ['이메일 클릭', '—'], ['라이브 링크 클릭', '—']]);
+  el('c-days').innerHTML = '<div class="empty">로그인 후 데이터를 불러오면 표시됩니다.</div>';
+
   // 각 단계의 상태 로그 — 평소엔 콘솔에만, 주소에 ?debug 를 붙이면 화면에도 표시
   var DIAG = [], SHOW_DIAG = location.search.indexOf('debug') >= 0;
   function diag(line) {
@@ -455,12 +487,40 @@ delete from events     where created_at &lt; now() - interval '180 days';</pre>
   };
   function signOut() { sb.auth.signOut(); }
 
-  el('range').onchange = loadAll;
+  el('range').onchange = function () {
+    var custom = el('range').value === 'custom';
+    el('customRange').hidden = !custom;
+    if (custom && !el('dateFrom').value) {
+      // 기본값: 최근 30일
+      el('dateTo').value = new Date().toISOString().slice(0, 10);
+      el('dateFrom').value = new Date(Date.now() - 29 * 864e5).toISOString().slice(0, 10);
+    }
+    loadAll();
+  };
+  el('dateFrom').onchange = el('dateTo').onchange = loadAll;
+  el('unit').onchange = function () { if (LAST_PV) renderTrend(LAST_PV); };
+
+  // 현재 선택된 기간 → 쿼리 경계(from/to)와 차트 창(fromDay/toDay)
+  function rangeWindow() {
+    var v = el('range').value;
+    if (v === 'custom') {
+      var f = el('dateFrom').value, t = el('dateTo').value;
+      if (f && t && f > t) { var x = f; f = t; t = x; el('dateFrom').value = f; el('dateTo').value = t; }
+      return { from: f ? f + 'T00:00:00Z' : null, to: t ? t + 'T23:59:59.999Z' : null, fromDay: f || null, toDay: t || null, days: 0 };
+    }
+    var days = +v;
+    return { from: days ? new Date(Date.now() - days * 864e5).toISOString() : null, to: null, fromDay: null, toDay: null, days: days };
+  }
 
   // ---------- 데이터 로드 + 집계 ----------
   async function loadAll() {
-    var days = +el('range').value;
-    var q = function (t) { var s = sb.from(t).select('*').order('created_at', { ascending: false }).limit(50000); if (days) s = s.gte('created_at', new Date(Date.now() - days * 864e5).toISOString()); return s; };
+    var w = rangeWindow();
+    var q = function (t) {
+      var s = sb.from(t).select('*').order('created_at', { ascending: false }).limit(50000);
+      if (w.from) s = s.gte('created_at', w.from);
+      if (w.to) s = s.lte('created_at', w.to);
+      return s;
+    };
     var pv = await q('page_views'), ev = await q('events'), ms = await sb.from('messages').select('*').order('created_at', { ascending: false });
     if (pv.error) { alert('불러오기 오류: ' + pv.error.message); return; }
     renderStats(pv.data || [], ev.data || []);
@@ -481,10 +541,6 @@ delete from events     where created_at &lt; now() - interval '180 days';</pre>
     }).join('');
   }
   function esc(s) { return String(s).replace(/[<>&"']/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#39;' }[c]; }); }
-
-  function kpiRow(id, list) {
-    el(id).innerHTML = list.map(function (k) { return '<div class="kpi"><div class="n">' + k[1] + '</div><div class="l">' + k[0] + '</div></div>'; }).join('');
-  }
 
   function renderStats(pv, ev) {
     var sessions = {}; pv.forEach(function (p) { sessions[p.session_id] = 1; });
@@ -520,12 +576,54 @@ delete from events     where created_at &lt; now() - interval '180 days';</pre>
     bars('c-proj', countBy(ev.filter(function (e) { return e.type === 'project_open'; }), 'label'));
     bars('c-cta', countBy(ev.filter(function (e) { return e.type === 'cta_click'; }), 'label'));
 
-    // 일자별
-    var byDay = {}; pv.forEach(function (p) { var d = p.created_at.slice(0, 10); byDay[d] = (byDay[d] || 0) + 1; });
-    var days = +el('range').value || 30; var span = Math.min(days || 30, 60), out = [];
-    for (var i = span - 1; i >= 0; i--) { var dt = new Date(Date.now() - i * 864e5).toISOString().slice(0, 10); out.push([dt, byDay[dt] || 0]); }
+    // 방문 추이 (일별/주별/월별)
+    renderTrend(pv);
+  }
+
+  // ---------- 방문 추이 차트 (일별 · 주별 · 월별) ----------
+  var LAST_PV = null; // 단위 전환 시 재조회 없이 다시 그리기 위한 캐시
+  function isoDay(d) { return d.toISOString().slice(0, 10); }
+  function addDays(day, n) { var d = new Date(day + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return isoDay(d); }
+  function weekStart(day) { var d = new Date(day + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() - (d.getUTCDay() + 6) % 7); return isoDay(d); } // 월요일 시작
+  function addMonths(mk, n) { var y = +mk.slice(0, 4), m = +mk.slice(5, 7) - 1 + n; return new Date(Date.UTC(y, m, 1)).toISOString().slice(0, 7); }
+
+  function renderTrend(pv) {
+    LAST_PV = pv;
+    var unit = el('unit').value, w = rangeWindow(), today = isoDay(new Date());
+    var endDay = w.toDay || today;
+    var startDay = w.fromDay
+      || (w.days ? addDays(today, -(w.days - 1))
+        : (pv.length ? pv[pv.length - 1].created_at.slice(0, 10) : today)); // 전체: 데이터 최소 일자 (pv 는 최신순 정렬)
+    if (startDay > endDay) startDay = endDay;
+
+    // 일별·주별은 막대 수 상한을 두고, 넘치면 최근 구간만 표시
+    var note = '';
+    var spanDays = Math.round((new Date(endDay + 'T00:00:00Z') - new Date(startDay + 'T00:00:00Z')) / 864e5);
+    if (unit === 'day' && spanDays > 180) { startDay = addDays(endDay, -180); note = '일별은 최근 181일까지만 표시합니다 — 더 긴 기간은 주별·월별로 보세요.'; }
+    if (unit === 'week' && spanDays > 1092) { startDay = addDays(endDay, -1092); note = '주별은 최근 156주까지만 표시합니다 — 더 긴 기간은 월별로 보세요.'; }
+
+    var keyOf = unit === 'week' ? weekStart : unit === 'month' ? function (d) { return d.slice(0, 7); } : function (d) { return d; };
+    var counts = {}; pv.forEach(function (p) { var k = keyOf(p.created_at.slice(0, 10)); counts[k] = (counts[k] || 0) + 1; });
+
+    var out = [];
+    if (unit === 'month') {
+      for (var mk = startDay.slice(0, 7), endMk = endDay.slice(0, 7); mk <= endMk; mk = addMonths(mk, 1)) out.push([mk, counts[mk] || 0]);
+    } else {
+      var step = unit === 'week' ? 7 : 1;
+      for (var d = keyOf(startDay), endK = keyOf(endDay); d <= endK; d = addDays(d, step)) out.push([d, counts[d] || 0]);
+    }
+
+    var box = el('c-days');
     var mx = Math.max.apply(null, out.map(function (o) { return o[1]; }).concat([1]));
-    el('c-days').innerHTML = out.map(function (o) { return '<div class="d" style="height:' + (o[1] / mx * 100) + '%" data-t="' + o[0] + ': ' + o[1] + '"></div>'; }).join('');
+    box.className = 'days' + (out.length > 45 ? ' dense' : ''); // 과밀 시 상시 수치 숨김(호버 툴팁 유지)
+    box.innerHTML = out.map(function (o) {
+      var label = unit === 'week' ? o[0] + ' 주' : o[0];
+      return '<div class="d" style="height:' + (o[1] / mx * 100) + '%" data-t="' + label + ': ' + o[1] + '">' +
+        (o[1] ? '<span class="v">' + o[1] + '</span>' : '') + '</div>';
+    }).join('');
+    var suf = unit === 'week' ? ' 주' : '';
+    el('c-days-range').innerHTML = out.length ? '<span>' + out[0][0] + suf + '</span><span>' + out[out.length - 1][0] + suf + '</span>' : '';
+    el('c-days-note').textContent = note;
   }
 
   // ---------- 세계지도 (choropleth 시각화) ----------
