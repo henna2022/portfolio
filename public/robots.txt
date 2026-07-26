@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin/
 Disallow: /admin.html
 
-Sitemap: https://henna2022.github.io/portfolio/sitemap.xml
+Sitemap: https://juwonlee.dev/sitemap.xml

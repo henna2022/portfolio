@@ -39,14 +39,14 @@ export default function ProjectPage({
     "@type": "CreativeWork",
     name: p.title,
     description: p.desc,
-    url: `https://henna2022.github.io/portfolio/work/${p.slug}/`,
+    url: `https://juwonlee.dev/work/${p.slug}/`,
     author: {
       "@type": "Person",
       name: "Juwon Lee",
-      url: "https://henna2022.github.io/portfolio/",
+      url: "https://juwonlee.dev/",
     },
     ...(p.image
-      ? { image: `https://henna2022.github.io/portfolio${p.image}` }
+      ? { image: `https://juwonlee.dev${p.image}` }
       : {}),
   };
 

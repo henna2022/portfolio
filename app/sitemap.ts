@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/lib/data";
 
-const BASE = "https://henna2022.github.io/portfolio";
+const BASE = "https://juwonlee.dev";
 
 // 정적 export 용 sitemap.xml 생성
 export const dynamic = "force-static";

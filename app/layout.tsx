@@ -24,7 +24,7 @@ const generalSans = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://henna2022.github.io/portfolio"),
+  metadataBase: new URL("https://juwonlee.dev"),
   title: "Juwon Lee | AI Product Engineer",
   description:
     "Portfolio of Juwon Lee, an AI product engineer building systems end to end, from sensor to shipped product.",
@@ -62,8 +62,8 @@ const personJsonLd = {
   "@type": "Person",
   name: "Juwon Lee",
   alternateName: "이주원",
-  url: "https://henna2022.github.io/portfolio/",
-  image: "https://henna2022.github.io/portfolio/portfolio_images/profile/juwonlee.jpg",
+  url: "https://juwonlee.dev/",
+  image: "https://juwonlee.dev/portfolio_images/profile/juwonlee.jpg",
   jobTitle: "AI Product Engineer",
   worksFor: {
     "@type": "Organization",
