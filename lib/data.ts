@@ -534,7 +534,8 @@ export const experience = [
     role: "Data Contributor & QA",
     period: "2025.11 - 2026.01",
     points: [
-      "Built complex 3-hop reasoning Q&A datasets for AI model training and evaluation.",
+      "Built and reviewed visual question-answering (VQA) datasets for LLM training on an ETRI (Electronics and Telecommunications Research Institute) project, including complex 3-hop reasoning Q&A sets.",
+      "Checked each question–response pair against the project's correction guidelines for grammatical and semantic accuracy, and rewrote the assistant answers that did not follow logically from the user's question.",
       "Sustained 2.5× the team's average throughput while holding accuracy.",
     ],
   },
