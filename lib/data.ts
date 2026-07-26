@@ -525,7 +525,8 @@ export const experience = [
     points: [
       "Research, build, and run the interactive AI education web apps visitors use live on the exhibition floor; the Art Lab alone generates over 3,000 images a month.",
       "Design education programs end to end: a smart-farm curriculum commissioned by Yangpyeong Education Office, built with its full server and web-app stack, with classes upcoming for a 15-student high-school cohort.",
-      "Ship the internal ops and exhibition tools behind them: a staff scheduler, an AI photo booth, and a metaverse exhibit.",
+      // 메타버스 전시는 어느 정도 완성되면 다시 추가한다 (data.ts 의 raim-metaverse 주석 블록과 함께)
+      "Ship the internal ops and exhibition tools behind them: a staff scheduler and an AI photo booth.",
       "Guide exhibitions bilingually (KO / EN) and support the multipurpose education rooms.",
     ],
   },
