@@ -87,10 +87,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <link
-          rel="preconnect"
-          href="https://static.cloudflareinsights.com"
-        />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script
           type="application/ld+json"
@@ -103,12 +99,11 @@ export default function RootLayout({
           <ScrollProgress />
           {children}
         </SmoothScroll>
-        {/* Cloudflare Web Analytics */}
-        <script
-          type="module"
-          src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon='{"token": "94a926a0e02c413797b19cb641a11f32"}'
-        />
+        {/* (제거) Cloudflare Web Analytics — 아래 자체 통계와 수집 항목이 겹치는
+            서드파티 비콘이었다. 이 사이트는 GitHub Pages 라 Cloudflare 뒤에 있지도
+            않아 순수 JS 비콘이었고, 차단 DNS·광고 차단기를 쓰는 방문자에게는
+            cloudflareinsights.com 이 0.0.0.0 으로 널라우팅되어 콘솔에
+            ERR_CONNECTION_REFUSED 만 남겼다. */}
         {/* 자체 방문 통계 (Supabase) — 프로덕션에서만 수집해 dev 방문이 섞이지 않게 함 */}
         {process.env.NODE_ENV === "production" ? (
           <>
