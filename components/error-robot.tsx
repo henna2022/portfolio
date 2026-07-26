@@ -1,6 +1,13 @@
 "use client";
 
-import { Component, Suspense, useEffect, useRef, type ReactNode } from "react";
+import {
+  Component,
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useAnimations, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
@@ -104,22 +111,61 @@ class Boundary extends Component<{ children: ReactNode }, { failed: boolean }> {
 
 export default function ErrorRobot() {
   const reduced = useReducedMotion();
+  const host = useRef<HTMLDivElement>(null);
+  // 컨테이너가 실제 크기를 가진 뒤에 <Canvas> 를 붙인다. 폭이 0 인 순간에
+  // 마운트되면 R3F 가 초기 사이징을 놓쳐 캔버스가 300x150 인 채로 남고
+  // 로봇이 아예 보이지 않는다.
+  const [sized, setSized] = useState(false);
+
+  useEffect(() => {
+    const el = host.current;
+    if (!el) return;
+    const check = () => {
+      const { width, height } = el.getBoundingClientRect();
+      if (width > 0 && height > 0) setSized(true);
+    };
+    check();
+    const ro = new ResizeObserver(check);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  // 크기가 있는 상태로 붙여도 R3F 내부 measure 가 첫 프레임을 놓쳐 캔버스가
+  // 기본 300x150 로 남는 경우가 있다. 마운트 직후, 그리고 숨김 탭에서 열렸다
+  // 돌아왔을 때 resize 를 흘려 강제로 다시 재게 한다.
+  // (rAF 는 숨김 문서에서 멈추므로 타이머를 쓴다)
+  useEffect(() => {
+    if (!sized) return;
+    const ping = () => window.dispatchEvent(new Event("resize"));
+    const t = setTimeout(ping, 100);
+    document.addEventListener("visibilitychange", ping);
+    return () => {
+      clearTimeout(t);
+      document.removeEventListener("visibilitychange", ping);
+    };
+  }, [sized]);
+
   return (
-    <Boundary>
-      <Canvas
-        dpr={[1, 1.5]}
-        camera={{ fov: 35, position: [0, 0.1, 4.2] }}
-        gl={{ antialias: true, alpha: true }}
-        className="!touch-auto"
-      >
-        <hemisphereLight intensity={1.25} groundColor="#aab4c4" />
-        <directionalLight position={[4, 7, 5]} intensity={1.6} />
-        <directionalLight position={[-3, 4, 8]} intensity={0.5} color="#cfe0ff" />
-        <Suspense fallback={null}>
-          <Robot reduced={!!reduced} />
-        </Suspense>
-      </Canvas>
-    </Boundary>
+    <div ref={host} className="h-full w-full">
+      <Boundary>
+        {/* 카메라 거리 7.2 — 손 흔들 때 올라가는 팔이 캔버스 밖으로 잘리지 않는 여백 */}
+        {sized ? (
+          <Canvas
+            dpr={[1, 1.5]}
+            camera={{ fov: 35, position: [0, 0.25, 7.2] }}
+            gl={{ antialias: true, alpha: true }}
+            className="!touch-auto"
+          >
+            <hemisphereLight intensity={1.25} groundColor="#aab4c4" />
+            <directionalLight position={[4, 7, 5]} intensity={1.6} />
+            <directionalLight position={[-3, 4, 8]} intensity={0.5} color="#cfe0ff" />
+            <Suspense fallback={null}>
+              <Robot reduced={!!reduced} />
+            </Suspense>
+          </Canvas>
+        ) : null}
+      </Boundary>
+    </div>
   );
 }
 
