@@ -8,6 +8,22 @@
   var URL = window.SB_URL, KEY = window.SB_ANON_KEY;
   if (!URL || !KEY || /YOUR-/.test(URL) || /YOUR-/.test(KEY)) return; // 미설정 → 비활성
 
+  // ── 본인 기기 제외 ──────────────────────────────────────────────
+  // ?notrack=1 로 한 번 들어오면 이 브라우저에는 플래그가 남아 이후 방문이
+  // 전부 집계에서 빠진다. ?notrack=0 이면 해제. localStorage 라 브라우저를
+  // 껐다 켜도 유지되고, 기기·브라우저마다 따로 설정한다.
+  try {
+    var q = new URLSearchParams(location.search).get('notrack');
+    if (q === '1' || q === 'on')  localStorage.setItem('pf_notrack', '1');
+    if (q === '0' || q === 'off') localStorage.removeItem('pf_notrack');
+    if (localStorage.getItem('pf_notrack') === '1') {
+      // 설정이 걸려 있는지 콘솔에서 바로 확인할 수 있게 한 줄 남긴다
+      console.info('%c[analytics] 이 브라우저는 집계에서 제외됩니다 (해제: ?notrack=0)',
+                   'color:#3B82F6');
+      return;
+    }
+  } catch (e) { /* 저장소 차단 환경이면 그냥 정상 집계 */ }
+
   var REST = URL.replace(/\/$/, '') + '/rest/v1/';
   var H = { apikey: KEY, Authorization: 'Bearer ' + KEY, 'Content-Type': 'application/json' };
 

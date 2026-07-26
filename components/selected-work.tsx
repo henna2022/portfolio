@@ -141,7 +141,8 @@ function MajorCard({
           {p.title}
         </h3>
         <p className="mt-1 text-xs text-muted">{p.kicker}</p>
-        <p className="mt-3 text-sm leading-relaxed text-ink/70">
+        {/* 요약은 카드에서 가장 많이 읽히는 부분이라 본문급으로 키운다 */}
+        <p className="mt-3.5 text-[15px] leading-[1.75] tracking-[-0.005em] text-ink/75 sm:text-base sm:leading-[1.75]">
           {p.desc}
         </p>
         <div className="mt-4 flex flex-wrap gap-1.5">

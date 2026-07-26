@@ -32,6 +32,13 @@ jobs:
         env:
           DEPLOY_TARGET: github-pages
 
+      - name: QA (빌드 산출물 정적 검사)
+        # 깨진 자산 참조·누락된 메타·alt 없는 이미지 등을 배포 전에 잡는다.
+        # HIGH 발견이 하나라도 있으면 exit 1 로 배포가 멈춘다.
+        run: npm run qa
+        env:
+          DEPLOY_TARGET: github-pages
+
       - name: Add .nojekyll
         run: touch out/.nojekyll
 
