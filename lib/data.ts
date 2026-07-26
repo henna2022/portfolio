@@ -515,7 +515,11 @@ export const experience = [
     org: "Seoul Robot & AI Science Museum",
     role: "Education Content Planner & Developer",
     period: "2026.03 - Present",
-    gallery: ["/portfolio_images/experience/docent_1.JPG"],
+    gallery: [
+      "/portfolio_images/experience/docent_1.JPG",
+      "/portfolio_images/experience/docent_2.jpg",
+      "/portfolio_images/experience/docent_3.jpg",
+    ],
     points: [
       "Build and run interactive AI education web apps used live by museum visitors.",
       "Planned and built a smart-farm education program commissioned by Yangpyeong Education Office (full server and web-app setup), delivered to a 15-student high-school cohort.",
