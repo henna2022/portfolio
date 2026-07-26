@@ -117,7 +117,7 @@ export const about = {
   proseMore: [
     [
       { text: "That software mostly lands in places people stand in. At the Seoul Robot & AI Science Museum my Art Lab runs live on the exhibition floor, generating " },
-      { text: "142 images on an average weekday and 557 on weekends", b: true },
+      { text: "over 3,000 images a month", b: true },
       { text: ", the first service there whose volume could be measured through its own backend. Doctor-Green reaches down to " },
       { text: "ESP32 sensor nodes", b: true },
       { text: ", and with ATO I took it all the way to the hardware: firmware, servos, and an LCD face." },
@@ -395,23 +395,23 @@ export const projects: Project[] = [
     category: "Web App · Education",
     categories: ["AI", "Web", "Education"],
     kicker: "Live @ Seoul Robot & AI Science Museum",
-    desc: "A guided prompt builder where visitors co-create AI artwork with the museum character Raimi. Running live at the museum, it generates an average of 142 images on weekdays and 557 on weekends.",
+    desc: "A guided prompt builder where visitors co-create AI artwork with the museum character Raimi. Running live at the museum, it generates over 3,000 images a month.",
     year: "2026",
     role: "Planning · development · operations",
     tags: ["JavaScript", "OpenAI API", "Vercel Serverless", "Supabase", "Cloudflare R2", "PWA"],
     repo: "https://github.com/henna2022/raim-ai-artstudio",
     image: "/portfolio_images/projects/artlab-mode.jpg",
     imageFit: "contain",
-    stat: "140+/day",
+    stat: "3,000+/month",
     overview:
-      "Visitors compose a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI generates the artwork. Designed so young visitors learn the principles of prompt engineering through play, with a 10-step (+5 advanced) choice-based prompt builder that shows how a prompt is put together.\n\nThe off-the-shelf GPT service used before suffered repeated connection conflicts on the exhibition floor. Moving to a custom web app and serverless backend eliminated 100% of those conflicts; the backend calls the OpenAI image-generation API, auto-watermarks every image with the museum logo, and dual-stores results on Cloudflare R2 and Supabase. Visitors take their creations home instantly via QR code, and shipping it as a web app locked the exhibition kiosk down from other apps.\n\nIt now runs live at the museum, generating an average of 142 images on weekdays and 557 on weekends. It is the first service at the museum whose generation volume could be quantified, through its own backend.",
+      "Visitors compose a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI generates the artwork. Designed so young visitors learn the principles of prompt engineering through play, with a 10-step (+5 advanced) choice-based prompt builder that shows how a prompt is put together.\n\nThe off-the-shelf GPT service used before suffered repeated connection conflicts on the exhibition floor. Moving to a custom web app and serverless backend eliminated 100% of those conflicts; the backend calls the OpenAI image-generation API, auto-watermarks every image with the museum logo, and dual-stores results on Cloudflare R2 and Supabase. Visitors take their creations home instantly via QR code, and shipping it as a web app locked the exhibition kiosk down from other apps.\n\nIt now runs live at the museum, generating over 3,000 images a month (3,049 in June 2026). It is the first service at the museum whose generation volume could be quantified, through its own backend.",
     highlights: [
       "10-step (+5 advanced) choice-based prompt builder that teaches prompt composition through play, designed for all-ages museum visitors.",
       "Eliminated 100% of the connection conflicts of the prior off-the-shelf GPT service by moving to a custom web app and backend.",
       "Serverless backend on the OpenAI image-generation API, deployed on Vercel.",
       "Auto-watermarks every image with the museum logo and dual-stores on Cloudflare R2 and Supabase.",
       "QR-code takeaway for visitors' creations; shipping as a web app locked the exhibition kiosk down from other apps.",
-      "142 images generated on an average weekday and 557 on weekends: the first museum service to quantify generation volume via a custom backend.",
+      "Over 3,000 images generated a month: the first museum service to quantify generation volume via a custom backend.",
     ],
     flow: ["10-step prompt builder", "OpenAI API", "Auto-watermark", "R2 + Supabase"],
     flowImage: {
