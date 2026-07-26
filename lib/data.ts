@@ -514,10 +514,23 @@ export const skillGroups: SkillGroup[] = [
       "Python",
       "YOLOv8",
       "VGG16 · CNN",
-      "Roboflow",
       "OpenAI API",
       "Multimodal AI",
-      "Data QA",
+    ],
+  },
+  {
+    // 모델을 만드는 일과 데이터를 만드는 일은 성격이 달라 따로 둔다.
+    // 근거: Select Star 의 ETRI VQA 데이터셋 구축·검수, Doctor-Green 의
+    // 클래스 불균형 보정용 증강 전략 (Roboflow 도 여기로 옮겼다).
+    key: "data",
+    title: "Data & Datasets",
+    capability: "I build and check the datasets models learn from.",
+    items: [
+      "VQA Datasets",
+      "Dataset QA",
+      "Annotation Guidelines",
+      "Data Augmentation",
+      "Roboflow",
     ],
   },
   {

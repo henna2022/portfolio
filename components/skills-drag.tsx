@@ -14,7 +14,7 @@ const chipIcons: Record<string, string> = {
   TypeScript: "typescript.svg",
   JavaScript: "javascript.svg",
   Supabase: "supabase.svg",
-  Firebase: "firebase.svg",
+  "Firebase / Firestore": "firebase.svg",
   Flask: "flask.svg",
   Tailwind: "tailwindcss.svg",
   Vercel: "vercel.svg",
