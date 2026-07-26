@@ -502,34 +502,77 @@ export type SkillGroup = {
   items: string[];
 };
 
+// 여기 적는 항목은 전부 위 프로젝트에서 실제로 쓴 것만 둔다.
+// 웹이 한 덩어리로 14개까지 불어나서 프런트/백엔드로 나눴고,
+// Exhibit Auto-Recovery 로 생긴 운영·복구 쪽은 갈 곳이 없어 그룹을 새로 만들었다.
 export const skillGroups: SkillGroup[] = [
   {
     key: "ai",
     title: "AI & Computer Vision",
     capability: "I train, evaluate, and ship vision models end to end.",
-    items: ["Python", "YOLOv8", "VGG16 · CNN", "Roboflow", "Data QA"],
+    items: [
+      "Python",
+      "YOLOv8",
+      "VGG16 · CNN",
+      "Roboflow",
+      "OpenAI API",
+      "Multimodal AI",
+      "Data QA",
+    ],
   },
   {
-    key: "web",
-    title: "Full-stack Web",
-    capability: "I build and operate real services people use daily.",
+    key: "front",
+    title: "Frontend & App",
+    capability: "I build the interfaces people actually touch, web and mobile.",
     items: [
       "Next.js",
       "React",
       "TypeScript",
       "JavaScript",
-      "Supabase",
-      "Firebase",
-      "Flask",
       "Tailwind",
+      "Vite",
+      "PWA",
+      "Capacitor",
+      "Web Speech API",
+    ],
+  },
+  {
+    key: "back",
+    title: "Backend & Infra",
+    capability: "I run the data, storage, and deploys behind them.",
+    items: [
+      "Supabase",
+      "Firebase / Firestore",
+      "Flask",
+      "Serverless Functions",
+      "Cloudflare R2",
       "Vercel",
+      "GitHub Pages",
     ],
   },
   {
     key: "hw",
     title: "Hardware · IoT · Robotics",
     capability: "I connect sensors and machines to the web.",
-    items: ["ESP32", "MicroPython", "Arduino · C++", "Sensors", "3D Printing"],
+    items: [
+      "ESP32",
+      "MicroPython",
+      "Arduino · C++",
+      "Sensors",
+      "SPI Displays",
+      "3D Printing",
+    ],
+  },
+  {
+    key: "ops",
+    title: "Ops & Reliability",
+    capability: "I keep what I deploy recovering without me on site.",
+    items: [
+      "PowerShell",
+      "Task Scheduler",
+      "Watchdog & Auto-Recovery",
+      "Tailscale · WireGuard",
+    ],
   },
   {
     key: "edu",
@@ -548,6 +591,7 @@ export const skillGroups: SkillGroup[] = [
 export const experience = [
   {
     org: "Seoul Robot & AI Science Museum",
+    site: "https://science.seoul.go.kr/RAIM/index.do",
     role: "Education R&D · Developer",
     period: "2026.03 - Present",
     gallery: [
@@ -565,6 +609,7 @@ export const experience = [
   },
   {
     org: "Select Star",
+    site: "https://selectstar.ai/",
     role: "Data Contributor & QA",
     period: "2025.11 - 2026.01",
     points: [
@@ -575,6 +620,7 @@ export const experience = [
   },
   {
     org: "Ministry of Science and ICT",
+    site: "https://www.msit.go.kr/index.do",
     role: "Youth Intern",
     period: "2025.04 - 2025.07",
     points: [

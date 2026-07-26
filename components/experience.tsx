@@ -5,6 +5,7 @@ import { experience } from "@/lib/data";
 import { assetPath } from "@/lib/asset";
 import { ui } from "@/lib/i18n";
 import { ease } from "@/lib/motion";
+import { ArrowIcon } from "./icons";
 
 export function Experience() {
   const t = ui;
@@ -33,9 +34,20 @@ export function Experience() {
           >
             <div className="grid gap-4 sm:grid-cols-[1fr_1.6fr]">
               <div>
-                <p className="font-display text-xl font-semibold">
-                  {e.org}
-                </p>
+                {/* 기관 홈페이지 — "실제로 운영 중인 곳"이라는 주장을 바로 확인시켜 준다 */}
+                {"site" in e && e.site ? (
+                  <a
+                    href={e.site}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-display group inline-flex items-start gap-1.5 text-xl font-semibold transition-colors hover:text-lime-ink"
+                  >
+                    {e.org}
+                    <ArrowIcon className="mt-1.5 h-3.5 w-3.5 shrink-0 -rotate-45 text-muted transition-colors group-hover:text-lime-ink" />
+                  </a>
+                ) : (
+                  <p className="font-display text-xl font-semibold">{e.org}</p>
+                )}
                 <p className="mt-1 text-sm text-muted">{e.role}</p>
                 <p className="mt-2 text-xs text-muted">{e.period}</p>
               </div>
