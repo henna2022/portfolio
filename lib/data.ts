@@ -152,7 +152,6 @@ export type Project = {
   href?: string;
   repo?: string;
   image?: string;
-  imageFit?: "cover" | "contain";
   stat?: string;
   overview: string;
   highlights: string[];
@@ -178,14 +177,14 @@ export const projects: Project[] = [
     repo: "https://github.com/henna2022/smartfarm-device",
     stat: "15-student cohort (planned)",
     overview:
-      "A hands-on education program commissioned by the Yangpyeong Education Office through the museum, where students experience an IoT smart farm and AI crop diagnosis first-hand. I planned the program and built everything it needed solo (the full server and web-app environment), designed so students watch data accumulate and sensor values change in real time, with their own eyes. The AI model is currently being refined; the program is planned to run as a class for a cohort of 15 Yangpyeong high-school students, selected by application.\n\nA class runs as a guided flow: students enter the virtual lab, pick a room at the hub, and move through four STEPs (weather, AI vision, IoT, and camera), watching data load into a virtual Supabase before finishing with 'my app complete' and a live hardware demo. A location-based weather API ties the lessons to real growing conditions, and the YOLO training process (epoch experiments, loss reduction) is explored together at the students' level.\n\nThe program is a museum × education-office commission: an exhibition-linked education case planned and built end to end by one person.",
+      "A hands-on education program commissioned by the Yangpyeong Education Office through the museum, where students experience an IoT smart farm and AI crop diagnosis first-hand. I planned the program and built everything it needed solo (**the full server and web-app environment**), designed so students watch data accumulate and **sensor values change in real time**, with their own eyes. The AI model is currently being refined; the program is planned to run as a class for a **cohort of 15 Yangpyeong high-school students**, selected by application.\n\nA class runs as a guided flow: students enter the virtual lab, pick a room at the hub, and move through four STEPs (weather, AI vision, IoT, and camera), watching data load into a virtual Supabase before finishing with 'my app complete' and a live hardware demo. A location-based weather API ties the lessons to real growing conditions, and the YOLO training process (epoch experiments, loss reduction) is explored together at the students' level.\n\nThe program is a museum × education-office commission: an exhibition-linked education case **planned and built end to end by one person**.",
     highlights: [
-      "Integrated a location-based weather API to tie lessons to real growing conditions.",
-      "Explored the YOLO training process (epoch experiments, loss reduction) at the students' level.",
-      "Students watch sensor values load and change in real time in a virtual server's database.",
+      "Integrated a **location-based weather API** to tie lessons to real growing conditions.",
+      "Explored the **YOLO training process** (epoch experiments, loss reduction) at the students' level.",
+      "Students watch sensor values **load and change in real time** in a virtual server's database.",
       "Designed the class flow: open lab → room-picker hub → 4 STEPs (weather · AI vision · IoT · camera) → virtual Supabase → app complete → live demo.",
-      "Commissioned by the Yangpyeong Education Office through the museum; planned and built solo, including the full server and web-app environment.",
-      "Planned to run as a class for a 15-student cohort of Yangpyeong high-school students, selected by application.",
+      "Commissioned by the Yangpyeong Education Office through the museum; **planned and built solo**, including the full server and web-app environment.",
+      "Planned to run as a class for a **15-student cohort** of Yangpyeong high-school students, selected by application.",
     ],
     flow: ["IoT sensors", "Weather API", "Server", "Student web app"],
     flowImage: {
@@ -193,7 +192,6 @@ export const projects: Project[] = [
       dark: "/portfolio_images/flow/smart-farm-education-flow-dark.svg",
     },
     image: "/portfolio_images/projects/smartfarm-edu-weather.jpg",
-    imageFit: "contain",
     gallery: [
       "/portfolio_images/projects/smartfarm-edu-hub.jpg",
       "/portfolio_images/projects/smartfarm-edu-weather.jpg",
@@ -218,15 +216,14 @@ export const projects: Project[] = [
     href: "https://doctor-green-nine.vercel.app/",
     repo: "https://github.com/henna2022/doctor-green",
     image: "/portfolio_images/projects/doctorgreen_app.png",
-    imageFit: "contain",
     stat: "End-to-end solo",
     overview:
-      "Doctor-Green is a smart-farm platform that unifies an AI module diagnosing crop disease from camera video with IoT devices that measure and control the growing environment, all operated on a single web platform, so diagnosis and environment control live on one screen. I planned and built the whole pipeline solo, from sensor to dashboard.\n\nIt grew out of the VGG16 plant-disease-diagnosis app that won the Excellence Award at the 2024 ICT·SW Women's Start-up Competition, and was rebuilt in 2026 as a full smart-farm platform on YOLOv8.\n\nESP32 sensor nodes collect environment data, relay it through a Mac-based Flask server into Supabase, and a Next.js web app visualizes it live. From the same app, actuators such as LEDs and fans are controlled in real time through Supabase Realtime subscriptions. For diagnosis, YOLOv8 runs on USB-camera video to detect and diagnose 7 crop-disease classes.\n\nTraining uses the Roboflow strawberry-disease-detection-dataset v4 with an augmentation strategy for class imbalance; the first run (50 epochs) reached mAP50 ≈ 0.95, and a second YOLOv8l run (150 epochs) is in progress to push accuracy further. The web app is deployed on Vercel as a live demo.",
+      "Doctor-Green is a smart-farm platform that unifies an AI module diagnosing crop disease from camera video with IoT devices that measure and control the growing environment, all operated on a **single web platform**, so diagnosis and environment control live on one screen. I **planned and built the whole pipeline solo, from sensor to dashboard**.\n\nIt grew out of the VGG16 plant-disease-diagnosis app that won the **Excellence Award at the 2024 ICT·SW Women's Start-up Competition**, and was rebuilt in 2026 as a full smart-farm platform on YOLOv8.\n\nESP32 sensor nodes collect environment data, relay it through a Mac-based Flask server into Supabase, and a Next.js web app visualizes it live. From the same app, actuators such as LEDs and fans are controlled in real time through Supabase Realtime subscriptions. For diagnosis, YOLOv8 runs on USB-camera video to detect and diagnose **7 crop-disease classes**.\n\nTraining uses the Roboflow strawberry-disease-detection-dataset v4 with an augmentation strategy for class imbalance; the first run (50 epochs) reached **mAP50 ≈ 0.95**, and a second YOLOv8l run (150 epochs) is in progress to push accuracy further. The web app is deployed on Vercel as a live demo.",
     highlights: [
-      "Data flow built end to end: IoT sensing → Mac relay server (Flask) → Supabase → real-time Next.js visualization.",
-      "YOLOv8 on USB-camera video detects and diagnoses 7 crop-disease classes.",
-      "Real-time actuator control (LED, fan) from the web app via Supabase Realtime subscriptions.",
-      "First training (50 epochs) reached mAP50 ≈ 0.95; second YOLOv8l training (150 epochs) in progress.",
+      "**Data flow built end to end**: IoT sensing → Mac relay server (Flask) → Supabase → real-time Next.js visualization.",
+      "YOLOv8 on USB-camera video detects and diagnoses **7 crop-disease classes**.",
+      "**Real-time actuator control** (LED, fan) from the web app via Supabase Realtime subscriptions.",
+      "First training (50 epochs) reached **mAP50 ≈ 0.95**; second YOLOv8l training (150 epochs) in progress.",
       "Used the Roboflow strawberry-disease-detection-dataset v4 with an augmentation strategy for class imbalance.",
       "Next.js 16 + TypeScript + Tailwind web app deployed on Vercel as a live demo.",
     ],
@@ -253,17 +250,16 @@ export const projects: Project[] = [
     role: "Solo: planning & development",
     tags: ["React", "Vite", "Firebase / Firestore", "Capacitor"],
     image: "/portfolio_images/projects/raimapp_main.png",
-    imageFit: "contain",
     stat: "20 staff daily",
     overview:
-      "An internal platform for managing the museum's docents and part-time workers: a self-initiated project where I defined a real operational pain point (repetitive on-site work) and built the answer myself. It brings a per-date schedule grid, staff roster, live duty status, and notices together in a single app.\n\nIt started as a single-HTML prototype and was refactored into a structured Vite + React codebase backed by Firebase (Firestore) for real-time data. The full screen flow was planned and built end to end: login and role-based routing into bottom tabs (home · notices · schedule · status · my page · admin), plus a manager PC console and shared modals.\n\nPackaged with Capacitor for internal iOS / Android distribution, it is currently running as an internal test distribution, used daily by around 20 docents and part-time staff.",
+      "An internal platform for managing the museum's docents and part-time workers: a **self-initiated project** where I defined a real operational pain point (repetitive on-site work) and built the answer myself. It brings a per-date schedule grid, staff roster, live duty status, and notices together in a single app.\n\nIt started as a single-HTML prototype and was **refactored into a structured Vite + React codebase** backed by Firebase (Firestore) for real-time data. The full screen flow was planned and built end to end: login and role-based routing into bottom tabs (home · notices · schedule · status · my page · admin), plus a manager PC console and shared modals.\n\nPackaged with Capacitor for internal iOS / Android distribution, it is currently running as an internal test distribution, **used daily by around 20 docents and part-time staff**.",
     highlights: [
-      "Planned and built the entire service: schedule grid, roster, duty status, and notice screens.",
-      "Refactored a single-HTML prototype into a maintainable Vite + React codebase.",
-      "Real-time roster and duty status backed by Firebase / Firestore.",
+      "**Planned and built the entire service**: schedule grid, roster, duty status, and notice screens.",
+      "Refactored a single-HTML prototype into a **maintainable Vite + React codebase**.",
+      "**Real-time** roster and duty status backed by Firebase / Firestore.",
       "Designed the full screen flow: login/role routing → bottom tabs (home · notices · schedule · status · my page · admin) → manager PC console and shared modals.",
-      "Set up internal iOS / Android distribution with Capacitor, used daily by ~20 docents and part-time staff.",
-      "A self-initiated internal project, started by defining a real operational problem on-site.",
+      "Set up internal iOS / Android distribution with Capacitor, **used daily by ~20 docents and part-time staff**.",
+      "A **self-initiated** internal project, started by defining a real operational problem on-site.",
     ],
     flow: ["React + Vite", "Firebase / Firestore", "Capacitor", "iOS / Android internal"],
     flowImage: {
@@ -290,13 +286,13 @@ export const projects: Project[] = [
     repo: "https://github.com/henna2022/ai-restoration-exhibit",
     image: "/portfolio_images/restorer1.jpg",
     overview:
-      "An interactive web game where visitors restore Korean cultural heritage themselves, planned and built as museum exhibition-education content, so visitors don't just look at the exhibition but experience the restoration process hands-on.\n\nImplemented lightly in JavaScript and HTML/CSS and deployed on GitHub Pages, it runs on 8 exhibition tablets as part of a once-daily exhibition-linked program with around 15 participants per session.",
+      "An interactive web game where visitors restore Korean cultural heritage themselves, planned and built as museum exhibition-education content, so visitors don't just look at the exhibition but experience the restoration process hands-on.\n\nImplemented lightly in JavaScript and HTML/CSS and deployed on GitHub Pages, it runs on **8 exhibition tablets** as part of a once-daily exhibition-linked program with **around 15 participants per session**.",
     highlights: [
       "Planned and developed interactive content for exhibition education.",
       "Game format that connects the exhibition with hands-on heritage restoration.",
-      "Light JavaScript + HTML/CSS implementation that runs without a server.",
-      "Deployed via GitHub Pages to run directly on 8 exhibition tablets.",
-      "Operating live in a once-daily exhibition-linked program with ~15 participants per session.",
+      "Light JavaScript + HTML/CSS implementation that **runs without a server**.",
+      "Deployed via GitHub Pages to run directly on **8 exhibition tablets**.",
+      "**Operating live** in a once-daily exhibition-linked program with **~15 participants per session**.",
     ],
     gallery: [
       "/portfolio_images/restorer1.jpg",
@@ -317,15 +313,14 @@ export const projects: Project[] = [
     tags: ["Web Speech API", "PWA", "HTML/CSS", "KO / EN"],
     repo: "https://github.com/henna2022/raim-ai-studio",
     image: "/portfolio_images/projects/langlab-home.jpg",
-    imageFit: "contain",
     overview:
-      "A game-style learning web app where visitors listen to and repeat words and sentences with the Raimi character, experiencing language and speech AI. It is designed so visitors explore how AI learns language, through play.\n\nThe full game flow (start, menu, play, completion) was planned and built on browser speech synthesis (TTS), so the app runs without any server. It supports both Korean and English, and ships as a PWA for offline use on the 3 exhibition tablets it runs on.",
+      "A game-style learning web app where visitors listen to and repeat words and sentences with the Raimi character, experiencing language and speech AI. It is designed so visitors explore how AI learns language, through play.\n\nThe full game flow (start, menu, play, completion) was planned and built on browser speech synthesis (TTS), so the app **runs without any server**. It supports **both Korean and English**, and ships as a **PWA for offline use** on the 3 exhibition tablets it runs on.",
     highlights: [
       "Designed and built the full game flow: start, menu, play, completion.",
       "Listening & speaking content powered by browser speech synthesis (TTS).",
-      "Runs entirely in the browser with no server required.",
-      "Bilingual Korean / English support.",
-      "Ships as a PWA for offline use on the 3 exhibition tablets.",
+      "**Runs entirely in the browser** with no server required.",
+      "**Bilingual Korean / English** support.",
+      "Ships as a **PWA for offline use** on the **3 exhibition tablets**.",
     ],
     flow: ["Web Speech API", "Browser TTS", "Offline PWA"],
     flowImage: {
@@ -352,12 +347,12 @@ export const projects: Project[] = [
     tags: ["JavaScript", "AI image selection", "QR", "Web App"],
     repo: "https://github.com/henna2022/raim-4cut-studio",
     overview:
-      "Born from a simple problem: visitors had nothing to take home from the museum. With no gift shop and no ticket stub, this booth lets people take four-cut photos with the exhibition robots and grab them instantly via QR code, adding a sense of keepsake to the visit.\n\nThe four-cut frames feature the museum's robot characters, and an AI algorithm picks and recommends the best-looking shot among the takes. It is being developed for the museum's 2nd-anniversary event.",
+      "Born from a simple problem: visitors had nothing to take home from the museum. With no gift shop and no ticket stub, this booth lets people take **four-cut photos with the exhibition robots** and grab them **instantly via QR code**, adding a sense of keepsake to the visit.\n\nThe four-cut frames feature the museum's robot characters, and an **AI algorithm picks and recommends the best-looking shot** among the takes. It is being developed for the **museum's 2nd-anniversary event**.",
     highlights: [
-      "Defined a gap in the visit experience (no keepsake) as the problem and designed the photo booth as the answer.",
+      "**Defined a gap in the visit experience** (no keepsake) as the problem and designed the photo booth as the answer.",
       "Built four-cut frames featuring the museum's robot characters.",
-      "QR-code delivery so visitors take their photos home instantly.",
-      "Applied an AI algorithm that picks and recommends the best-looking shot among the takes.",
+      "**QR-code delivery** so visitors take their photos home instantly.",
+      "Applied an **AI algorithm that picks and recommends the best-looking shot** among the takes.",
       "In development for the museum's 2nd-anniversary event.",
     ],
     flow: ["Capture 4 cuts", "AI best-shot selection", "QR delivery"],
@@ -367,7 +362,7 @@ export const projects: Project[] = [
     },
   },
   // 포트폴리오에서 임시 제외 (RAIM Metaverse) — 되살릴 때 주석을 풀고
-  // 아래 side 프로젝트 번호를 04, 05, 06 으로 되돌린다.
+  // 아래 side 프로젝트 번호를 05, 06, 07 로 한 칸씩 밀어 되돌린다.
   // {
   //   slug: "raim-metaverse",
   //   n: "04",
@@ -403,17 +398,16 @@ export const projects: Project[] = [
     tags: ["JavaScript", "OpenAI API", "Vercel Serverless", "Supabase", "Cloudflare R2", "PWA"],
     repo: "https://github.com/henna2022/raim-ai-artstudio",
     image: "/portfolio_images/projects/artlab-mode.jpg",
-    imageFit: "contain",
     stat: "3,000+/month",
     overview:
-      "Visitors compose a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI generates the artwork. Designed so young visitors learn the principles of prompt engineering through play, with a 10-step (+5 advanced) choice-based prompt builder that shows how a prompt is put together.\n\nThe off-the-shelf GPT service used before suffered repeated connection conflicts on the exhibition floor. Moving to a custom web app and serverless backend eliminated 100% of those conflicts; the backend calls the OpenAI image-generation API, auto-watermarks every image with the museum logo, and dual-stores results on Cloudflare R2 and Supabase. Visitors take their creations home instantly via QR code, and shipping it as a web app locked the exhibition kiosk down from other apps.\n\nIt now runs live at the museum, generating over 3,000 images a month (3,049 in June 2026). It is the first service at the museum whose generation volume could be quantified, through its own backend.",
+      "Visitors compose a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI generates the artwork. Designed so young visitors learn the principles of prompt engineering through play, with a **10-step (+5 advanced) choice-based prompt builder** that shows how a prompt is put together.\n\nThe off-the-shelf GPT service used before suffered repeated connection conflicts on the exhibition floor. Moving to a custom web app and serverless backend **eliminated 100% of those conflicts**; the backend calls the OpenAI image-generation API, auto-watermarks every image with the museum logo, and dual-stores results on Cloudflare R2 and Supabase. Visitors take their creations home instantly via QR code, and shipping it as a web app locked the exhibition kiosk down from other apps.\n\nIt now runs live at the museum, generating **over 3,000 images a month** (3,049 in June 2026). It is the **first service at the museum whose generation volume could be quantified**, through its own backend.",
     highlights: [
-      "10-step (+5 advanced) choice-based prompt builder that teaches prompt composition through play, designed for all-ages museum visitors.",
-      "Eliminated 100% of the connection conflicts of the prior off-the-shelf GPT service by moving to a custom web app and backend.",
+      "**10-step (+5 advanced) choice-based prompt builder** that teaches prompt composition through play, designed for all-ages museum visitors.",
+      "**Eliminated 100% of the connection conflicts** of the prior off-the-shelf GPT service by moving to a custom web app and backend.",
       "Serverless backend on the OpenAI image-generation API, deployed on Vercel.",
-      "Auto-watermarks every image with the museum logo and dual-stores on Cloudflare R2 and Supabase.",
+      "**Auto-watermarks** every image with the museum logo and **dual-stores on Cloudflare R2 and Supabase**.",
       "QR-code takeaway for visitors' creations; shipping as a web app locked the exhibition kiosk down from other apps.",
-      "Over 3,000 images generated a month: the first museum service to quantify generation volume via a custom backend.",
+      "**Over 3,000 images generated a month**: the **first museum service to quantify generation volume** via a custom backend.",
     ],
     flow: ["10-step prompt builder", "OpenAI API", "Auto-watermark", "R2 + Supabase"],
     flowImage: {
@@ -424,6 +418,9 @@ export const projects: Project[] = [
       "/portfolio_images/projects/artlab-home.jpg",
       "/portfolio_images/projects/artlab-mode.jpg",
       "/portfolio_images/projects/artlab-builder.jpg",
+      // 전시장 실사용 컷 — 프롬프트 고르는 중, 그리고 완성 후 QR 저장
+      "/portfolio_images/projects/artlab-onsite-prompt.jpg",
+      "/portfolio_images/projects/artlab-onsite-result.jpg",
     ],
   },
   {
@@ -440,15 +437,15 @@ export const projects: Project[] = [
     tags: ["ESP32", "Arduino/C++", "GC9A01 LCD", "Servo / PIR / Touch", "3D Printing", "Multimodal AI"],
     stat: "GH Prize",
     overview:
-      "ATO is a rabbit-shaped emotional companion robot for single-person households and seniors. Two round displays act as expressive 'eyes' that show emotion, and sensors detect when someone approaches or pets it, triggering reactions.\n\nAn ESP32 drives the dual GC9A01 round LCDs for eye-expression animations such as blinking and gaze shifts, integrated with PIR proximity detection, capacitive petting touch, DFPlayer audio, and servo-driven ear and arm motion. The build covers the entire process: circuit design, firmware, a 3D-printed body, and microfiber cover sewing patterns.\n\nOn top of this, ATO integrates YAKMOA, a multimodal-AI feature that recognizes medicines and manages dose schedules, extending the robot from companionship into medication care. YAKMOA was designed as a medication-management service for digitally vulnerable users and people with disabilities, and won a prize at the GH Youth Build-Up Start-up Competition. The robot itself was built solo end to end; the YAKMOA service was planned and commercialized as the 2-person team MAKENEW, where I was PM & developer. The robot is currently a Phase 1 prototype, with medication care being integrated.",
+      "ATO is a rabbit-shaped emotional companion robot for single-person households and seniors. Two round displays act as expressive 'eyes' that show emotion, and sensors detect when someone approaches or pets it, triggering reactions.\n\nAn ESP32 drives the dual GC9A01 round LCDs for eye-expression animations such as blinking and gaze shifts, integrated with PIR proximity detection, capacitive petting touch, DFPlayer audio, and servo-driven ear and arm motion. The build covers the **entire process: circuit design, firmware, a 3D-printed body, and microfiber cover sewing patterns**.\n\nOn top of this, ATO integrates YAKMOA, a multimodal-AI feature that recognizes medicines and manages dose schedules, extending the robot from companionship into medication care. YAKMOA was designed as a medication-management service for digitally vulnerable users and people with disabilities, and **won a prize at the GH Youth Build-Up Start-up Competition**. The robot itself was **built solo end to end**; the YAKMOA service was planned and commercialized as the 2-person team MAKENEW, where I was PM & developer. The robot is currently a **Phase 1 prototype**, with medication care being integrated.",
     highlights: [
       "Eye-expression animations (blinking, gaze) on dual GC9A01 round LCDs driven by an ESP32.",
       "Integrated PIR proximity detection, capacitive petting touch, DFPlayer audio, and servo ear/arm motion.",
-      "Robot built 100% solo across the entire process: circuit design, firmware, a 3D-printed body, and microfiber sewing patterns.",
-      "Integrated YAKMOA (multimodal-AI medicine recognition and dose management), combining companionship with medication care in one robot.",
-      "YAKMOA designed as a medication-management service for digitally vulnerable users and people with disabilities; won a prize at the GH Youth Build-Up Start-up Competition (team MAKENEW).",
-      "For the YAKMOA service, worked as the 2-person team MAKENEW: as PM & developer, led service planning, user research, and authored the business plan & pitch deck.",
-      "Currently a Phase 1 prototype, integrating medication care.",
+      "Robot built **100% solo** across the entire process: circuit design, firmware, a 3D-printed body, and microfiber sewing patterns.",
+      "Integrated **YAKMOA** (multimodal-AI medicine recognition and dose management), **combining companionship with medication care in one robot**.",
+      "YAKMOA designed as a medication-management service for digitally vulnerable users and people with disabilities; **won a prize at the GH Youth Build-Up Start-up Competition** (team MAKENEW).",
+      "For the YAKMOA service, worked as the 2-person team MAKENEW: as **PM & developer**, led service planning, user research, and authored the business plan & pitch deck.",
+      "Currently a **Phase 1 prototype**, integrating medication care.",
     ],
     flow: ["Sensors (PIR / touch)", "ESP32 / Arduino", "Servo + LCD expression", "YAKMOA multimodal AI"],
     flowImage: {
@@ -477,14 +474,14 @@ export const projects: Project[] = [
     repo: "https://github.com/henna2022/maskbot-restart",
     stat: "1 operator → all staff",
     overview:
-      "MaskBot is a face- and voice-interaction robot exhibit on the museum floor. Its control software would intermittently freeze or exit mid-operation, and the only remedy was a manual restart, which in practice only one person could perform, at one specific machine, through a remote session. Every failure became a wait: find the person, get them to the machine, walk through the remote login. Meanwhile visitors stood in front of an exhibit that could not hear them.\n\nI took this on after performing that manual restart one too many times. The key observation was that the fix itself was trivial, closing a window and reopening it, and that the entire cost lived in who was permitted to perform it and how long it took them to get there. So the goal was never to make the restart smarter. It was to remove the human bottleneck around it.\n\nThe result runs in three layers on the exhibit machine. A watchdog polls the program every 20 seconds and restarts it when the process has died or its window stops responding, with a two-stage confirmation so a momentarily busy UI is not killed by mistake, and a back-off after repeated failures so a deeper hardware fault does not become a restart loop. Scheduled restarts run twice daily as preventive maintenance. And a small HTTP service serves a single-button page, so any staff member can trigger recovery from their own phone.\n\nThat third layer exists because of a limit I could not engineer away. The most common failure leaves the process alive and the window responsive while speech recognition silently stops working, and no health signal available to me distinguishes that from a healthy exhibit. Rather than paper over it, I designed around it: the automated layers handle every failure a machine can detect, and the human layer covers the one it cannot.\n\nReaching the exhibit machine from a personal phone was a separate problem, as staff devices had no route to it. I used Tailscale, a WireGuard-based mesh VPN, so enrolled devices reach the service over an encrypted peer-to-peer tunnel with no inbound port exposed; access stays limited to devices inside that private network.\n\nThe system now runs unattended in daily operation. I also wrote a handover document covering configuration, logs, routine maintenance, a diagnosis playbook, and the system's documented limitations, so the maintenance technician can own it without me.",
+      "MaskBot is a face- and voice-interaction robot exhibit on the museum floor. Its control software would intermittently freeze or exit mid-operation, and the only remedy was a manual restart, which in practice **only one person could perform, at one specific machine**, through a remote session. Every failure became a wait: find the person, get them to the machine, walk through the remote login. Meanwhile visitors stood in front of an exhibit that could not hear them.\n\nI took this on after performing that manual restart one too many times. The key observation was that the fix itself was trivial, closing a window and reopening it, and that the entire cost lived in who was permitted to perform it and how long it took them to get there. So the goal was never to make the restart smarter. It was to **remove the human bottleneck around it**.\n\nThe result runs in three layers on the exhibit machine. A watchdog **polls the program every 20 seconds** and restarts it when the process has died or its window stops responding, with a two-stage confirmation so a momentarily busy UI is not killed by mistake, and a back-off after repeated failures so a deeper hardware fault does not become a restart loop. Scheduled restarts run twice daily as preventive maintenance. And a small HTTP service serves a **single-button page**, so **any staff member can trigger recovery from their own phone**.\n\nThat third layer exists because of a limit I could not engineer away. The most common failure leaves the process alive and the window responsive while speech recognition silently stops working, and no health signal available to me distinguishes that from a healthy exhibit. Rather than paper over it, I designed around it: the automated layers handle every failure a machine can detect, and the human layer covers the one it cannot.\n\nReaching the exhibit machine from a personal phone was a separate problem, as staff devices had no route to it. I used Tailscale, a WireGuard-based mesh VPN, so enrolled devices reach the service over an encrypted peer-to-peer tunnel with no inbound port exposed; access stays limited to devices inside that private network.\n\nThe system now **runs unattended in daily operation**. I also wrote a handover document covering configuration, logs, routine maintenance, a diagnosis playbook, and the system's documented limitations, so the maintenance technician can own it without me.",
     highlights: [
-      "Reframed the problem: the restart was trivial; the real cost was that only one person, at one machine, was able to perform it.",
-      "Watchdog restarts the exhibit within seconds of a crash or hang, with two-stage confirmation against false positives and back-off to prevent restart loops on deeper faults.",
-      "One-tap recovery page served from the exhibit machine, turning an escalation into something any staff member can do from their own phone.",
-      "Designed around an undetectable failure mode: when speech recognition dies silently, automation cannot tell, so scheduled restarts and the manual button cover what the watchdog structurally cannot.",
-      "Encrypted mesh VPN (Tailscale / WireGuard) gives enrolled devices access without exposing any inbound port.",
-      "Shipped with a maintenance handover document: configuration, logs, diagnosis playbook, and known limitations.",
+      "**Reframed the problem**: the restart was trivial; the real cost was that **only one person, at one machine**, was able to perform it.",
+      "Watchdog **restarts the exhibit within seconds** of a crash or hang, with two-stage confirmation against false positives and back-off to prevent restart loops on deeper faults.",
+      "**One-tap recovery page** served from the exhibit machine, turning an escalation into something **any staff member can do from their own phone**.",
+      "**Designed around an undetectable failure mode**: when speech recognition dies silently, automation cannot tell, so scheduled restarts and the manual button cover what the watchdog structurally cannot.",
+      "**Encrypted mesh VPN** (Tailscale / WireGuard) gives enrolled devices access **without exposing any inbound port**.",
+      "Shipped with a **maintenance handover document**: configuration, logs, diagnosis playbook, and known limitations.",
     ],
     flow: ["Watchdog + schedule", "Restart service", "Mesh VPN", "Staff phone"],
     flowImage: {

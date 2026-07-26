@@ -69,6 +69,26 @@
     main.main{padding-top:18px}
   }
 
+  /* 이번 주 요약 (규칙 기반 — 브라우저에서 계산, 외부 호출 없음) */
+  .dg-group{padding:13px 0;border-bottom:1px dashed rgba(255,255,255,.07)}
+  .dg-group:first-child{padding-top:0}
+  .dg-group:last-child{border-bottom:none;padding-bottom:0}
+  .dg-h{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px}
+  /* 불릿(::before)과 본문을 한 줄에 두고, 줄바꿈은 본문 안에서만 일어나게 한다 */
+  .dg-line{display:flex;gap:8px;align-items:baseline;font-size:13.5px;padding:3px 0}
+  .dg-line>div{min-width:0}
+  .dg-line::before{content:'';flex:none;width:5px;height:5px;border-radius:50%;background:var(--dim);transform:translateY(-3px)}
+  .dg-line.good::before{background:var(--good)}
+  .dg-line.warn::before{background:var(--bad)}
+  .dg-line b{font-weight:700;font-variant-numeric:tabular-nums}
+  .dg-line .sub{color:var(--dim);font-size:12.5px}
+  .dg-line em{font-style:normal;font-size:11px;border-radius:5px;padding:1px 6px;font-variant-numeric:tabular-nums}
+  .dg-line em.up{color:var(--good);background:rgba(52,211,153,.12)}
+  .dg-line em.down{color:var(--bad);background:rgba(248,113,113,.12)}
+  .dg-line em.flat{color:var(--dim);background:rgba(255,255,255,.05)}
+  .dg-line em.new{color:var(--accent);background:rgba(79,140,255,.14)}
+  .dg-line .go{font-size:12.5px;background:none;border:none;color:var(--accent);padding:0;text-decoration:underline;font-family:inherit}
+
   .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:24px}
   .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
   .kpi .n{font-family:'Paperlogy',sans-serif;font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
@@ -214,6 +234,11 @@
     <!-- 개요: 핵심 KPI + 일자별 추이 -->
     <section id="sec-overview" hidden>
       <div class="kpis" id="kpis"></div>
+      <!-- 이번 주 요약: 위 기간 셀렉터와 무관하게 항상 "최근 7일 vs 그 이전 7일" -->
+      <div class="card" style="margin-bottom:24px">
+        <h2>이번 주 요약 <span id="digest-range"></span></h2>
+        <div id="digest"><div class="empty">로그인 후 데이터를 불러오면 표시됩니다.</div></div>
+      </div>
       <div class="grid">
         <div class="card" style="grid-column:1/-1">
           <h2>방문 추이
@@ -525,6 +550,7 @@ delete from events     where created_at &lt; now() - interval '180 days';</pre>
     if (pv.error) { alert('불러오기 오류: ' + pv.error.message); return; }
     renderStats(pv.data || [], ev.data || []);
     renderMessages(ms.data || []);
+    loadDigest(ms.data || []); // 요약은 기간 셀렉터와 무관하게 최근 14일을 따로 조회한다
     loadCMS();
     loadSettings();
   }
@@ -578,6 +604,113 @@ delete from events     where created_at &lt; now() - interval '180 days';</pre>
 
     // 방문 추이 (일별/주별/월별)
     renderTrend(pv);
+  }
+
+  // ---------- 이번 주 요약 (규칙 기반) ----------
+  // 서버·AI 없이 브라우저에서만 계산한다. 상단 기간 셀렉터와 독립적으로
+  // 항상 "최근 7일 vs 그 이전 7일" 을 비교하므로, 기간을 바꿔도 이 카드는 그대로다.
+  function dgDelta(cur, prev) {
+    if (!cur && !prev) return '';
+    if (!prev) return ' <em class="new">신규</em>';
+    var d = Math.round((cur - prev) / prev * 100);
+    if (!d) return ' <em class="flat">지난주와 같음</em>';
+    return ' <em class="' + (d > 0 ? 'up' : 'down') + '">지난주 대비 ' + (d > 0 ? '+' : '') + d + '%</em>';
+  }
+  function dgLine(tone, html) { return '<div class="dg-line' + (tone ? ' ' + tone : '') + '"><div>' + html + '</div></div>'; }
+  function dgGroup(title, lines) { return lines.length ? '<div class="dg-group"><div class="dg-h">' + title + '</div>' + lines.join('') + '</div>' : ''; }
+  function dgSub(s) { return ' <span class="sub">' + s + '</span>'; }
+  // 라벨별 횟수 맵 {label: n}
+  function labelMap(ev, type) {
+    var m = {}; ev.forEach(function (e) { if (e.type === type && e.label) m[e.label] = (m[e.label] || 0) + 1; });
+    return m;
+  }
+  function topOf(m) { var k = Object.keys(m).sort(function (a, b) { return m[b] - m[a]; }); return k.length ? [k[0], m[k[0]]] : null; }
+  function sumOf(m, keys) { var n = 0; keys.forEach(function (k) { n += m[k] || 0; }); return n; }
+  // 지난주엔 없다가 이번 주에 처음 등장한 키 (많이 나온 순)
+  function freshKeys(cur, prev, n) {
+    return Object.keys(cur).filter(function (k) { return !prev[k]; })
+      .sort(function (a, b) { return cur[b] - cur[a]; }).slice(0, n).map(esc);
+  }
+  function refHost(p) {
+    if (!p.referrer) return 'direct';
+    try { return new URL(p.referrer).hostname.replace(/^www\./, ''); } catch (e) { return p.referrer; }
+  }
+
+  async function loadDigest(msgs) {
+    var box = el('digest'), now = Date.now(), cut = now - 7 * 864e5;
+    var since = new Date(now - 14 * 864e5).toISOString();
+    var pvq = await sb.from('page_views').select('*').gte('created_at', since).limit(50000);
+    var evq = await sb.from('events').select('*').gte('created_at', since).limit(50000);
+    if (pvq.error) { box.innerHTML = '<div class="empty">요약을 불러오지 못했습니다: ' + esc(pvq.error.message) + '</div>'; return; }
+
+    var split = function (rows) {
+      var c = [], p = [];
+      (rows || []).forEach(function (r) { (new Date(r.created_at).getTime() >= cut ? c : p).push(r); });
+      return [c, p];
+    };
+    var pvS = split(pvq.data), evS = split(evq.data);
+    var pvC = pvS[0], pvP = pvS[1], evC = evS[0], evP = evS[1];
+    el('digest-range').textContent = isoDay(new Date(cut)) + ' ~ ' + isoDay(new Date(now));
+
+    // 1) 관심도 하이라이트 — 다운로드 · 링크 클릭 · 프로젝트 열람
+    var ctaC = labelMap(evC, 'cta_click'), ctaP = labelMap(evP, 'cta_click');
+    var DL = ['resume_download', 'cv_download', 'deck_download'], LK = ['github', 'linkedin', 'email', 'project_live'];
+    var dlC = sumOf(ctaC, DL), dlP = sumOf(ctaP, DL), lkC = sumOf(ctaC, LK), lkP = sumOf(ctaP, LK);
+    var g1 = [];
+    g1.push(dlC
+      ? dgLine('good', '문서 다운로드 <b>' + dlC + '회</b>' + dgDelta(dlC, dlP) +
+        dgSub('이력서 ' + (ctaC.resume_download || 0) + ' · CV ' + (ctaC.cv_download || 0) + ' · 소개 덱 ' + (ctaC.deck_download || 0)))
+      : dgLine('', '문서 다운로드 <b>0회</b>' + (dlP ? dgSub('지난주엔 ' + dlP + '회') : '')));
+    if (lkC || lkP) {
+      g1.push(dgLine('', '링크 클릭 <b>' + lkC + '회</b>' + dgDelta(lkC, lkP) +
+        dgSub('GitHub ' + (ctaC.github || 0) + ' · LinkedIn ' + (ctaC.linkedin || 0) + ' · 이메일 ' + (ctaC.email || 0) + ' · Live ' + (ctaC.project_live || 0))));
+    }
+    var projC = labelMap(evC, 'project_open'), projP = labelMap(evP, 'project_open'), topProj = topOf(projC);
+    if (topProj) {
+      g1.push(dgLine('', '가장 많이 열린 프로젝트 <b>' + esc(topProj[0]) + '</b>' +
+        (projP[topProj[0]] ? '' : ' <em class="new">신규</em>') +
+        dgSub(topProj[1] + '회 · 이번 주 열린 프로젝트 ' + Object.keys(projC).length + '개')));
+      // 1위는 위 줄에서 이미 신규 여부를 밝혔으므로 중복 표기하지 않는다
+      var newProj = freshKeys(projC, projP, 4).filter(function (k) { return k !== esc(topProj[0]); });
+      if (newProj.length) g1.push(dgLine('', '이번 주 처음 열린 프로젝트 <b>' + newProj.join(', ') + '</b>'));
+    } else {
+      g1.push(dgLine('', '프로젝트 열람 <b>0회</b>'));
+    }
+
+    // 2) 유입 · 국가 변화
+    var g2 = [], refC = {}, refP = {}, cnC = {}, cnP = {}, unknown = 0;
+    pvC.forEach(function (p) { var h = refHost(p); refC[h] = (refC[h] || 0) + 1; if (p.country) cnC[p.country] = (cnC[p.country] || 0) + 1; else unknown++; });
+    pvP.forEach(function (p) { var h = refHost(p); refP[h] = (refP[h] || 0) + 1; if (p.country) cnP[p.country] = (cnP[p.country] || 0) + 1; });
+    var topRef = topOf(refC);
+    if (topRef) g2.push(dgLine('', '유입 1위 <b>' + esc(topRef[0]) + '</b>' + dgSub(topRef[1] + '회 · 이번 주 방문의 ' + Math.round(topRef[1] / pvC.length * 100) + '%')));
+    // direct(직접 방문)는 "새로 생긴 경로" 로 볼 게 아니라 항상 있는 기본값이므로 제외
+    delete refC.direct;
+    var newRef = freshKeys(refC, refP, 3);
+    g2.push(newRef.length
+      ? dgLine('good', '새로 생긴 유입 경로 <b>' + newRef.join(', ') + '</b>')
+      : dgLine('', '새로 생긴 유입 경로 <b>없음</b>'));
+    var nC = Object.keys(cnC).length, nP = Object.keys(cnP).length;
+    g2.push(dgLine('', '방문 국가 <b>' + nC + '개국</b>' + (nP ? dgSub('지난주 ' + nP + '개국') : '')));
+    var newCn = freshKeys(cnC, cnP, 4);
+    if (newCn.length) g2.push(dgLine('good', '처음 방문한 국가 <b>' + newCn.join(', ') + '</b>'));
+    if (pvC.length && unknown / pvC.length > .3) {
+      g2.push(dgLine('warn', '국가를 판별하지 못한 방문 <b>' + unknown + '회</b>' +
+        dgSub('이번 주 방문의 ' + Math.round(unknown / pvC.length * 100) + '% — ipapi.co 호출이 차단됐을 수 있습니다')));
+    }
+
+    // 3) 할 일 — 조치가 필요한 것만
+    var g3 = [];
+    var unread = (msgs || []).filter(function (m) { return !m.read; }).length;
+    var newMsg = (msgs || []).filter(function (m) { return new Date(m.created_at).getTime() >= cut; }).length;
+    if (unread) g3.push(dgLine('warn', '안 읽은 메시지 <b>' + unread + '건</b>' + (newMsg ? dgSub('이번 주 도착 ' + newMsg + '건') : '') +
+      ' <button class="go" onclick="go(\'inbox\')">인박스 열기</button>'));
+    else if (newMsg) g3.push(dgLine('', '이번 주 새 메시지 <b>' + newMsg + '건</b>' + dgSub('모두 읽음')));
+    if (!pvC.filter(function (p) { return new Date(p.created_at).getTime() >= now - 2 * 864e5; }).length) {
+      g3.push(dgLine('warn', '최근 48시간 방문 기록이 <b>없습니다</b>' + dgSub('analytics.js 수집이나 Supabase 연결을 확인하세요')));
+    }
+    if (!g3.length) g3.push(dgLine('good', '지금 처리할 항목은 <b>없습니다</b>'));
+
+    box.innerHTML = dgGroup('관심도 하이라이트', g1) + dgGroup('유입 · 국가 변화', g2) + dgGroup('할 일', g3);
   }
 
   // ---------- 방문 추이 차트 (일별 · 주별 · 월별) ----------

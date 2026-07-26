@@ -54,9 +54,13 @@ export function ProjectDetail({
         <h1 className="font-display mt-3 max-w-3xl text-4xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-5xl md:text-6xl">
           {p.title}
         </h1>
-        <p className="mt-4 max-w-2xl whitespace-pre-line text-lg leading-relaxed text-muted">
-          {p.overview}
-        </p>
+        <div className="mt-4 max-w-2xl space-y-4 text-lg leading-relaxed text-muted">
+          {p.overview.split("\n\n").map((para) => (
+            <p key={para}>
+              <Rich text={para} />
+            </p>
+          ))}
+        </div>
 
         <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-ink/10 pt-6">
           <Meta k={t.year} v={p.year} />
@@ -87,30 +91,22 @@ export function ProjectDetail({
         </div>
       </motion.header>
 
-      {/* Hero visual */}
-      <motion.div
-        variants={reveal}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-10%" }}
-        className="mt-8"
-      >
-        {shots.length > 0 ? (
-          // imageFit: "contain" 은 UI 스크린샷처럼 잘리면 안 되는 이미지용
-          <ImageCarousel
-            images={shots}
-            alt={p.title}
-            aspect="aspect-[3/2]"
-            fit={p.imageFit === "contain" ? "contain" : "cover"}
-          />
-        ) : (
-          <div className="flex aspect-[16/7] w-full items-center justify-center rounded-4xl bg-gradient-to-br from-sand-deep to-sand">
-            <span className="font-display text-6xl font-semibold text-ink/15">
-              {p.title.replace(/[^A-Za-z ]/g, "").trim().split(" ").slice(0, 2).map((w) => w[0]).join("")}
-            </span>
-          </div>
-        )}
-      </motion.div>
+      {/* Hero visual — 이미지가 없으면 자리만 차지하는 대체 블록을 두지 않고
+          아래 Highlights 가 바로 올라오게 한다 */}
+      {shots.length > 0 ? (
+        <motion.div
+          variants={reveal}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-10%" }}
+          className="mt-8"
+        >
+          {/* contain 은 프레임에 레터박스(빈 여백)를 남긴다. 상세 히어로는
+              여백 없이 꽉 차게 보여주는 쪽이 나아서 항상 cover 로 채운다.
+              (이미지들이 1.33~1.7 비율이라 3/2 프레임 기준 잘림은 최대 12% 정도) */}
+          <ImageCarousel images={shots} alt={p.title} aspect="aspect-[3/2]" />
+        </motion.div>
+      ) : null}
 
       <div className="mt-12 grid gap-12 sm:grid-cols-[1.4fr_1fr]">
         {/* Highlights */}
@@ -127,7 +123,9 @@ export function ProjectDetail({
             {p.highlights.map((h) => (
               <li key={h} className="flex gap-3 text-[15px] leading-relaxed text-ink/75">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-lime" />
-                {h}
+                <span>
+                  <Rich text={h} />
+                </span>
               </li>
             ))}
           </ul>
@@ -248,6 +246,24 @@ export function ProjectDetail({
         </Link>
       </p>
     </article>
+  );
+}
+
+// data.ts 의 **강조** 표기만 굵게 렌더한다. 마크다운 전체를 지원하는 게 아니라
+// 딱 이 표기 하나뿐 — 훑어봐도 핵심 수치·성과가 먼저 눈에 들어오게 하는 용도.
+function Rich({ text }: { text: string }) {
+  return (
+    <>
+      {text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+        part.startsWith("**") && part.endsWith("**") ? (
+          <strong key={i} className="font-semibold text-ink">
+            {part.slice(2, -2)}
+          </strong>
+        ) : (
+          part
+        ),
+      )}
+    </>
   );
 }
 
