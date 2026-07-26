@@ -94,17 +94,13 @@ export function About() {
           className="mx-auto w-full max-w-[440px] rounded-4xl border border-ink/10 bg-sand/40 p-6 text-center sm:p-8 lg:sticky lg:top-28 lg:mx-0 lg:max-w-none"
         >
           <div className="relative mx-auto mb-6 w-full max-w-[300px]">
-            <div
-              aria-hidden
-              className="absolute -inset-8 rounded-full bg-lime/20 blur-3xl"
-            />
             <img
               src={assetPath(about.photo)}
               alt={person.name}
               // STATEMENT(220vh) 뒤라 확실히 폴드 아래 — 첫 화면 대역폭과 경쟁하지 않게 지연 로드
               loading="lazy"
               decoding="async"
-              className="relative aspect-[1/1.05] w-full rounded-[28px] object-cover object-[center_28%] shadow-[0_26px_70px_-22px_rgba(59,130,246,0.45)] ring-1 ring-ink/10"
+              className="relative aspect-[1/1.05] w-full rounded-[28px] object-cover object-[center_28%] ring-1 ring-ink/10"
             />
           </div>
 
