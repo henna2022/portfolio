@@ -17,6 +17,14 @@ const card: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
 };
 
+// 사진 있는 카드를 위로, 그 안에서는 최신순. 2열 그리드라 사진 카드와
+// 텍스트 카드가 같은 행에 섞이면 높이가 벌어져 한쪽에 빈 공간이 생긴다.
+const ordered = [...awards].sort(
+  (a, b) =>
+    Number(b.photos.length > 0) - Number(a.photos.length > 0) ||
+    Number(b.year) - Number(a.year),
+);
+
 export function Awards() {
   const t = ui;
   return (
@@ -38,7 +46,7 @@ export function Awards() {
         viewport={{ once: true, margin: "-8%" }}
         className="grid gap-4 sm:grid-cols-2"
       >
-        {awards.map((a) => {
+        {ordered.map((a) => {
           const hasPhotos = a.photos.length > 0;
           return (
           // 같은 행의 카드는 항상 같은 높이 (self-start 를 두면 본문 길이만큼 제각각이 된다)

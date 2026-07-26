@@ -685,6 +685,8 @@ export type Award = {
   news?: string; // external press coverage
 };
 
+// 최신순으로 적어 둔다. 화면 정렬은 Awards 컴포넌트가 따로 한다
+// (2열 그리드라 사진 있는 카드끼리 같은 행에 와야 높이가 맞는다).
 export const awards: Award[] = [
   {
     year: "2026",
@@ -696,17 +698,6 @@ export const awards: Award[] = [
       "YAKMOA, a multimodal-AI medication-management service for digitally vulnerable users, built on the ATO care robot.",
     photos: [],
     relatedSlug: "ato-care-robot",
-  },
-  {
-    year: "2024",
-    title: "ICT·SW Women's Start-up Competition",
-    detail: "Excellence Award (우수상): VGG16 plant-disease diagnosis app",
-    result: "Excellence Award",
-    role: "PM & Developer",
-    topic:
-      "A plant-disease diagnosis app powered by a VGG16 image classifier, the predecessor of Doctor-Green (Korea IT Businesswomen's Association).",
-    photos: [],
-    relatedSlug: "doctor-green",
   },
   {
     year: "2025",
@@ -745,6 +736,17 @@ export const awards: Award[] = [
     topic:
       "Pitched the plant-disease diagnosis app that later grew into Doctor-Green, at Hankyong National University's start-up audition.",
     photos: ["/portfolio_images/awards/hknu_photo.jpg"],
+    relatedSlug: "doctor-green",
+  },
+  {
+    year: "2024",
+    title: "ICT·SW Women's Start-up Competition",
+    detail: "Excellence Award (우수상): VGG16 plant-disease diagnosis app",
+    result: "Excellence Award",
+    role: "PM & Developer",
+    topic:
+      "A plant-disease diagnosis app powered by a VGG16 image classifier, the predecessor of Doctor-Green (Korea IT Businesswomen's Association).",
+    photos: [],
     relatedSlug: "doctor-green",
   },
 ];
