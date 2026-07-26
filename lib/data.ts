@@ -503,8 +503,9 @@ export type SkillGroup = {
 };
 
 // 여기 적는 항목은 전부 위 프로젝트에서 실제로 쓴 것만 둔다.
-// 웹이 한 덩어리로 14개까지 불어나서 프런트/백엔드로 나눴고,
-// Exhibit Auto-Recovery 로 생긴 운영·복구 쪽은 갈 곳이 없어 그룹을 새로 만들었다.
+// 다 적으면 41개가 되어 훑기가 어려워지므로, 그 기술이 없으면 프로젝트를
+// 설명할 수 없는 것만 남긴다 (누구나 쓰는 협업 도구, 한 번만 쓴 브라우저
+// API 등은 뺀다). 6개 그룹 = 2열 그리드 3행.
 export const skillGroups: SkillGroup[] = [
   {
     key: "ai",
@@ -529,7 +530,6 @@ export const skillGroups: SkillGroup[] = [
       "VQA Datasets",
       "Dataset QA",
       "Annotation Guidelines",
-      "Data Augmentation",
       "Roboflow",
     ],
   },
@@ -543,15 +543,15 @@ export const skillGroups: SkillGroup[] = [
       "TypeScript",
       "JavaScript",
       "Tailwind",
-      "Vite",
       "PWA",
       "Capacitor",
-      "Web Speech API",
     ],
   },
   {
+    // Ops 를 따로 두기엔 항목이 4개뿐이라 인프라 쪽으로 합쳤다.
+    // Auto-Recovery 의 원격 접근(Tailscale)은 남기고 나머지는 뺀다.
     key: "back",
-    title: "Backend & Infra",
+    title: "Backend, Infra & Ops",
     capability: "I run the data, storage, and deploys behind them.",
     items: [
       "Supabase",
@@ -560,7 +560,7 @@ export const skillGroups: SkillGroup[] = [
       "Serverless Functions",
       "Cloudflare R2",
       "Vercel",
-      "GitHub Pages",
+      "Tailscale · WireGuard",
     ],
   },
   {
@@ -572,19 +572,7 @@ export const skillGroups: SkillGroup[] = [
       "MicroPython",
       "Arduino · C++",
       "Sensors",
-      "SPI Displays",
       "3D Printing",
-    ],
-  },
-  {
-    key: "ops",
-    title: "Ops & Reliability",
-    capability: "I keep what I deploy recovering without me on site.",
-    items: [
-      "PowerShell",
-      "Task Scheduler",
-      "Watchdog & Auto-Recovery",
-      "Tailscale · WireGuard",
     ],
   },
   {
@@ -595,8 +583,6 @@ export const skillGroups: SkillGroup[] = [
       "SW Planning",
       "Learning Design",
       "Bilingual Docent (KO·EN)",
-      "Notion",
-      "Slack",
     ],
   },
 ];
