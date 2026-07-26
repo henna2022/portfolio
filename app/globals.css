@@ -208,6 +208,70 @@ section[id] {
   }
 }
 
+/* ── 에러 페이지 마스코트 ── */
+@keyframes errorBubblePop {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(6px) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+.error-bubble {
+  transform: translateX(-50%);
+  animation: errorBubblePop 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.7s both;
+}
+/* 꼬리 — 말풍선 아래 작은 삼각형 */
+.error-bubble::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 10px;
+  height: 10px;
+  background: inherit;
+  transform: translateX(-50%) rotate(45deg);
+  border-radius: 2px;
+}
+@keyframes errorAtoIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes errorAtoBob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-6px) rotate(-2deg);
+  }
+}
+.error-ato {
+  display: inline-block;
+  animation: errorAtoIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.error-ato .ato-chip {
+  animation: errorAtoBob 3.2s ease-in-out 0.6s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .error-bubble,
+  .error-ato,
+  .error-ato .ato-chip {
+    animation: none;
+  }
+  .error-bubble {
+    opacity: 1;
+  }
+}
+
 ::selection {
   background: #3b82f6;
   color: #ffffff;
