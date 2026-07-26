@@ -1,0 +1,82 @@
+<svg width="680" height="554" viewBox="0 0 680 554" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Exhibit auto-recovery system flow</title>
+<desc>A staff phone reaches a recovery endpoint on the exhibit machine over an encrypted mesh VPN. On the machine, a watchdog polling every 20 seconds and a twice-daily scheduler both trigger a restart service that stops and relaunches the exhibit program.</desc>
+<defs><marker id="arwE" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<style>
+text{font-family:'Pretendard','Apple SD Gothic Neo','Helvetica Neue',Arial,sans-serif}
+.iaBg{fill:#171614}.iaPoster{fill:#22201D;stroke:#2E2C28}.iaLogo{fill:#3B82F6}.iaLogoR{fill:#FFFFFF;font-size:22px;font-weight:600}
+.iaTtl{fill:#F0EDE6;font-size:19px;font-weight:600}.iaSub{fill:#969288;font-size:12.5px}.iaHdiv{stroke:#2E2C28}.iaFdiv{stroke:#2E2C28}
+.iaSec{fill:#2E2C28;stroke:#3A3833}.iaDot{fill:#3B82F6}.iaLab{fill:#F0EDE6;font-size:12px;font-weight:600}.iaLeg{fill:#969288;font-size:11.5px}
+.iaEbox{fill:#22201D;stroke:#3A3833}.iaEt{fill:#F0EDE6;font-size:14px;font-weight:600}.iaEs{fill:#969288;font-size:12px}
+.iaArw{stroke:#3B82F6;stroke-width:1.4;fill:none}.iaLeader{stroke:#5C82C4;stroke-width:1;stroke-dasharray:3 3;fill:none}
+.iaMbox{fill:#3B82F6;stroke:#5B9AF8}.iaMt{fill:#FFFFFF;font-size:14px;font-weight:600}.iaMs{fill:#D8E6FD;font-size:12px}
+.iaCcard{fill:#252C38;stroke:#3D4B63}.iaCt{fill:#F0EDE6;font-size:14px;font-weight:600}.iaCl{fill:#9BA4B4;font-size:12px}
+.iaChip{fill:#1C1B18;stroke:#3A3833}.iaChx{fill:#F0EDE6;font-size:12px}.iaFoot{fill:#969288;font-size:11px}
+.iaHost{fill:#1C1B18;stroke:#3A3833}.iaWarn{fill:#2C2519;stroke:#4A3D22}.iaWt{fill:#F0EDE6;font-size:13px;font-weight:600}.iaWs{fill:#969288;font-size:11.5px}
+</style>
+
+<rect class="iaBg" x="0" y="0" width="680" height="554"/>
+<rect class="iaPoster" x="14" y="14" width="652" height="526" rx="18"/>
+
+<rect class="iaLogo" x="34" y="30" width="42" height="42" rx="11"/>
+<text class="iaLogoR" x="55" y="59" text-anchor="middle">R</text>
+<text class="iaTtl" x="88" y="50">Exhibit Auto-Recovery</text>
+<text class="iaSub" x="88" y="69">Watchdog &#183; scheduled restarts &#183; one-tap staff recovery</text>
+<line class="iaHdiv" x1="34" y1="88" x2="646" y2="88"/>
+
+<rect class="iaSec" x="34" y="104" width="126" height="22" rx="11"/>
+<circle class="iaDot" cx="47" cy="115" r="3.5"/>
+<text class="iaLab" x="57" y="119">Staff device</text>
+
+<rect class="iaCcard" x="34" y="138" width="150" height="76" rx="12"/>
+<text class="iaCt" x="52" y="166">Staff phone</text>
+<text class="iaCl" x="52" y="186">Recovery page</text>
+<text class="iaCl" x="52" y="203">One tap</text>
+
+<rect class="iaMbox" x="34" y="240" width="150" height="62" rx="12"/>
+<text class="iaMt" x="52" y="266">Mesh VPN</text>
+<text class="iaMs" x="52" y="286">Encrypted, no open port</text>
+
+<path class="iaArw" d="M109 214 L109 238" marker-end="url(#arwE)"/>
+<path class="iaArw" d="M184 271 L214 271 L214 214 L246 214" marker-end="url(#arwE)"/>
+
+<rect class="iaSec" x="246" y="104" width="150" height="22" rx="11"/>
+<circle class="iaDot" cx="259" cy="115" r="3.5"/>
+<text class="iaLab" x="269" y="119">Exhibit machine</text>
+
+<rect class="iaHost" x="246" y="138" width="400" height="256" rx="14"/>
+
+<rect class="iaEbox" x="266" y="160" width="170" height="66" rx="11"/>
+<text class="iaEt" x="284" y="186">Recovery endpoint</text>
+<text class="iaEs" x="284" y="206">Serves the button page</text>
+
+<rect class="iaEbox" x="456" y="160" width="170" height="66" rx="11"/>
+<text class="iaEt" x="474" y="186">Watchdog</text>
+<text class="iaEs" x="474" y="206">Polls every 20 s</text>
+
+<rect class="iaEbox" x="456" y="244" width="170" height="66" rx="11"/>
+<text class="iaEt" x="474" y="270">Scheduler</text>
+<text class="iaEs" x="474" y="290">Preventive, twice daily</text>
+
+<rect class="iaMbox" x="266" y="244" width="170" height="66" rx="11"/>
+<text class="iaMt" x="284" y="270">Restart service</text>
+<text class="iaMs" x="284" y="290">Stop &#8594; wait &#8594; relaunch</text>
+
+<path class="iaArw" d="M351 226 L351 242" marker-end="url(#arwE)"/>
+<path class="iaArw" d="M541 226 L541 234 L446 234 L446 266 L438 266" marker-end="url(#arwE)"/>
+<path class="iaArw" d="M456 292 L438 292" marker-end="url(#arwE)"/>
+
+<rect class="iaEbox" x="266" y="326" width="360" height="50" rx="11"/>
+<text class="iaEt" x="284" y="348">Exhibit program</text>
+<text class="iaEs" x="284" y="366">Face and voice interaction</text>
+
+<path class="iaArw" d="M351 310 L351 324" marker-end="url(#arwE)"/>
+
+<line class="iaFdiv" x1="34" y1="414" x2="646" y2="414"/>
+
+<rect class="iaWarn" x="34" y="432" width="612" height="60" rx="12"/>
+<text class="iaWt" x="54" y="458">Designed around the failure it cannot detect</text>
+<text class="iaWs" x="54" y="478">Speech recognition can stop silently while the process stays healthy, so the manual and scheduled layers cover it.</text>
+
+<text class="iaFoot" x="34" y="518">Runs unattended in daily museum operation &#183; handover documented for the maintenance technician</text>
+</svg>

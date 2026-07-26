@@ -9,7 +9,7 @@ import { ui, type UiStrings } from "@/lib/i18n";
 import { DownloadIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
-const FILTERS = ["All", "AI", "Web", "Robotics", "IoT", "Education"];
+const FILTERS = ["All", "AI", "Web", "Robotics", "IoT", "Ops", "Education"];
 
 function initials(title: string) {
   return title

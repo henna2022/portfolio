@@ -272,6 +272,42 @@ export const projects: Project[] = [
     },
     gallery: ["/portfolio_images/projects/raimapp_main.png"],
   },
+  {
+    slug: "exhibit-auto-recovery",
+    n: "04",
+    tier: "major",
+    title: "Exhibit Auto-Recovery",
+    category: "Ops Automation · Reliability",
+    categories: ["Ops", "Web"],
+    kicker: "Exhibit uptime · self-initiated",
+    desc: "A recovery system for a museum AI exhibit that used to need one specific person, at one specific machine, every time it froze. It now restarts itself within seconds of a detectable failure, and any staff member can recover it from their own phone in a single tap.",
+    year: "2026",
+    role: "Solo: diagnosis, build, rollout, handover",
+    tags: [
+      "PowerShell",
+      "Windows Task Scheduler",
+      "HTTP service",
+      "Tailscale",
+      "WireGuard",
+    ],
+    repo: "https://github.com/henna2022/maskbot-restart",
+    stat: "1 operator → all staff",
+    overview:
+      "MaskBot is a face- and voice-interaction robot exhibit on the museum floor. Its control software would intermittently freeze or exit mid-operation, and the only remedy was a manual restart, which in practice only one person could perform, at one specific machine, through a remote session. Every failure became a wait: find the person, get them to the machine, walk through the remote login. Meanwhile visitors stood in front of an exhibit that could not hear them.\n\nI took this on after performing that manual restart one too many times. The key observation was that the fix itself was trivial, closing a window and reopening it, and that the entire cost lived in who was permitted to perform it and how long it took them to get there. So the goal was never to make the restart smarter. It was to remove the human bottleneck around it.\n\nThe result runs in three layers on the exhibit machine. A watchdog polls the program every 20 seconds and restarts it when the process has died or its window stops responding, with a two-stage confirmation so a momentarily busy UI is not killed by mistake, and a back-off after repeated failures so a deeper hardware fault does not become a restart loop. Scheduled restarts run twice daily as preventive maintenance. And a small HTTP service serves a single-button page, so any staff member can trigger recovery from their own phone.\n\nThat third layer exists because of a limit I could not engineer away. The most common failure leaves the process alive and the window responsive while speech recognition silently stops working, and no health signal available to me distinguishes that from a healthy exhibit. Rather than paper over it, I designed around it: the automated layers handle every failure a machine can detect, and the human layer covers the one it cannot.\n\nReaching the exhibit machine from a personal phone was a separate problem, as staff devices had no route to it. I used Tailscale, a WireGuard-based mesh VPN, so enrolled devices reach the service over an encrypted peer-to-peer tunnel with no inbound port exposed; access stays limited to devices inside that private network.\n\nThe system now runs unattended in daily operation. I also wrote a handover document covering configuration, logs, routine maintenance, a diagnosis playbook, and the system's documented limitations, so the maintenance technician can own it without me.",
+    highlights: [
+      "Reframed the problem: the restart was trivial; the real cost was that only one person, at one machine, was able to perform it.",
+      "Watchdog restarts the exhibit within seconds of a crash or hang, with two-stage confirmation against false positives and back-off to prevent restart loops on deeper faults.",
+      "One-tap recovery page served from the exhibit machine, turning an escalation into something any staff member can do from their own phone.",
+      "Designed around an undetectable failure mode: when speech recognition dies silently, automation cannot tell, so scheduled restarts and the manual button cover what the watchdog structurally cannot.",
+      "Encrypted mesh VPN (Tailscale / WireGuard) gives enrolled devices access without exposing any inbound port.",
+      "Shipped with a maintenance handover document: configuration, logs, diagnosis playbook, and known limitations.",
+    ],
+    flow: ["Watchdog + schedule", "Restart service", "Mesh VPN", "Staff phone"],
+    flowImage: {
+      light: "/portfolio_images/flow/exhibit-auto-recovery-flow-light.svg",
+      dark: "/portfolio_images/flow/exhibit-auto-recovery-flow-dark.svg",
+    },
+  },
 
   // ── Side & toy projects ──
   {
