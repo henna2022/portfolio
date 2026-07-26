@@ -236,6 +236,17 @@ export function ProjectDetail({
           </p>
         </Link>
       </nav>
+
+      {/* 수집 고지 — 프로젝트 페이지에는 푸터가 없어 여기에 한 줄로 둔다 */}
+      <p className="mt-10 text-[11px] text-muted/70">
+        {t.privacyNotice}{" "}
+        <Link
+          href="/privacy"
+          className="underline underline-offset-4 transition-colors hover:text-ink"
+        >
+          {t.privacyLink}
+        </Link>
+      </p>
     </article>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { person } from "@/lib/data";
 import { assetPath } from "@/lib/asset";
@@ -89,6 +90,17 @@ export function Contact() {
             {today ? <span>{today}</span> : null}
           </div>
         </div>
+
+        {/* 수집 고지 — 눈에 띄지 않게, 그러나 항상 닿는 곳에 */}
+        <p className="pb-6 text-[11px] leading-relaxed text-cream/50">
+          {t.privacyNotice}{" "}
+          <Link
+            href="/privacy"
+            className="underline underline-offset-4 transition-colors hover:text-cream"
+          >
+            {t.privacyLink}
+          </Link>
+        </p>
       </div>
 
       {/* Giant faded name */}

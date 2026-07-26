@@ -43,6 +43,8 @@ export const ui = {
   contactHeading: "Let's build something worth learning from.",
   getInTouch: "Get in touch",
   footerCopyright: "© 2026 Juwon Lee",
+  privacyNotice: "This site keeps anonymous visit statistics.",
+  privacyLink: "Privacy",
 
   allWork: "All work",
   year: "Year",
