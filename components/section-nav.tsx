@@ -13,7 +13,20 @@ export function SectionNav() {
   const lenis = useLenis();
   const isHome = pathname === "/";
   const [active, setActive] = useState("top");
-  const navRef = useRef<HTMLDivElement>(null);
+  const scrollerRef = useRef<HTMLDivElement>(null);
+
+  // 좁은 화면에서 스트립이 넘칠 때: 활성 항목이 항상 보이도록 가로 센터링.
+  // (scrollIntoView 는 페이지 세로 스크롤까지 건드릴 수 있어 scrollLeft 만 조작)
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller || scroller.scrollWidth <= scroller.clientWidth) return;
+    const link = scroller.querySelector<HTMLElement>(`[data-id="${active}"]`);
+    if (!link) return;
+    scroller.scrollTo({
+      left: link.offsetLeft - (scroller.clientWidth - link.offsetWidth) / 2,
+      behavior: "smooth",
+    });
+  }, [active]);
 
   // Scroll-spy: highlight the section currently near the top of the viewport.
   useEffect(() => {
@@ -64,32 +77,37 @@ export function SectionNav() {
   }
 
   return (
-    // 블럭 없는 순수 텍스트 내비 — 8개가 항상 한 줄에 들어가도록 컴팩트하게
+    // 블럭 없는 순수 텍스트 내비 — 넓은 화면에선 중앙 정렬로 한 줄,
+    // 좁은 화면에선 가로 스크롤 스트립(스크롤바 숨김 + 양끝 페이드로 잘림을 암시).
+    // justify-center 는 넘칠 때 앞쪽 항목이 스크롤로도 닿지 않게 되므로
+    // 안쪽 w-max + mx-auto 로 "들어가면 중앙, 넘치면 스크롤" 을 만든다.
     <div
-      ref={navRef}
-      className="flex items-center justify-center gap-0.5 sm:gap-2"
+      ref={scrollerRef}
+      className="relative -mx-4 overflow-x-auto px-4 [mask-image:linear-gradient(to_right,transparent,black_20px,black_calc(100%-20px),transparent)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
-      {sections.map((s) => {
-        const isActive = active === s.id;
-        return (
-          <a
-            key={s.id}
-            data-id={s.id}
-            href={assetPath(s.id === "top" ? "/" : `/#${s.id}`)}
-            onClick={(e) => handleClick(e, s.id)}
-            aria-current={isActive ? "true" : undefined}
-            // 활성 항목은 굵기·색만으로는 잘 안 잡혀서 밑줄 인디케이터를 함께 둔다.
-            // (Inter 는 가변 폰트라 800 까지 실제 굵기가 나온다)
-            className={`relative shrink-0 px-1.5 py-1 text-xs transition-colors sm:px-2.5 sm:text-sm ${
-              isActive
-                ? "font-extrabold text-lime after:absolute after:inset-x-1.5 after:-bottom-0.5 after:h-[2px] after:rounded-full after:bg-lime after:content-[''] sm:after:inset-x-2.5"
-                : "font-semibold text-ink/60 hover:text-ink"
-            }`}
-          >
-            {t.nav[s.id] ?? s.label}
-          </a>
-        );
-      })}
+      <div className="mx-auto flex w-max items-center gap-0.5 sm:gap-2">
+        {sections.map((s) => {
+          const isActive = active === s.id;
+          return (
+            <a
+              key={s.id}
+              data-id={s.id}
+              href={assetPath(s.id === "top" ? "/" : `/#${s.id}`)}
+              onClick={(e) => handleClick(e, s.id)}
+              aria-current={isActive ? "true" : undefined}
+              // 활성 항목은 굵기·색만으로는 잘 안 잡혀서 밑줄 인디케이터를 함께 둔다.
+              // (Inter 는 가변 폰트라 800 까지 실제 굵기가 나온다)
+              className={`relative shrink-0 px-1.5 py-1.5 text-xs transition-colors sm:px-2.5 sm:py-1 sm:text-sm ${
+                isActive
+                  ? "font-extrabold text-lime after:absolute after:inset-x-1.5 after:-bottom-0.5 after:h-[2px] after:rounded-full after:bg-lime after:content-[''] sm:after:inset-x-2.5"
+                  : "font-semibold text-ink/60 hover:text-ink"
+              }`}
+            >
+              {t.nav[s.id] ?? s.label}
+            </a>
+          );
+        })}
+      </div>
     </div>
   );
 }

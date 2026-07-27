@@ -35,8 +35,10 @@ export function Hero() {
   return (
     <section
       id="top"
-      // 첫 화면을 뷰포트 높이에 맞춰 다음 섹션(프로필 사진)이 폴드 아래로 내려가게 함
-      className="relative mx-auto flex min-h-svh max-w-shell flex-col justify-center px-6 pb-24 pt-28 text-center"
+      // 첫 화면을 뷰포트 높이에 맞춰 다음 섹션(프로필 사진)이 폴드 아래로 내려가게 함.
+      // min-h-[34rem]: 가로 모드 폰처럼 낮은 뷰포트에서 중앙 헤드라인과
+      // 하단 고정 CTA(absolute bottom-12)가 겹치지 않게 최소 높이를 확보.
+      className="relative mx-auto flex min-h-[max(100svh,38rem)] max-w-shell flex-col justify-center px-6 pb-24 pt-28 text-center"
     >
       <div
         // 장식용 헤드라인 래퍼 — 투명하지만 z-10 로 canvas 위에 떠서 3D 버튼의

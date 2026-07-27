@@ -85,7 +85,9 @@ export function ImageCarousel({
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerLeave={onPointerUp}
-        style={{ touchAction: "pan-y pinch-zoom" }}
+        // pan-x 가 없으면 터치 기기에서 가로 스와이프가 통째로 막혀
+        // 캐러셀이 넘어가지 않는다 (pan-y 는 세로 페이지 스크롤용)
+        style={{ touchAction: "pan-x pan-y pinch-zoom" }}
         className={`no-scrollbar flex h-full w-full snap-x snap-mandatory overflow-x-auto ${
           multiple ? "cursor-grab active:cursor-grabbing" : ""
         }`}
@@ -112,12 +114,12 @@ export function ImageCarousel({
 
       {multiple ? (
         <>
-          {/* prev / next (desktop hover) */}
+          {/* prev / next — 모바일은 항상 표시(호버가 없으므로), 데스크톱은 호버 시 표시 */}
           <button
             type="button"
             aria-label="Previous image"
             onClick={() => goTo(Math.max(0, idx - 1))}
-            className="absolute left-2 top-1/2 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-cream/90 text-ink opacity-0 shadow transition-opacity group-hover/carousel:opacity-100 disabled:opacity-0 sm:flex"
+            className="absolute left-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-cream/90 text-ink shadow transition-opacity disabled:!opacity-0 sm:opacity-0 sm:group-hover/carousel:opacity-100"
             disabled={idx === 0}
           >
             <ArrowIcon className="h-4 w-4 rotate-180" />
@@ -126,7 +128,7 @@ export function ImageCarousel({
             type="button"
             aria-label="Next image"
             onClick={() => goTo(Math.min(images.length - 1, idx + 1))}
-            className="absolute right-2 top-1/2 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-cream/90 text-ink opacity-0 shadow transition-opacity group-hover/carousel:opacity-100 disabled:opacity-0 sm:flex"
+            className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-cream/90 text-ink shadow transition-opacity disabled:!opacity-0 sm:opacity-0 sm:group-hover/carousel:opacity-100"
             disabled={idx === images.length - 1}
           >
             <ArrowIcon className="h-4 w-4" />
