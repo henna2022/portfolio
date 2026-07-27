@@ -172,16 +172,24 @@ heavy.length ? add("LOW", "성능", `500KB 초과 이미지 ${heavy.length}건: 
 
 // ── 7. 서드파티 요청 (정적 HTML 기준) ─────────────────────────────────────
 // 공개 페이지와 관리자 페이지를 분리해서 본다 (관리자는 방문자 경로가 아님)
+// canonical/OG 등 SEO 태그는 og:url·alternates.canonical 처럼 juwonlee.dev 절대
+// URL을 자기 자신에게 거는 경우가 있는데, 이는 실제로 로드되는 서드파티 리소스가
+// 아니므로 사이트 자체 호스트는 여기서 제외한다.
+const OWN_HOST = "juwonlee.dev";
 const tpPublic = new Set(), tpAdmin = new Set();
 for (const f of htmlFiles) {
   const rel = path.relative(OUT, f);
   const bucket = rel.startsWith("admin") ? tpAdmin : tpPublic;
   const html = fs.readFileSync(f, "utf8");
   // 링크(<a href>)가 아니라 실제로 로드되는 리소스만
-  for (const m of html.matchAll(/(?:<script[^>]+src|<link[^>]+href|<img[^>]+src)="(https?:\/\/[^"]+)"/g))
-    bucket.add(new URL(m[1].replace(/&amp;/g, "&")).host);
-  for (const m of html.matchAll(/url\(['"]?(https?:\/\/[^'")]+)/g))
-    bucket.add(new URL(m[1]).host);
+  for (const m of html.matchAll(/(?:<script[^>]+src|<link[^>]+href|<img[^>]+src)="(https?:\/\/[^"]+)"/g)) {
+    const host = new URL(m[1].replace(/&amp;/g, "&")).host;
+    if (host !== OWN_HOST) bucket.add(host);
+  }
+  for (const m of html.matchAll(/url\(['"]?(https?:\/\/[^'")]+)/g)) {
+    const host = new URL(m[1]).host;
+    if (host !== OWN_HOST) bucket.add(host);
+  }
 }
 tpPublic.size
   ? add("MED", "위생", `공개 페이지가 로드하는 서드파티: ${[...tpPublic].join(", ")}`)

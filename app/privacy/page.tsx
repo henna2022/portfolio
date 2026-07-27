@@ -3,11 +3,14 @@ import Link from "next/link";
 import { Header } from "@/components/header";
 import { PrivacyOptOut } from "@/components/privacy-opt-out";
 import { person } from "@/lib/data";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Privacy — Juwon Lee",
   description:
     "What this portfolio records about a visit, where it is stored, which third parties are involved, and how to turn the visit statistics off.",
+  // 트레일링 슬래시 없음 — 실제 서빙 형태(privacy.html)와 일치시킨다.
+  alternates: { canonical: `${SITE_URL}/privacy` },
   // 정책 페이지는 검색 결과에 뜰 필요가 없다 (사이트 본문이 아님)
   robots: { index: false, follow: true },
 };

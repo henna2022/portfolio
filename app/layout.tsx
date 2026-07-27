@@ -5,6 +5,8 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { ConsoleSignature } from "@/components/console-signature";
+import { NoContextMenu } from "@/components/no-context-menu";
+import { SITE_URL } from "@/lib/seo";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
@@ -24,7 +26,7 @@ const generalSans = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://juwonlee.dev"),
+  metadataBase: new URL(SITE_URL),
   title: "Juwon Lee | AI Product Engineer",
   description:
     "Portfolio of Juwon Lee, an AI product engineer building systems end to end, from sensor to shipped product.",
@@ -32,6 +34,7 @@ export const metadata: Metadata = {
     title: "Juwon Lee | AI Product Engineer",
     description:
       "Portfolio of Juwon Lee, an AI product engineer building systems end to end, from sensor to shipped product.",
+    url: `${SITE_URL}/`,
     images: ["/og-cover.png"],
   },
   twitter: {
@@ -62,8 +65,8 @@ const personJsonLd = {
   "@type": "Person",
   name: "Juwon Lee",
   alternateName: "이주원",
-  url: "https://juwonlee.dev/",
-  image: "https://juwonlee.dev/portfolio_images/profile/juwonlee.jpg",
+  url: `${SITE_URL}/`,
+  image: `${SITE_URL}/portfolio_images/profile/juwonlee.jpg`,
   jobTitle: "AI Product Engineer",
   worksFor: {
     "@type": "Organization",
@@ -95,6 +98,7 @@ export default function RootLayout({
       </head>
       <body>
         <ConsoleSignature />
+        <NoContextMenu />
         <SmoothScroll>
           <ScrollProgress />
           {children}
