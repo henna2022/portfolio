@@ -11,6 +11,9 @@ export const person = {
   photoSm: "/portfolio_images/profile/juwonlee-sm.jpg",
   resume: "/files/Juwon_Lee_Resume_EN.pdf",
   cv: "/files/Juwon_Lee_CV_EN.pdf",
+  // 국문 버전 — About 섹션의 기존 Resume/CV 버튼 옆에 보조 링크로만 노출
+  resumeKo: "/files/Juwon_Lee_Resume_KO.pdf",
+  cvKo: "/files/Juwon_Lee_CV_KO.pdf",
 };
 
 export const sections = [
@@ -333,39 +336,41 @@ export const projects: Project[] = [
       "/portfolio_images/projects/langlab-token.jpg",
     ],
   },
-  {
-    slug: "raim-photo-booth",
-    n: "03",
-    tier: "side",
-    title: "RAIM AI Photo Booth",
-    category: "Keepsake Photo Booth",
-    categories: ["AI", "Web"],
-    kicker: "Museum 2nd anniversary",
-    desc: "A four-cut photo booth where visitors shoot with the museum robots and take photos home via QR. An AI algorithm recommends the best-looking shot among the takes.",
-    year: "2026",
-    role: "Solo: planning & development (in progress)",
-    tags: ["JavaScript", "AI image selection", "QR", "Web App"],
-    repo: "https://github.com/henna2022/raim-4cut-studio",
-    overview:
-      "Born from a simple problem: visitors had nothing to take home from the museum. With no gift shop and no ticket stub, this booth lets people take **four-cut photos with the exhibition robots** and grab them **instantly via QR code**, adding a sense of keepsake to the visit.\n\nThe four-cut frames feature the museum's robot characters, and an **AI algorithm picks and recommends the best-looking shot** among the takes. It is being developed for the **museum's 2nd-anniversary event**.",
-    highlights: [
-      "**Defined a gap in the visit experience** (no keepsake) as the problem and designed the photo booth as the answer.",
-      "Built four-cut frames featuring the museum's robot characters.",
-      "**QR-code delivery** so visitors take their photos home instantly.",
-      "Applied an **AI algorithm that picks and recommends the best-looking shot** among the takes.",
-      "In development for the museum's 2nd-anniversary event.",
-    ],
-    flow: ["Capture 4 cuts", "AI best-shot selection", "QR delivery"],
-    flowImage: {
-      light: "/portfolio_images/flow/raim-photo-booth-flow-light.svg",
-      dark: "/portfolio_images/flow/raim-photo-booth-flow-dark.svg",
-    },
-  },
+  // 포트폴리오에서 임시 제외 (RAIM AI Photo Booth) — 되살릴 때 주석을 풀고
+  // 아래 side 프로젝트 번호를 04, 05, 06 으로 한 칸씩 밀어 되돌린다.
+  // {
+  //   slug: "raim-photo-booth",
+  //   n: "03",
+  //   tier: "side",
+  //   title: "RAIM AI Photo Booth",
+  //   category: "Keepsake Photo Booth",
+  //   categories: ["AI", "Web"],
+  //   kicker: "Museum 2nd anniversary",
+  //   desc: "A four-cut photo booth where visitors shoot with the museum robots and take photos home via QR. An AI algorithm recommends the best-looking shot among the takes.",
+  //   year: "2026",
+  //   role: "Solo: planning & development (in progress)",
+  //   tags: ["JavaScript", "AI image selection", "QR", "Web App"],
+  //   repo: "https://github.com/henna2022/raim-4cut-studio",
+  //   overview:
+  //     "Born from a simple problem: visitors had nothing to take home from the museum. With no gift shop and no ticket stub, this booth lets people take **four-cut photos with the exhibition robots** and grab them **instantly via QR code**, adding a sense of keepsake to the visit.\n\nThe four-cut frames feature the museum's robot characters, and an **AI algorithm picks and recommends the best-looking shot** among the takes. It is being developed for the **museum's 2nd-anniversary event**.",
+  //   highlights: [
+  //     "**Defined a gap in the visit experience** (no keepsake) as the problem and designed the photo booth as the answer.",
+  //     "Built four-cut frames featuring the museum's robot characters.",
+  //     "**QR-code delivery** so visitors take their photos home instantly.",
+  //     "Applied an **AI algorithm that picks and recommends the best-looking shot** among the takes.",
+  //     "In development for the museum's 2nd-anniversary event.",
+  //   ],
+  //   flow: ["Capture 4 cuts", "AI best-shot selection", "QR delivery"],
+  //   flowImage: {
+  //     light: "/portfolio_images/flow/raim-photo-booth-flow-light.svg",
+  //     dark: "/portfolio_images/flow/raim-photo-booth-flow-dark.svg",
+  //   },
+  // },
   // 포트폴리오에서 임시 제외 (RAIM Metaverse) — 되살릴 때 주석을 풀고
-  // 아래 side 프로젝트 번호를 05, 06, 07 로 한 칸씩 밀어 되돌린다.
+  // 아래 side 프로젝트 번호를 04, 05, 06 으로 한 칸씩 밀어 되돌린다.
   // {
   //   slug: "raim-metaverse",
-  //   n: "04",
+  //   n: "03",
   //   tier: "side",
   //   title: "RAIM Metaverse",
   //   category: "Exhibition Accessibility",
@@ -386,7 +391,7 @@ export const projects: Project[] = [
   // },
   {
     slug: "raimi-art-lab",
-    n: "04",
+    n: "03",
     tier: "side",
     title: "Raimi's AI Art Lab",
     category: "Web App · Education",
@@ -425,7 +430,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ato-care-robot",
-    n: "05",
+    n: "04",
     tier: "side",
     title: "ATO Care Robot",
     category: "AI Healthcare · Care Robot",
@@ -455,7 +460,7 @@ export const projects: Project[] = [
   },
   {
     slug: "exhibit-auto-recovery",
-    n: "06",
+    n: "05",
     tier: "side",
     title: "Exhibit Auto-Recovery",
     category: "Ops Automation · Reliability",
@@ -602,7 +607,8 @@ export const experience = [
       "Research, build, and run the interactive AI education web apps visitors use live on the exhibition floor; the Art Lab alone generates over 3,000 images a month.",
       "Design education programs end to end: a smart-farm curriculum commissioned by Yangpyeong Education Office, built with its full server and web-app stack, with classes upcoming for a 15-student high-school cohort.",
       // 메타버스 전시는 어느 정도 완성되면 다시 추가한다 (data.ts 의 raim-metaverse 주석 블록과 함께)
-      "Ship the internal ops and exhibition tools behind them: a staff scheduler and an AI photo booth.",
+      // 포토부스가 재개되면 "a staff scheduler and an AI photo booth."로 되돌린다 (data.ts 의 raim-photo-booth 주석 블록과 함께)
+      "Ship the internal ops and exhibition tools behind them: a staff scheduler.",
       "Guide exhibitions bilingually (KO / EN) and support the multipurpose education rooms.",
     ],
   },
