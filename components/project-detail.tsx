@@ -35,7 +35,8 @@ export function ProjectDetail({
     <article className="mx-auto max-w-shell px-6 pb-8 pt-28">
       <Link
         href="/#work"
-        className="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-ink"
+        // -my/py 상쇄: 보이는 위치는 그대로 두고 모바일 터치 타깃만 44px 로 확보
+        className="-my-3 inline-flex items-center gap-2 py-3 text-sm text-muted transition-colors hover:text-ink"
       >
         <ArrowIcon className="h-3.5 w-3.5 rotate-180" />
         {t.allWork}
@@ -240,7 +241,8 @@ export function ProjectDetail({
         {t.privacyNotice}{" "}
         <Link
           href="/privacy"
-          className="underline underline-offset-4 transition-colors hover:text-ink"
+          // 각주급 링크지만 모바일에서 눌리기는 해야 한다 — 시각 변화 없이 터치 타깃만 확장
+          className="-my-2.5 inline-block py-2.5 underline underline-offset-4 transition-colors hover:text-ink"
         >
           {t.privacyLink}
         </Link>
