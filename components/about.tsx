@@ -216,43 +216,23 @@ export function About() {
               />
             </motion.button>
 
+            {/* 국문(KO) 다운로드 링크는 한국어 페이지를 만들 때 그쪽에 넣는다 —
+                data.ts 의 resumeKo/cvKo 경로와 PDF 파일은 그대로 유지 중 */}
             <div className="flex flex-wrap items-center gap-2.5">
-              <div className="flex items-center gap-1.5">
-                <a
-                  href={assetPath(person.resume)}
-                  download
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-lime px-5 py-2.5 text-[13px] font-semibold text-lime-ink transition-transform hover:-translate-y-0.5"
-                >
-                  <DownloadIcon /> {t.resume}
-                </a>
-                {/* 국문 이력서 보조 링크 — 작고 일관된 스타일, 헤더는 건드리지 않음 */}
-                <a
-                  href={assetPath(person.resumeKo)}
-                  download
-                  aria-label="Resume (Korean)"
-                  className="text-[11px] font-semibold text-muted underline decoration-ink/30 underline-offset-4 transition-colors hover:text-ink"
-                >
-                  KO
-                </a>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <a
-                  href={assetPath(person.cv)}
-                  download
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-lime/50 px-5 py-2.5 text-[13px] font-semibold text-lime transition-colors hover:bg-lime/10"
-                >
-                  <DownloadIcon /> {t.cv}
-                </a>
-                {/* 국문 CV 보조 링크 */}
-                <a
-                  href={assetPath(person.cvKo)}
-                  download
-                  aria-label="CV (Korean)"
-                  className="text-[11px] font-semibold text-muted underline decoration-ink/30 underline-offset-4 transition-colors hover:text-ink"
-                >
-                  KO
-                </a>
-              </div>
+              <a
+                href={assetPath(person.resume)}
+                download
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-lime px-5 py-2.5 text-[13px] font-semibold text-lime-ink transition-transform hover:-translate-y-0.5"
+              >
+                <DownloadIcon /> {t.resume}
+              </a>
+              <a
+                href={assetPath(person.cv)}
+                download
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-lime/50 px-5 py-2.5 text-[13px] font-semibold text-lime transition-colors hover:bg-lime/10"
+              >
+                <DownloadIcon /> {t.cv}
+              </a>
             </div>
           </div>
         </motion.div>
