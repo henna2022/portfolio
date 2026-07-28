@@ -51,20 +51,14 @@ export function Hero() {
           // 데스크톱에서는 3D 입체 글자가 헤드라인을 대신함 —
           // DOM h1은 레이아웃 자리만 지키고(invisible) 모바일에서는 그대로 표시.
           // 진입 모션은 CSS(intro-up) — 하이드레이션 전에 페인트되어 LCP 에 안전
-          className={`intro-up font-display ko-hero-display text-balance max-w-4xl text-[2.75rem] font-semibold leading-[1.14] tracking-[-0.015em] text-ink sm:text-6xl md:text-7xl ${
-            lang === "en" ? "lg:invisible" : ""
-          }`}
+          className="intro-up font-display ko-hero-display text-balance max-w-4xl text-[2.75rem] font-semibold leading-[1.14] tracking-[-0.015em] text-ink sm:text-6xl md:text-7xl lg:invisible"
         >
           {h.headline}
         </h1>
       </div>
 
       {/* 모바일 전용 CTA — 데스크톱에서는 3D 씬이 벽면 버튼을 렌더링 */}
-      <div
-        className={`intro-up-centered absolute bottom-12 left-1/2 z-10 ${
-          lang === "en" ? "lg:hidden" : ""
-        }`}
-      >
+      <div className="intro-up-centered absolute bottom-12 left-1/2 z-10 lg:hidden">
         <div className="flex flex-wrap items-center justify-center gap-4">
           <motion.a
             whileTap={{ y: 3 }}
@@ -87,7 +81,8 @@ export function Hero() {
       {/* 3D 씬: 과학관 방 코너 + 벽걸이 헤드라인·버튼 + 로봇.
           데스크톱 + WebGL 확인 전에는 마운트하지 않아 모바일은 three.js 청크를
           다운로드조차 하지 않는다 (모바일 CTA 는 위 DOM 버튼이 담당). */}
-      {desktopScene ? <HeroScene showText={lang === "en"} /> : null}
+      {/* KO 도 EN 과 같은 3D 벽 팝업 — 페이퍼로지 서브셋 타입페이스 사용 */}
+      {desktopScene ? <HeroScene showText ko={lang === "ko"} /> : null}
     </section>
   );
 }

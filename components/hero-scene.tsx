@@ -23,7 +23,7 @@ import {
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three-stdlib";
 import { assetPath } from "@/lib/asset";
-import { ui } from "@/lib/i18n";
+import { ui, uiKo } from "@/lib/i18n";
 
 // ─────────────────────────────────────────────────────────────
 // 3D 히어로 씬: 타일 바닥 + 땅에서 올라오는 입체 헤드라인 +
@@ -35,6 +35,11 @@ const MODEL = "/robot.glb";
 const FONT = "/fonts/helvetiker_regular.typeface.json";
 const REACTIONS = ["Robot_Jump", "Robot_Dance", "Robot_ThumbsUp"];
 const HEADLINE = ["Building end-to-end", "systems where AI meets", "the physical world."];
+// KO: 페이퍼로지에서 히어로에 쓰는 글자만 추린 3D 타입페이스(35KB)와
+// 버튼 라벨용 서브셋 TTF(14KB) — EN 과 동일한 벽 팝업 연출을 그대로 쓴다.
+const HEADLINE_KO = ["AI가 물리 세계와", "만나는 엔드 투 엔드", "시스템을 만듭니다."];
+const FONT_KO = "/fonts/paperlogy-hero.typeface.json";
+const LABEL_FONT_KO = "/fonts/paperlogy-hero.ttf";
 
 // 텍스트 3줄이 순차로 올라온 뒤 로봇이 등장하는 타임라인(초)
 const TEXT_START = 0.2;
@@ -256,7 +261,8 @@ const HEADLINE_CENTER_Y = 2.65;
 const TEXT_START_Z = WALL_Z - 0.4; // 벽 속(숨김)
 const TEXT_TARGET_Z = WALL_Z + 0.18; // 벽면보다 살짝 돌출
 
-function RisingHeadline({ dark, reduced }: { dark: boolean; reduced: boolean }) {
+function RisingHeadline({ dark, reduced, ko }: { dark: boolean; reduced: boolean; ko: boolean }) {
+  const lines = ko ? HEADLINE_KO : HEADLINE;
   const line0 = useRef<THREE.Group>(null);
   const line1 = useRef<THREE.Group>(null);
   const line2 = useRef<THREE.Group>(null);
@@ -291,11 +297,11 @@ function RisingHeadline({ dark, reduced }: { dark: boolean; reduced: boolean }) 
   return (
     // 벽면에 걸린 문단 — 코너 원근이 자연스러운 사선을 만들어 준다
     <group position={[0, HEADLINE_CENTER_Y, 0]}>
-      {HEADLINE.map((line, i) => (
+      {lines.map((line, i) => (
         <group key={line} ref={refs[i]} position={[0, LINE_OFFSET_Y[i], TEXT_START_Z]}>
           <Center disableY disableZ>
             <Text3D
-              font={assetPath(FONT)}
+              font={assetPath(ko ? FONT_KO : FONT)}
               size={0.52}
               height={0.05}
               letterSpacing={0.035}
@@ -335,6 +341,7 @@ function Button3D({
   position,
   width,
   dark,
+  labelFont,
   onNavigate,
 }: {
   label: string;
@@ -343,6 +350,7 @@ function Button3D({
   position: [number, number, number];
   width: number;
   dark: boolean;
+  labelFont?: string;
   onNavigate: (target: string) => void;
 }) {
   const group = useRef<THREE.Group>(null);
@@ -391,6 +399,7 @@ function Button3D({
         />
       </mesh>
       <Text
+        font={labelFont}
         position={[0, 0, 0.14]}
         fontSize={0.21}
         color={labelColor}
@@ -409,11 +418,15 @@ function Button3D({
 function WallButtons({
   dark,
   onNavigate,
+  ko,
 }: {
   dark: boolean;
   onNavigate: (target: string) => void;
+  ko: boolean;
 }) {
-  const t = ui;
+  // Canvas 안쪽은 바깥 React 컨텍스트가 끊기므로 lang 은 prop 으로 받는다
+  const t = ko ? uiKo : ui;
+  const labelFont = ko ? assetPath(LABEL_FONT_KO) : undefined;
   return (
     <group position={[0.7, 1.05, WALL_Z + 0.28]}>
       <Button3D
@@ -422,15 +435,17 @@ function WallButtons({
         label={`${t.viewWork} →`}
         target="#work"
         position={[-1.4, 0, 0]}
-        width={2.9}
+        width={ko ? 2.5 : 2.9}
+        labelFont={labelFont}
         onNavigate={onNavigate}
       />
       <Button3D
         dark={dark}
         label={t.readProfile}
         target="#about"
-        position={[1.55, 0, 0]}
-        width={2.2}
+        position={[ko ? 1.35 : 1.55, 0, 0]}
+        width={ko ? 1.8 : 2.2}
+        labelFont={labelFont}
         onNavigate={onNavigate}
       />
     </group>
@@ -781,9 +796,11 @@ useGLTF.preload && useGLTF.preload(assetPath("/props/desk.glb"), assetPath("/dra
 // 미리 받아 HTTP 캐시에 올려두면 GLB·draco 와 같은 구간에서 병렬로 내려온다.
 // (본문까지 읽어야 캐시에 기록되므로 arrayBuffer 로 끝까지 소비한다)
 if (typeof window !== "undefined") {
-  fetch(assetPath(FONT))
-    .then((r) => r.arrayBuffer())
-    .catch(() => {});
+  for (const f of [FONT, FONT_KO, LABEL_FONT_KO]) {
+    fetch(assetPath(f))
+      .then((r) => r.arrayBuffer())
+      .catch(() => {});
+  }
 }
 
 // WebGL 실패 시 조용히 사라지는 안전장치
@@ -797,7 +814,7 @@ class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean
   }
 }
 
-export default function HeroScene({ showText }: { showText: boolean }) {
+export default function HeroScene({ showText, ko = false }: { showText: boolean; ko?: boolean }) {
   const dark = useDark();
   const reduced = useReducedMotion();
   // Lenis 인스턴스는 <Canvas> 바깥(같은 React 트리)에서만 컨텍스트로 잡힌다.
@@ -893,9 +910,9 @@ export default function HeroScene({ showText }: { showText: boolean }) {
                 차지하고 오른쪽 코너로 원근이 소실되게 함 (스케치 구도) */}
             <group rotation-y={0.5} position={[1.8, 0, 0]}>
               <Wall dark={dark} />
-              {showText ? <RisingHeadline dark={dark} reduced={reduced} /> : null}
+              {showText ? <RisingHeadline dark={dark} reduced={reduced} ko={ko} /> : null}
               {showText ? (
-                <WallButtons dark={dark} onNavigate={navigate} />
+                <WallButtons dark={dark} onNavigate={navigate} ko={ko} />
               ) : null}
               <MuseumProps dark={dark} />
               {/* ── 씬 액센트광 (방 좌표계) ──

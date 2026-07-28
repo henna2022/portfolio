@@ -67,6 +67,20 @@ section[id] {
   font-weight: 500;
   letter-spacing: 0;
 }
+/* KO: 한글에는 세리프 이탤릭이 어색하다 — 페이퍼로지 + 액센트 색으로 강조 */
+html.lang-ko .font-serif-it {
+  font-family: var(--font-paperlogy), "Pretendard Variable", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  color: #3b82f6;
+}
+/* KO: 프리텐다드 600 은 General Sans 600 보다 가늘어 보여
+   프로젝트 이름(카드 제목·상세 제목·이전/다음)은 한 단계 굵게 */
+html.lang-ko #work h3,
+html.lang-ko article h1,
+html.lang-ko article nav p {
+  font-weight: 700;
+}
 
 /* Statement — ATO face chip.
    ato.webp 을 4.4배 확대해 얼굴 중심(49.5%, 42%)을 칩 중앙에 맞춘 뒤,

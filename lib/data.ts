@@ -596,7 +596,7 @@ export const experience = [
   {
     org: "Seoul Robot & AI Science Museum",
     site: "https://science.seoul.go.kr/RAIM/index.do",
-    role: "Education R&D · Developer",
+    role: "Education R&D · Developer · Docent",
     period: "2026.03 - Present",
     gallery: [
       "/portfolio_images/experience/docent_1.JPG",

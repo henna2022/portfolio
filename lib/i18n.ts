@@ -84,14 +84,14 @@ export const uiKo: UiStrings = {
   seeMore: "더 보기",
   seeLess: "접기",
 
-  workHeading: "최근 작업을 간추린 인덱스.",
+  workHeading: "최근 작업을 간추려 모았습니다.",
   filterAll: "전체",
   view: "보기",
   viewProject: "프로젝트 보기 →",
   newsArticle: "언론 보도 ↗",
 
   sideProjectsHeading: "사이드 · 토이 프로젝트",
-  sideProjectsSub: "만드는 과정에서 함께 만든 작은 실험들.",
+  sideProjectsSub: "작업 틈틈이 만든 작은 실험들.",
 
   skillsHeading: "기술 스택.",
   swipeHint: "← 스와이프 / 드래그 →",
@@ -104,7 +104,7 @@ export const uiKo: UiStrings = {
   awardsHeading: "수상",
   comingSoon: "준비 중",
 
-  contactHeading: "배울 것이 있는 무언가를 함께 만들어요.",
+  contactHeading: "서로 배울 수 있는 것을 함께 만들어요.",
   getInTouch: "연락하기",
   footerCopyright: "© 2026 이주원",
   privacyNotice: "이 사이트는 익명 방문 통계를 수집합니다.",
@@ -117,7 +117,7 @@ export const uiKo: UiStrings = {
   highlights: "하이라이트",
   stack: "스택",
   architecture: "아키텍처",
-  architectureSub: "앱이 어떻게 구성되어 있는지: 화면 · 역할 · 데이터 흐름.",
+  architectureSub: "화면 · 역할 · 데이터 흐름으로 보는 앱 구조.",
   previous: "← 이전",
   next: "다음 →",
   live: "라이브",
