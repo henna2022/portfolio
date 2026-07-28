@@ -116,8 +116,9 @@
     if (a) {
       var href = a.getAttribute('href') || '';
       if (href.indexOf('Architecture_Deck') >= 0) logEvent('cta_click', 'deck_download');
-      else if (href.indexOf('Resume') >= 0) logEvent('cta_click', 'resume_download');
-      else if (href.indexOf('CV') >= 0) logEvent('cta_click', 'cv_download');
+      // 이력서·CV는 파일명(_KO/_EN)으로 언어까지 구분해 기록한다
+      else if (href.indexOf('Resume') >= 0) logEvent('cta_click', href.indexOf('_KO') >= 0 ? 'resume_download_ko' : 'resume_download_en');
+      else if (href.indexOf('CV') >= 0) logEvent('cta_click', href.indexOf('_KO') >= 0 ? 'cv_download_ko' : 'cv_download_en');
       else if (href.indexOf('mailto:') === 0) logEvent('cta_click', 'email');
       else if (/linkedin\.com/.test(href)) logEvent('cta_click', 'linkedin');
       else if (/github\.com/.test(href)) logEvent('cta_click', 'github');

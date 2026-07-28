@@ -93,6 +93,7 @@
   .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
   .kpi .n{font-family:'Paperlogy',sans-serif;font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
   .kpi .l{color:var(--mid);font-size:12px;margin-top:4px}
+  .kpi .s{color:var(--mid);font-size:11px;margin-top:2px;opacity:.8;font-variant-numeric:tabular-nums}
 
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
@@ -392,7 +393,10 @@ delete from events     where created_at &lt; now() - interval '180 days';</pre>
 
   // 데이터 로드 전에도 빈 화면처럼 보이지 않게 플레이스홀더를 깔아둔다
   function kpiRow(id, list) {
-    el(id).innerHTML = list.map(function (k) { return '<div class="kpi"><div class="n">' + k[1] + '</div><div class="l">' + k[0] + '</div></div>'; }).join('');
+    el(id).innerHTML = list.map(function (k) {
+      return '<div class="kpi"><div class="n">' + k[1] + '</div><div class="l">' + k[0] + '</div>' +
+        (k[2] ? '<div class="s">' + k[2] + '</div>' : '') + '</div>';
+    }).join('');
   }
   kpiRow('kpis', [['총 방문', '—'], ['순 세션', '—'], ['평균 체류', '—'], ['오늘 방문', '—']]);
   kpiRow('kpis-cta', [['이력서 다운로드', '—'], ['CV 다운로드', '—'], ['소개 덱 다운로드', '—'], ['GitHub 클릭', '—'], ['LinkedIn 클릭', '—'], ['이메일 클릭', '—'], ['라이브 링크 클릭', '—']]);
@@ -577,6 +581,14 @@ delete from events     where created_at &lt; now() - interval '180 days';</pre>
 
     // CTA 클릭 라벨별 집계 (이력서·CV·덱 다운로드, 링크 클릭 KPI 용)
     var cta = {}; ev.forEach(function (e) { if (e.type === 'cta_click' && e.label) cta[e.label] = (cta[e.label] || 0) + 1; });
+    // 이력서·CV는 KO/EN 구분 라벨로 쌓인다. 구분 도입 전의 무접미 라벨도 총합에 합산.
+    var resumeN = (cta.resume_download || 0) + (cta.resume_download_ko || 0) + (cta.resume_download_en || 0);
+    var cvN = (cta.cv_download || 0) + (cta.cv_download_ko || 0) + (cta.cv_download_en || 0);
+    function koEnSub(base) {
+      var s = 'KO ' + (cta[base + '_ko'] || 0) + ' · EN ' + (cta[base + '_en'] || 0);
+      if (cta[base]) s += ' · 구분 전 ' + cta[base];
+      return s;
+    }
 
     // 개요: 방문 핵심 지표
     kpiRow('kpis', [
@@ -585,7 +597,7 @@ delete from events     where created_at &lt; now() - interval '180 days';</pre>
     ]);
     // 관심도: CTA 클릭 지표 (analytics.js 가 수집하는 라벨 전부)
     kpiRow('kpis-cta', [
-      ['이력서 다운로드', cta.resume_download || 0], ['CV 다운로드', cta.cv_download || 0],
+      ['이력서 다운로드', resumeN, koEnSub('resume_download')], ['CV 다운로드', cvN, koEnSub('cv_download')],
       ['소개 덱 다운로드', cta.deck_download || 0], ['GitHub 클릭', cta.github || 0],
       ['LinkedIn 클릭', cta.linkedin || 0], ['이메일 클릭', cta.email || 0],
       ['라이브 링크 클릭', cta.project_live || 0]
@@ -600,7 +612,13 @@ delete from events     where created_at &lt; now() - interval '180 days';</pre>
     bars('c-pages', countBy(pv, 'path'));
     bars('c-ref', countBy(pv, function (p) { if (!p.referrer) return 'direct'; try { return new URL(p.referrer).hostname; } catch (e) { return p.referrer; } }));
     bars('c-proj', countBy(ev.filter(function (e) { return e.type === 'project_open'; }), 'label'));
-    bars('c-cta', countBy(ev.filter(function (e) { return e.type === 'cta_click'; }), 'label'));
+    // 원시 라벨을 읽기 좋은 이름으로 (KO/EN 구분 표시). 목록에 없는 라벨은 그대로 노출.
+    var CTA_NAMES = {
+      resume_download_ko: '이력서 (KO)', resume_download_en: '이력서 (EN)', resume_download: '이력서 (구분 전)',
+      cv_download_ko: 'CV (KO)', cv_download_en: 'CV (EN)', cv_download: 'CV (구분 전)',
+      deck_download: '소개 덱', github: 'GitHub', linkedin: 'LinkedIn', email: '이메일', project_live: '라이브 링크'
+    };
+    bars('c-cta', countBy(ev.filter(function (e) { return e.type === 'cta_click'; }), function (e) { return CTA_NAMES[e.label] || e.label; }));
 
     // 방문 추이 (일별/주별/월별)
     renderTrend(pv);
@@ -654,12 +672,17 @@ delete from events     where created_at &lt; now() - interval '180 days';</pre>
 
     // 1) 관심도 하이라이트 — 다운로드 · 링크 클릭 · 프로젝트 열람
     var ctaC = labelMap(evC, 'cta_click'), ctaP = labelMap(evP, 'cta_click');
-    var DL = ['resume_download', 'cv_download', 'deck_download'], LK = ['github', 'linkedin', 'email', 'project_live'];
+    // 이력서·CV는 KO/EN 구분 라벨 + 구분 도입 전 무접미 라벨을 모두 합산
+    var RES = ['resume_download', 'resume_download_ko', 'resume_download_en'];
+    var CVL = ['cv_download', 'cv_download_ko', 'cv_download_en'];
+    var DL = RES.concat(CVL, ['deck_download']), LK = ['github', 'linkedin', 'email', 'project_live'];
     var dlC = sumOf(ctaC, DL), dlP = sumOf(ctaP, DL), lkC = sumOf(ctaC, LK), lkP = sumOf(ctaP, LK);
     var g1 = [];
     g1.push(dlC
       ? dgLine('good', '문서 다운로드 <b>' + dlC + '회</b>' + dgDelta(dlC, dlP) +
-        dgSub('이력서 ' + (ctaC.resume_download || 0) + ' · CV ' + (ctaC.cv_download || 0) + ' · 소개 덱 ' + (ctaC.deck_download || 0)))
+        dgSub('이력서 ' + sumOf(ctaC, RES) + ' (KO ' + (ctaC.resume_download_ko || 0) + '·EN ' + (ctaC.resume_download_en || 0) + ')' +
+          ' · CV ' + sumOf(ctaC, CVL) + ' (KO ' + (ctaC.cv_download_ko || 0) + '·EN ' + (ctaC.cv_download_en || 0) + ')' +
+          ' · 소개 덱 ' + (ctaC.deck_download || 0)))
       : dgLine('', '문서 다운로드 <b>0회</b>' + (dlP ? dgSub('지난주엔 ' + dlP + '회') : '')));
     if (lkC || lkP) {
       g1.push(dgLine('', '링크 클릭 <b>' + lkC + '회</b>' + dgDelta(lkC, lkP) +
