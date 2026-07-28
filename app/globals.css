@@ -45,15 +45,15 @@ body {
    html.lang-ko 는 LangProvider(+페인트 전 langScript)가 붙인다.
    대문(히어로 헤드라인)만 페이퍼로지, 그 아래 본문·헤딩은 전부 프리텐다드. */
 html.lang-ko body {
-  font-family: var(--font-pretendard), var(--font-inter), system-ui, sans-serif;
+  font-family: "Pretendard Variable", var(--font-inter), system-ui, sans-serif;
   /* 한국어 조판: 단어(어절) 중간에서 줄이 끊기지 않게 */
   word-break: keep-all;
 }
 html.lang-ko .font-display {
-  font-family: var(--font-pretendard), var(--font-inter), sans-serif;
+  font-family: "Pretendard Variable", var(--font-inter), sans-serif;
 }
 html.lang-ko .ko-hero-display {
-  font-family: var(--font-paperlogy), var(--font-pretendard), sans-serif;
+  font-family: var(--font-paperlogy), "Pretendard Variable", sans-serif;
 }
 
 section[id] {

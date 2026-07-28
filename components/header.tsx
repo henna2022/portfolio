@@ -40,15 +40,28 @@ export function Header() {
           >
             <DownloadIcon /> {t.resume}
           </a>
-          {/* 한/영 전환 — 지금 화면에서 "전환될" 언어를 라벨로 보여준다 */}
-          <button
-            type="button"
-            onClick={() => setLang(lang === "ko" ? "en" : "ko")}
-            aria-label={lang === "ko" ? "Switch to English" : "한국어로 전환"}
-            className="inline-flex h-9 min-w-9 items-center justify-center rounded-lg bg-ink/5 px-2 text-[13px] font-semibold text-ink/80 transition-colors hover:bg-ink/10 hover:text-ink"
+          {/* KO/EN 세그먼트 스위치 — 현재 언어가 하이라이트된다 */}
+          <div
+            role="group"
+            aria-label="Language"
+            className="flex h-9 items-center rounded-lg bg-ink/5 p-0.5"
           >
-            {lang === "ko" ? "EN" : "한"}
-          </button>
+            {(["ko", "en"] as const).map((l) => (
+              <button
+                key={l}
+                type="button"
+                onClick={() => setLang(l)}
+                aria-pressed={lang === l}
+                className={`h-full rounded-md px-2 text-[12px] font-semibold uppercase transition-colors ${
+                  lang === l
+                    ? "bg-ink text-cream"
+                    : "text-ink/50 hover:text-ink"
+                }`}
+              >
+                {l === "ko" ? "KO" : "EN"}
+              </button>
+            ))}
+          </div>
           <ThemeToggle />
         </div>
       </div>

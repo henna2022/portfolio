@@ -27,15 +27,11 @@ const generalSans = localFont({
 });
 
 // ── 한국어 모드 전용 폰트 (모두 셀프호스팅 — QA의 서드파티 리소스 금지 준수) ──
-// 프리텐다드: KO 모드의 본문·헤딩 전체. 가변 폰트 1파일로 전 웨이트 커버.
-const pretendard = localFont({
-  src: [{ path: "../public/fonts/PretendardVariable.woff2", weight: "45 920", style: "normal" }],
-  variable: "--font-pretendard",
-  display: "swap",
-  // EN 이 기본이라 첫 페인트 크리티컬 패스가 아님 — preload 로 EN 방문자의
-  // 대역폭(2MB)을 낭비하지 않는다. KO 전환 시 swap 으로 로드된다.
-  preload: false,
-});
+// 프리텐다드: 단일 가변 파일(2MB)은 KO 전환 시 수 초짜리 다운로드가 됐다.
+// 공식 다이내믹 서브셋(유니코드 범위별 92개 woff2)으로 교체 — 브라우저가
+// 화면에 실제 등장한 글리프 범위만 병렬로 받아 초기 로드가 수십 KB 로 준다.
+// (public/fonts/pretendard/ 의 CSS 를 <head> 에서 링크; EN 모드에선 KO 폰트
+// 규칙이 적용되지 않아 아무 서브셋도 받지 않는다)
 // 페이퍼로지: KO 모드의 대문(히어로 헤드라인) 전용.
 const paperlogy = localFont({
   src: [
@@ -121,12 +117,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${generalSans.variable} ${pretendard.variable} ${paperlogy.variable}`}
+      className={`${inter.variable} ${generalSans.variable} ${paperlogy.variable}`}
       suppressHydrationWarning
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script dangerouslySetInnerHTML={{ __html: langScript }} />
+        {/* 프리텐다드 다이내믹 서브셋 — unicode-range 로 쪼개져 있어 브라우저가
+            KO 모드에서 실제 쓰인 범위만 병렬 로드한다 (EN 모드에선 0바이트) */}
+        <link
+          rel="stylesheet"
+          href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/fonts/pretendard/pretendardvariable-dynamic-subset.css`}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
