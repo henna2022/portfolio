@@ -37,7 +37,7 @@ const REACTIONS = ["Robot_Jump", "Robot_Dance", "Robot_ThumbsUp"];
 const HEADLINE = ["Building end-to-end", "systems where AI meets", "the physical world."];
 // KO: 페이퍼로지에서 히어로에 쓰는 글자만 추린 3D 타입페이스(35KB)와
 // 버튼 라벨용 서브셋 TTF(14KB) — EN 과 동일한 벽 팝업 연출을 그대로 쓴다.
-const HEADLINE_KO = ["AI가 물리 세계와", "만나는 엔드 투 엔드", "시스템을 만듭니다."];
+const HEADLINE_KO = ["만들 줄 아는 교육자,", "가르칠 줄 아는", "개발자입니다."];
 const FONT_KO = "/fonts/paperlogy-hero.typeface.json";
 const LABEL_FONT_KO = "/fonts/paperlogy-hero.ttf";
 

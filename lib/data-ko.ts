@@ -23,7 +23,7 @@ import type { Lang } from "@/components/lang-provider";
 // ─── Hero ───────────────────────────────────────────────────────────────────
 export const heroKo = {
   badge: "AI · Robotics · Web",
-  headline: "AI가 물리 세계와 만나는 엔드 투 엔드 시스템을 만듭니다.",
+  headline: "만들 줄 아는 교육자, 가르칠 줄 아는 개발자입니다.",
   sub: "화면 밖으로 나와 로봇·센서·전시장 위에서 동작하는 AI를 만들고, 그 원리를 사람들에게 가르칩니다.",
 };
 
