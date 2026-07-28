@@ -41,8 +41,20 @@ body {
   font-family: var(--font-display), var(--font-inter), sans-serif;
 }
 
-/* (removed) Korean locale was dropped —
-   production is EN-only and must not reference/load Pretendard. */
+/* ── 한국어 모드 타이포그래피 ─────────────────────────────────────
+   html.lang-ko 는 LangProvider(+페인트 전 langScript)가 붙인다.
+   대문(히어로 헤드라인)만 페이퍼로지, 그 아래 본문·헤딩은 전부 프리텐다드. */
+html.lang-ko body {
+  font-family: var(--font-pretendard), var(--font-inter), system-ui, sans-serif;
+  /* 한국어 조판: 단어(어절) 중간에서 줄이 끊기지 않게 */
+  word-break: keep-all;
+}
+html.lang-ko .font-display {
+  font-family: var(--font-pretendard), var(--font-inter), sans-serif;
+}
+html.lang-ko .ko-hero-display {
+  font-family: var(--font-paperlogy), var(--font-pretendard), sans-serif;
+}
 
 section[id] {
   scroll-margin-top: 6.5rem;

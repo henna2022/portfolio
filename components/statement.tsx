@@ -9,6 +9,8 @@ import {
   type MotionValue,
 } from "framer-motion";
 import { statement, type StatementToken } from "@/lib/data";
+import { statementKo } from "@/lib/data-ko";
+import { useI18n } from "./lang-provider";
 import { AtoChip } from "./ato-chip";
 
 // 스크롤 진행도 10~85% 구간에 단어를 순서대로 매핑 (portfolio_v2 와 동일한 배분).
@@ -56,13 +58,15 @@ function Word({
 export function Statement() {
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
+  const { lang } = useI18n();
+  const tokens = lang === "ko" ? statementKo : statement;
 
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],
   });
 
-  const words = statement.filter(
+  const words = tokens.filter(
     (tk): tk is Extract<StatementToken, { t: "w" }> => tk.t === "w",
   );
   const total = words.length;
@@ -86,7 +90,7 @@ export function Statement() {
       >
         <p className="font-display max-w-[1000px] text-center text-[clamp(1.9rem,5.2vw,4.2rem)] font-bold leading-[1.32] tracking-[-0.02em] text-ink">
           {/* 토큰 사이에 실제 공백 문자를 넣어 복사·스크린리더 낭독이 정상 동작하게 한다 */}
-          {statement.map((token, i) => (
+          {tokens.map((token, i) => (
             <span key={i}>
               {token.t === "chip" ? (
                 <AtoChip />

@@ -3,14 +3,16 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { activities } from "@/lib/data";
+import { activitiesKo } from "@/lib/data-ko";
 import { ImageCarousel } from "./image-carousel";
-import { ui } from "@/lib/i18n";
+import { useI18n } from "./lang-provider";
 import { ArrowIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
 export function Activities() {
   const [open, setOpen] = useState<number | null>(null);
-  const t = ui;
+  const { t, lang } = useI18n();
+  const items = lang === "ko" ? activitiesKo : activities;
 
   return (
     <section id="activities" className="mx-auto max-w-shell px-6 py-16">
@@ -25,7 +27,7 @@ export function Activities() {
       </motion.h2>
 
       <div className="border-t border-ink/10">
-        {activities.map((a, i) => {
+        {items.map((a, i) => {
           const isOpen = open === i;
           return (
             <motion.div

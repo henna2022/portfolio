@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { LangProvider } from "@/components/lang-provider";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { ConsoleSignature } from "@/components/console-signature";
 import { NoContextMenu } from "@/components/no-context-menu";
@@ -23,6 +24,27 @@ const generalSans = localFont({
   ],
   variable: "--font-display",
   display: "swap",
+});
+
+// ── 한국어 모드 전용 폰트 (모두 셀프호스팅 — QA의 서드파티 리소스 금지 준수) ──
+// 프리텐다드: KO 모드의 본문·헤딩 전체. 가변 폰트 1파일로 전 웨이트 커버.
+const pretendard = localFont({
+  src: [{ path: "../public/fonts/PretendardVariable.woff2", weight: "45 920", style: "normal" }],
+  variable: "--font-pretendard",
+  display: "swap",
+  // EN 이 기본이라 첫 페인트 크리티컬 패스가 아님 — preload 로 EN 방문자의
+  // 대역폭(2MB)을 낭비하지 않는다. KO 전환 시 swap 으로 로드된다.
+  preload: false,
+});
+// 페이퍼로지: KO 모드의 대문(히어로 헤드라인) 전용.
+const paperlogy = localFont({
+  src: [
+    { path: "../public/fonts/Paperlogy-600.woff2", weight: "600", style: "normal" },
+    { path: "../public/fonts/Paperlogy-700.woff2", weight: "700", style: "normal" },
+  ],
+  variable: "--font-paperlogy",
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -59,6 +81,19 @@ const themeScript = `
 })();
 `;
 
+// Runs before paint: applies the saved language so KO fonts/class are ready
+// before hydration (analytics.js 도 이 클래스를 읽어 lang 을 기록한다).
+const langScript = `
+(function () {
+  try {
+    if (localStorage.getItem('pf_lang') === 'ko') {
+      document.documentElement.lang = 'ko';
+      document.documentElement.classList.add('lang-ko');
+    }
+  } catch (e) {}
+})();
+`;
+
 // 검색엔진용 구조화 데이터 (Person) — 검색 결과에 인물 정보로 노출될 수 있음
 const personJsonLd = {
   "@context": "https://schema.org",
@@ -86,11 +121,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${generalSans.variable}`}
+      className={`${inter.variable} ${generalSans.variable} ${pretendard.variable} ${paperlogy.variable}`}
       suppressHydrationWarning
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: langScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
@@ -99,10 +135,12 @@ export default function RootLayout({
       <body>
         <ConsoleSignature />
         <NoContextMenu />
-        <SmoothScroll>
-          <ScrollProgress />
-          {children}
-        </SmoothScroll>
+        <LangProvider>
+          <SmoothScroll>
+            <ScrollProgress />
+            {children}
+          </SmoothScroll>
+        </LangProvider>
         {/* (제거) Cloudflare Web Analytics — 아래 자체 통계와 수집 항목이 겹치는
             서드파티 비콘이었다. 이 사이트는 GitHub Pages 라 Cloudflare 뒤에 있지도
             않아 순수 JS 비콘이었고, 차단 DNS·광고 차단기를 쓰는 방문자에게는

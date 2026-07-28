@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { person } from "@/lib/data";
 import { assetPath } from "@/lib/asset";
-import { ui } from "@/lib/i18n";
+import { useI18n } from "./lang-provider";
 import { ArrowIcon, GithubIcon, LinkedinIcon, MailIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
@@ -17,7 +17,7 @@ const socials = [
 
 export function Contact() {
   const [today, setToday] = useState("");
-  const t = ui;
+  const { t } = useI18n();
 
   useEffect(() => {
     setToday(

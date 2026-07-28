@@ -2,13 +2,15 @@
 
 import { motion } from "framer-motion";
 import { experience } from "@/lib/data";
+import { experienceKo } from "@/lib/data-ko";
 import { assetPath } from "@/lib/asset";
-import { ui } from "@/lib/i18n";
+import { useI18n } from "./lang-provider";
 import { ease } from "@/lib/motion";
 import { ArrowIcon } from "./icons";
 
 export function Experience() {
-  const t = ui;
+  const { t, lang } = useI18n();
+  const items = lang === "ko" ? experienceKo : experience;
   return (
     <section id="experience" className="mx-auto max-w-shell px-6 py-16">
       <motion.h2
@@ -22,7 +24,7 @@ export function Experience() {
       </motion.h2>
 
       <div className="space-y-3">
-        {experience.map((e, i) => {
+        {items.map((e, i) => {
           return (
           <motion.div
             key={e.org}

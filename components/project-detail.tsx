@@ -4,7 +4,8 @@ import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import type { Project } from "@/lib/data";
 import { assetPath } from "@/lib/asset";
-import { ui } from "@/lib/i18n";
+import { useI18n } from "./lang-provider";
+import { koProjectTitle, localizeProject } from "@/lib/data-ko";
 import { ArrowIcon } from "./icons";
 import { ImageCarousel } from "./image-carousel";
 import { ease } from "@/lib/motion";
@@ -17,7 +18,7 @@ const reveal: Variants = {
 type NavLink = { slug: string; title: string };
 
 export function ProjectDetail({
-  project: p,
+  project,
   prev,
   next,
 }: {
@@ -25,7 +26,8 @@ export function ProjectDetail({
   prev: NavLink;
   next: NavLink;
 }) {
-  const t = ui;
+  const { t, lang } = useI18n();
+  const p = localizeProject(project, lang);
 
   // 갤러리를 나눠 흩어놓지 않고 슬라이드 하나로 모아 한눈에 넘겨보게 한다.
   // (이전에는 gallery[0] 만 히어로, 나머지는 아래쪽 2단 그리드로 분리돼 있었다)
@@ -222,7 +224,7 @@ export function ProjectDetail({
         >
           <span className="text-xs text-muted">{t.previous}</span>
           <p className="font-display mt-1 text-xl font-semibold">
-            {prev.title}
+            {lang === "ko" ? koProjectTitle(prev.slug) ?? prev.title : prev.title}
           </p>
         </Link>
         <Link
@@ -231,7 +233,7 @@ export function ProjectDetail({
         >
           <span className="text-xs text-muted">{t.next}</span>
           <p className="font-display mt-1 text-xl font-semibold">
-            {next.title}
+            {lang === "ko" ? koProjectTitle(next.slug) ?? next.title : next.title}
           </p>
         </Link>
       </nav>

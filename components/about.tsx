@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { about, person, type ProseParagraph } from "@/lib/data";
+import { aboutKo } from "@/lib/data-ko";
 import { assetPath } from "@/lib/asset";
-import { ui } from "@/lib/i18n";
+import { useI18n } from "./lang-provider";
 import { DownloadIcon } from "./icons";
 import { ease, fadeUp, viewportOnce } from "@/lib/motion";
 
@@ -50,7 +51,8 @@ function CurlyArrow({ className = "" }: { className?: string }) {
 
 export function About() {
   const [open, setOpen] = useState(false);
-  const t = ui;
+  const { t, lang } = useI18n();
+  const a = lang === "ko" ? aboutKo : about;
 
   // '더 보기' 패널은 프레이머 모션을 쓰지 않는다 — 부모가 variants 를 쓰고 있어서
   // 자식 motion 컴포넌트의 animate 가 variant 전파에 덮인다. 대신 내용 높이를
@@ -95,7 +97,7 @@ export function About() {
         >
           <div className="relative mx-auto mb-6 w-full max-w-[300px]">
             <img
-              src={assetPath(about.photo)}
+              src={assetPath(a.photo)}
               alt={person.name}
               // STATEMENT(220vh) 뒤라 확실히 폴드 아래 — 첫 화면 대역폭과 경쟁하지 않게 지연 로드
               loading="lazy"
@@ -109,11 +111,11 @@ export function About() {
           </h3>
 
           <p className="mx-auto mb-5 mt-3 max-w-[340px] text-[13.5px] leading-[1.75] tracking-[-0.01em] text-muted">
-            {about.tagline}
+            {a.tagline}
           </p>
 
           <ul className="mx-auto mb-6 flex max-w-[340px] flex-col gap-2 text-left">
-            {about.info.map((item, i) => (
+            {a.info.map((item, i) => (
               <li
                 key={i}
                 className="flex items-start gap-2 text-[12.5px] leading-[1.6] text-muted"
@@ -149,7 +151,7 @@ export function About() {
           </p>
 
           <h3 className="font-display mb-9 mt-4 text-[clamp(1.4rem,2.6vw,2rem)] font-bold leading-[1.45] tracking-[-0.015em] text-ink">
-            {about.quote.map((part, i) =>
+            {a.quote.map((part, i) =>
               part.em ? (
                 // 액센트 컬러 + 뒤에 깔리는 형광펜 하이라이트
                 <span
@@ -165,7 +167,7 @@ export function About() {
           </h3>
 
           <div className="space-y-4">
-            {about.prose.map((p, i) => (
+            {a.prose.map((p, i) => (
               <Prose key={i} paragraph={p} />
             ))}
 
@@ -177,12 +179,12 @@ export function About() {
               aria-hidden={!open}
             >
               <div ref={moreRef} className="space-y-4 pt-4">
-                {about.proseMore.map((p, i) => (
+                {a.proseMore.map((p, i) => (
                   <Prose key={i} paragraph={p} />
                 ))}
                 {/* 카드에서 내려온 부차적 이력·자격 */}
                 <dl className="grid max-w-[640px] gap-x-10 gap-y-5 border-t border-ink/10 pt-6 sm:grid-cols-2">
-                  {about.facts.map((f) => (
+                  {a.facts.map((f) => (
                     <div key={f.k}>
                       <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
                         {f.k}
@@ -216,18 +218,17 @@ export function About() {
               />
             </motion.button>
 
-            {/* 국문(KO) 다운로드 링크는 한국어 페이지를 만들 때 그쪽에 넣는다 —
-                data.ts 의 resumeKo/cvKo 경로와 PDF 파일은 그대로 유지 중 */}
+            {/* KO 모드에서는 국문 PDF, EN 모드에서는 영문 PDF 를 내려준다 */}
             <div className="flex flex-wrap items-center gap-2.5">
               <a
-                href={assetPath(person.resume)}
+                href={assetPath(lang === "ko" ? person.resumeKo : person.resume)}
                 download
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-lime px-5 py-2.5 text-[13px] font-semibold text-lime-ink transition-transform hover:-translate-y-0.5"
               >
                 <DownloadIcon /> {t.resume}
               </a>
               <a
-                href={assetPath(person.cv)}
+                href={assetPath(lang === "ko" ? person.cvKo : person.cv)}
                 download
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-lime/50 px-5 py-2.5 text-[13px] font-semibold text-lime transition-colors hover:bg-lime/10"
               >

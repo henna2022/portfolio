@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { awards } from "@/lib/data";
+import { awardsKo } from "@/lib/data-ko";
 import { ImageCarousel } from "./image-carousel";
-import { ui } from "@/lib/i18n";
+import { useI18n } from "./lang-provider";
 import { ease } from "@/lib/motion";
 
 const parent: Variants = {
@@ -17,16 +18,15 @@ const card: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
 };
 
-// 사진 있는 카드를 위로, 그 안에서는 최신순. 2열 그리드라 사진 카드와
-// 텍스트 카드가 같은 행에 섞이면 높이가 벌어져 한쪽에 빈 공간이 생긴다.
-const ordered = [...awards].sort(
-  (a, b) =>
-    Number(b.photos.length > 0) - Number(a.photos.length > 0) ||
-    Number(b.year) - Number(a.year),
-);
-
 export function Awards() {
-  const t = ui;
+  const { t, lang } = useI18n();
+  // 사진 있는 카드를 위로, 그 안에서는 최신순. 2열 그리드라 사진 카드와
+  // 텍스트 카드가 같은 행에 섞이면 높이가 벌어져 한쪽에 빈 공간이 생긴다.
+  const ordered = [...(lang === "ko" ? awardsKo : awards)].sort(
+    (a, b) =>
+      Number(b.photos.length > 0) - Number(a.photos.length > 0) ||
+      Number(b.year) - Number(a.year),
+  );
   return (
     <section id="awards" className="mx-auto max-w-shell px-6 py-16">
       <motion.h2

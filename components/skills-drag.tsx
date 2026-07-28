@@ -2,7 +2,8 @@
 
 import { motion, type Variants } from "framer-motion";
 import { skillGroups } from "@/lib/data";
-import { ui } from "@/lib/i18n";
+import { skillGroupsKo } from "@/lib/data-ko";
+import { useI18n } from "./lang-provider";
 import { ease } from "@/lib/motion";
 import { assetPath } from "@/lib/asset";
 
@@ -37,7 +38,8 @@ const card: Variants = {
 };
 
 export function SkillsDrag() {
-  const t = ui;
+  const { t, lang } = useI18n();
+  const groups = lang === "ko" ? skillGroupsKo : skillGroups;
 
   return (
     <section id="skills" className="mx-auto max-w-shell px-6 py-16">
@@ -60,7 +62,7 @@ export function SkillsDrag() {
         viewport={{ once: true, margin: "-8%" }}
         className="grid gap-4 sm:grid-cols-2"
       >
-        {skillGroups.map((g) => {
+        {groups.map((g) => {
           return (
             <motion.div
               key={g.key}

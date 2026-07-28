@@ -5,10 +5,10 @@ import { usePathname } from "next/navigation";
 import { useLenis } from "lenis/react";
 import { sections } from "@/lib/data";
 import { assetPath } from "@/lib/asset";
-import { ui } from "@/lib/i18n";
+import { useI18n } from "./lang-provider";
 
 export function SectionNav() {
-  const t = ui;
+  const { t } = useI18n();
   const pathname = usePathname();
   const lenis = useLenis();
   const isHome = pathname === "/";

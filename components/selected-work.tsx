@@ -4,8 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { projects, type Project } from "@/lib/data";
+import { localizeProject } from "@/lib/data-ko";
 import { assetPath } from "@/lib/asset";
-import { ui, type UiStrings } from "@/lib/i18n";
+import { type UiStrings } from "@/lib/i18n";
+import { useI18n } from "./lang-provider";
 import { DownloadIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
@@ -205,10 +207,11 @@ function SideCard({ p, t }: { p: Project; t: UiStrings }) {
 
 export function SelectedWork() {
   const [filter, setFilter] = useState("All");
-  const t = ui;
+  const { t, lang } = useI18n();
 
-  const majors = projects.filter((p) => p.tier === "major");
-  const sides = projects.filter((p) => p.tier === "side");
+  const localized = projects.map((p) => localizeProject(p, lang));
+  const majors = localized.filter((p) => p.tier === "major");
+  const sides = localized.filter((p) => p.tier === "side");
   const visibleMajors =
     filter === "All"
       ? majors
