@@ -23,7 +23,7 @@ export function ConsoleSignature() {
         "Curious how this site is built?\n\n" +
         "%cGitHub   → https://github.com/henna2022\n" +
         "LinkedIn → https://www.linkedin.com/in/juwon-lee-677b702b3/\n" +
-        "Email    → juwonlee211@gmail.com",
+        "Email    → hello@juwonlee.dev",
       name,
       role,
       body,

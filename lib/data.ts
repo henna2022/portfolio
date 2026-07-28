@@ -2,7 +2,7 @@ export const person = {
   name: "Juwon Lee",
   hangul: "이주원",
   role: "AI Product Engineer",
-  email: "juwonlee211@gmail.com",
+  email: "hello@juwonlee.dev",
   github: "https://github.com/henna2022",
   githubHandle: "henna2022",
   linkedin: "https://www.linkedin.com/in/juwon-lee-677b702b3/",

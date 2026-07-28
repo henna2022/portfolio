@@ -144,7 +144,7 @@
     var URL = window.SB_URL, KEY = window.SB_ANON_KEY;
     if (!URL || !KEY || /YOUR-/.test(URL) || /YOUR-/.test(KEY)) {
       // 백엔드 미설정 → 이메일로 폴백
-      location.href = 'mailto:juwonlee211@gmail.com?subject=' + encodeURIComponent('Portfolio contact — ' + (val('name') || '')) +
+      location.href = 'mailto:hello@juwonlee.dev?subject=' + encodeURIComponent('Portfolio contact — ' + (val('name') || '')) +
         '&body=' + encodeURIComponent(body + '\n\n— ' + (val('name') || '') + ' (' + (val('email') || '') + ')');
       return;
     }
