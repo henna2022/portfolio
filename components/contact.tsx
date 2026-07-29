@@ -17,18 +17,18 @@ const socials = [
 
 export function Contact() {
   const [today, setToday] = useState("");
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
 
   useEffect(() => {
     setToday(
-      new Date().toLocaleDateString("en-US", {
+      new Date().toLocaleDateString(lang === "ko" ? "ko-KR" : "en-US", {
         weekday: "long",
         year: "numeric",
         month: "numeric",
         day: "numeric",
       }),
     );
-  }, []);
+  }, [lang]);
 
   return (
     <footer
