@@ -224,6 +224,7 @@ export const projects: Project[] = [
     year: "2026",
     role: "Solo: planning & development",
     tags: ["YOLO", "Weather API", "Flask", "MicroPython", "Supabase", "IoT"],
+    href: "https://doctor-green-edu.vercel.app/",
     repo: "https://github.com/henna2022/smartfarm-device",
     stat: "15-student cohort (planned)",
     overview:
