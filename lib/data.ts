@@ -84,7 +84,7 @@ export const about = {
   facts: [
     {
       k: "Education",
-      v: "Hankyong National University (2022 – 2027 expected)\nRutgers University · Winter Intensive English (2025)\nCheongwon Girls' High School (2019 – 2022)",
+      v: "Hankyong National University (2022 – 2027 expected · completing the degree while working full-time)\nRutgers University · Winter Intensive English (2025)\nCheongwon Girls' High School (2019 – 2022)",
     },
     {
       k: "Languages & Certifications",
@@ -105,7 +105,7 @@ export const about = {
     [
       { text: "Hi, I'm Juwon Lee, a " },
       { text: "software developer", b: true },
-      { text: " who cares most about the moment an idea becomes something people actually use. On every project so far I've owned the work " },
+      { text: " who cares most about the moment an idea becomes something people actually use. On most of my projects I've owned the work " },
       { text: "from planning through deployment", b: true },
       { text: "." },
     ],
@@ -120,7 +120,7 @@ export const about = {
   proseMore: [
     [
       { text: "That software mostly lands in places people stand in. At the Seoul Robot & AI Science Museum my Art Lab runs live on the exhibition floor, generating " },
-      { text: "over 3,000 images a month", b: true },
+      { text: "3,049 images in June 2026 and over 8,000 in July", b: true },
       { text: ", the first service there whose volume could be measured through its own backend. Doctor-Green reaches down to " },
       { text: "ESP32 sensor nodes", b: true },
       { text: ", and with ATO I took it all the way to the hardware: firmware, servos, and an LCD face." },
@@ -128,7 +128,7 @@ export const about = {
     [
       { text: "I also spend a lot of my time " },
       { text: "teaching, and I want to keep doing it", b: true },
-      { text: ". I planned and built a smart-farm program for the Yangpyeong Education Office, due to run with a 15-student cohort, I meet museum visitors in Korean and English, and I mentor students. " },
+      { text: ". I meet museum visitors in Korean and English, I mentor students week to week, and I built a full smart-farm program for the Yangpyeong Education Office — curriculum, server, and web app — that is set to run with a 15-student cohort. " },
       { text: "Building something and explaining it well are the same job to me", b: true },
       { text: ": both come down to making a complex system make sense." },
     ],
@@ -161,6 +161,8 @@ export type Project = {
   flow?: string[];
   flowImage?: { light: string; dark: string };
   gallery?: string[];
+  // 갤러리 이미지 경로 → 대체 텍스트. 자동 생성 alt 로는 설명이 안 되는 것만 적는다.
+  galleryAlts?: Record<string, string>;
 };
 
 export const projects: Project[] = [
@@ -397,22 +399,22 @@ export const projects: Project[] = [
     category: "Web App · Education",
     categories: ["AI", "Web", "Education"],
     kicker: "Live @ Seoul Robot & AI Science Museum",
-    desc: "A guided prompt builder where visitors co-create AI artwork with the museum character Raimi. Running live at the museum, it generates over 3,000 images a month.",
+    desc: "A guided prompt builder where visitors co-create AI artwork with the museum character Raimi. Running live at the museum, it generated 3,049 images in June 2026 and over 8,000 in July.",
     year: "2026",
     role: "Planning · development · operations",
     tags: ["JavaScript", "OpenAI API", "Vercel Serverless", "Supabase", "Cloudflare R2", "PWA"],
     repo: "https://github.com/henna2022/raim-ai-artstudio",
     image: "/portfolio_images/projects/artlab-mode.jpg",
-    stat: "3,000+/month",
+    stat: "3,049 → 8,000+/month",
     overview:
-      "Visitors compose a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI generates the artwork. Designed so young visitors learn the principles of prompt engineering through play, with a **10-step (+5 advanced) choice-based prompt builder** that shows how a prompt is put together.\n\nThe off-the-shelf GPT service used before suffered repeated connection conflicts on the exhibition floor. Moving to a custom web app and serverless backend **eliminated 100% of those conflicts**; the backend calls the OpenAI image-generation API, auto-watermarks every image with the museum logo, and dual-stores results on Cloudflare R2 and Supabase. Visitors take their creations home instantly via QR code, and shipping it as a web app locked the exhibition kiosk down from other apps.\n\nIt now runs live at the museum, generating **over 3,000 images a month** (3,049 in June 2026). It is the **first service at the museum whose generation volume could be quantified**, through its own backend.",
+      "Visitors compose a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI generates the artwork. Designed so young visitors learn the principles of prompt engineering through play, with a **10-step (+5 advanced) choice-based prompt builder** that shows how a prompt is put together.\n\nThe off-the-shelf GPT service used before suffered repeated connection conflicts on the exhibition floor. Moving to a custom web app and serverless backend **eliminated 100% of those conflicts**; the backend calls the OpenAI image-generation API, auto-watermarks every image with the museum logo, and dual-stores results on Cloudflare R2 and Supabase. Visitors take their creations home instantly via QR code, and shipping it as a web app locked the exhibition kiosk down from other apps.\n\nIt now runs live at the museum: **3,049 images in June 2026, rising above 8,000 in July**, the museum's peak season. It is the **first service at the museum whose generation volume could be quantified**, through its own backend.",
     highlights: [
       "**10-step (+5 advanced) choice-based prompt builder** that teaches prompt composition through play, designed for all-ages museum visitors.",
       "**Eliminated 100% of the connection conflicts** of the prior off-the-shelf GPT service by moving to a custom web app and backend.",
       "Serverless backend on the OpenAI image-generation API, deployed on Vercel.",
       "**Auto-watermarks** every image with the museum logo and **dual-stores on Cloudflare R2 and Supabase**.",
       "QR-code takeaway for visitors' creations; shipping as a web app locked the exhibition kiosk down from other apps.",
-      "**Over 3,000 images generated a month**: the **first museum service to quantify generation volume** via a custom backend.",
+      "**3,049 images in June 2026, rising above 8,000 in July** (the museum's peak season): the **first museum service to quantify generation volume** via a custom backend.",
     ],
     flow: ["10-step prompt builder", "OpenAI API", "Auto-watermark", "R2 + Supabase"],
     flowImage: {
@@ -426,7 +428,12 @@ export const projects: Project[] = [
       // 전시장 실사용 컷 — 프롬프트 고르는 중, 그리고 완성 후 QR 저장
       "/portfolio_images/projects/artlab-onsite-prompt.jpg",
       "/portfolio_images/projects/artlab-onsite-result.jpg",
+      "/portfolio_images/projects/artlab-usage-chart.png",
     ],
+    galleryAlts: {
+      "/portfolio_images/projects/artlab-usage-chart.png":
+        "Art Lab admin dashboard: daily image generation over the last 30 days (30 June – 28 July 2026), peaking above 700 in a single day.",
+    },
   },
   {
     slug: "ato-care-robot",
@@ -604,7 +611,7 @@ export const experience = [
       "/portfolio_images/experience/docent_3.jpg",
     ],
     points: [
-      "Research, build, and run the interactive AI education web apps visitors use live on the exhibition floor; the Art Lab alone generates over 3,000 images a month.",
+      "Research, build, and run the interactive AI education web apps visitors use live on the exhibition floor; the Art Lab alone went from 3,049 images in June 2026 to over 8,000 in July.",
       "Design education programs end to end: a smart-farm curriculum commissioned by Yangpyeong Education Office, built with its full server and web-app stack, with classes upcoming for a 15-student high-school cohort.",
       // 메타버스 전시는 어느 정도 완성되면 다시 추가한다 (data.ts 의 raim-metaverse 주석 블록과 함께)
       // 포토부스가 재개되면 "a staff scheduler and an AI photo booth."로 되돌린다 (data.ts 의 raim-photo-booth 주석 블록과 함께)
@@ -615,7 +622,7 @@ export const experience = [
   {
     org: "Select Star",
     site: "https://selectstar.ai/",
-    role: "Data Contributor & QA",
+    role: "VQA Dataset Builder & QA Reviewer",
     period: "2025.11 - 2026.01 · Project contract",
     points: [
       "Built and reviewed visual question-answering (VQA) datasets for LLM training on an ETRI (Electronics and Telecommunications Research Institute) project, including complex 3-hop reasoning Q&A sets.",
@@ -751,7 +758,9 @@ export const awards: Award[] = [
     relatedSlug: "ato-care-robot",
   },
   {
-    year: "2025",
+    // 월까지 적는 유일한 항목 — 2025.09~10 경력 공백이 이 대회 준비 기간이라
+    // 연도만 있으면 타임라인에서 그 사실이 드러나지 않는다.
+    year: "2025.09",
     title: "Science Museum & Community AI Hackathon",
     detail: "2nd place: AI docent for museum-community co-prosperity",
     result: "2nd place",
