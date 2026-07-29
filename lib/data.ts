@@ -76,7 +76,7 @@ export const about = {
     },
     {
       icon: "🏛️",
-      lines: ["Seoul Robot & AI Science Museum · Education Content (current)"],
+      lines: ["Seoul Robot & AI Science Museum · Education R&D · Developer (current)"],
     },
     { icon: "📍", lines: ["Seoul, KR"] },
   ],
@@ -121,13 +121,13 @@ export const about = {
     [
       { text: "That software mostly lands in places people stand in. At the Seoul Robot & AI Science Museum my Art Lab runs live on the exhibition floor, generating " },
       { text: "3,049 images in June 2026 and over 8,000 in July", b: true },
-      { text: ", the first service there whose volume could be measured through its own backend. Doctor-Green reaches down to " },
+      { text: ", with volume measured through its own backend. Doctor-Green reaches down to " },
       { text: "ESP32 sensor nodes", b: true },
       { text: ", and with ATO I took it all the way to the hardware: firmware, servos, and an LCD face." },
     ],
     [
       { text: "I also spend a lot of my time " },
-      { text: "teaching, and I want to keep doing it", b: true },
+      { text: "teaching", b: true },
       { text: ". I meet museum visitors in Korean and English, I mentor students week to week, and I built a full smart-farm program for the Yangpyeong Education Office — curriculum, server, and web app — that is set to run with a 15-student cohort. " },
       { text: "Building something and explaining it well are the same job to me", b: true },
       { text: ": both come down to making a complex system make sense." },
@@ -155,6 +155,7 @@ export type Project = {
   href?: string;
   repo?: string;
   image?: string;
+  // 현재 어떤 컴포넌트에서도 렌더링되지 않음 — 노출을 되살릴 때 단위 포함 표기 유지
   stat?: string;
   overview: string;
   highlights: string[];
@@ -168,8 +169,52 @@ export type Project = {
 export const projects: Project[] = [
   // ── Major projects ──
   {
-    slug: "smart-farm-education",
+    slug: "raimi-art-lab",
     n: "01",
+    tier: "major",
+    title: "Raimi's AI Art Lab",
+    category: "Web App · Education",
+    categories: ["AI", "Web", "Education"],
+    kicker: "Live @ Seoul Robot & AI Science Museum",
+    desc: "A guided prompt builder where visitors co-create AI artwork with the museum character Raimi. Running live at the museum, it generated 3,049 images in June 2026 and over 8,000 in July.",
+    year: "2026",
+    role: "Planning · development · operations",
+    tags: ["JavaScript", "OpenAI API", "Vercel Serverless", "Supabase", "Cloudflare R2", "PWA"],
+    repo: "https://github.com/henna2022/raim-ai-artstudio",
+    image: "/portfolio_images/projects/artlab-mode-en.jpg",
+    stat: "3,049 → 8,000+ images/mo",
+    overview:
+      "Visitors compose a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI generates the artwork. Designed so young visitors learn the principles of prompt engineering through play, with a **10-step (+5 advanced) choice-based prompt builder** that shows how a prompt is put together.\n\nThe off-the-shelf GPT service used before suffered repeated connection conflicts on the exhibition floor. After moving to a custom web app and serverless backend, **those conflicts have not recurred**; the backend calls the OpenAI image-generation API, auto-watermarks every image with the museum logo, stores images on Cloudflare R2, and keeps generation metadata and stats in Supabase. Visitors take their creations home instantly via QR code, and because it runs as a web app, the exhibition kiosk could be locked down to a single full-screen browser.\n\nIt now runs live at the museum: **3,049 images in June 2026, rising above 8,000 in July**, the museum's peak season — with **generation volume quantified through its own backend**.",
+    highlights: [
+      "**10-step (+5 advanced) choice-based prompt builder** that teaches prompt composition through play, designed for all-ages museum visitors.",
+      "**Ended the connection conflicts** of the prior off-the-shelf GPT service by moving to a custom web app and backend — none since the switch.",
+      "Serverless backend on the OpenAI image-generation API, deployed on Vercel.",
+      "**Auto-watermarks** every image with the museum logo, storing **images on Cloudflare R2 and generation stats in Supabase**.",
+      "QR-code takeaway for visitors' creations; running as a web app let the exhibition kiosk be locked to a single full-screen browser.",
+      "**3,049 images in June 2026, rising above 8,000 in July** (the museum's peak season), with **generation volume quantified via its own backend**.",
+    ],
+    flow: ["10-step prompt builder", "OpenAI API", "Auto-watermark", "R2 + Supabase"],
+    flowImage: {
+      light: "/portfolio_images/flow/raimi-art-lab-flow-light.svg",
+      dark: "/portfolio_images/flow/raimi-art-lab-flow-dark.svg",
+    },
+    gallery: [
+      "/portfolio_images/projects/artlab-home-en.jpg",
+      "/portfolio_images/projects/artlab-mode-en.jpg",
+      "/portfolio_images/projects/artlab-builder-en.jpg",
+      // 전시장 실사용 컷 — 프롬프트 고르는 중, 그리고 완성 후 QR 저장
+      "/portfolio_images/projects/artlab-onsite-prompt.jpg",
+      "/portfolio_images/projects/artlab-onsite-result.jpg",
+      "/portfolio_images/projects/artlab-usage-chart.png",
+    ],
+    galleryAlts: {
+      "/portfolio_images/projects/artlab-usage-chart.png":
+        "Art Lab admin dashboard: daily image generation over the last 30 days (30 June – 28 July 2026), peaking above 700 in a single day.",
+    },
+  },
+  {
+    slug: "smart-farm-education",
+    n: "02",
     tier: "major",
     title: "Smart-Farm Education Program",
     category: "Education Program",
@@ -178,16 +223,16 @@ export const projects: Project[] = [
     desc: "A hands-on program where students experience IoT smart farming and AI crop diagnosis. Commissioned by Yangpyeong Education Office; planned and built solo (full server and web-app environment), with the AI model being refined ahead of classes for a 15-student high-school cohort.",
     year: "2026",
     role: "Solo: planning & development",
-    tags: ["YOLO", "Weather API", "Server", "Web App", "IoT"],
+    tags: ["YOLO", "Weather API", "Flask", "MicroPython", "Supabase", "IoT"],
     repo: "https://github.com/henna2022/smartfarm-device",
     stat: "15-student cohort (planned)",
     overview:
-      "A hands-on education program commissioned by the Yangpyeong Education Office through the museum, where students experience an IoT smart farm and AI crop diagnosis first-hand. I planned the program and built everything it needed solo (**the full server and web-app environment**), designed so students watch data accumulate and **sensor values change in real time**, with their own eyes. The AI model is currently being refined; the program is planned to run as a class for a **cohort of 15 Yangpyeong high-school students**, selected by application.\n\nA class runs as a guided flow: students enter the virtual lab, pick a room at the hub, and move through four STEPs (weather, AI vision, IoT, and camera), watching data load into a virtual Supabase before finishing with 'my app complete' and a live hardware demo. A location-based weather API ties the lessons to real growing conditions, and the YOLO training process (epoch experiments, loss reduction) is explored together at the students' level.\n\nThe program is a museum × education-office commission: an exhibition-linked education case **planned and built end to end by one person**.",
+      "A hands-on education program commissioned by the Yangpyeong Education Office through the museum, where students experience an IoT smart farm and AI crop diagnosis first-hand. I planned the program and built everything it needed solo (**the full server and web-app environment**), designed so students watch data accumulate and **sensor values change in real time**, with their own eyes. The AI model is currently being refined; the program is planned to run as a class for a **cohort of 15 Yangpyeong high-school students**, selected by application.\n\nA class runs as a guided flow: students enter the virtual lab, pick a room at the hub, and move through four STEPs (weather, AI vision, IoT, and camera), watching data load into the lab's Supabase database before finishing with 'my app complete' and a live hardware demo. A location-based weather API ties the lessons to real growing conditions, and the YOLO training process (epoch experiments, loss reduction) is explored together at the students' level.\n\nThe program is a museum × education-office commission: an exhibition-linked education case **planned and built end to end by one person**.",
     highlights: [
       "Integrated a **location-based weather API** to tie lessons to real growing conditions.",
       "Explored the **YOLO training process** (epoch experiments, loss reduction) at the students' level.",
-      "Students watch sensor values **load and change in real time** in a virtual server's database.",
-      "Designed the class flow: open lab → room-picker hub → 4 STEPs (weather · AI vision · IoT · camera) → virtual Supabase → app complete → live demo.",
+      "Students watch sensor values **load and change in real time** in the lab server's database.",
+      "Designed the class flow: open lab → room-picker hub → 4 STEPs (weather · AI vision · IoT · camera) → Supabase → app complete → live demo.",
       "Commissioned by the Yangpyeong Education Office through the museum; **planned and built solo**, including the full server and web-app environment.",
       "Planned to run as a class for a **15-student cohort** of Yangpyeong high-school students, selected by application.",
     ],
@@ -196,25 +241,25 @@ export const projects: Project[] = [
       light: "/portfolio_images/flow/smart-farm-education-flow-light.svg",
       dark: "/portfolio_images/flow/smart-farm-education-flow-dark.svg",
     },
-    image: "/portfolio_images/projects/smartfarm-edu-weather.jpg",
+    image: "/portfolio_images/projects/smartfarm-edu-weather-en.jpg",
     gallery: [
-      "/portfolio_images/projects/smartfarm-edu-hub.jpg",
-      "/portfolio_images/projects/smartfarm-edu-weather.jpg",
-      "/portfolio_images/projects/smartfarm-edu-yolo.jpg",
-      "/portfolio_images/projects/smartfarm-edu-sensor.jpg",
-      "/portfolio_images/projects/smartfarm-edu-camera.jpg",
-      "/portfolio_images/projects/smartfarm-edu-app.jpg",
+      "/portfolio_images/projects/smartfarm-edu-hub-en.jpg",
+      "/portfolio_images/projects/smartfarm-edu-weather-en.jpg",
+      "/portfolio_images/projects/smartfarm-edu-yolo-en.jpg",
+      "/portfolio_images/projects/smartfarm-edu-sensor-en.jpg",
+      "/portfolio_images/projects/smartfarm-edu-camera-en.jpg",
+      "/portfolio_images/projects/smartfarm-edu-app-en.jpg",
     ],
   },
   {
     slug: "doctor-green",
-    n: "02",
+    n: "03",
     tier: "major",
     title: "Doctor-Green",
     category: "AI · IoT Full-stack",
     categories: ["AI", "IoT", "Web"],
     kicker: "Smart-farm platform · solo project",
-    desc: "A smart-farm platform unifying YOLOv8 crop-disease diagnosis with live IoT environment monitoring and control. Built solo end to end, from ESP32 sensor nodes to the deployed Next.js dashboard.",
+    desc: "A smart-farm platform unifying YOLOv8 strawberry-disease diagnosis with live IoT environment monitoring and control. Built solo end to end, from ESP32 sensor nodes to the deployed Next.js dashboard.",
     year: "2024 - 2026",
     role: "Solo: planning to deployment",
     tags: ["Next.js 16", "TypeScript", "Supabase", "Flask", "ESP32", "YOLOv8", "Roboflow"],
@@ -223,12 +268,12 @@ export const projects: Project[] = [
     image: "/portfolio_images/projects/doctorgreen_app.png",
     stat: "End-to-end solo",
     overview:
-      "Doctor-Green is a smart-farm platform that unifies an AI module diagnosing crop disease from camera video with IoT devices that measure and control the growing environment, all operated on a **single web platform**, so diagnosis and environment control live on one screen. I **planned and built the whole pipeline solo, from sensor to dashboard**.\n\nIt grew out of the VGG16 plant-disease-diagnosis app that won the **Excellence Award at the 2024 ICT·SW Women's Start-up Competition**, and was rebuilt in 2026 as a full smart-farm platform on YOLOv8.\n\nESP32 sensor nodes collect environment data, relay it through a Mac-based Flask server into Supabase, and a Next.js web app visualizes it live. From the same app, actuators such as LEDs and fans are controlled in real time through Supabase Realtime subscriptions. For diagnosis, YOLOv8 runs on USB-camera video to detect and diagnose **7 crop-disease classes**.\n\nTraining uses the Roboflow strawberry-disease-detection-dataset v4 with an augmentation strategy for class imbalance; the first run (50 epochs) reached **mAP50 ≈ 0.95**, and a second YOLOv8l run (150 epochs) is in progress to push accuracy further. The web app is deployed on Vercel as a live demo.",
+      "Doctor-Green is a smart-farm platform that unifies an AI module diagnosing crop disease from camera video with IoT devices that measure and control the growing environment, all operated on a **single web platform**, so diagnosis and environment control live on one screen. I **planned and built the whole pipeline solo, from sensor to dashboard**.\n\nIt grew out of the VGG16 plant-disease-diagnosis app that won the **Excellence Award at the 2024 ICT·SW Women's Start-up Competition**, and was rebuilt in 2026 as a full smart-farm platform on YOLOv8.\n\nESP32 sensor nodes collect environment data, relay it through a Mac-based Flask server into Supabase, and a Next.js web app visualizes it live. From the same app, actuators such as LEDs and fans are controlled in real time through Supabase Realtime subscriptions. For diagnosis, YOLOv8 runs on USB-camera video to detect and diagnose **7 strawberry-disease classes**.\n\nTraining uses the Roboflow strawberry-disease-detection-dataset v4 with an augmentation strategy for class imbalance; the model is still being refined, with a YOLOv8l run (150 epochs) in progress to push accuracy further. The web app is deployed on Vercel as a live demo.",
     highlights: [
       "**Data flow built end to end**: IoT sensing → Mac relay server (Flask) → Supabase → real-time Next.js visualization.",
-      "YOLOv8 on USB-camera video detects and diagnoses **7 crop-disease classes**.",
+      "YOLOv8 on USB-camera video detects and diagnoses **7 strawberry-disease classes**.",
       "**Real-time actuator control** (LED, fan) from the web app via Supabase Realtime subscriptions.",
-      "First training (50 epochs) reached **mAP50 ≈ 0.95**; second YOLOv8l training (150 epochs) in progress.",
+      "Model refinement in progress: a YOLOv8l run (150 epochs) building on the first 50-epoch training.",
       "Used the Roboflow strawberry-disease-detection-dataset v4 with an augmentation strategy for class imbalance.",
       "Next.js 16 + TypeScript + Tailwind web app deployed on Vercel as a live demo.",
     ],
@@ -244,7 +289,7 @@ export const projects: Project[] = [
   },
   {
     slug: "raim-staff-platform",
-    n: "03",
+    n: "04",
     tier: "major",
     title: "SEOUL RAIM Staff Platform",
     category: "Internal Operations Tool",
@@ -309,37 +354,38 @@ export const projects: Project[] = [
     n: "02",
     tier: "side",
     title: "Raimi's AI Language Lab",
-    category: "Language-learning Web App",
-    categories: ["AI", "Web", "Education"],
-    kicker: "Speech AI experience",
-    desc: "A game-based speech experience where visitors listen and repeat words and sentences with Raimi. Runs entirely in the browser on speech synthesis, no server required.",
+    category: "Language-AI Education Game",
+    categories: ["Web", "Education"],
+    kicker: "Hands-on NLP mini-games",
+    desc: "Five touch mini-games where visitors experience how language AI learns — tokenization, embeddings, word order, attention, and next-word prediction. Runs entirely in the browser, no server required.",
     year: "2026",
     role: "Planning · development",
-    tags: ["Web Speech API", "PWA", "HTML/CSS", "KO / EN"],
+    tags: ["JavaScript", "HTML/CSS", "PWA", "Offline-first"],
     repo: "https://github.com/henna2022/raim-ai-studio",
-    image: "/portfolio_images/projects/langlab-home.jpg",
+    image: "/portfolio_images/projects/langlab-home-en.jpg",
     overview:
-      "A game-style learning web app where visitors listen to and repeat words and sentences with the Raimi character, experiencing language and speech AI. It is designed so visitors explore how AI learns language, through play.\n\nThe full game flow (start, menu, play, completion) was planned and built on browser speech synthesis (TTS), so the app **runs without any server**. It supports **both Korean and English**, and ships as a **PWA for offline use** on the 3 exhibition tablets it runs on.",
+      "A game-style web app where visitors explore how a language AI actually learns — by playing. With the museum character Raimi they work through **five touch mini-games**, each built on a real NLP concept: **tokenization** (slicing a sentence into pieces), **embeddings** (sorting words by meaning), **word order**, **attention** (spotting the word that matters), and **next-word prediction** with live probability bars.\n\nThe full flow (start, stamp-based lesson menu, play, completion) is plain JavaScript with no framework and **no server**; it supports **both Korean and English** (with browser auto-translate blocked so the exhibition copy stays intact) and ships as an **offline-first PWA** on the 3 exhibition tablets it runs on. Kiosk behavior is handled in-app: after 2 idle minutes it resets to the start screen for the next visitor.\n\nA hidden, PIN-gated staff panel tracks per-device usage and exports reports to Excel through a **dependency-free .xlsx writer**, with a Node regression test covering the stats logic.",
     highlights: [
-      "Designed and built the full game flow: start, menu, play, completion.",
-      "Listening & speaking content powered by browser speech synthesis (TTS).",
-      "**Runs entirely in the browser** with no server required.",
-      "**Bilingual Korean / English** support.",
-      "Ships as a **PWA for offline use** on the **3 exhibition tablets**.",
+      "**5 NLP concepts as touch mini-games**: tokenization, embeddings, word order, attention, and next-word prediction with live probability bars.",
+      "Designed and built the full game flow: start, stamp-based lesson menu, play, completion.",
+      "**Runs entirely in the browser** — plain JavaScript, no framework, no server.",
+      "**Bilingual Korean / English**, with browser auto-translate blocked for exhibition reliability.",
+      "**Offline-first PWA** on the **3 exhibition tablets**, with a 2-minute idle reset for kiosk turnover.",
+      "PIN-gated staff stats panel with a **dependency-free Excel (.xlsx) export**, covered by a Node regression test.",
     ],
-    flow: ["Web Speech API", "Browser TTS", "Offline PWA"],
+    flow: ["5 NLP mini-games", "Plain JS · no server", "Offline PWA kiosk"],
     flowImage: {
       light: "/portfolio_images/flow/raimi-language-lab-flow-light.svg",
       dark: "/portfolio_images/flow/raimi-language-lab-flow-dark.svg",
     },
     gallery: [
-      "/portfolio_images/projects/langlab-home.jpg",
-      "/portfolio_images/projects/langlab-intro.jpg",
-      "/portfolio_images/projects/langlab-token.jpg",
+      "/portfolio_images/projects/langlab-home-en.jpg",
+      "/portfolio_images/projects/langlab-intro-en.jpg",
+      "/portfolio_images/projects/langlab-token-en.jpg",
     ],
   },
   // 포트폴리오에서 임시 제외 (RAIM AI Photo Booth) — 되살릴 때 주석을 풀고
-  // 아래 side 프로젝트 번호를 04, 05, 06 으로 한 칸씩 밀어 되돌린다.
+  // 되살릴 때 side 프로젝트 번호를 다시 매긴다.
   // {
   //   slug: "raim-photo-booth",
   //   n: "03",
@@ -369,7 +415,7 @@ export const projects: Project[] = [
   //   },
   // },
   // 포트폴리오에서 임시 제외 (RAIM Metaverse) — 되살릴 때 주석을 풀고
-  // 아래 side 프로젝트 번호를 04, 05, 06 으로 한 칸씩 밀어 되돌린다.
+  // 되살릴 때 side 프로젝트 번호를 다시 매긴다.
   // {
   //   slug: "raim-metaverse",
   //   n: "03",
@@ -392,74 +438,30 @@ export const projects: Project[] = [
   //   ],
   // },
   {
-    slug: "raimi-art-lab",
-    n: "03",
-    tier: "side",
-    title: "Raimi's AI Art Lab",
-    category: "Web App · Education",
-    categories: ["AI", "Web", "Education"],
-    kicker: "Live @ Seoul Robot & AI Science Museum",
-    desc: "A guided prompt builder where visitors co-create AI artwork with the museum character Raimi. Running live at the museum, it generated 3,049 images in June 2026 and over 8,000 in July.",
-    year: "2026",
-    role: "Planning · development · operations",
-    tags: ["JavaScript", "OpenAI API", "Vercel Serverless", "Supabase", "Cloudflare R2", "PWA"],
-    repo: "https://github.com/henna2022/raim-ai-artstudio",
-    image: "/portfolio_images/projects/artlab-mode.jpg",
-    stat: "3,049 → 8,000+/month",
-    overview:
-      "Visitors compose a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI generates the artwork. Designed so young visitors learn the principles of prompt engineering through play, with a **10-step (+5 advanced) choice-based prompt builder** that shows how a prompt is put together.\n\nThe off-the-shelf GPT service used before suffered repeated connection conflicts on the exhibition floor. Moving to a custom web app and serverless backend **eliminated 100% of those conflicts**; the backend calls the OpenAI image-generation API, auto-watermarks every image with the museum logo, and dual-stores results on Cloudflare R2 and Supabase. Visitors take their creations home instantly via QR code, and shipping it as a web app locked the exhibition kiosk down from other apps.\n\nIt now runs live at the museum: **3,049 images in June 2026, rising above 8,000 in July**, the museum's peak season. It is the **first service at the museum whose generation volume could be quantified**, through its own backend.",
-    highlights: [
-      "**10-step (+5 advanced) choice-based prompt builder** that teaches prompt composition through play, designed for all-ages museum visitors.",
-      "**Eliminated 100% of the connection conflicts** of the prior off-the-shelf GPT service by moving to a custom web app and backend.",
-      "Serverless backend on the OpenAI image-generation API, deployed on Vercel.",
-      "**Auto-watermarks** every image with the museum logo and **dual-stores on Cloudflare R2 and Supabase**.",
-      "QR-code takeaway for visitors' creations; shipping as a web app locked the exhibition kiosk down from other apps.",
-      "**3,049 images in June 2026, rising above 8,000 in July** (the museum's peak season): the **first museum service to quantify generation volume** via a custom backend.",
-    ],
-    flow: ["10-step prompt builder", "OpenAI API", "Auto-watermark", "R2 + Supabase"],
-    flowImage: {
-      light: "/portfolio_images/flow/raimi-art-lab-flow-light.svg",
-      dark: "/portfolio_images/flow/raimi-art-lab-flow-dark.svg",
-    },
-    gallery: [
-      "/portfolio_images/projects/artlab-home.jpg",
-      "/portfolio_images/projects/artlab-mode.jpg",
-      "/portfolio_images/projects/artlab-builder.jpg",
-      // 전시장 실사용 컷 — 프롬프트 고르는 중, 그리고 완성 후 QR 저장
-      "/portfolio_images/projects/artlab-onsite-prompt.jpg",
-      "/portfolio_images/projects/artlab-onsite-result.jpg",
-      "/portfolio_images/projects/artlab-usage-chart.png",
-    ],
-    galleryAlts: {
-      "/portfolio_images/projects/artlab-usage-chart.png":
-        "Art Lab admin dashboard: daily image generation over the last 30 days (30 June – 28 July 2026), peaking above 700 in a single day.",
-    },
-  },
-  {
     slug: "ato-care-robot",
-    n: "04",
+    n: "03",
     tier: "side",
     title: "ATO Care Robot",
     category: "AI Healthcare · Care Robot",
     categories: ["AI", "Robotics"],
     kicker: "Companion & medication-care robot",
-    desc: "A rabbit-shaped companion robot that makes eye contact and minds your meds. Built end to end, from circuits and firmware to a 3D-printed body and the YAKMOA multimodal medication-care service.",
+    desc: "A rabbit-shaped companion robot that makes eye contact and minds your meds. Built end to end, from circuits and firmware to a 3D-printed body, and now being extended with the YAKMOA medication-care service.",
     year: "2026",
     role: "Robot: solo build · YAKMOA service: 2-person team (PM & Dev)",
-    tags: ["ESP32", "Arduino/C++", "GC9A01 LCD", "Servo / PIR / Touch", "3D Printing", "Multimodal AI"],
-    stat: "GH Prize",
+    tags: ["ESP32", "Arduino/C++", "GC9A01 LCD", "Servo / PIR / Touch", "3D Printing"],
+    stat: "GH start-up prize",
     overview:
-      "ATO is a rabbit-shaped emotional companion robot for single-person households and seniors. Two round displays act as expressive 'eyes' that show emotion, and sensors detect when someone approaches or pets it, triggering reactions.\n\nAn ESP32 drives the dual GC9A01 round LCDs for eye-expression animations such as blinking and gaze shifts, integrated with PIR proximity detection, capacitive petting touch, DFPlayer audio, and servo-driven ear and arm motion. The build covers the **entire process: circuit design, firmware, a 3D-printed body, and microfiber cover sewing patterns**.\n\nOn top of this, ATO integrates YAKMOA, a multimodal-AI feature that recognizes medicines and manages dose schedules, extending the robot from companionship into medication care. YAKMOA was designed as a medication-management service for digitally vulnerable users and people with disabilities, and **won a prize at the GH Youth Build-Up Start-up Competition**. The robot itself was **built solo end to end**; the YAKMOA service was planned and commercialized as the 2-person team MAKENEW, where I was PM & developer. The robot is currently a **Phase 1 prototype**, with medication care being integrated.",
+      "ATO is a rabbit-shaped emotional companion robot for single-person households and seniors. Two round displays act as expressive 'eyes' that show emotion, and sensors detect when someone approaches or pets it, triggering reactions.\n\nAn ESP32 drives the dual GC9A01 round LCDs for eye-expression animations such as blinking and gaze shifts, integrated with PIR proximity detection, capacitive petting touch, DFPlayer audio, and servo-driven ear and arm motion. The build covers the **entire process: circuit design, firmware, a 3D-printed body, and microfiber cover sewing patterns**.\n\nOn top of this, ATO is being extended with YAKMOA, an AI feature designed to recognize medicines and manage dose schedules, taking the robot from companionship into medication care. YAKMOA was designed as a medication-management service for digitally vulnerable users and people with disabilities, and **won a prize at the GH Youth Build-Up Start-up Competition**. The robot itself was **built solo end to end**; the YAKMOA service was planned and commercialized as the 2-person team MAKENEW, where I was PM & developer. The robot is currently a **Phase 1 prototype**, with medication care being integrated.",
     highlights: [
       "Eye-expression animations (blinking, gaze) on dual GC9A01 round LCDs driven by an ESP32.",
       "Integrated PIR proximity detection, capacitive petting touch, DFPlayer audio, and servo ear/arm motion.",
       "Robot built **100% solo** across the entire process: circuit design, firmware, a 3D-printed body, and microfiber sewing patterns.",
-      "Integrated **YAKMOA** (multimodal-AI medicine recognition and dose management), **combining companionship with medication care in one robot**.",
+      "Integrating **YAKMOA** (AI medicine recognition and dose management) to **combine companionship with medication care in one robot** — integration in progress.",
       "YAKMOA designed as a medication-management service for digitally vulnerable users and people with disabilities; **won a prize at the GH Youth Build-Up Start-up Competition** (team MAKENEW).",
       "For the YAKMOA service, worked as the 2-person team MAKENEW: as **PM & developer**, led service planning, user research, and authored the business plan & pitch deck.",
       "Currently a **Phase 1 prototype**, integrating medication care.",
     ],
-    flow: ["Sensors (PIR / touch)", "ESP32 / Arduino", "Servo + LCD expression", "YAKMOA multimodal AI"],
+    flow: ["Sensors (PIR / touch)", "ESP32 / Arduino", "Servo + LCD expression", "YAKMOA medication care"],
     flowImage: {
       light: "/portfolio_images/flow/ato-care-robot-flow-light.svg",
       dark: "/portfolio_images/flow/ato-care-robot-flow-dark.svg",
@@ -467,13 +469,13 @@ export const projects: Project[] = [
   },
   {
     slug: "exhibit-auto-recovery",
-    n: "05",
+    n: "04",
     tier: "side",
     title: "Exhibit Auto-Recovery",
     category: "Ops Automation · Reliability",
     categories: ["Ops", "Web"],
     kicker: "Exhibit uptime · self-initiated",
-    desc: "A recovery system for a museum AI exhibit that used to need one specific person, at one specific machine, every time it froze. It now restarts itself within seconds of a detectable failure, and any staff member can recover it from their own phone in a single tap.",
+    desc: "A recovery system for a museum AI exhibit that used to need one specific person, at one specific machine, every time it froze. It now restarts itself within a minute of a detectable failure, and any staff member can recover it from their own phone in a single tap.",
     year: "2026",
     role: "Solo: diagnosis, build, rollout, handover",
     tags: [
@@ -489,7 +491,7 @@ export const projects: Project[] = [
       "MaskBot is a face- and voice-interaction robot exhibit on the museum floor. Its control software would intermittently freeze or exit mid-operation, and the only remedy was a manual restart, which in practice **only one person could perform, at one specific machine**, through a remote session. Every failure became a wait: find the person, get them to the machine, walk through the remote login. Meanwhile visitors stood in front of an exhibit that could not hear them.\n\nI took this on after performing that manual restart one too many times. The key observation was that the fix itself was trivial, closing a window and reopening it, and that the entire cost lived in who was permitted to perform it and how long it took them to get there. So the goal was never to make the restart smarter. It was to **remove the human bottleneck around it**.\n\nThe result runs in three layers on the exhibit machine. A watchdog **polls the program every 20 seconds** and restarts it when the process has died or its window stops responding, with a two-stage confirmation so a momentarily busy UI is not killed by mistake, and a back-off after repeated failures so a deeper hardware fault does not become a restart loop. Scheduled restarts run twice daily as preventive maintenance. And a small HTTP service serves a **single-button page**, so **any staff member can trigger recovery from their own phone**.\n\nThat third layer exists because of a limit I could not engineer away. The most common failure leaves the process alive and the window responsive while speech recognition silently stops working, and no health signal available to me distinguishes that from a healthy exhibit. Rather than paper over it, I designed around it: the automated layers handle every failure a machine can detect, and the human layer covers the one it cannot.\n\nReaching the exhibit machine from a personal phone was a separate problem, as staff devices had no route to it. I used Tailscale, a WireGuard-based mesh VPN, so enrolled devices reach the service over an encrypted peer-to-peer tunnel with no inbound port exposed; access stays limited to devices inside that private network.\n\nThe system now **runs unattended in daily operation**. I also wrote a handover document covering configuration, logs, routine maintenance, a diagnosis playbook, and the system's documented limitations, so the maintenance technician can own it without me.",
     highlights: [
       "**Reframed the problem**: the restart was trivial; the real cost was that **only one person, at one machine**, was able to perform it.",
-      "Watchdog **restarts the exhibit within seconds** of a crash or hang, with two-stage confirmation against false positives and back-off to prevent restart loops on deeper faults.",
+      "Watchdog **restarts the exhibit within a minute** of a crash or hang, with two-stage confirmation against false positives and back-off to prevent restart loops on deeper faults.",
       "**One-tap recovery page** served from the exhibit machine, turning an escalation into something **any staff member can do from their own phone**.",
       "**Designed around an undetectable failure mode**: when speech recognition dies silently, automation cannot tell, so scheduled restarts and the manual button cover what the watchdog structurally cannot.",
       "**Encrypted mesh VPN** (Tailscale / WireGuard) gives enrolled devices access **without exposing any inbound port**.",
@@ -528,7 +530,6 @@ export const skillGroups: SkillGroup[] = [
       "YOLOv8",
       "VGG16 · CNN",
       "OpenAI API",
-      "Multimodal AI",
     ],
   },
   {
@@ -627,7 +628,7 @@ export const experience = [
     points: [
       "Built and reviewed visual question-answering (VQA) datasets for LLM training on an ETRI (Electronics and Telecommunications Research Institute) project, including complex 3-hop reasoning Q&A sets.",
       "Checked each question–response pair against the project's correction guidelines for grammatical and semantic accuracy, and rewrote the assistant answers that did not follow logically from the user's question.",
-      "Sustained 2.5× the team's average throughput while holding accuracy.",
+      "Sustained about 2.5× the team's average throughput while holding accuracy.",
     ],
   },
   {
@@ -652,24 +653,10 @@ export type Activity = {
 
 export const activities: Activity[] = [
   {
-    period: "2026.07 - Present",
-    title: "KB LA School (Middle School)",
-    role: "Middle-school mentor (online) · 2x/week, 80 min",
-    desc: "Dedicated online mentoring for middle-school students in the KB LA School program.",
-    photos: [],
-  },
-  {
-    period: "2026.03 - Present",
-    title: "Gwangyang AI Smart i-Kium",
-    role: "Instructor · Grade-3 math & English · 1x/week",
-    desc: "Teaching Grade-3 math and English classes in Gwangyang City's AI Smart i-Kium program.",
-    photos: [],
-  },
-  {
     period: "2026.02 - Present",
-    title: "Geuruteogi Learning Mentoring 'Gachi-Edu'",
-    role: "University mentor for youth learning (6th cohort) · 2x/week, 90 min",
-    desc: "A university mentoring program where I coach teenagers on study habits and self-directed learning, tailored to each mentee's level.",
+    title: "Ongoing Youth Mentoring",
+    role: "3 weekly programs · outside work hours",
+    desc: "Three mentoring programs run in parallel outside work hours: dedicated online mentoring for KB LA School middle-schoolers (2x/week, from 2026.07), Grade-3 math & English classes in Gwangyang City's AI Smart i-Kium program (1x/week, from 2026.03), and study-habit coaching for teenagers in the Geuruteogi 'Gachi-Edu' program (2x/week 90 min, from 2026.02).",
     photos: ["/portfolio_images/activities/act_geuruteogi.jpg"],
   },
   {
@@ -758,11 +745,10 @@ export const awards: Award[] = [
     relatedSlug: "ato-care-robot",
   },
   {
-    // 월까지 적는 유일한 항목 — 2025.09~10 경력 공백이 이 대회 준비 기간이라
-    // 연도만 있으면 타임라인에서 그 사실이 드러나지 않는다.
-    year: "2025.09",
+    // 2025.09~10 공백(대회 준비 기간) 설명은 이력서/CV 타임라인에서 다룬다.
+    year: "2025",
     title: "Science Museum & Community AI Hackathon",
-    detail: "2nd place: AI docent for museum-community co-prosperity",
+    detail: "2nd place (finals): AI docent for museum-community co-prosperity",
     result: "2nd place",
     role: "PM & Developer",
     topic:
@@ -776,7 +762,7 @@ export const awards: Award[] = [
   {
     year: "2024",
     title: "Chungnam Generative AI Start-up Idea Competition",
-    detail: "Encouragement Award (장려상): Ministry of Science and ICT",
+    detail: "Encouragement Award (장려상): VGG16 plant-disease diagnosis app",
     result: "Encouragement Award",
     role: "PM & Developer",
     topic:

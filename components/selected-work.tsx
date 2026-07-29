@@ -11,7 +11,7 @@ import { useI18n } from "./lang-provider";
 import { DownloadIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
-const FILTERS = ["All", "AI", "Web", "Robotics", "IoT", "Ops", "Education"];
+const FILTERS = ["All", "AI", "Web", "IoT", "Ops", "Education"];
 
 function initials(title: string) {
   return title
