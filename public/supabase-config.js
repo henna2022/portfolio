@@ -8,4 +8,5 @@
    ============================================================ */
 window.SB_URL = 'https://euoofcnectmqshjrysze.supabase.co';
 window.SB_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV1b29mY25lY3RtcXNoanJ5c3plIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3OTgxNzUsImV4cCI6MjEwMDM3NDE3NX0.4Vme92QdEVCnIkwF6nQunVB-dr9z-uWTabFgxno3rPE';
-window.ADMIN_EMAIL = 'henna2022@gmail.com'; // 관리자 구글 이메일 (표시용)
+// 관리자 이메일은 여기 두지 않는다 — 이 파일은 공개 URL(/supabase-config.js)로
+// 그대로 서빙되고, 어차피 판정은 DB 쪽 admin_emails + is_admin() 이 한다.
