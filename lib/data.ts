@@ -84,7 +84,7 @@ export const about = {
   facts: [
     {
       k: "Education",
-      v: "Hankyong National University (2022 – present)\nRutgers University · Winter Intensive English (2025)\nCheongwon Girls' High School (2019 – 2022)",
+      v: "Hankyong National University (2022 – 2027 expected)\nRutgers University · Winter Intensive English (2025)\nCheongwon Girls' High School (2019 – 2022)",
     },
     {
       k: "Languages & Certifications",
@@ -596,8 +596,8 @@ export const experience = [
   {
     org: "Seoul Robot & AI Science Museum",
     site: "https://science.seoul.go.kr/RAIM/index.do",
-    role: "Education R&D · Developer · Docent",
-    period: "2026.03 - Present",
+    role: "Education R&D · Developer",
+    period: "2026.03 - Present · Full-time",
     gallery: [
       "/portfolio_images/experience/docent_1.JPG",
       "/portfolio_images/experience/docent_2.jpg",
@@ -616,7 +616,7 @@ export const experience = [
     org: "Select Star",
     site: "https://selectstar.ai/",
     role: "Data Contributor & QA",
-    period: "2025.11 - 2026.01",
+    period: "2025.11 - 2026.01 · Project contract",
     points: [
       "Built and reviewed visual question-answering (VQA) datasets for LLM training on an ETRI (Electronics and Telecommunications Research Institute) project, including complex 3-hop reasoning Q&A sets.",
       "Checked each question–response pair against the project's correction guidelines for grammatical and semantic accuracy, and rewrote the assistant answers that did not follow logically from the user's question.",
@@ -627,7 +627,7 @@ export const experience = [
     org: "Ministry of Science and ICT",
     site: "https://www.msit.go.kr/index.do",
     role: "Youth Intern",
-    period: "2025.04 - 2025.07",
+    period: "2025.04 - 2025.08",
     points: [
       "Redesigned the national Pay-TV survey and drafted Broadcasting Act review materials.",
       "Covered 11 ministry exhibitions and conferences; authored reports and issue briefs.",
@@ -647,21 +647,21 @@ export const activities: Activity[] = [
   {
     period: "2026.07 - Present",
     title: "KB LA School (Middle School)",
-    role: "Middle-school mentor (online)",
+    role: "Middle-school mentor (online) · 2x/week, 80 min",
     desc: "Dedicated online mentoring for middle-school students in the KB LA School program.",
     photos: [],
   },
   {
     period: "2026.03 - Present",
     title: "Gwangyang AI Smart i-Kium",
-    role: "Instructor · Grade-3 math & English",
+    role: "Instructor · Grade-3 math & English · 1x/week",
     desc: "Teaching Grade-3 math and English classes in Gwangyang City's AI Smart i-Kium program.",
     photos: [],
   },
   {
     period: "2026.02 - Present",
     title: "Geuruteogi Learning Mentoring 'Gachi-Edu'",
-    role: "University mentor for youth learning (6th cohort)",
+    role: "University mentor for youth learning (6th cohort) · 2x/week, 90 min",
     desc: "A university mentoring program where I coach teenagers on study habits and self-directed learning, tailored to each mentee's level.",
     photos: ["/portfolio_images/activities/act_geuruteogi.jpg"],
   },

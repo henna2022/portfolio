@@ -87,11 +87,15 @@
   // 체류시간: 페이지가 숨겨지거나 떠날 때 1회 전송 (keepalive 로 언로드 중에도 완료)
   function sendDuration() {
     if (durationSent || !pvUid) return; durationSent = true;
-    // WHERE 는 view_uid 만 참조한다 (anon 에게 SELECT 가 열린 유일한 컬럼).
-    // "duration_ms is null" 조건은 RLS UPDATE 정책이 이미 강제하므로 여기 넣지 않는다.
-    fetch(REST + 'page_views?view_uid=eq.' + encodeURIComponent(pvUid), {
-      method: 'PATCH', keepalive: true, headers: H,
-      body: JSON.stringify({ duration_ms: Date.now() - start })
+    // 예전에는 page_views 에 직접 PATCH 를 걸었는데, 그러려면 anon 에게 UPDATE 권한과
+    // view_uid SELECT 권한을 열어줘야 했다. 그 조합이면 "최근 2시간 안의 아무 방문 행"의
+    // 체류시간을 남이 덮어쓸 수 있어서(소유권 검사가 없었다) 통계가 오염된다.
+    // → anon 의 조회·수정 권한을 걷어내고, 자기 view_uid 하나만 채우는 함수를 호출한다.
+    //   (admin-schema-patch-hardening.sql 의 set_view_duration)
+    fetch(REST + 'rpc/set_view_duration', {
+      method: 'POST', keepalive: true,
+      headers: Object.assign({ Prefer: 'return=minimal' }, H),
+      body: JSON.stringify({ p_view_uid: pvUid, p_duration_ms: Date.now() - start })
     }).catch(function () {});
   }
   addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') sendDuration(); });

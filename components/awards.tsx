@@ -20,12 +20,10 @@ const card: Variants = {
 
 export function Awards() {
   const { t, lang } = useI18n();
-  // 사진 있는 카드를 위로, 그 안에서는 최신순. 2열 그리드라 사진 카드와
-  // 텍스트 카드가 같은 행에 섞이면 높이가 벌어져 한쪽에 빈 공간이 생긴다.
+  // 최신순 고정. 사진 있는 카드를 위로 올리면 그리드 높이는 고르게 맞지만
+  // 가장 최근 수상이 아래로 밀린다 — 훑는 사람은 위 몇 개만 보므로 최신성이 먼저다.
   const ordered = [...(lang === "ko" ? awardsKo : awards)].sort(
-    (a, b) =>
-      Number(b.photos.length > 0) - Number(a.photos.length > 0) ||
-      Number(b.year) - Number(a.year),
+    (a, b) => Number(b.year) - Number(a.year),
   );
   return (
     <section id="awards" className="mx-auto max-w-shell px-6 py-16">

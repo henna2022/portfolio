@@ -196,6 +196,46 @@ tpPublic.size
   : pass("위생", "공개 페이지에서 로드하는 서드파티 리소스 없음");
 pass("위생", `관리자 페이지 서드파티(방문자 경로 아님): ${tpAdmin.size ? [...tpAdmin].join(", ") : "없음"}`);
 
+// ── 8. 공개 CSP 에 서드파티 출처가 없는지 ─────────────────────────────────
+// 위 7번은 정적 HTML 만 본다 — 런타임에 생기는 요청(예전에 troika 가 폰트 데이터를
+// jsdelivr 에서 받아오던 것)은 못 잡는다. 그 통로를 실제로 막는 건 CSP 라서,
+// "공개 페이지 CSP 에 서드파티 출처가 들어왔는가" 를 대신 확인한다.
+// 여기에 CDN 이 다시 등장했다면 어딘가에서 런타임 서드파티 요청이 되살아난 것이다.
+const VERCEL_JSON = path.join(ROOT, "vercel.json");
+if (!fs.existsSync(VERCEL_JSON)) {
+  add("HIGH", "보안", "vercel.json 이 없습니다 — 보안 헤더(CSP·X-Frame-Options 등)가 전혀 붙지 않습니다");
+} else {
+  const rules = JSON.parse(fs.readFileSync(VERCEL_JSON, "utf8")).headers || [];
+  const publicRule = rules.find((r) => r.source === "/((?!admin).*)");
+  const csp = publicRule?.headers?.find((h) => h.key === "Content-Security-Policy")?.value;
+  if (!csp) {
+    add("HIGH", "보안", "vercel.json 에 공개 페이지용 CSP 규칙이 없습니다");
+  } else {
+    const ALLOWED = new Set([`https://ipapi.co`, "https://euoofcnectmqshjrysze.supabase.co"]);
+    const hosts = [...csp.matchAll(/https?:\/\/[^\s;']+/g)].map((m) => m[0]).filter((h) => !ALLOWED.has(h));
+    const required = ["frame-ancestors 'none'", "object-src 'none'", "base-uri 'self'"];
+    const lacking = required.filter((d) => !csp.includes(d));
+    if (hosts.length) add("MED", "보안", `공개 CSP 에 예상 밖 서드파티 출처: ${[...new Set(hosts)].join(", ")}`);
+    else if (lacking.length) add("MED", "보안", `공개 CSP 에 빠진 지시어: ${lacking.join(" · ")}`);
+    else pass("보안", "공개 CSP — 서드파티 출처 없음 + frame-ancestors·object-src·base-uri 설정됨");
+  }
+}
+
+// ── 9. 배포되면 안 되는 잡파일 ────────────────────────────────────────────
+// public/ 는 통째로 out/ 으로 복사된다 → Finder 가 만든 .DS_Store 가 그대로
+// 공개되고, 그 안에는 아직 공개하지 않은 파일명들이 들어 있다.
+const JUNK = [];
+(function walkJunk(d) {
+  for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+    const f = path.join(d, e.name);
+    if (e.isDirectory()) walkJunk(f);
+    else if (/^\.DS_Store$|\.(bak|orig|swp)$|~$/.test(e.name)) JUNK.push(path.relative(OUT, f));
+  }
+})(OUT);
+JUNK.length
+  ? add("HIGH", "위생", `배포 산출물에 잡파일: ${JUNK.join(", ")} — public/ 에서 지우고 다시 빌드하세요`)
+  : pass("위생", "배포 산출물에 .DS_Store 등 잡파일 없음");
+
 // ── 리포트 ────────────────────────────────────────────────────────────────
 const bySev = (s) => findings.filter((f) => f.sev === s);
 console.log(`\n  정적 QA — 페이지 ${htmlFiles.length} · 프로젝트 ${slugs.length}\n`);

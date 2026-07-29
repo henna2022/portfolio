@@ -6,7 +6,7 @@ import { useI18n } from "@/components/lang-provider";
 import { PrivacyOptOut } from "@/components/privacy-opt-out";
 import { person } from "@/lib/data";
 
-const UPDATED = "26 July 2026 / 2026년 7월 26일";
+const UPDATED = "29 July 2026 / 2026년 7월 29일";
 
 // 전문(全文)은 EN·KO 두 벌 모두 항상 페이지에 남긴다 — 방침 문서라 어느
 // 언어로든 원문을 확인할 수 있어야 한다. 언어 토글은 "무엇을 지우는가"가
@@ -166,12 +166,15 @@ function EnBody({ heading }: { heading?: string }) {
           items={[
             "Supabase (PostgreSQL) stores the records. Read access is locked to my own Google account by row-level security, so no visitor and no other account can read them.",
             "ipapi.co is called once per tab session to turn the connection into a country name. That request necessarily reaches ipapi.co with your IP address; the answer this site keeps is the country only.",
-            "GitHub Pages hosts the files, so GitHub sees the request as any web host does.",
+            "Vercel hosts and serves the files, so — as with any web host — your request, including your IP address, passes through it and may appear in its short-lived access logs. An older copy of this site is also published on GitHub Pages, which sees requests the same way.",
           ]}
         />
         <p className="mt-4">
-          Fonts and images are served from this site itself, so no font or CDN
-          provider is contacted while you read.
+          Everything else — fonts, images, 3D models — is served from this site
+          itself, so no font or CDN provider is contacted while you read. The
+          admin dashboard at <code className="text-ink/70">/admin</code> does
+          load libraries from a CDN, but that page is only reachable by the site
+          owner after signing in, and visitors never load it.
         </p>
       </Section>
 
@@ -257,12 +260,15 @@ function KoBody({ heading }: { heading?: string }) {
           items={[
             "Supabase(PostgreSQL) — 기록이 저장되는 곳입니다. 행 수준 보안(RLS)으로 조회 권한이 운영자 본인의 구글 계정에만 열려 있어, 방문자나 다른 계정은 읽을 수 없습니다.",
             "ipapi.co — 탭 세션당 1회 호출해 접속 정보를 국가명으로 변환합니다. 이 요청 특성상 ipapi.co 에는 방문자의 IP가 전달되며, 이 사이트가 저장하는 것은 국가명뿐입니다.",
-            "GitHub Pages — 파일이 호스팅되는 곳으로, 모든 웹 호스트가 그렇듯 GitHub 은 요청 자체를 확인할 수 있습니다.",
+            "Vercel — 파일이 호스팅·전송되는 곳입니다. 모든 웹 호스트가 그렇듯 방문자의 요청이 IP 주소와 함께 이곳을 거치며, 단기간 보관되는 접속 로그에 남을 수 있습니다. 예전 사본이 GitHub Pages 에도 게시돼 있어 그곳 역시 같은 방식으로 요청을 확인합니다.",
           ]}
         />
         <p className="mt-4">
-          폰트와 이미지는 이 사이트에서 직접 제공하므로, 열람 중 폰트·CDN
-          업체로 나가는 요청은 없습니다.
+          그 밖의 것 — 폰트·이미지·3D 모델 — 은 모두 이 사이트에서 직접
+          제공하므로, 열람 중 폰트·CDN 업체로 나가는 요청은 없습니다. 관리자
+          페이지(<code className="text-ink/70">/admin</code>)는 라이브러리를
+          CDN 에서 받아오지만, 로그인한 운영자만 여는 화면이라 방문자가 그
+          페이지를 불러오는 일은 없습니다.
         </p>
       </Section>
 

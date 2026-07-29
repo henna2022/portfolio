@@ -118,23 +118,26 @@ alter table public.messages     enable row level security;
 alter table public.content      enable row level security;
 alter table public.admin_emails enable row level security;
 
--- 공개(anon): 방문/이벤트/메시지는 "삽입만" 가능, 조회는 불가
+-- 공개(anon): 방문/이벤트는 "삽입만" 가능, 조회는 불가
 drop policy if exists "anon insert page_views" on public.page_views;
 create policy "anon insert page_views" on public.page_views
   for insert to anon, authenticated with check (true);
 drop policy if exists "anon insert events" on public.events;
 create policy "anon insert events" on public.events
   for insert to anon, authenticated with check (true);
-drop policy if exists "anon insert messages" on public.messages;
-create policy "anon insert messages" on public.messages
-  for insert to anon, authenticated with check (true);
 
--- 방문 체류시간(duration)은 최근 2시간 내, 아직 비어있는 행에 대해 1회만 갱신 허용
-drop policy if exists "anon set duration once" on public.page_views;
-create policy "anon set duration once" on public.page_views
-  for update to anon, authenticated
-  using (duration_ms is null and created_at > now() - interval '2 hours')
-  with check (true);
+-- messages 는 공개 INSERT 를 열지 않는다.
+-- 공개 anon 키로 누구나 직접 POST 할 수 있어서(폼 앞단 검증은 우회됨) 스팸·용량 소진에
+-- 그대로 노출된다. 현재 사이트의 연락 수단은 mailto 링크뿐이라 정상 유입이 0 이다.
+-- 폼을 다시 붙일 때만 아래 두 줄 + 맨 아래 grant 를 살리고, 캡차(Turnstile 등)를 함께 붙일 것.
+-- drop policy if exists "anon insert messages" on public.messages;
+-- create policy "anon insert messages" on public.messages
+--   for insert to anon, authenticated with check (true);
+drop policy if exists "anon insert messages" on public.messages;
+
+-- 체류시간은 anon 의 UPDATE 권한으로 처리하지 않는다 — 아래 set_view_duration() 참고.
+drop policy if exists "anon set duration once"  on public.page_views;
+drop policy if exists "anon match own view row" on public.page_views;
 
 -- 관리자만 조회/수정
 drop policy if exists "admin read page_views" on public.page_views;
@@ -164,37 +167,52 @@ create policy "admin read admin_emails" on public.admin_emails
   for select using (public.is_admin());
 
 -- ============================================================
---  컬럼 단위 권한 (RLS 위에 한 겹 더)
---  - 방문자(anon)는 정해진 컬럼만 INSERT 가능
---    → messages 에 read=true 를 심거나 created_at 을 조작하는 것 차단
---  - 방문자의 UPDATE 는 page_views.duration_ms 단 한 컬럼만 가능
---    → 통계(국가·경로 등) 오염 차단
+--  테이블·컬럼 단위 권한 (RLS 위에 한 겹 더)
+--  ⚠️ Supabase 는 public 스키마의 새 테이블에 anon/authenticated 전권을 기본으로 준다.
+--     그래서 "필요한 것만 grant" 가 아니라 "전부 revoke 후 필요한 것만 grant" 해야 한다.
+--     안 그러면 RLS 정책 한 줄이 잘못 붙는 순간 테이블이 통째로 열린다.
+--  - 방문자(anon)는 정해진 컬럼만 INSERT. 조회·수정·삭제 권한 없음.
+--  - 관리자 조회/수정은 authenticated 에 주되, 실제 통과 여부는 RLS 의 is_admin() 이 정한다.
 -- ============================================================
-revoke insert, update on public.page_views from anon, authenticated;
+revoke all on public.page_views from anon, authenticated;
 grant insert (session_id, path, referrer, country, device, lang, screen_w, view_uid)
   on public.page_views to anon, authenticated;
-grant update (duration_ms) on public.page_views to anon, authenticated;
+grant select on public.page_views to authenticated;
 
--- 체류시간 UPDATE 는 "?view_uid=eq.<uid>" 로 행을 찾는다.
--- PostgreSQL 은 UPDATE 의 WHERE 가 읽는 컬럼에 SELECT 권한 + SELECT 정책을 요구하므로,
--- anon 에게 view_uid "한 컬럼만", 그것도 최근 2시간 행만 읽도록 연다.
--- (국가·유입경로 등 나머지 컬럼은 anon 이 여전히 읽을 수 없고, 관리자는 authenticated 라 영향 없음)
--- ⚠️ 조건에 "duration_ms is null" 을 넣지 말 것 — UPDATE 후의 새 행도 SELECT 정책을 통과해야 해서
---    체류시간을 채우는 순간 42501 로 거부된다. 1회 제한은 UPDATE 정책의 USING 이 담당한다.
-revoke select on public.page_views from anon;
-grant select (view_uid) on public.page_views to anon;
-drop policy if exists "anon match own view row" on public.page_views;
-create policy "anon match own view row" on public.page_views
-  for select to anon
-  using (created_at > now() - interval '2 hours');
+-- 체류시간 기록 — anon 에게 UPDATE 를 주는 대신 함수 하나만 연다.
+-- (직접 UPDATE 를 허용하면 소유권 검사를 걸 수 없어서, view_uid 를 조회할 수 있는
+--  누구든 최근 2시간 안의 남의 방문 행을 덮어쓸 수 있었다)
+create or replace function public.set_view_duration(p_view_uid text, p_duration_ms int)
+returns void
+language sql
+security definer
+set search_path = public
+as $$
+  update public.page_views
+     set duration_ms = least(greatest(coalesce(p_duration_ms, 0), 0), 86400000)
+   where view_uid = p_view_uid
+     and duration_ms is null
+     and created_at > now() - interval '2 hours';
+$$;
+revoke all on function public.set_view_duration(text, int) from public;
+grant execute on function public.set_view_duration(text, int) to anon, authenticated;
 
-revoke insert, update on public.events from anon, authenticated;
-grant insert (session_id, type, label, path)
-  on public.events to anon, authenticated;
+revoke all on public.events from anon, authenticated;
+grant insert (session_id, type, label, path) on public.events to anon, authenticated;
+grant select on public.events to authenticated;
 
-revoke insert on public.messages from anon, authenticated;
-grant insert (name, email, body) on public.messages to anon, authenticated;
--- messages 의 read 플래그 갱신(관리자용 UPDATE)은 RLS 정책이 관리자만 통과시킴
+-- messages: anon 권한 없음(위 정책 주석 참고). 관리자만 읽고 read 플래그를 갱신한다.
+revoke all on public.messages from anon, authenticated;
+grant select on public.messages to authenticated;
+grant update (read) on public.messages to authenticated;
+-- 연락 폼을 다시 붙일 때: grant insert (name, email, body) on public.messages to anon, authenticated;
+
+revoke all on public.content from anon, authenticated;
+grant select on public.content to anon, authenticated;   -- published 만 보이도록 RLS 가 거름
+grant insert, update, delete on public.content to authenticated;
+
+revoke all on public.admin_emails from anon, authenticated;
+grant select on public.admin_emails to authenticated;
 
 -- ============================================================
 --  끝. 이제 Authentication → Providers 에서 Google "만" 켜세요.

@@ -7,8 +7,10 @@
 - 관리자: `https://juwonlee.dev/admin`
 
 구성 파일
-- `admin-schema.sql` — DB 테이블 + 보안(RLS) 정책
+- `admin-schema.sql` — DB 테이블 + 보안(RLS) 정책 · 권한 (신규 프로젝트는 이거 하나면 됨)
 - `admin-schema-patch-view-uid.sql` — page_views 가 안 쌓이던 문제 패치 (스키마 실행 후 이어서 Run)
+- `admin-schema-patch-hardening.sql` — **보안 점검 후속 패치(2026-07-29)**. 이미 돌아가고 있는
+  프로젝트에 적용하는 용도. 테이블 권한 회수 · 공개 메시지 INSERT 차단 · 체류시간 함수 전환
 - `public/supabase-config.js` — 연결 값 (여기만 본인 값으로 채우면 됨)
 - `public/analytics.js` — 공개 페이지 방문/이벤트/체류시간 수집 + 연락 폼 전송
 - `public/admin/index.html` — 관리자 대시보드 (구글 로그인). 배포되면 `/admin` 으로 서빙됩니다.
@@ -20,6 +22,8 @@
 2. 좌측 **SQL Editor** → `admin-schema.sql` 내용을 통째로 붙여넣고 **Run**.
    - 파일 안 `admin_emails` 의 이메일이 **본인 구글 로그인 이메일**인지 확인하세요.
 3. 이어서 `admin-schema-patch-view-uid.sql` 도 붙여넣고 **Run**.
+4. **이미 운영 중인 프로젝트라면** `admin-schema-patch-hardening.sql` 도 붙여넣고 **Run**.
+   (신규 생성이면 1번의 `admin-schema.sql` 에 이미 반영돼 있어 건너뛰어도 됩니다)
 
 ## 2. 구글 로그인(OAuth) 켜기
 1. **Google Cloud Console**(console.cloud.google.com) → 프로젝트 생성 →
@@ -85,10 +89,21 @@ window.SB_ANON_KEY = '<anon public key>';   // Project Settings → API → anon
 
 ## 개인정보 / 보안 메모
 - 원본 IP는 저장하지 않고 **국가만** 저장합니다(ipapi.co 로 국가 판별).
-- 방문/이벤트/메시지는 **삽입만** 공개 허용, **조회는 관리자 이메일만** (RLS).
-- `/admin` 페이지 파일 자체는 공개지만, 로그인·이메일 확인 전에는 데이터가 전혀 반환되지 않습니다.
-- `page_views` 는 anon 에게 `view_uid` **한 컬럼만** 열려 있습니다(체류시간 UPDATE 의 WHERE 용).
-  국가·경로·유입경로는 로그인한 관리자만 읽을 수 있습니다.
+- 방문/이벤트는 **삽입만** 공개 허용, **조회는 관리자 이메일만** (RLS).
+- **메시지(messages)는 공개 INSERT 를 닫아뒀습니다.** 공개 anon 키로 누구나 REST 에 직접
+  POST 할 수 있어서(폼 앞단 검증·허니팟은 우회됨) 스팸과 무료 티어 용량 소진에 그대로
+  노출됩니다. 현재 연락 수단은 mailto 링크뿐이라 정상 유입이 0 이라서 닫는 쪽이 이득입니다.
+  폼을 다시 붙일 거면 `admin-schema-patch-hardening.sql` 맨 아래 "되돌리기" 블록 + 캡차를 함께.
+- **테이블 권한은 전부 revoke 후 필요한 것만 grant** 합니다. Supabase 는 public 스키마 새
+  테이블에 anon/authenticated 전권을 기본으로 주기 때문에, 이걸 안 걷어내면 RLS 정책 한 줄이
+  잘못 붙는 순간 테이블이 통째로 열립니다(RLS 한 겹에만 의존하지 않기).
+- `page_views` 는 anon 이 **읽지도 수정하지도 못합니다.** 체류시간은 `set_view_duration()`
+  함수로만 기록되고, 이 함수는 "정확히 일치하는 view_uid · 아직 비어 있음 · 2시간 이내" 인
+  행 하나만 갱신합니다. (예전에는 anon 이 view_uid 목록을 읽고 남의 방문 행 체류시간을
+  덮어쓸 수 있었습니다)
+- 보안 헤더(CSP · X-Frame-Options · Referrer-Policy · Permissions-Policy)는 서버가 없어서
+  `vercel.json` 에서 붙입니다. `/admin` 은 jsdelivr 를 허용해야 해서 CSP 규칙이 따로입니다.
+  ⚠️ GitHub Pages 배포본은 헤더를 붙일 방법이 없어 이 보호를 받지 못합니다.
 
 ## 다음 단계(선택)
 - 국가 판별을 서버에서 하고 싶으면 Supabase **Edge Function** 으로 옮길 수 있습니다(요청 IP 기반, 3rd-party 호출 제거).

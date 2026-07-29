@@ -39,7 +39,12 @@ const HEADLINE = ["Building end-to-end", "systems where AI meets", "the physical
 // 버튼 라벨용 서브셋 TTF(14KB) — EN 과 동일한 벽 팝업 연출을 그대로 쓴다.
 const HEADLINE_KO = ["만들 줄 아는 교육자,", "가르칠 줄 아는", "개발자입니다."];
 const FONT_KO = "/fonts/paperlogy-hero.typeface.json";
-const LABEL_FONT_KO = "/fonts/paperlogy-hero.ttf";
+// 버튼 라벨(troika Text)용 서브셋 TTF — EN·KO 양쪽 라벨 글자를 모두 담고 있다.
+// ⚠️ font 를 비워두면 troika 가 unicode-font-resolver 로 넘어가 런타임에
+//    cdn.jsdelivr.net 에서 폰트 데이터를 받아온다(= 방문자 IP 가 제3자에게 전달).
+//    그래서 EN 에서도 반드시 이 로컬 폰트를 지정한다. 라벨 문구를 바꿀 때는
+//    이 서브셋에 글자가 들어있는지 확인할 것 — 없으면 다시 CDN 을 타게 된다.
+const LABEL_FONT = "/fonts/paperlogy-hero.ttf";
 
 // 텍스트 3줄이 순차로 올라온 뒤 로봇이 등장하는 타임라인(초)
 const TEXT_START = 0.2;
@@ -426,7 +431,7 @@ function WallButtons({
 }) {
   // Canvas 안쪽은 바깥 React 컨텍스트가 끊기므로 lang 은 prop 으로 받는다
   const t = ko ? uiKo : ui;
-  const labelFont = ko ? assetPath(LABEL_FONT_KO) : undefined;
+  const labelFont = assetPath(LABEL_FONT);
   return (
     <group position={[0.7, 1.05, WALL_Z + 0.28]}>
       <Button3D
@@ -796,7 +801,7 @@ useGLTF.preload && useGLTF.preload(assetPath("/props/desk.glb"), assetPath("/dra
 // 미리 받아 HTTP 캐시에 올려두면 GLB·draco 와 같은 구간에서 병렬로 내려온다.
 // (본문까지 읽어야 캐시에 기록되므로 arrayBuffer 로 끝까지 소비한다)
 if (typeof window !== "undefined") {
-  for (const f of [FONT, FONT_KO, LABEL_FONT_KO]) {
+  for (const f of [FONT, FONT_KO, LABEL_FONT]) {
     fetch(assetPath(f))
       .then((r) => r.arrayBuffer())
       .catch(() => {});
