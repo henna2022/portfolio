@@ -107,7 +107,12 @@ export function ProjectDetail({
           {/* contain 은 프레임에 레터박스(빈 여백)를 남긴다. 상세 히어로는
               여백 없이 꽉 차게 보여주는 쪽이 나아서 항상 cover 로 채운다.
               (이미지들이 1.33~1.7 비율이라 3/2 프레임 기준 잘림은 최대 12% 정도) */}
-          <ImageCarousel images={shots} alt={p.title} aspect="aspect-[3/2]" />
+          <ImageCarousel
+            images={shots}
+            alt={p.title}
+            alts={p.galleryAlts}
+            aspect="aspect-[3/2]"
+          />
         </motion.div>
       ) : null}
 

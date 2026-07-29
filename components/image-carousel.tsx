@@ -9,11 +9,15 @@ import { ArrowIcon } from "./icons";
 export function ImageCarousel({
   images,
   alt,
+  alts,
   aspect = "aspect-[4/3]",
   fit = "cover",
 }: {
   images: string[];
   alt: string;
+  // 이미지별 설명. 지정된 항목만 이 값을 쓰고, 나머지는 "제목 (n)" 으로 둔다.
+  // 지표를 증명하는 대시보드 캡처처럼 그림 자체가 근거일 때 필요하다.
+  alts?: Record<string, string>;
   aspect?: string;
   // "cover" = 프레임을 가득 채우고 넘치면 crop (사진용)
   // "contain" = 전체를 다 보여줌 (UI 스크린샷처럼 잘리면 안 되는 경우)
@@ -96,7 +100,7 @@ export function ImageCarousel({
           <img
             key={src}
             src={assetPath(src)}
-            alt={`${alt} (${i + 1})`}
+            alt={alts?.[src] ?? `${alt} (${i + 1})`}
             loading="lazy"
             decoding="async"
             draggable={false}
