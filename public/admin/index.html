@@ -361,11 +361,21 @@ delete from events     where created_at &lt; now() - interval '180 days';</pre>
 </div>
 
 <script src="../supabase-config.js"></script>
-<!-- 버전 고정: 공급망 리스크를 줄이기 위해 @2(항상 최신) 대신 정확한 버전을 사용 -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
+<!-- 버전 고정 + SRI: 공급망 리스크를 줄이기 위해 @2(항상 최신) 대신 정확한 버전을 쓰고,
+     integrity 해시로 파일이 1비트라도 바뀌면 브라우저가 실행을 거부하게 한다.
+     (crossorigin 이 없으면 integrity 는 무시되므로 반드시 함께 둘 것.
+      버전을 올릴 때는 해시도 같이 다시 계산해야 한다:
+      curl -sL <url> | openssl dgst -sha384 -binary | openssl base64 -A) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"
+        integrity="sha384-2zrRDgDHSYB/GN3nFW3fsZXoxEhKIr3N2h63Tc6DEOB9JJdFIu8xMJT2Cph/gBil"
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- 세계지도(choropleth)용 — 로드 실패 시 지도만 빠지고 나머지는 정상 동작 -->
-<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"
+        integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i"
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"
+        integrity="sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67"
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
   var sb = null, ME = null;
   // supabase-js 가 URL 을 정리하기 전의 원본 해시/쿼리 (진단용)
