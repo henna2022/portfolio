@@ -1,0 +1,57 @@
+<svg width="680" height="482" viewBox="0 0 680 482" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Raimi's AI Language Lab app flow</title>
+<desc>Browser-only NLP mini-game PWA: intro greeting, lesson menu with stamps and KO/EN toggle, five touch mini-games (tokenization, embeddings, word order, attention, next-word prediction), one stamp per lesson, complete. Fully offline-capable, no backend.</desc>
+<defs><marker id="arwE" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<style>
+text{font-family:'Pretendard','Apple SD Gothic Neo','Helvetica Neue',Arial,sans-serif}
+.iaBg{fill:#F5F1E8}.iaPoster{fill:#FFFFFF;stroke:#E4DDCE}.iaLogo{fill:#3B82F6}.iaLogoR{fill:#FFFFFF;font-size:22px;font-weight:600}
+.iaTtl{fill:#22211E;font-size:19px;font-weight:600}.iaSub{fill:#7C786E;font-size:12.5px}.iaHdiv{stroke:#E4DDCE}.iaFdiv{stroke:#E4DDCE}
+.iaSec{fill:#EBE5D9;stroke:#E4DDCE}.iaDot{fill:#3B82F6}.iaLab{fill:#22211E;font-size:12px;font-weight:600}.iaLeg{fill:#7C786E;font-size:11.5px}
+.iaSw1{fill:#FFFFFF;stroke:#D6CEBF}.iaSw2{fill:#EFF4FE;stroke:#C7D9F9}.iaSw3{fill:#3B82F6;stroke:#2E6FDB}.iaSw4{fill:#F5F1E8;stroke:#D6CEBF}
+.iaEbox{fill:#FFFFFF;stroke:#D6CEBF}.iaEt{fill:#22211E;font-size:14px;font-weight:600}.iaEs{fill:#7C786E;font-size:12px}
+.iaArw{stroke:#3B82F6;stroke-width:1.4;fill:none}.iaLeader{stroke:#93B8F0;stroke-width:1;stroke-dasharray:3 3;fill:none}.iaMgr{stroke:#3B82F6;stroke-width:1.5;fill:none}
+.iaMbox{fill:#3B82F6;stroke:#2E6FDB}.iaMt{fill:#FFFFFF;font-size:14px;font-weight:600}.iaMs{fill:#DBE8FD;font-size:12px}
+.iaCcard{fill:#EFF4FE;stroke:#C7D9F9}.iaCt{fill:#22211E;font-size:14px;font-weight:600}.iaCl{fill:#7C786E;font-size:12px}
+.iaPcbox{fill:#E1ECFD;stroke:#A9C7F5}.iaPt{fill:#22211E;font-size:14px;font-weight:600}.iaPs{fill:#7C786E;font-size:12px}
+.iaChip{fill:#F5F1E8;stroke:#D6CEBF}.iaChx{fill:#22211E;font-size:12px}.iaFoot{fill:#7C786E;font-size:11px}
+</style>
+
+<rect class="iaBg" x="0" y="0" width="680" height="482"/>
+<rect class="iaPoster" x="14" y="14" width="652" height="454" rx="18"/>
+
+<rect class="iaLogo" x="34" y="30" width="42" height="42" rx="11"/>
+<text class="iaLogoR" x="55" y="59" text-anchor="middle">R</text>
+<text class="iaTtl" x="88" y="50">Raimi's AI Language Lab</text>
+<text class="iaSub" x="88" y="69">Browser-only NLP mini-game PWA · no server</text>
+<line class="iaHdiv" x1="34" y1="86" x2="646" y2="86"/>
+
+<rect class="iaEbox" x="34" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="53" y="109">Screen</text>
+<rect class="iaCcard" x="130" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="149" y="109">Game step</text>
+<rect class="iaMbox" x="250" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="269" y="109">Milestone</text>
+<rect class="iaChip" x="360" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="379" y="109">Note</text>
+
+<rect class="iaSec" x="28" y="126" width="624" height="206" rx="12"/>
+<circle class="iaDot" cx="44" cy="143" r="3"/><text class="iaLab" x="52" y="147">Learning flow · play → collect stamps</text>
+<rect class="iaEbox" x="44" y="158" width="280" height="44" rx="10"/><text class="iaEt" x="184" y="180" text-anchor="middle">Intro</text><text class="iaEs" x="184" y="196" text-anchor="middle">Raimi greets the visitor</text>
+<line class="iaArw" x1="324" y1="180" x2="352" y2="180" marker-end="url(#arwE)"/>
+<rect class="iaEbox" x="356" y="158" width="280" height="44" rx="10"/><text class="iaEt" x="496" y="180" text-anchor="middle">Lesson menu</text><text class="iaEs" x="496" y="196" text-anchor="middle">5 lesson cards · stamps · KO/EN</text>
+<path class="iaArw" d="M496 202 V209 H184 V214" marker-end="url(#arwE)"/>
+<rect class="iaCcard" x="44" y="216" width="280" height="44" rx="10"/><text class="iaCt" x="184" y="238" text-anchor="middle">Play</text><text class="iaCl" x="184" y="254" text-anchor="middle">5 NLP touch mini-games</text>
+<line class="iaArw" x1="324" y1="238" x2="352" y2="238" marker-end="url(#arwE)"/>
+<rect class="iaCcard" x="356" y="216" width="280" height="44" rx="10"/><text class="iaCt" x="496" y="238" text-anchor="middle">Concepts</text><text class="iaCl" x="496" y="254" text-anchor="middle">Tokens · embeddings · attention</text>
+<path class="iaArw" d="M496 260 V267 H184 V272" marker-end="url(#arwE)"/>
+<rect class="iaCcard" x="44" y="274" width="280" height="44" rx="10"/><text class="iaCt" x="184" y="296" text-anchor="middle">Stamps</text><text class="iaCl" x="184" y="312" text-anchor="middle">One stamp per lesson</text>
+<line class="iaArw" x1="324" y1="296" x2="352" y2="296" marker-end="url(#arwE)"/>
+<rect class="iaMbox" x="356" y="274" width="280" height="44" rx="10"/><text class="iaMt" x="496" y="296" text-anchor="middle">Complete</text><text class="iaMs" x="496" y="312" text-anchor="middle">All 5 stamps · confetti</text>
+<line class="iaLeader" x1="120" y1="273" x2="120" y2="262" marker-end="url(#arwE)"/>
+<text class="iaEs" x="112" y="270" text-anchor="end">next lesson</text>
+
+<rect class="iaSec" x="28" y="344" width="624" height="82" rx="12"/>
+<circle class="iaDot" cx="44" cy="361" r="3"/><text class="iaLab" x="52" y="365">Exhibition deployment · fully client-side</text>
+<rect class="iaChip" x="44" y="376" width="190" height="36" rx="9"/><text class="iaChx" x="139" y="398" text-anchor="middle">No backend · no server</text>
+<rect class="iaChip" x="250" y="376" width="190" height="36" rx="9"/><text class="iaChx" x="345" y="398" text-anchor="middle">Offline-capable PWA</text>
+<rect class="iaChip" x="456" y="376" width="180" height="36" rx="9"/><text class="iaChx" x="546" y="398" text-anchor="middle">Exhibition tablet ready</text>
+
+<line class="iaFdiv" x1="34" y1="446" x2="646" y2="446"/>
+<text class="iaFoot" x="340" y="462" text-anchor="middle">Raimi's AI Language Lab · App Flow © Juwon Lee</text>
+</svg>
