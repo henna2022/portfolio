@@ -371,7 +371,7 @@ const activitiesKoOverrides: Array<Partial<Activity>> = [
   {
     period: "2026.02 – 현재",
     title: "그루터기 학습멘토링 '같이에듀'",
-    role: "청소년 학습 대학생 멘토 6기 · 주 2회 90분 · 업무 외 시간",
+    role: "대학생 멘토 6기 · 주 2회 90분 · 업무 외 시간",
     desc: "청소년 대상 학습 멘토링을 진행하며 멘티 눈높이에 맞춘 학습 습관과 자기주도 학습을 지원.",
   },
   {
