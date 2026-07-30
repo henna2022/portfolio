@@ -29,8 +29,8 @@ export const sections = [
 
 export const hero = {
   badge: "AI · Robotics · Web",
-  headline: "Building end-to-end systems where AI meets the physical world.",
-  sub: "I build AI that steps off the screen, onto robots, sensors, and museum floors, and teach people how it works.",
+  headline: "Building AI products people learn from.",
+  sub: "I plan, ship, and run them end to end — on museum floors, in classrooms, and on real hardware — and measure how they're used.",
 };
 
 // ─── Statement ──────────────────────────────────────────────────────────────
@@ -63,7 +63,7 @@ export type ProseParagraph = ProseSegment[];
 export const about = {
   photo: "/portfolio_images/profile/juwonlee.jpg",
   tagline:
-    "AI product engineer. I build end to end, from sensor to shipped interface, so intelligence can perceive and act in the physical world.",
+    "AI product engineer. I build education products end to end — from sensor to shipped interface — and run them where people actually learn.",
   // 카드 하단 요약 — 정체성과 "지금"만 짧게. 나머지 이력은 아래 facts 로 내린다.
   info: [
     {
@@ -104,8 +104,8 @@ export const about = {
   prose: [
     [
       { text: "Hi, I'm Juwon Lee, a " },
-      { text: "software developer", b: true },
-      { text: " who cares most about the moment an idea becomes something people actually use. On most of my projects I've owned the work " },
+      { text: "product engineer who builds things people learn from", b: true },
+      { text: ". I care most about the moment an idea becomes something people actually use — and understand. On most of my projects I've owned the work " },
       { text: "from planning through deployment", b: true },
       { text: "." },
     ],
@@ -126,16 +126,16 @@ export const about = {
       { text: ", and with ATO I took it all the way to the hardware: firmware, servos, and an LCD face." },
     ],
     [
-      { text: "I also spend a lot of my time " },
+      { text: "The other half of the job is " },
       { text: "teaching", b: true },
-      { text: ". I meet museum visitors in Korean and English, I mentor students week to week, and I built a full smart-farm program for the Yangpyeong Education Office — curriculum, server, and web app — that is set to run with a 15-student cohort. " },
+      { text: ". The Yangpyeong Education Office commissioned my smart-farm program — curriculum, server, and web app — now set to run with a 15-student cohort; at the museum I guide visitors in Korean and English, and I mentor students week to week. " },
       { text: "Building something and explaining it well are the same job to me", b: true },
       { text: ": both come down to making a complex system make sense." },
     ],
     [
-      { text: "I've only just crossed the starting line, but I'll keep " },
-      { text: "shipping software that solves real problems", b: true },
-      { text: ", and getting a little better at it every day." },
+      { text: "That intersection is my lane. I'll keep " },
+      { text: "shipping products people learn from, and measuring whether they work", b: true },
+      { text: "." },
     ],
   ] as ProseParagraph[],
 };
