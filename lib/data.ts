@@ -654,10 +654,24 @@ export type Activity = {
 
 export const activities: Activity[] = [
   {
+    period: "2026.07 - Present",
+    title: "KB LA School (Middle School)",
+    role: "Middle-school mentor (online) · 2x/week, 80 min · outside work hours",
+    desc: "Dedicated online mentoring for middle-school students in the KB LA School program.",
+    photos: [],
+  },
+  {
+    period: "2026.03 - Present",
+    title: "Gwangyang AI Smart i-Kium",
+    role: "Instructor · Grade-3 math & English · 1x/week · outside work hours",
+    desc: "Teaching Grade-3 math and English classes in Gwangyang City's AI Smart i-Kium program.",
+    photos: [],
+  },
+  {
     period: "2026.02 - Present",
-    title: "Ongoing Youth Mentoring",
-    role: "3 weekly programs · outside work hours",
-    desc: "Three mentoring programs run in parallel outside work hours: dedicated online mentoring for KB LA School middle-schoolers (2x/week, from 2026.07), Grade-3 math & English classes in Gwangyang City's AI Smart i-Kium program (1x/week, from 2026.03), and study-habit coaching for teenagers in the Geuruteogi 'Gachi-Edu' program (2x/week 90 min, from 2026.02).",
+    title: "Geuruteogi Learning Mentoring 'Gachi-Edu'",
+    role: "University mentor for youth learning (6th cohort) · 2x/week, 90 min · outside work hours",
+    desc: "A university mentoring program where I coach teenagers on study habits and self-directed learning, tailored to each mentee's level.",
     photos: ["/portfolio_images/activities/act_geuruteogi.jpg"],
   },
   {
