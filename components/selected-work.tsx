@@ -11,7 +11,10 @@ import { useI18n } from "./lang-provider";
 import { DownloadIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
-const FILTERS = ["All", "AI", "Web", "IoT", "Ops", "Education"];
+// 표시 순서만 정해두고, 실제로 해당하는 major 프로젝트가 없는 칩은 렌더에서 뺀다.
+// (프로젝트를 side 로 내리거나 카테고리를 바꾸면 여기가 조용히 빈 칩으로 남는다 —
+//  눌러도 아무것도 안 나오는 필터가 생기지 않도록 데이터에서 자동으로 맞춘다)
+const FILTER_ORDER = ["All", "AI", "Web", "IoT", "Ops", "Education"];
 
 function initials(title: string) {
   return title
@@ -216,6 +219,9 @@ export function SelectedWork() {
     filter === "All"
       ? majors
       : majors.filter((p) => p.categories.includes(filter));
+  const FILTERS = FILTER_ORDER.filter(
+    (f) => f === "All" || majors.some((p) => p.categories.includes(f)),
+  );
 
   return (
     <section id="work" className="mx-auto max-w-shell px-6 py-16">
