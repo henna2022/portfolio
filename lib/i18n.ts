@@ -20,7 +20,7 @@ export const ui = {
   seeMore: "See more",
   seeLess: "See less",
 
-  workHeading: "A compact index of recent work.",
+  workHeading: "Projects",
   filterAll: "All",
   view: "View",
   viewProject: "View project →",
@@ -85,7 +85,7 @@ export const uiKo: UiStrings = {
   seeMore: "더 보기",
   seeLess: "접기",
 
-  workHeading: "최근 작업을 간추려 모았습니다.",
+  workHeading: "프로젝트",
   filterAll: "All",
   view: "보기",
   viewProject: "프로젝트 보기 →",

@@ -246,8 +246,8 @@ export const projects: Project[] = [
   },
   {
     slug: "raimi-art-lab",
-    n: "03",
-    tier: "major",
+    n: "01",
+    tier: "side",
     title: "Raimi's AI Art Lab",
     category: "Web App · Education",
     categories: ["AI", "Web", "Education"],
@@ -290,8 +290,8 @@ export const projects: Project[] = [
   },
   {
     slug: "raim-staff-platform",
-    n: "04",
-    tier: "major",
+    n: "02",
+    tier: "side",
     title: "SEOUL RAIM Staff Platform",
     category: "Internal Operations Tool",
     categories: ["Web"],
@@ -323,7 +323,7 @@ export const projects: Project[] = [
   // ── Side & toy projects ──
   {
     slug: "im-a-restorer",
-    n: "01",
+    n: "03",
     tier: "side",
     title: "I'm a Restorer!",
     category: "Interactive Web Game",
@@ -352,7 +352,7 @@ export const projects: Project[] = [
   },
   {
     slug: "raimi-language-lab",
-    n: "02",
+    n: "04",
     tier: "side",
     title: "Raimi's AI Language Lab",
     category: "Language-AI Education Game",
@@ -440,7 +440,7 @@ export const projects: Project[] = [
   // },
   {
     slug: "ato-care-robot",
-    n: "03",
+    n: "05",
     tier: "side",
     title: "ATO Care Robot",
     category: "AI Healthcare · Care Robot",
@@ -470,7 +470,7 @@ export const projects: Project[] = [
   },
   {
     slug: "exhibit-auto-recovery",
-    n: "04",
+    n: "06",
     tier: "side",
     title: "Exhibit Auto-Recovery",
     category: "Ops Automation · Reliability",
