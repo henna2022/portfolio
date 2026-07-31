@@ -756,7 +756,9 @@ export const awards: Award[] = [
     role: "PM & Developer",
     topic:
       "YAKMOA, a multimodal-AI medication-management service for digitally vulnerable users, built on the ATO care robot.",
-    photos: [],
+    // 시상식 화면 — 함께 입선한 다른 팀의 대표자 실명은 가려서 올린다
+    // (본인 것이 아닌 개인정보를 공개 사이트에 싣지 않기 위해)
+    photos: ["/portfolio_images/awards/gh_buildup_prize.jpg"],
     relatedSlug: "ato-care-robot",
   },
   {
