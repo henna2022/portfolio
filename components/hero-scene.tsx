@@ -128,10 +128,14 @@ function useReducedMotion() {
 }
 
 // 과학관 "방 안" 시점 — 뒷벽이 화면의 ~80%를 차지하는 수평 정면 카메라
+// 값을 상수로 빼둔 이유: 헤드라인이 화면 폭에 맞춰 줄어들 때 이 두 값으로
+// "벽면에서 실제로 보이는 폭"을 계산한다 (RisingHeadline 참고).
+const CAM_FOV = 35;
+const CAM_POS: [number, number, number] = [0, 2.1, 7.4];
 function Rig() {
   const camera = useThree((s) => s.camera);
   useEffect(() => {
-    camera.position.set(0, 2.1, 7.4);
+    camera.position.set(...CAM_POS);
     camera.lookAt(0, 2.1, 0);
   }, [camera]);
   return null;
@@ -266,6 +270,9 @@ const HEADLINE_CENTER_Y = 2.65;
 const TEXT_START_Z = WALL_Z - 0.4; // 벽 속(숨김)
 const TEXT_TARGET_Z = WALL_Z + 0.18; // 벽면보다 살짝 돌출
 
+// 헤드라인이 차지해도 되는 화면 폭 (NDC 기준, 1 = 화면 가장자리)
+const HEADLINE_WIDTH_RATIO = 0.94;
+
 function RisingHeadline({ dark, reduced, ko }: { dark: boolean; reduced: boolean; ko: boolean }) {
   const lines = ko ? HEADLINE_KO : HEADLINE;
   const line0 = useRef<THREE.Group>(null);
@@ -273,6 +280,64 @@ function RisingHeadline({ dark, reduced, ko }: { dark: boolean; reduced: boolean
   const line2 = useRef<THREE.Group>(null);
   const refs = [line0, line1, line2];
   const elapsed = useRef(0);
+
+  // ── 화면 폭에 맞춰 헤드라인 축소 ──────────────────────────────────────
+  // 창을 좁히면 카메라 시야가 같이 좁아지는데 글자 크기는 고정이라 긴 줄이
+  // 화면 밖으로 잘려 나갔다. 방이 rotation-y 로 기울어 있고 x 로도 밀려 있어서
+  // "폰트 크기 ÷ 시야 폭" 같은 계산은 안 맞는다 — 그래서 실제 월드 바운딩박스를
+  // 화면 좌표(NDC)로 투영해 가장 바깥으로 튀어나온 x 를 재고, 그 값이 화면
+  // 가장자리를 넘지 않도록 그룹을 줄인다. 넓은 화면에서는 1(원래 크기)로 수렴한다.
+  const groupRef = useRef<THREE.Group>(null);
+  const [fit, setFit] = useState(1);
+  const camera = useThree((s) => s.camera);
+  const viewport = useThree((s) => s.size);
+
+  useEffect(() => {
+    const box = new THREE.Box3();
+    const corner = new THREE.Vector3();
+    let cancelled = false;
+    let tries = 0;
+
+    const measure = () => {
+      if (cancelled) return;
+      const g = groupRef.current;
+      if (g) {
+        // 측정은 항상 "원래 크기 · 등장 완료" 상태 기준으로 한다.
+        // (지금 스케일이나 등장 애니메이션 중간 z 로 재면 값이 계속 흔들린다)
+        const scaled = g.scale.x;
+        const zs = g.children.map((c) => c.position.z);
+        g.scale.set(1, 1, 1);
+        g.children.forEach((c) => (c.position.z = TEXT_TARGET_Z));
+        g.updateWorldMatrix(true, true);
+        box.setFromObject(g);
+
+        let outermost = 0;
+        if (!box.isEmpty()) {
+          for (const x of [box.min.x, box.max.x])
+            for (const y of [box.min.y, box.max.y])
+              for (const z of [box.min.z, box.max.z]) {
+                corner.set(x, y, z).project(camera);
+                outermost = Math.max(outermost, Math.abs(corner.x));
+              }
+        }
+
+        g.scale.set(scaled, scaled, 1);
+        g.children.forEach((c, i) => (c.position.z = zs[i]));
+
+        if (outermost > 0) {
+          setFit(THREE.MathUtils.clamp(HEADLINE_WIDTH_RATIO / outermost, 0.35, 1));
+          return;
+        }
+      }
+      // Text3D 는 타입페이스를 받아온 뒤에야 지오메트리가 생긴다 — 잠깐 기다렸다 재시도
+      if (tries++ < 40) setTimeout(measure, 100);
+    };
+
+    measure();
+    return () => {
+      cancelled = true;
+    };
+  }, [camera, viewport.width, viewport.height, ko]);
 
   useFrame((_, delta) => {
     if (process.env.NODE_ENV !== "production") {
@@ -301,7 +366,9 @@ function RisingHeadline({ dark, reduced, ko }: { dark: boolean; reduced: boolean
 
   return (
     // 벽면에 걸린 문단 — 코너 원근이 자연스러운 사선을 만들어 준다
-    <group position={[0, HEADLINE_CENTER_Y, 0]}>
+    // scale 의 z 를 1 로 두는 이유: 자식 그룹의 z 는 "벽에서 튀어나오는" 등장
+    // 애니메이션 좌표라, 같이 줄이면 글자가 벽 앞에 떠버린다.
+    <group ref={groupRef} position={[0, HEADLINE_CENTER_Y, 0]} scale={[fit, fit, 1]}>
       {lines.map((line, i) => (
         <group key={line} ref={refs[i]} position={[0, LINE_OFFSET_Y[i], TEXT_START_Z]}>
           <Center disableY disableZ>
@@ -892,7 +959,7 @@ export default function HeroScene({ showText, ko = false }: { showText: boolean;
           frameloop={visible ? "always" : "never"}
           dpr={[1, 1.25]}
           performance={{ min: 0.5 }}
-          camera={{ fov: 35 }}
+          camera={{ fov: CAM_FOV }}
           gl={{ antialias: true, alpha: true }}
           onCreated={(state) => {
             // dev 전용: 프레이밍 검증용
