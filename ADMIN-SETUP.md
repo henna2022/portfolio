@@ -72,9 +72,15 @@ window.SB_ANON_KEY = '<anon public key>';   // Project Settings → API → anon
 - 관리자 `https://juwonlee.dev/admin`: 구글 로그인 →
   본인 계정이면 대시보드, 아니면 "접근 권한 없음".
 
-> 저장소에 `.github/workflows/deploy-pages.yml`(GitHub Pages, `/portfolio` basePath)도 남아 있습니다.
-> 현재 juwonlee.dev 를 서빙하는 건 **Vercel** 이고, Pages 쪽은 basePath 가 달라 admin 경로도
-> `/portfolio/admin` 이 됩니다 — 둘 다 쓸 거면 Supabase Redirect URLs 에 그 주소도 넣으세요.
+> **배포처는 Vercel 하나뿐입니다.** 예전에 GitHub Pages 로도 같이 내보내던
+> 워크플로(`.github/workflows/deploy-pages.yml`)는 제거했습니다 — Pages 는 응답 헤더를
+> 붙일 방법이 없어서 CSP·X-Frame-Options 같은 보호가 하나도 적용되지 않는 사본이
+> 계속 돌아가는 상태였고, 옛 콘텐츠를 그대로 서빙하고 있었습니다.
+>
+> 저장소 **Settings → Pages → Unpublish site** 로 남아 있는 사본도 내려주세요
+> (`https://henna2022.github.io/portfolio/` 가 404 가 되면 완료).
+> `next.config.mjs` 의 `DEPLOY_TARGET=github-pages` 분기는 남겨뒀습니다 — 나중에
+> 다시 쓸 수 있고, 안 쓰면 아무 영향이 없습니다.
 
 ---
 
