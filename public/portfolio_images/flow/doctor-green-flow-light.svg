@@ -1,0 +1,62 @@
+<svg width="680" height="554" viewBox="0 0 680 554" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Doctor-Green smart-farm platform system flow</title>
+<desc>IoT pipeline: ESP32 sensor nodes post directly to Supabase over Wi-Fi (no relay server); a Next.js dashboard visualizes readings with 5-second polling and controls actuators via a desired-state pattern. AI diagnosis: USB camera video to YOLOv8 across 7 strawberry-disease classes, feeding results into the dashboard. Deployed on Vercel with Roboflow dataset; solo project.</desc>
+<defs><marker id="arwE" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<style>
+text{font-family:'Pretendard','Apple SD Gothic Neo','Helvetica Neue',Arial,sans-serif}
+.iaBg{fill:#F5F1E8}.iaPoster{fill:#FFFFFF;stroke:#E4DDCE}.iaLogo{fill:#3B82F6}.iaLogoR{fill:#FFFFFF;font-size:22px;font-weight:600}
+.iaTtl{fill:#22211E;font-size:19px;font-weight:600}.iaSub{fill:#7C786E;font-size:12.5px}.iaHdiv{stroke:#E4DDCE}.iaFdiv{stroke:#E4DDCE}
+.iaSec{fill:#EBE5D9;stroke:#E4DDCE}.iaDot{fill:#3B82F6}.iaLab{fill:#22211E;font-size:12px;font-weight:600}.iaLeg{fill:#7C786E;font-size:11.5px}
+.iaSw1{fill:#FFFFFF;stroke:#D6CEBF}.iaSw2{fill:#EFF4FE;stroke:#C7D9F9}.iaSw3{fill:#3B82F6;stroke:#2E6FDB}.iaSw4{fill:#F5F1E8;stroke:#D6CEBF}
+.iaEbox{fill:#FFFFFF;stroke:#D6CEBF}.iaEt{fill:#22211E;font-size:14px;font-weight:600}.iaEs{fill:#7C786E;font-size:12px}
+.iaArw{stroke:#3B82F6;stroke-width:1.4;fill:none}.iaLeader{stroke:#93B8F0;stroke-width:1;stroke-dasharray:3 3;fill:none}.iaMgr{stroke:#3B82F6;stroke-width:1.5;fill:none}
+.iaMbox{fill:#3B82F6;stroke:#2E6FDB}.iaMt{fill:#FFFFFF;font-size:14px;font-weight:600}.iaMs{fill:#DBE8FD;font-size:12px}
+.iaCcard{fill:#EFF4FE;stroke:#C7D9F9}.iaCt{fill:#22211E;font-size:14px;font-weight:600}.iaCl{fill:#7C786E;font-size:12px}
+.iaPcbox{fill:#E1ECFD;stroke:#A9C7F5}.iaPt{fill:#22211E;font-size:14px;font-weight:600}.iaPs{fill:#7C786E;font-size:12px}
+.iaChip{fill:#F5F1E8;stroke:#D6CEBF}.iaChx{fill:#22211E;font-size:12px}.iaFoot{fill:#7C786E;font-size:11px}
+</style>
+
+<rect class="iaBg" x="0" y="0" width="680" height="554"/>
+<rect class="iaPoster" x="14" y="14" width="652" height="526" rx="18"/>
+
+<rect class="iaLogo" x="34" y="30" width="42" height="42" rx="11"/>
+<text class="iaLogoR" x="55" y="59" text-anchor="middle">D</text>
+<text class="iaTtl" x="88" y="50">Doctor-Green</text>
+<text class="iaSub" x="88" y="69">Smart-farm platform · IoT monitoring + AI crop diagnosis</text>
+<line class="iaHdiv" x1="34" y1="86" x2="646" y2="86"/>
+
+<rect class="iaSw1" x="34" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="53" y="109">Hardware</text>
+<rect class="iaSw2" x="140" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="159" y="109">Server · Data</text>
+<rect class="iaSw3" x="270" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="289" y="109">Dashboard</text>
+<rect class="iaPcbox" x="390" y="99" width="13" height="13" rx="3"/><text class="iaLeg" x="409" y="109">AI module</text>
+
+<rect class="iaSec" x="28" y="126" width="624" height="148" rx="12"/>
+<circle class="iaDot" cx="44" cy="143" r="3"/><text class="iaLab" x="52" y="147">IoT live-data pipeline</text>
+<rect class="iaEbox" x="44" y="158" width="180" height="44" rx="10"/><text class="iaEt" x="134" y="180" text-anchor="middle">ESP32 sensor nodes</text><text class="iaEs" x="134" y="196" text-anchor="middle">Temp · humidity · soil</text>
+<line class="iaArw" x1="224" y1="180" x2="250" y2="180" marker-end="url(#arwE)"/>
+<rect class="iaCcard" x="252" y="158" width="170" height="44" rx="10"/><text class="iaCt" x="337" y="180" text-anchor="middle">Wi-Fi direct POST</text><text class="iaCl" x="337" y="196" text-anchor="middle">No relay server</text>
+<line class="iaArw" x1="422" y1="180" x2="448" y2="180" marker-end="url(#arwE)"/>
+<rect class="iaCcard" x="450" y="158" width="186" height="44" rx="10"/><text class="iaCt" x="543" y="180" text-anchor="middle">Supabase</text><text class="iaCl" x="543" y="196" text-anchor="middle">Live DB · 5s polling</text>
+<path class="iaArw" d="M543 202 V209 H340 V214" marker-end="url(#arwE)"/>
+<rect class="iaMbox" x="44" y="216" width="592" height="44" rx="10"/><text class="iaMt" x="340" y="238" text-anchor="middle">Next.js dashboard</text><text class="iaMs" x="340" y="254" text-anchor="middle">Live charts · desired-state control</text>
+
+<rect class="iaSec" x="28" y="286" width="624" height="120" rx="12"/>
+<circle class="iaDot" cx="44" cy="303" r="3"/><text class="iaLab" x="52" y="307">AI crop diagnosis</text>
+<rect class="iaEbox" x="44" y="318" width="180" height="44" rx="10"/><text class="iaEt" x="134" y="340" text-anchor="middle">USB camera</text><text class="iaEs" x="134" y="356" text-anchor="middle">Live video feed</text>
+<line class="iaArw" x1="224" y1="340" x2="250" y2="340" marker-end="url(#arwE)"/>
+<rect class="iaPcbox" x="252" y="318" width="190" height="44" rx="10"/><text class="iaPt" x="347" y="340" text-anchor="middle">YOLOv8 detection</text><text class="iaPs" x="347" y="356" text-anchor="middle">7 strawberry diseases</text>
+<line class="iaArw" x1="442" y1="340" x2="468" y2="340" marker-end="url(#arwE)"/>
+<rect class="iaCcard" x="470" y="318" width="166" height="44" rx="10"/><text class="iaCt" x="553" y="340" text-anchor="middle">Diagnosis results</text><text class="iaCl" x="553" y="356" text-anchor="middle">Into the dashboard</text>
+<line class="iaLeader" x1="553" y1="316" x2="553" y2="264" marker-end="url(#arwE)"/>
+<text class="iaEs" x="340" y="388" text-anchor="middle">A 150-epoch YOLOv8l run is refining the 7-class model</text>
+
+<rect class="iaSec" x="28" y="418" width="624" height="82" rx="12"/>
+<circle class="iaDot" cx="44" cy="435" r="3"/><text class="iaLab" x="52" y="439">Deployment</text>
+<rect class="iaChip" x="44" y="450" width="190" height="36" rx="9"/><text class="iaChx" x="139" y="472" text-anchor="middle">Vercel web app</text>
+<rect class="iaChip" x="250" y="450" width="190" height="36" rx="9"/><text class="iaChx" x="345" y="472" text-anchor="middle">Roboflow dataset</text>
+<rect class="iaChip" x="456" y="450" width="180" height="36" rx="9"/><text class="iaChx" x="546" y="472" text-anchor="middle">Solo project</text>
+
+<line class="iaFdiv" x1="34" y1="518" x2="646" y2="518"/>
+<text class="iaFoot" x="340" y="534" text-anchor="middle">Doctor-Green · System Flow © Juwon Lee</text>
+
+</svg>

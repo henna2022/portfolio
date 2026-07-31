@@ -157,11 +157,11 @@ const projectsKo: Record<string, Partial<Project>> = {
     role: "솔로: 기획부터 배포까지",
     stat: "엔드 투 엔드 솔로",
     overview:
-      "닥터그린은 카메라 영상으로 작물 병해를 진단하는 AI 모듈과 재배 환경을 측정·제어하는 IoT 장치를 **하나의 웹 플랫폼**에서 운영하는 스마트팜 플랫폼입니다. 진단과 환경 제어가 한 화면에 함께 있고, **센서부터 대시보드까지 전체 파이프라인을 솔로로 기획·구축**했습니다.\n\n**2024 ICT·SW 여성 창업 공모전 우수상**을 받은 VGG16 식물 병해 진단 앱에서 출발해, 2026년 YOLOv8 기반의 완전한 스마트팜 플랫폼으로 다시 만들었습니다.\n\nESP32 센서 노드가 환경 데이터를 수집해 Mac 기반 Flask 중계 서버를 거쳐 Supabase에 적재하고, Next.js 웹앱이 실시간으로 시각화합니다. 같은 앱에서 Supabase Realtime 구독으로 LED·팬 같은 액추에이터를 실시간 제어합니다. 진단은 USB 카메라 영상에 YOLOv8을 적용해 **딸기 병해 7종**을 탐지·진단합니다.\n\n학습에는 Roboflow strawberry-disease-detection-dataset v4와 클래스 불균형 보정용 증강 전략을 사용했고, 정확도를 끌어올리기 위한 YOLOv8l 학습(150 epoch)으로 모델을 고도화하는 중입니다. 웹앱은 Vercel에 라이브 데모로 배포되어 있습니다.",
+      "닥터그린은 카메라 영상으로 작물 병해를 진단하는 AI 모듈과 재배 환경을 측정·제어하는 IoT 장치를 **하나의 웹 플랫폼**에서 운영하는 스마트팜 플랫폼입니다. 진단과 환경 제어가 한 화면에 함께 있고, **센서부터 대시보드까지 전체 파이프라인을 솔로로 기획·구축**했습니다.\n\n**2024 ICT·SW 여성 창업 공모전 우수상**을 받은 VGG16 식물 병해 진단 앱에서 출발해, 2026년 YOLOv8 기반의 완전한 스마트팜 플랫폼으로 다시 만들었습니다.\n\nESP32 센서 노드가 환경 데이터를 **Wi-Fi로 Supabase에 직접 적재하고(중계 서버 없음)**, Next.js 웹앱이 5초 폴링으로 시각화합니다. LED·팬 같은 액추에이터는 **desired-state 패턴**으로 제어합니다: 앱은 목표 상태만 기록하고, ESP32가 이를 폴링해 하드웨어를 맞추며, 낙관적 UI가 왕복 지연을 흡수합니다. 진단은 USB 카메라 영상에 YOLOv8을 적용해 **딸기 병해 7종**을 탐지·진단합니다.\n\n학습에는 Roboflow strawberry-disease-detection-dataset v4와 클래스 불균형 보정용 증강 전략을 사용했고, 정확도를 끌어올리기 위한 YOLOv8l 학습(150 epoch)으로 모델을 고도화하는 중입니다. 웹앱은 Vercel에 라이브 데모로 배포되어 있습니다.",
     highlights: [
-      "**데이터 흐름을 엔드 투 엔드로 구축**: IoT 센싱 → Mac 중계 서버(Flask) → Supabase → Next.js 실시간 시각화.",
+      "**데이터 흐름을 엔드 투 엔드로 구축**: ESP32가 Wi-Fi로 Supabase에 직접 적재 → Next.js 대시보드 5초 폴링 시각화.",
       "USB 카메라 영상에 YOLOv8을 적용해 **딸기 병해 7종**을 탐지·진단.",
-      "Supabase Realtime 구독으로 웹앱에서 LED·팬 등 **액추에이터를 실시간 제어**.",
+      "LED·팬은 **desired-state 패턴으로 제어**: 앱은 목표 상태만 기록, 디바이스가 폴링해 반영하고 낙관적 UI가 지연을 흡수.",
       "1차 50 epoch 학습에 이어 **YOLOv8l 학습(150 epoch)으로 고도화 진행 중**.",
       "Roboflow strawberry-disease-detection-dataset v4에 클래스 불균형 보정용 증강 전략을 적용.",
       "Next.js 16 + TypeScript + Tailwind 웹앱을 Vercel에 라이브 데모로 배포.",
