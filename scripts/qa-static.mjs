@@ -66,6 +66,25 @@ const noPage = slugs.filter((s) => !fs.existsSync(path.join(OUT, "work", s + ".h
 noPage.length ? add("HIGH", "라우트", `페이지 없는 프로젝트: ${noPage.join(", ")}`)
               : pass("라우트", `프로젝트 ${slugs.length}개 전부 페이지 생성됨`);
 
+// 파일이 있다는 것과 내용이 들어있다는 건 다르다.
+// Next 16 업그레이드 시도에서 /work/<slug>.html 이 전부 "404 · ..." 껍데기로
+// 나왔는데(RSC 페이로드만 생성) 위 존재 검사는 그대로 통과했다. 포트폴리오에서
+// SEO 가 가장 중요한 페이지들이라, 제목과 본문이 실제로 프리렌더됐는지까지 본다.
+const hollow = [];
+for (const s of slugs) {
+  const p = path.join(OUT, "work", s + ".html");
+  if (!fs.existsSync(p)) continue;
+  const html = fs.readFileSync(p, "utf8");
+  const title = (html.match(/<title>(.*?)<\/title>/) || [, ""])[1];
+  const bodyText = (html.match(/<body[\s\S]*<\/body>/) || [""])[0].replace(/<[^>]+>/g, "").trim();
+  if (/^404\b/.test(title) || bodyText.length < 1500) {
+    hollow.push(`${s} (title: "${title.slice(0, 24)}", 본문 ${bodyText.length}자)`);
+  }
+}
+hollow.length
+  ? add("HIGH", "라우트", `본문이 프리렌더되지 않은 프로젝트 페이지:\n    ` + hollow.join("\n    "))
+  : pass("라우트", `프로젝트 페이지 ${slugs.length}개 본문까지 프리렌더됨`);
+
 // data.ts 가 참조하는 이미지가 실제로 있는지
 const imgRefs = [...src.matchAll(/"(\/portfolio_images\/[^"]+)"/g)].map((m) => m[1]);
 const badImgs = [...new Set(imgRefs)].filter((p) => !fs.existsSync(path.join(OUT, p)));
