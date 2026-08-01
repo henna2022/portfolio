@@ -143,7 +143,7 @@ const projectsKo: Record<string, Partial<Project>> = {
     gallery: [
       "/portfolio_images/projects/smartfarm-edu-hub.jpg",
       "/portfolio_images/projects/smartfarm-edu-weather.jpg",
-      "/portfolio_images/projects/smartfarm-edu-yolo.jpg",
+      "/portfolio_images/projects/smartfarm-edu-vision.jpg",
       "/portfolio_images/projects/smartfarm-edu-sensor.jpg",
       "/portfolio_images/projects/smartfarm-edu-camera.jpg",
       "/portfolio_images/projects/smartfarm-edu-app.jpg",

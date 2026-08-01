@@ -202,7 +202,7 @@ export const projects: Project[] = [
     gallery: [
       "/portfolio_images/projects/smartfarm-edu-hub-en.jpg",
       "/portfolio_images/projects/smartfarm-edu-weather-en.jpg",
-      "/portfolio_images/projects/smartfarm-edu-yolo-en.jpg",
+      "/portfolio_images/projects/smartfarm-edu-vision-en.jpg",
       "/portfolio_images/projects/smartfarm-edu-sensor-en.jpg",
       "/portfolio_images/projects/smartfarm-edu-camera-en.jpg",
       "/portfolio_images/projects/smartfarm-edu-app-en.jpg",
