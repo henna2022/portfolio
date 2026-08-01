@@ -29,7 +29,7 @@ export const ui = {
   sideProjectsHeading: "Side & toy projects",
   sideProjectsSub: "Smaller experiments built along the way.",
 
-  skillsHeading: "My tech stack.",
+  skillsHeading: "Tech Stack",
   swipeHint: "← swipe / drag →",
   stackHint: "Grouped by what I actually do.",
 
@@ -94,7 +94,7 @@ export const uiKo: UiStrings = {
   sideProjectsHeading: "Side & toy projects",
   sideProjectsSub: "작업 틈틈이 만든 작은 실험들.",
 
-  skillsHeading: "My tech stack.",
+  skillsHeading: "기술 스택",
   swipeHint: "← 스와이프 / 드래그 →",
   stackHint: "실제로 하는 일 기준으로 묶었습니다.",
 

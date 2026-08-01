@@ -654,6 +654,14 @@ delete from events     where created_at &lt; now() - interval '180 days';</pre>
   }
   function topOf(m) { var k = Object.keys(m).sort(function (a, b) { return m[b] - m[a]; }); return k.length ? [k[0], m[k[0]]] : null; }
   function sumOf(m, keys) { var n = 0; keys.forEach(function (k) { n += m[k] || 0; }); return n; }
+  // 이력서·CV 는 KO/EN 구분 라벨(2026-07-28 도입)과 그 이전의 무접미 라벨이 섞여 있다.
+  // 합계에는 옛 라벨도 포함되므로 괄호 안에도 '구분 전'을 같이 보여야 숫자가 맞아 보인다.
+  // (이게 없으면 "이력서 1 (KO 0·EN 0)" 처럼 합계와 내역이 안 맞는 줄이 나온다)
+  function koEnOf(m, base) {
+    var s = 'KO ' + (m[base + '_ko'] || 0) + '·EN ' + (m[base + '_en'] || 0);
+    if (m[base]) s += '·구분 전 ' + m[base];
+    return s;
+  }
   // 지난주엔 없다가 이번 주에 처음 등장한 키 (많이 나온 순)
   function freshKeys(cur, prev, n) {
     return Object.keys(cur).filter(function (k) { return !prev[k]; })
@@ -690,8 +698,8 @@ delete from events     where created_at &lt; now() - interval '180 days';</pre>
     var g1 = [];
     g1.push(dlC
       ? dgLine('good', '문서 다운로드 <b>' + dlC + '회</b>' + dgDelta(dlC, dlP) +
-        dgSub('이력서 ' + sumOf(ctaC, RES) + ' (KO ' + (ctaC.resume_download_ko || 0) + '·EN ' + (ctaC.resume_download_en || 0) + ')' +
-          ' · CV ' + sumOf(ctaC, CVL) + ' (KO ' + (ctaC.cv_download_ko || 0) + '·EN ' + (ctaC.cv_download_en || 0) + ')' +
+        dgSub('이력서 ' + sumOf(ctaC, RES) + ' (' + koEnOf(ctaC, 'resume_download') + ')' +
+          ' · CV ' + sumOf(ctaC, CVL) + ' (' + koEnOf(ctaC, 'cv_download') + ')' +
           ' · 소개 덱 ' + (ctaC.deck_download || 0)))
       : dgLine('', '문서 다운로드 <b>0회</b>' + (dlP ? dgSub('지난주엔 ' + dlP + '회') : '')));
     if (lkC || lkP) {

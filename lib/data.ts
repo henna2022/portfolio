@@ -669,7 +669,7 @@ export const activities: Activity[] = [
   },
   {
     period: "2026.02 - Present",
-    title: "Geuruteogi Learning Mentoring 'Gachi-Edu'",
+    title: "Geuruteogi Learning Mentoring",
     role: "University mentor · 2x/week, 90 min · outside work hours",
     desc: "A university mentoring program where I coach teenagers on study habits and self-directed learning, tailored to each mentee's level.",
     photos: ["/portfolio_images/activities/act_geuruteogi.jpg"],
