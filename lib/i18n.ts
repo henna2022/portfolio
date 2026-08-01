@@ -5,7 +5,7 @@ export const ui = {
     about: "About",
     work: "Work",
     skills: "Stack",
-    experience: "Experience",
+    experience: "Work Experience",
     activities: "Activities",
     awards: "Awards",
     contact: "Contact",
@@ -35,7 +35,7 @@ export const ui = {
 
   deckButton: "Architecture deck (PDF)",
 
-  experienceHeading: "Experience",
+  experienceHeading: "Work Experience",
   activitiesHeading: "Activities",
   awardsHeading: "Awards",
   comingSoon: "Coming soon",
@@ -70,7 +70,7 @@ export const uiKo: UiStrings = {
     about: "About",
     work: "Work",
     skills: "Stack",
-    experience: "Experience",
+    experience: "Work Experience",
     activities: "Activities",
     awards: "Awards",
     contact: "Contact",
@@ -100,7 +100,7 @@ export const uiKo: UiStrings = {
 
   deckButton: "아키텍처 덱 (PDF)",
 
-  experienceHeading: "Experience",
+  experienceHeading: "Work Experience",
   activitiesHeading: "Activities",
   awardsHeading: "Awards",
   comingSoon: "준비 중",

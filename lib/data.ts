@@ -21,7 +21,7 @@ export const sections = [
   { id: "about", label: "About" },
   { id: "work", label: "Work" },
   { id: "skills", label: "Stack" },
-  { id: "experience", label: "Experience" },
+  { id: "experience", label: "Work Experience" },
   { id: "activities", label: "Activities" },
   { id: "awards", label: "Awards" },
   { id: "contact", label: "Contact" },
