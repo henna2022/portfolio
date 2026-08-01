@@ -544,7 +544,6 @@ export const skillGroups: SkillGroup[] = [
     items: [
       "VQA Datasets",
       "Dataset QA",
-      "Annotation Guidelines",
       "Roboflow",
     ],
   },
