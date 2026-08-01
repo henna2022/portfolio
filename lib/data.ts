@@ -179,15 +179,15 @@ export const projects: Project[] = [
     desc: "A hands-on program where students experience IoT smart farming and AI crop diagnosis. Commissioned by Yangpyeong Education Office; planned and built solo (full server and web-app environment), with the AI model being refined ahead of classes for a 15-student high-school cohort.",
     year: "2026",
     role: "Solo: planning & development",
-    tags: ["YOLO", "Weather API", "Flask", "MicroPython", "Supabase", "IoT"],
+    tags: ["TensorFlow.js", "MobileNet v2", "Weather API", "Flask", "MicroPython", "Supabase", "IoT"],
     href: "https://doctor-green-edu.vercel.app/",
     repo: "https://github.com/henna2022/smartfarm-device",
     stat: "15-student cohort (planned)",
     overview:
-      "A hands-on education program commissioned by the Yangpyeong Education Office through the museum, where students experience an IoT smart farm and AI crop diagnosis first-hand. I planned the program and built everything it needed solo — **a Python/Flask server, MicroPython firmware on the sensor devices, and the web app** — designed so students watch data accumulate and **sensor values change in real time**, with their own eyes. The AI model is currently being refined; the program is planned to run as a class for a **cohort of 15 Yangpyeong high-school students**, selected by application.\n\nA class runs as a guided flow: students enter the virtual lab, pick a room at the hub, and move through four STEPs (weather, AI vision, IoT, and camera), watching data load into the lab's Supabase database before finishing with 'my app complete' and a live hardware demo. A location-based weather API ties the lessons to real growing conditions, and the YOLO training process (epoch experiments, loss reduction) is explored together at the students' level.\n\nThe program is a museum × education-office commission: an exhibition-linked education case **planned and built end to end by one person**.",
+      "A hands-on education program commissioned by the Yangpyeong Education Office through the museum, where students experience an IoT smart farm and AI crop diagnosis first-hand. I planned the program and built everything it needed solo — **a Python/Flask server, MicroPython firmware on the sensor devices, and the web app** — designed so students watch data accumulate and **sensor values change in real time**, with their own eyes. The AI model is currently being refined; the program is planned to run as a class for a **cohort of 15 Yangpyeong high-school students**, selected by application.\n\nA class runs as a guided flow: students enter the virtual lab, pick a room at the hub, and move through four STEPs (weather, AI vision, IoT, and camera), watching data load into the lab's Supabase database before finishing with 'my app complete' and a live hardware demo. A location-based weather API ties the lessons to real growing conditions, and students **train a model themselves inside the browser** — transfer learning with TensorFlow.js on a self-hosted MobileNet v2 feature extractor — so the epoch and loss numbers they watch are the real values from their own run.\n\nThe program is a museum × education-office commission: an exhibition-linked education case **planned and built end to end by one person**.",
     highlights: [
       "Integrated a **location-based weather API** to tie lessons to real growing conditions.",
-      "Explored the **YOLO training process** (epoch experiments, loss reduction) at the students' level.",
+      "Students run **real transfer learning in the browser** — TensorFlow.js on a self-hosted MobileNet v2 — and read epoch and loss straight off their own training run.",
       "Students watch sensor values **load and change in real time** in the lab server's database.",
       "Designed the class flow: open lab → room-picker hub → 4 STEPs (weather · AI vision · IoT · camera) → Supabase → app complete → live demo.",
       "Commissioned by the Yangpyeong Education Office through the museum; **planned and built solo**, including the full server and web-app environment.",
@@ -529,6 +529,7 @@ export const skillGroups: SkillGroup[] = [
     items: [
       "Python",
       "YOLOv8",
+      "TensorFlow.js",
       "VGG16 / CNN",
       "OpenAI API",
     ],
