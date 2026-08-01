@@ -184,7 +184,7 @@ export const projects: Project[] = [
     repo: "https://github.com/henna2022/smartfarm-device",
     stat: "15-student cohort (planned)",
     overview:
-      "A hands-on education program commissioned by the Yangpyeong Education Office through the museum, where students experience an IoT smart farm and AI crop diagnosis first-hand. I planned the program and built everything it needed solo (**the full server and web-app environment**), designed so students watch data accumulate and **sensor values change in real time**, with their own eyes. The AI model is currently being refined; the program is planned to run as a class for a **cohort of 15 Yangpyeong high-school students**, selected by application.\n\nA class runs as a guided flow: students enter the virtual lab, pick a room at the hub, and move through four STEPs (weather, AI vision, IoT, and camera), watching data load into the lab's Supabase database before finishing with 'my app complete' and a live hardware demo. A location-based weather API ties the lessons to real growing conditions, and the YOLO training process (epoch experiments, loss reduction) is explored together at the students' level.\n\nThe program is a museum × education-office commission: an exhibition-linked education case **planned and built end to end by one person**.",
+      "A hands-on education program commissioned by the Yangpyeong Education Office through the museum, where students experience an IoT smart farm and AI crop diagnosis first-hand. I planned the program and built everything it needed solo — **a Python/Flask server, MicroPython firmware on the sensor devices, and the web app** — designed so students watch data accumulate and **sensor values change in real time**, with their own eyes. The AI model is currently being refined; the program is planned to run as a class for a **cohort of 15 Yangpyeong high-school students**, selected by application.\n\nA class runs as a guided flow: students enter the virtual lab, pick a room at the hub, and move through four STEPs (weather, AI vision, IoT, and camera), watching data load into the lab's Supabase database before finishing with 'my app complete' and a live hardware demo. A location-based weather API ties the lessons to real growing conditions, and the YOLO training process (epoch experiments, loss reduction) is explored together at the students' level.\n\nThe program is a museum × education-office commission: an exhibition-linked education case **planned and built end to end by one person**.",
     highlights: [
       "Integrated a **location-based weather API** to tie lessons to real growing conditions.",
       "Explored the **YOLO training process** (epoch experiments, loss reduction) at the students' level.",
@@ -225,7 +225,7 @@ export const projects: Project[] = [
     image: "/portfolio_images/projects/doctorgreen_app.png",
     stat: "End-to-end solo",
     overview:
-      "Doctor-Green is a smart-farm platform that unifies an AI module diagnosing crop disease from camera video with IoT devices that measure and control the growing environment, all operated on a **single web platform**, so diagnosis and environment control live on one screen. I **planned and built the whole pipeline solo, from sensor to dashboard**.\n\nIt grew out of the VGG16 plant-disease-diagnosis app that won the **Excellence Award at the 2024 ICT·SW Women's Start-up Competition**, and was rebuilt in 2026 as a full smart-farm platform on YOLOv8.\n\nESP32 sensor nodes post environment data **directly to Supabase over Wi-Fi — no relay server** — and a Next.js web app visualizes it with 5-second polling. Actuators such as LEDs and fans are controlled through a **desired-state pattern**: the app only writes the target state, the ESP32 polls it and drives the hardware, and optimistic UI absorbs the round-trip delay. For diagnosis, YOLOv8 runs on USB-camera video to detect and diagnose **7 strawberry-disease classes**.\n\nTraining uses the Roboflow strawberry-disease-detection-dataset v4 with an augmentation strategy for class imbalance; the model is still being refined, with a YOLOv8l run (150 epochs) in progress to push accuracy further. The web app is deployed on Vercel as a live demo.",
+      "Doctor-Green is a smart-farm platform that unifies an AI module diagnosing crop disease from camera video with IoT devices that measure and control the growing environment, all operated on a **single web platform**, so diagnosis and environment control live on one screen. I **planned and built the whole pipeline solo, from sensor to dashboard**.\n\nIt grew out of the VGG16 plant-disease-diagnosis app that won the **Excellence Award at the 2024 ICT·SW Women's Start-up Competition**, and was rebuilt in 2026 as a full smart-farm platform on YOLOv8.\n\nESP32 sensor nodes post environment data **directly to Supabase over Wi-Fi — no relay server** — and a Next.js web app visualizes it with 5-second polling. Actuators such as LEDs and fans are controlled through a **desired-state pattern**: the app only writes the target state, the ESP32 polls it and drives the hardware, and optimistic UI absorbs the round-trip delay. For diagnosis, YOLOv8 runs on USB-camera video to detect and diagnose **7 strawberry-disease classes**.\n\nTraining runs on a **Python pipeline I wrote** (dataset prep, cross-validation, evaluation, export) over the Roboflow strawberry-disease-detection-dataset v4, with an augmentation strategy for class imbalance; the model is still being refined, with a YOLOv8l run (150 epochs) in progress to push accuracy further. The web app is deployed on Vercel as a live demo.",
     highlights: [
       "**Data flow built end to end**: ESP32 posting directly to Supabase over Wi-Fi → Next.js dashboard on 5-second polling.",
       "YOLOv8 on USB-camera video detects and diagnoses **7 strawberry-disease classes**.",
@@ -449,7 +449,7 @@ export const projects: Project[] = [
     desc: "A rabbit-shaped companion robot that makes eye contact and minds your meds. Built end to end, from circuits and firmware to a 3D-printed body, and now being extended with the YAKMOA medication-care service.",
     year: "2026",
     role: "Robot: solo build · YAKMOA service: 2-person team (PM & Dev)",
-    tags: ["ESP32", "Arduino/C++", "GC9A01 LCD", "Servo / PIR / Touch", "3D Printing"],
+    tags: ["ESP32", "Arduino / C++", "GC9A01 LCD", "Servo / PIR / Touch", "3D Printing"],
     stat: "GH start-up prize",
     overview:
       "ATO is a rabbit-shaped emotional companion robot for single-person households and seniors. Two round displays act as expressive 'eyes' that show emotion, and sensors detect when someone approaches or pets it, triggering reactions.\n\nAn ESP32 drives the dual GC9A01 round LCDs for eye-expression animations such as blinking and gaze shifts, integrated with PIR proximity detection, capacitive petting touch, DFPlayer audio, and servo-driven ear and arm motion. The build covers the **entire process: circuit design, firmware, a 3D-printed body, and microfiber cover sewing patterns**.\n\nOn top of this, ATO is being extended with YAKMOA, an AI feature designed to recognize medicines and manage dose schedules, taking the robot from companionship into medication care. YAKMOA was designed as a medication-management service for digitally vulnerable users and people with disabilities, and **won a prize at the GH Youth Build-Up Start-up Competition**. The robot itself was **built solo end to end**; the YAKMOA service was planned and commercialized as the 2-person team MAKENEW, where I was PM & developer. The robot is currently a **Phase 1 prototype**, with medication care being integrated.",
@@ -529,7 +529,7 @@ export const skillGroups: SkillGroup[] = [
     items: [
       "Python",
       "YOLOv8",
-      "VGG16 · CNN",
+      "VGG16 / CNN",
       "OpenAI API",
     ],
   },
@@ -574,7 +574,7 @@ export const skillGroups: SkillGroup[] = [
       "Serverless Functions",
       "Cloudflare R2",
       "Vercel",
-      "Tailscale · WireGuard",
+      "Tailscale / WireGuard",
     ],
   },
   {
@@ -584,7 +584,7 @@ export const skillGroups: SkillGroup[] = [
     items: [
       "ESP32",
       "MicroPython",
-      "Arduino · C++",
+      "Arduino / C++",
       "Sensors",
       "3D Printing",
     ],
@@ -594,7 +594,7 @@ export const skillGroups: SkillGroup[] = [
     title: "Planning & Education",
     capability: "I turn complex tech into experiences anyone can learn.",
     items: [
-      "SW Planning",
+      "Product Planning (PM)",
       "Learning Design",
       "Bilingual Docent (KO·EN)",
     ],

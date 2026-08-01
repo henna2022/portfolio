@@ -20,7 +20,7 @@ const chipIcons: Record<string, string> = {
   Tailwind: "tailwindcss.svg",
   Vercel: "vercel.svg",
   Python: "python.svg",
-  "Arduino · C++": "arduino.svg",
+  "Arduino / C++": "arduino.svg",
   MicroPython: "micropython.svg",
   Notion: "notion.svg",
   Roboflow: "roboflow.svg",
@@ -69,10 +69,16 @@ export function SkillsDrag() {
               variants={card}
               className="flex flex-col rounded-4xl bg-sand/70 p-6"
             >
-              {/* Group titles stay in English in both locales (design decision) */}
+              {/* 제목·한 줄 소개는 로케일별로 갈리고(data-ko.ts 의 오버라이드),
+                  칩(items)은 고유명사가 많아 두 언어 모두 영문을 쓴다 */}
               <h3 className="font-display text-xl font-semibold tracking-[-0.01em]">
                 {g.title}
               </h3>
+              {/* 칩만 나열하면 "왜 이렇게 묶였는지"가 안 보인다 —
+                  그룹마다 무엇을 하는지 한 줄로 먼저 말한다 */}
+              <p className="mt-2 text-sm leading-relaxed text-muted">
+                {g.capability}
+              </p>
               <div className="mt-5 flex flex-wrap gap-1.5">
                 {g.items.map((s) => {
                   const icon = chipIcons[s];
