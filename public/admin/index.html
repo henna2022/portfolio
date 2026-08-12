@@ -560,10 +560,19 @@ delete from events     where created_at &lt; now() - interval '180 days';</pre>
       if (w.to) s = s.lte('created_at', w.to);
       return s;
     };
-    var pv = await q('page_views'), ev = await q('events'), ms = await sb.from('messages').select('*').order('created_at', { ascending: false });
-    if (pv.error) { alert('불러오기 오류: ' + pv.error.message); return; }
+    // 세 조회는 서로 의존관계가 없다 — 순차 await 하면 왕복이 3배가 되므로 한 번에 띄운다.
+    // allSettled 로 받아 하나가 실패해도 나머지 카드는 그려지게 한다.
+    var settled = await Promise.allSettled([
+      q('page_views'),
+      q('events'),
+      sb.from('messages').select('*').order('created_at', { ascending: false }),
+    ]);
+    var unwrap = function (s) { return s.status === 'fulfilled' ? s.value : { error: s.reason, data: null }; };
+    var pv = unwrap(settled[0]), ev = unwrap(settled[1]), ms = unwrap(settled[2]);
+    if (pv.error) { alert('불러오기 오류: ' + (pv.error.message || pv.error)); }
     renderStats(pv.data || [], ev.data || []);
     renderMessages(ms.data || []);
+    // 아래 셋도 서로 독립이라 병렬로 진행시킨다 (각 함수 내부도 Promise.all 로 평탄화돼 있음)
     loadDigest(ms.data || []); // 요약은 기간 셀렉터와 무관하게 최근 14일을 따로 조회한다
     loadCMS();
     loadSettings();
@@ -675,8 +684,12 @@ delete from events     where created_at &lt; now() - interval '180 days';</pre>
   async function loadDigest(msgs) {
     var box = el('digest'), now = Date.now(), cut = now - 7 * 864e5;
     var since = new Date(now - 14 * 864e5).toISOString();
-    var pvq = await sb.from('page_views').select('*').gte('created_at', since).limit(50000);
-    var evq = await sb.from('events').select('*').gte('created_at', since).limit(50000);
+    // 두 조회는 독립이므로 병렬로 — 순차 await 하면 왕복이 2배가 된다.
+    var dg = await Promise.all([
+      sb.from('page_views').select('*').gte('created_at', since).limit(50000),
+      sb.from('events').select('*').gte('created_at', since).limit(50000),
+    ]);
+    var pvq = dg[0], evq = dg[1];
     if (pvq.error) { box.innerHTML = '<div class="empty">요약을 불러오지 못했습니다: ' + esc(pvq.error.message) + '</div>'; return; }
 
     var split = function (rows) {
@@ -889,22 +902,27 @@ delete from events     where created_at &lt; now() - interval '180 days';</pre>
     // Supabase 대시보드 링크 (SB_URL 에서 프로젝트 ref 자동 추출)
     var ref = (String(window.SB_URL || '').match(/https:\/\/([^.]+)\.supabase\.co/) || [])[1];
     if (ref) el('lnk-supabase').href = 'https://supabase.com/dashboard/project/' + ref;
-    // 관리자 목록
-    var a = await sb.from('admin_emails').select('email');
+    // 관리자 목록 + 연결 상태 + 테이블 행 수 — 서로 의존관계가 없으므로 한 번에 띄운다.
+    // (예전에는 admin_emails → health → count 4개를 순차 await 해서 6 왕복이 직렬로 걸렸다)
+    var tables = ['page_views', 'events', 'messages', 'content'];
+    var out = await Promise.all([
+      sb.from('admin_emails').select('email'),
+      fetch(window.SB_URL + '/auth/v1/health', { headers: { apikey: window.SB_ANON_KEY } })
+        .then(function (h) { return ['Supabase 연결', 'HTTP ' + h.status]; })
+        .catch(function (e) { return ['Supabase 연결', '실패 — ' + e.message]; }),
+    ].concat(tables.map(function (t) {
+      return sb.from(t).select('*', { count: 'exact', head: true });
+    })));
+    var a = out[0];
     el('set-admins').innerHTML = a.error
       ? '<div class="empty">목록 조회 실패: ' + esc(a.error.message) + '</div>'
       : (a.data || []).map(function (r) { return '<div class="kv"><b>관리자</b><span class="v mono">' + esc(r.email) + '</span></div>'; }).join('');
     // 시스템 상태: 연결 + 테이블 행 수 (무료 티어 용량 관리용)
-    var rows = [];
-    try {
-      var h = await fetch(window.SB_URL + '/auth/v1/health', { headers: { apikey: window.SB_ANON_KEY } });
-      rows.push(['Supabase 연결', 'HTTP ' + h.status]);
-    } catch (e) { rows.push(['Supabase 연결', '실패 — ' + e.message]); }
-    var tables = ['page_views', 'events', 'messages', 'content'];
-    for (var i = 0; i < tables.length; i++) {
-      var c = await sb.from(tables[i]).select('*', { count: 'exact', head: true });
-      rows.push([tables[i] + ' 행 수', c.error ? '오류' : (c.count == null ? '—' : c.count.toLocaleString('ko-KR'))]);
-    }
+    var rows = [out[1]];
+    tables.forEach(function (t, i) {
+      var c = out[i + 2];
+      rows.push([t + ' 행 수', c.error ? '오류' : (c.count == null ? '—' : c.count.toLocaleString('ko-KR'))]);
+    });
     el('set-status').innerHTML = rows.map(function (r) { return '<div class="kv"><b>' + r[0] + '</b><span class="v">' + esc(String(r[1])) + '</span></div>'; }).join('');
   }
   async function exportCSV(t) {

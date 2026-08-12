@@ -8,7 +8,7 @@ import { ease } from "@/lib/motion";
 import { assetPath } from "@/lib/asset";
 
 // Simple Icons (monochrome) downloaded into /public/icons. Items missing
-// here (e.g. YOLOv8, Sensors, Slack — no icon on the CDN) render text-only.
+// here (e.g. MobileNet v2, Sensors, Slack — no icon on the CDN) render text-only.
 const chipIcons: Record<string, string> = {
   "Next.js": "nextdotjs.svg",
   React: "react.svg",

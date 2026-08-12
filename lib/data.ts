@@ -29,7 +29,7 @@ export const sections = [
 
 export const hero = {
   badge: "AI · Robotics · Web",
-  headline: "Building AI products people learn from.",
+  headline: "Building AI products that run where people are.",
   sub: "I plan, ship, and run them end to end — on museum floors, in classrooms, and on real hardware — and measure how they're used.",
 };
 
@@ -63,7 +63,7 @@ export type ProseParagraph = ProseSegment[];
 export const about = {
   photo: "/portfolio_images/profile/juwonlee.jpg",
   tagline:
-    "AI product engineer. I build education products end to end — from sensor to shipped interface — and run them where people actually learn.",
+    "AI product engineer. I build ML-backed products end to end — from sensor to shipped interface — and keep them running where real users are: exhibition floors, classrooms, and hardware in the field.",
   // 카드 하단 요약 — 정체성과 "지금"만 짧게. 나머지 이력은 아래 facts 로 내린다.
   info: [
     {
@@ -104,7 +104,7 @@ export const about = {
   prose: [
     [
       { text: "Hi, I'm Juwon Lee, a " },
-      { text: "product engineer who builds things people learn from", b: true },
+      { text: "product engineer who takes ML from dataset to deployed interface", b: true },
       { text: ". I care most about the moment an idea becomes something people actually use — and understand. On most of my projects I've owned the work " },
       { text: "from planning through deployment", b: true },
       { text: "." },
@@ -114,7 +114,7 @@ export const about = {
       { text: "web and application development", b: true },
       { text: ": Next.js and React on the front, with Supabase, Firebase and serverless functions behind them. I wire " },
       { text: "AI in as a working component rather than a demo", b: true },
-      { text: ", from a YOLOv8 diagnosis pipeline to an OpenAI image backend that watermarks and stores everything it generates." },
+      { text: ", from an in-browser MobileNet v2 transfer-learning module students train themselves to an OpenAI image backend that watermarks and stores everything it generates." },
     ],
   ] as ProseParagraph[],
   proseMore: [
@@ -127,14 +127,14 @@ export const about = {
     ],
     [
       { text: "The other half of the job is " },
-      { text: "teaching", b: true },
-      { text: ". The Yangpyeong Education Office commissioned my smart-farm program — curriculum, server, and web app — now set to run with a 15-student cohort; at the museum I guide visitors in Korean and English, and I mentor students week to week. " },
+      { text: "making it understood", b: true },
+      { text: ". The Yangpyeong Education Office commissioned my smart-farm program — curriculum, server, and web app — which runs with a 15-student cohort in October 2026; at the museum I guide visitors in Korean and English, and I mentor students week to week. " },
       { text: "Building something and explaining it well are the same job to me", b: true },
       { text: ": both come down to making a complex system make sense." },
     ],
     [
       { text: "That intersection is my lane. I'll keep " },
-      { text: "shipping products people learn from, and measuring whether they work", b: true },
+      { text: "shipping AI products that run in production, and measuring whether they work", b: true },
       { text: "." },
     ],
   ] as ProseParagraph[],
@@ -176,22 +176,22 @@ export const projects: Project[] = [
     category: "Education Program",
     categories: ["AI", "IoT", "Education"],
     kicker: "Museum × Yangpyeong Education Office",
-    desc: "A hands-on program where students experience IoT smart farming and AI crop diagnosis. Commissioned by Yangpyeong Education Office; planned and built solo (full server and web-app environment), with the AI model being refined ahead of classes for a 15-student high-school cohort.",
+    desc: "A hands-on program where students experience IoT smart farming and AI crop diagnosis. Commissioned by Yangpyeong Education Office; planned and built solo (full server and web-app environment), still in development ahead of classes for a 15-student high-school cohort in October 2026.",
     year: "2026",
     role: "Solo: planning & development",
     tags: ["TensorFlow.js", "MobileNet v2", "Weather API", "Flask", "MicroPython", "Supabase", "IoT"],
     href: "https://doctor-green-edu.vercel.app/",
     repo: "https://github.com/henna2022/smartfarm-device",
-    stat: "15-student cohort (planned)",
+    stat: "15-student cohort · Oct 2026",
     overview:
-      "A hands-on education program commissioned by the Yangpyeong Education Office through the museum, where students experience an IoT smart farm and AI crop diagnosis first-hand. I planned the program and built everything it needed solo — **a Python/Flask server, MicroPython firmware on the sensor devices, and the web app** — designed so students watch data accumulate and **sensor values change in real time**, with their own eyes. The AI model is currently being refined; the program is planned to run as a class for a **cohort of 15 Yangpyeong high-school students**, selected by application.\n\nA class runs as a guided flow: students enter the virtual lab, pick a room at the hub, and move through four STEPs (weather, AI vision, IoT, and camera), watching data load into the lab's Supabase database before finishing with 'my app complete' and a live hardware demo. A location-based weather API ties the lessons to real growing conditions, and students **train a model themselves inside the browser** — transfer learning with TensorFlow.js on a self-hosted MobileNet v2 feature extractor — so the epoch and loss numbers they watch are the real values from their own run.\n\nThe program is a museum × education-office commission: an exhibition-linked education case **planned and built end to end by one person**.",
+      "A hands-on education program commissioned by the Yangpyeong Education Office through the museum, where students experience an IoT smart farm and AI crop diagnosis first-hand. I planned the program and built everything it needed solo — **a Python/Flask server, MicroPython firmware on the sensor devices, and the web app** — designed so students watch data accumulate and **sensor values change in real time**, with their own eyes. The program is **still in development**, scheduled to run in **October 2026** as a class for a **cohort of 15 Yangpyeong high-school students**, selected by application.\n\nA class runs as a guided flow: students enter the virtual lab, pick a room at the hub, and move through four STEPs (weather, AI vision, IoT, and camera), watching data load into the lab's Supabase database before finishing with 'my app complete' and a live hardware demo. A location-based weather API ties the lessons to real growing conditions, and students **train a model themselves inside the browser** — transfer learning with TensorFlow.js on a self-hosted MobileNet v2 feature extractor — so the epoch and loss numbers they watch are the real values from their own run.\n\nThe program is a museum × education-office commission: an exhibition-linked education case **planned and built end to end by one person**.",
     highlights: [
       "Integrated a **location-based weather API** to tie lessons to real growing conditions.",
       "Students run **real transfer learning in the browser** — TensorFlow.js on a self-hosted MobileNet v2 — and read epoch and loss straight off their own training run.",
       "Students watch sensor values **load and change in real time** in the lab server's database.",
       "Designed the class flow: open lab → room-picker hub → 4 STEPs (weather · AI vision · IoT · camera) → Supabase → app complete → live demo.",
       "Commissioned by the Yangpyeong Education Office through the museum; **planned and built solo**, including the full server and web-app environment.",
-      "Planned to run as a class for a **15-student cohort** of Yangpyeong high-school students, selected by application.",
+      "**Scheduled for October 2026**: a class for a 15-student cohort of Yangpyeong high-school students, selected by application. Currently in development.",
     ],
     flow: ["IoT sensors", "Weather API", "Server", "Student web app"],
     flowImage: {
@@ -216,25 +216,25 @@ export const projects: Project[] = [
     category: "AI · IoT Full-stack",
     categories: ["AI", "IoT", "Web"],
     kicker: "Smart-farm platform · solo project",
-    desc: "A smart-farm platform unifying YOLOv8 strawberry-disease diagnosis with live IoT environment monitoring and control. Built solo end to end, from ESP32 sensor nodes to the deployed Next.js dashboard.",
+    desc: "A smart-farm platform pairing live IoT environment monitoring and control with a crop-disease diagnosis model I'm rebuilding from the data up. Built solo end to end, from ESP32 sensor nodes to the deployed Next.js dashboard.",
     year: "2024 - 2026",
-    role: "Solo: planning to deployment",
-    tags: ["Next.js 16", "TypeScript", "Supabase", "ESP32", "YOLOv8", "Hugging Face", "Roboflow"],
+    role: "2024 prototype: team MAKENEW (PM & dev) · 2026 rebuild: solo, planning to deployment",
+    tags: ["Next.js 16", "TypeScript", "Supabase", "ESP32", "Python", "Vercel"],
     href: "https://doctor-green-nine.vercel.app/",
     repo: "https://github.com/henna2022/doctor-green",
     image: "/portfolio_images/projects/doctorgreen_app.png",
     stat: "End-to-end solo",
     overview:
-      "Doctor-Green is a smart-farm platform that unifies an AI module diagnosing crop disease from camera video with IoT devices that measure and control the growing environment, all operated on a **single web platform**, so diagnosis and environment control live on one screen. I **planned and built the whole pipeline solo, from sensor to dashboard**.\n\nIt grew out of the VGG16 plant-disease-diagnosis app that won the **Excellence Award at the 2024 ICT·SW Women's Start-up Competition**, and was rebuilt in 2026 as a full smart-farm platform on YOLOv8.\n\nESP32 sensor nodes post environment data **directly to Supabase over Wi-Fi — no relay server** — and a Next.js web app visualizes it with 5-second polling. Actuators such as LEDs and fans are controlled through a **desired-state pattern**: the app only writes the target state, the ESP32 polls it and drives the hardware, and optimistic UI absorbs the round-trip delay. For diagnosis, YOLOv8 runs on USB-camera video to detect and diagnose **7 strawberry-disease classes**.\n\nTraining runs on a **Python pipeline I wrote** (dataset prep, cross-validation, evaluation, export) over the Roboflow strawberry-disease-detection-dataset v4, with an augmentation strategy for class imbalance; the model is still being refined, with a YOLOv8l run (150 epochs) in progress to push accuracy further. The web app is deployed on Vercel as a live demo.",
+      "Doctor-Green is a smart-farm platform that brings crop-disease diagnosis and IoT environment control onto a **single web platform**, so both live on one screen. I **planned and built the whole pipeline solo, from sensor to dashboard**.\n\nIt grew out of a VGG16 plant-disease-diagnosis app I built with team MAKENEW, which won the **Excellence Award at the 2024 ICT·SW Women's Start-up Competition**. That model never reached usable accuracy, so in 2026 I rebuilt the project as a full smart-farm platform and restarted the diagnosis model from the data up.\n\nThe IoT half runs today. ESP32 sensor nodes post environment data **directly to Supabase over Wi-Fi — no relay server** — and a Next.js web app visualizes it with 5-second polling. Actuators such as LEDs and fans are controlled through a **desired-state pattern**: the app only writes the target state, the ESP32 polls it and drives the hardware, and optimistic UI absorbs the round-trip delay. It is deployed on Vercel as a live demo.\n\nThe diagnosis model is **still at the data stage**. AI Hub blocks downloads from non-Korean IPs, so I wrote a Windows-side downloader that calls their API directly, merges the split archives, restores Korean filenames, and converts the JSON labels to YOLO-format boxes. From 5 disease classes × 1,000 images I extracted **39,889 lesion crops** (train 32,155 / val 4,326 / test 3,408) using a **group-aware stratified split**, so crops from the same source photo never straddle train and validation. **Training the crop classifier — ConvNeXt-Tiny or EfficientNetV2-S — is the next step; there are no results yet.**",
     highlights: [
       "**Data flow built end to end**: ESP32 posting directly to Supabase over Wi-Fi → Next.js dashboard on 5-second polling.",
-      "YOLOv8 on USB-camera video detects and diagnoses **7 strawberry-disease classes**.",
       "**Desired-state actuator control** (LED, fan): the app writes target state, the device polls and applies it, optimistic UI covers the latency.",
-      "Model refinement in progress: a YOLOv8l run (150 epochs) building on the first 50-epoch training.",
-      "Used the Roboflow strawberry-disease-detection-dataset v4 with an augmentation strategy for class imbalance.",
+      "Worked around AI Hub's non-Korean-IP download block with a **Windows-side downloader I wrote**: direct API calls, split-archive merge, Korean filename restore, and JSON → YOLO-format label conversion.",
+      "Built the training set myself: **39,889 lesion crops** (train 32,155 / val 4,326 / test 3,408) across 5 disease classes, with a **group-aware stratified split** so crops from one photo never cross the train/validation boundary.",
+      "**Classifier training is the next step** (ConvNeXt-Tiny / EfficientNetV2-S). The 2024 VGG16 attempt never reached usable accuracy, so the model is being rebuilt from the data up.",
       "Next.js 16 + TypeScript + Tailwind web app deployed on Vercel as a live demo.",
     ],
-    flow: ["ESP32 direct POST", "Supabase", "Next.js · 5s polling", "YOLOv8 diagnosis"],
+    flow: ["ESP32 direct POST", "Supabase", "Next.js · 5s polling", "Desired-state control"],
     flowImage: {
       light: "/portfolio_images/flow/doctor-green-flow-light.svg",
       dark: "/portfolio_images/flow/doctor-green-flow-dark.svg",
@@ -528,8 +528,8 @@ export const skillGroups: SkillGroup[] = [
     capability: "I train, evaluate, and ship vision models end to end.",
     items: [
       "Python",
-      "YOLOv8",
       "TensorFlow.js",
+      "MobileNet v2",
       "VGG16 / CNN",
       "OpenAI API",
     ],
@@ -537,14 +537,15 @@ export const skillGroups: SkillGroup[] = [
   {
     // 모델을 만드는 일과 데이터를 만드는 일은 성격이 달라 따로 둔다.
     // 근거: Select Star 의 ETRI VQA 데이터셋 구축·검수, Doctor-Green 의
-    // 클래스 불균형 보정용 증강 전략 (Roboflow 도 여기로 옮겼다).
+    // AI Hub 다운로더·라벨 변환과 그룹 인식 층화 분할(크롭 39,889장).
     key: "data",
     title: "Data & Datasets",
     capability: "I build and check the datasets models learn from.",
     items: [
       "VQA Datasets",
       "Dataset QA",
-      "Roboflow",
+      "AI Hub",
+      "Stratified Splits",
     ],
   },
   {

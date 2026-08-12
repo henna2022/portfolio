@@ -875,18 +875,35 @@ if (typeof window !== "undefined") {
   }
 }
 
-// WebGL 실패 시 조용히 사라지는 안전장치
-class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+// WebGL 실패 시 조용히 사라지는 안전장치.
+// 사라지기만 하면 히어로가 빈 채로 남으므로, 부모(Hero)에게 알려 DOM 헤드라인·CTA 를
+// 되살릴 수 있게 onFail 을 호출한다.
+class SceneBoundary extends Component<
+  { children: ReactNode; onFail?: () => void },
+  { failed: boolean }
+> {
   state = { failed: false };
   static getDerivedStateFromError() {
     return { failed: true };
+  }
+  componentDidCatch() {
+    this.props.onFail?.();
   }
   render() {
     return this.state.failed ? null : this.props.children;
   }
 }
 
-export default function HeroScene({ showText, ko = false }: { showText: boolean; ko?: boolean }) {
+export default function HeroScene({
+  showText,
+  ko = false,
+  onSceneError,
+}: {
+  showText: boolean;
+  ko?: boolean;
+  // 씬이 죽었을 때 부모가 DOM 헤드라인·CTA 를 되살리도록 알리는 콜백
+  onSceneError?: () => void;
+}) {
   const dark = useDark();
   const reduced = useReducedMotion();
   // Lenis 인스턴스는 <Canvas> 바깥(같은 React 트리)에서만 컨텍스트로 잡힌다.
@@ -954,7 +971,7 @@ export default function HeroScene({ showText, ko = false }: { showText: boolean;
       aria-hidden
       className="absolute inset-y-0 left-1/2 z-0 w-screen -translate-x-1/2"
     >
-      <SceneBoundary>
+      <SceneBoundary onFail={onSceneError}>
         <Canvas
           frameloop={visible ? "always" : "never"}
           dpr={[1, 1.25]}
@@ -966,6 +983,14 @@ export default function HeroScene({ showText, ko = false }: { showText: boolean;
             if (process.env.NODE_ENV !== "production") {
               (window as unknown as { __r3f?: unknown }).__r3f = state;
             }
+            // GPU 리셋·드라이버 크래시로 컨텍스트가 날아가면 three 는 예외를 던지지
+            // 않고 조용히 멈춘다 → 에러 경계가 안 잡히고 캔버스만 얼어붙은 채 남는다.
+            // 이때도 부모에게 알려 DOM 헤드라인·CTA 로 되돌린다.
+            state.gl.domElement.addEventListener(
+              "webglcontextlost",
+              () => onSceneError?.(),
+              { once: true },
+            );
           }}
         >
           <Rig />
