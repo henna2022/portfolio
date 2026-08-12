@@ -446,7 +446,7 @@ export const projects: Project[] = [
     category: "AI Healthcare · Care Robot",
     categories: ["AI", "Robotics"],
     kicker: "Companion & medication-care robot",
-    desc: "A rabbit-shaped companion robot that makes eye contact and minds your meds. Built end to end, from circuits and firmware to a 3D-printed body, and now being extended with the YAKMOA medication-care service.",
+    desc: "A rabbit-shaped companion robot with animated LCD eyes that react to touch and to someone approaching. Built end to end, from circuits and firmware to a 3D-printed body, and currently being extended with YAKMOA, a medication-care service.",
     year: "2026",
     role: "Robot: solo build · YAKMOA service: 2-person team (PM & Dev)",
     tags: ["ESP32", "Arduino / C++", "GC9A01 LCD", "Servo / PIR / Touch", "3D Printing"],
