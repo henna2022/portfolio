@@ -47,11 +47,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "Juwon Lee | AI Product Engineer",
   description:
-    "Portfolio of Juwon Lee, an AI product engineer building education products people learn from — planned, shipped, and operated end to end.",
+    "Portfolio of Juwon Lee, an AI product engineer who takes ML-backed products from dataset to deployed interface — planned, shipped, and operated end to end on exhibition floors, in classrooms, and on real hardware.",
   openGraph: {
     title: "Juwon Lee | AI Product Engineer",
     description:
-      "Portfolio of Juwon Lee, an AI product engineer building education products people learn from — planned, shipped, and operated end to end.",
+      "Portfolio of Juwon Lee, an AI product engineer who takes ML-backed products from dataset to deployed interface — planned, shipped, and operated end to end on exhibition floors, in classrooms, and on real hardware.",
     url: `${SITE_URL}/`,
     images: ["/og-cover.png"],
   },
