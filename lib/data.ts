@@ -260,14 +260,14 @@ export const projects: Project[] = [
     image: "/portfolio_images/projects/artlab-mode-en.jpg",
     stat: "3,049 → 8,000+ images/mo",
     overview:
-      "Visitors compose a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI generates the artwork. Designed so young visitors learn the principles of prompt engineering through play, with a **10-step (+5 advanced) choice-based prompt builder** that shows how a prompt is put together.\n\nThe off-the-shelf GPT service used before suffered repeated connection conflicts on the exhibition floor. After moving to a custom web app and serverless backend, **those conflicts have not recurred**; the backend calls the OpenAI image-generation API, auto-watermarks every image with the museum logo, stores images on Cloudflare R2, and keeps generation metadata and stats in Supabase. Visitors take their creations home instantly via QR code, and because it runs as a web app, the exhibition kiosk could be locked down to a single full-screen browser.\n\nIt now runs live at the museum: **3,049 images in June 2026, rising above 8,000 in July**, the museum's peak season — with **generation volume quantified through its own backend**.",
+      "Visitors compose a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI generates the artwork. Designed so young visitors learn the principles of prompt engineering through play, with a **10-step (+5 advanced) choice-based prompt builder** that shows how a prompt is put together.\n\nThe off-the-shelf GPT service used before would stop responding for no identifiable reason while visitors were using it. This is a hands-on exhibit, so a frozen screen meant the station sat unusable until staff intervened. After moving to a custom web app and serverless backend, **it has not frozen once**; the backend calls the OpenAI image-generation API, auto-watermarks every image with the museum logo, stores images on Cloudflare R2, and keeps generation metadata and stats in Supabase. Visitors take their creations home instantly via QR code, and because it runs as a web app, the exhibition kiosk could be locked down to a single full-screen browser.\n\nIt now runs live at the museum: **3,049 images in June 2026, rising above 8,000 in July**, the museum's peak season — with **generation volume measured in the app's own backend**.",
     highlights: [
       "**10-step (+5 advanced) choice-based prompt builder** that teaches prompt composition through play, designed for all-ages museum visitors.",
-      "**Ended the connection conflicts** of the prior off-the-shelf GPT service by moving to a custom web app and backend — none since the switch.",
+      "**Ended the unexplained freezes** of the prior off-the-shelf GPT service by moving to a custom web app and backend — none since the switch.",
       "Serverless backend on the OpenAI image-generation API, deployed on Vercel.",
       "**Auto-watermarks** every image with the museum logo, storing **images on Cloudflare R2 and generation stats in Supabase**.",
       "QR-code takeaway for visitors' creations; running as a web app let the exhibition kiosk be locked to a single full-screen browser.",
-      "**3,049 images in June 2026, rising above 8,000 in July** (the museum's peak season), with **generation volume quantified via its own backend**.",
+      "**3,049 images in June 2026, rising above 8,000 in July** (the museum's peak season), with **generation volume measured in the app's own backend**.",
     ],
     flow: ["10-step prompt builder", "OpenAI API", "Auto-watermark", "R2 + Supabase"],
     flowImage: {
@@ -657,8 +657,8 @@ export const activities: Activity[] = [
   {
     period: "2026.07 - Present",
     title: "KB LA School (Middle School)",
-    role: "Middle-school mentor (online) · 2x/week, 80 min · outside work hours",
-    desc: "Dedicated online mentoring for middle-school students in the KB LA School program.",
+    role: "Middle-school mentor · 2x/week, 80 min · outside work hours",
+    desc: "Dedicated mentoring for middle-school students in the KB LA School program.",
     photos: [],
   },
   {
