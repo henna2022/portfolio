@@ -10,7 +10,7 @@ export const ui = {
   nav: {
     top: "Home",
     about: "About",
-    work: "Work",
+    work: "Projects",
     skills: "Stack",
     experience: "Work Experience",
     activities: "Activities",
@@ -75,7 +75,7 @@ export const uiKo: UiStrings = {
   nav: {
     top: "Home",
     about: "About",
-    work: "Work",
+    work: "Projects",
     skills: "Stack",
     experience: "Work Experience",
     activities: "Activities",

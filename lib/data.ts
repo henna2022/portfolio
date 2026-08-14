@@ -19,7 +19,7 @@ export const person = {
 export const sections = [
   { id: "top", label: "Home" },
   { id: "about", label: "About" },
-  { id: "work", label: "Work" },
+  { id: "work", label: "Projects" },
   { id: "skills", label: "Stack" },
   { id: "experience", label: "Work Experience" },
   { id: "activities", label: "Activities" },
