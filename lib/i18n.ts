@@ -1,3 +1,10 @@
+// 한국어 버전 임시 비활성화 스위치.
+// false 이면 KO/EN 토글이 헤더에서 사라지고, 저장된 pf_lang 값과 무관하게 항상 EN 으로
+// 고정된다. KO 데이터(lib/data-ko.ts)와 번역 문자열은 그대로 두므로, 다시 켜려면
+// 이 값만 true 로 바꾸면 된다. (남은 작업: uiKo 의 미번역 라벨 — allWork/year/role/
+// focus/highlights/stack/previous/next/experienceHeading/activitiesHeading/awardsHeading)
+export const KO_ENABLED = false;
+
 // Static UI strings (English-only). Content lives in lib/data.ts.
 export const ui = {
   nav: {

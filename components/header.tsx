@@ -2,6 +2,7 @@
 
 import { person } from "@/lib/data";
 import { assetPath } from "@/lib/asset";
+import { KO_ENABLED } from "@/lib/i18n";
 import { useI18n } from "./lang-provider";
 import { DownloadIcon } from "./icons";
 import { ThemeToggle } from "./theme-toggle";
@@ -40,28 +41,32 @@ export function Header() {
           >
             <DownloadIcon /> {t.resume}
           </a>
-          {/* KO/EN 세그먼트 스위치 — 현재 언어가 하이라이트된다 */}
-          <div
-            role="group"
-            aria-label="Language"
-            className="flex h-9 items-center rounded-lg bg-ink/5 p-0.5"
-          >
-            {(["ko", "en"] as const).map((l) => (
-              <button
-                key={l}
-                type="button"
-                onClick={() => setLang(l)}
-                aria-pressed={lang === l}
-                className={`h-full rounded-md px-2 text-[12px] font-semibold uppercase transition-colors ${
-                  lang === l
-                    ? "bg-ink text-cream"
-                    : "text-ink/50 hover:text-ink"
-                }`}
-              >
-                {l === "ko" ? "KO" : "EN"}
-              </button>
-            ))}
-          </div>
+          {/* KO/EN 세그먼트 스위치 — 현재 언어가 하이라이트된다.
+              KO 비활성화 중에는 아예 렌더하지 않는다 (lib/i18n.ts 의 KO_ENABLED).
+              hidden 속성은 Tailwind 의 .flex 유틸리티에 밀려 무효라 조건부 렌더가 필요하다. */}
+          {KO_ENABLED ? (
+            <div
+              role="group"
+              aria-label="Language"
+              className="flex h-9 items-center rounded-lg bg-ink/5 p-0.5"
+            >
+              {(["ko", "en"] as const).map((l) => (
+                <button
+                  key={l}
+                  type="button"
+                  onClick={() => setLang(l)}
+                  aria-pressed={lang === l}
+                  className={`h-full rounded-md px-2 text-[12px] font-semibold uppercase transition-colors ${
+                    lang === l
+                      ? "bg-ink text-cream"
+                      : "text-ink/50 hover:text-ink"
+                  }`}
+                >
+                  {l === "ko" ? "KO" : "EN"}
+                </button>
+              ))}
+            </div>
+          ) : null}
           <ThemeToggle />
         </div>
       </div>

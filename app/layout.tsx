@@ -8,6 +8,7 @@ import { ScrollProgress } from "@/components/scroll-progress";
 import { ConsoleSignature } from "@/components/console-signature";
 import { NoContextMenu } from "@/components/no-context-menu";
 import { SITE_URL } from "@/lib/seo";
+import { KO_ENABLED } from "@/lib/i18n";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
@@ -79,7 +80,10 @@ const themeScript = `
 
 // Runs before paint: applies the saved language so KO fonts/class are ready
 // before hydration (analytics.js 도 이 클래스를 읽어 lang 을 기록한다).
-const langScript = `
+// KO 비활성화 중에는 저장값을 즉시 지워, 이전에 KO 를 골라 둔 방문자가 첫 페인트에서
+// 한글 폰트 클래스를 잠깐 뒤집어쓰는 일이 없게 한다.
+const langScript = KO_ENABLED
+  ? `
 (function () {
   try {
     if (localStorage.getItem('pf_lang') === 'ko') {
@@ -87,6 +91,11 @@ const langScript = `
       document.documentElement.classList.add('lang-ko');
     }
   } catch (e) {}
+})();
+`
+  : `
+(function () {
+  try { localStorage.removeItem('pf_lang'); } catch (e) {}
 })();
 `;
 
@@ -124,11 +133,15 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script dangerouslySetInnerHTML={{ __html: langScript }} />
         {/* 프리텐다드 다이내믹 서브셋 — unicode-range 로 쪼개져 있어 브라우저가
-            KO 모드에서 실제 쓰인 범위만 병렬 로드한다 (EN 모드에선 0바이트) */}
-        <link
-          rel="stylesheet"
-          href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/fonts/pretendard/pretendardvariable-dynamic-subset.css`}
-        />
+            KO 모드에서 실제 쓰인 범위만 병렬 로드한다 (EN 모드에선 0바이트).
+            KO 비활성화 중에는 CSS 자체를 안 붙인다 — 서브셋은 0바이트여도 이
+            스타일시트는 렌더 블로킹이라 EN 방문자에게 순수 손해였다. */}
+        {KO_ENABLED ? (
+          <link
+            rel="stylesheet"
+            href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/fonts/pretendard/pretendardvariable-dynamic-subset.css`}
+          />
+        ) : null}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}

@@ -7,7 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { ui, uiKo, type UiStrings } from "@/lib/i18n";
+import { KO_ENABLED, ui, uiKo, type UiStrings } from "@/lib/i18n";
 
 export type Lang = "en" | "ko";
 
@@ -23,6 +23,14 @@ export function LangProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>("en");
 
   useEffect(() => {
+    // KO 비활성화 중에는 저장된 선택을 무시하고 EN 으로 고정한다.
+    // 이전에 KO 를 골라 둔 방문자도 EN 으로 돌아오도록 저장값까지 지운다.
+    if (!KO_ENABLED) {
+      try {
+        localStorage.removeItem("pf_lang");
+      } catch {}
+      return;
+    }
     try {
       if (localStorage.getItem("pf_lang") === "ko") setLang("ko");
     } catch {}
@@ -30,8 +38,10 @@ export function LangProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.lang = lang === "ko" ? "ko" : "en";
-    root.classList.toggle("lang-ko", lang === "ko");
+    const ko = KO_ENABLED && lang === "ko";
+    root.lang = ko ? "ko" : "en";
+    root.classList.toggle("lang-ko", ko);
+    if (!KO_ENABLED) return;
     try {
       localStorage.setItem("pf_lang", lang);
     } catch {}
@@ -39,7 +49,12 @@ export function LangProvider({ children }: { children: ReactNode }) {
 
   return (
     <LangContext.Provider
-      value={{ lang, setLang, t: lang === "ko" ? uiKo : ui }}
+      value={
+        KO_ENABLED
+          ? { lang, setLang, t: lang === "ko" ? uiKo : ui }
+          : // 비활성화 중에는 setLang 을 무력화해 어떤 경로로도 KO 로 못 넘어가게 한다
+            { lang: "en", setLang: () => {}, t: ui }
+      }
     >
       {children}
     </LangContext.Provider>
