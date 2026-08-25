@@ -620,6 +620,9 @@ export const experience = [
       // 포토부스가 재개되면 "a staff scheduler and an AI photo booth."로 되돌린다 (data.ts 의 raim-photo-booth 주석 블록과 함께)
       "Ship the internal ops tooling behind them, such as the staff scheduler.",
       "Guide exhibitions bilingually (KO / EN) and support the multipurpose education rooms.",
+      // 출처: 뉴시스 2026-08-23 https://www.newsis.com/view/NISX20260823_0003758707
+      // (기사에 본인 실명은 없음 — 행사 규모·주최만 기사로 확인되는 사실이다)
+      "Run the Picabot robot-arm drawing studio, a regular 30-minute hands-on AI session for visiting school groups; led its extended 50-minute class for the 100-student KT × Seoul City AI Future Camp in August 2026, co-hosted with KT, the Seoul Metropolitan Government, and Seoul Dobong Police Station.",
     ],
   },
   {
