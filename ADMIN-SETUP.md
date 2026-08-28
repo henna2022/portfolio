@@ -20,10 +20,19 @@
 ## 1. Supabase 프로젝트 만들기
 1. https://supabase.com 로그인 → **New project** 생성 (Region: Northeast Asia(Seoul) 권장).
 2. 좌측 **SQL Editor** → `admin-schema.sql` 내용을 통째로 붙여넣고 **Run**.
-   - 파일 안 `admin_emails` 의 이메일이 **본인 구글 로그인 이메일**인지 확인하세요.
-3. 이어서 `admin-schema-patch-view-uid.sql` 도 붙여넣고 **Run**.
-4. **이미 운영 중인 프로젝트라면** `admin-schema-patch-hardening.sql` 도 붙여넣고 **Run**.
-   (신규 생성이면 1번의 `admin-schema.sql` 에 이미 반영돼 있어 건너뛰어도 됩니다)
+   - 파일 안 `admin_emails` 의 insert 는 **주석 처리돼 있습니다** (이 저장소가 public 이라
+     실제 이메일을 적어 두지 않습니다). 그 줄의 주석을 풀고 **본인 구글 로그인 이메일**로
+     바꿔서 함께 실행하세요. 건너뛰면 허용목록이 비어 `/admin` 에 아무도 들어갈 수 없습니다.
+3. 이어서 `admin-schema-patch-hardening.sql` 을 붙여넣고 **Run**.
+   **신규·기존 프로젝트 모두 필수입니다** — 이 파일이 anon 의 조회·수정 권한을 걷어냅니다.
+4. 하드닝이 걸렸는지 확인 (아래는 **401** 이 나와야 정상, 200 이면 안 걸린 것):
+   ```bash
+   curl -s -o /dev/null -w '%{http_code}\n' "$SB_URL/rest/v1/page_views?select=view_uid&limit=1" -H "apikey: $SB_ANON_KEY"
+   ```
+
+> ⛔ `admin-schema-patch-view-uid.sql` 은 **폐기된 파일이니 실행하지 마세요.**
+> 하드닝 이전의 과도기 패치라, 실행하면 anon 에게 `page_views.view_uid` 조회 권한과
+> 소유권 검사 없는 UPDATE 정책을 되돌려 줍니다. 파일은 경위 기록용으로만 남아 있습니다.
 
 ## 2. 구글 로그인(OAuth) 켜기
 1. **Google Cloud Console**(console.cloud.google.com) → 프로젝트 생성 →

@@ -2,16 +2,24 @@
 --  포트폴리오 Admin / Analytics 스키마  (Supabase · PostgreSQL)
 --  Supabase 대시보드 → SQL Editor 에 통째로 붙여넣고 Run 하세요.
 --  (여러 번 실행해도 안전하도록 작성됨)
---  ⚠️ 아래 admin_emails 의 이메일이 본인 구글 계정인지 확인하세요.
+--  ⚠️ 관리자 이메일 insert 는 주석 처리돼 있습니다 (이 파일은 public 저장소에 있음).
+--     아래 admin_emails 절의 안내대로 본인 계정으로 직접 한 번 실행해야 합니다.
 -- ============================================================
 
 -- ---------- 관리자 이메일 허용목록 ----------
 create table if not exists public.admin_emails (
   email text primary key
 );
--- ⚠️ 본인 구글 로그인 이메일
-insert into public.admin_emails(email) values ('henna2022@gmail.com')
-  on conflict do nothing;
+-- ⚠️ 관리자 이메일은 이 파일에 적지 않는다 — 이 저장소는 public 이라 적는 즉시 공개된다.
+--    (허용목록일 뿐이라 그 자체로 로그인이 뚫리진 않지만, "관리자 계정 = 이것 하나" 가
+--     확정되면 피싱·크리덴셜 스터핑의 표적이 명확해지고 개인 주소가 크롤러에 수집된다.)
+--
+--    설치할 때: 아래 두 줄의 주석을 풀고 본인 구글 로그인 이메일로 바꿔 SQL Editor 에서
+--    한 번만 실행할 것. 실행 뒤에는 값을 이 파일에 되돌려 적지 말고 Supabase 안에만 둔다.
+--    이 줄을 건너뛰면 admin_emails 가 비어 있어 아무도 /admin 에 들어갈 수 없다.
+--
+-- insert into public.admin_emails(email) values ('you@example.com')
+--   on conflict do nothing;
 
 -- 로그인한 사용자가 관리자인지 판별하는 헬퍼.
 -- 이메일 일치 + "구글 로그인"인 경우만 인정 → 나중에 다른 로그인 방식이

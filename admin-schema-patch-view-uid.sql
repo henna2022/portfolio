@@ -1,3 +1,20 @@
+-- ############################################################
+--  ⛔ 폐기됨 (DEPRECATED) — 실행하지 마세요.
+--
+--  2026-07-29 의 admin-schema-patch-hardening.sql 로 완전히 대체됐습니다.
+--  이 파일을 지금 실행하면 그 하드닝을 **되돌립니다**:
+--    · revoke select ... / grant select (view_uid) on public.page_views to anon
+--      → anon 이 다시 view_uid 를 읽을 수 있게 된다
+--    · create policy "anon match own view row" / "anon set duration once"
+--      → 소유권 검사 없는 anon UPDATE 경로가 되살아난다
+--        (view_uid 를 아는 누구든 최근 2시간 내 남의 방문 행을 덮어쓸 수 있었음)
+--
+--  지금 올바른 순서는 admin-schema.sql → admin-schema-patch-hardening.sql 뿐입니다.
+--  체류시간 기록은 이제 security definer 함수 public.set_view_duration() 이 담당하고,
+--  view_uid 컬럼·인덱스·길이제약·INSERT 권한은 위 두 파일에 모두 들어 있습니다.
+--  이 파일은 경위 기록용으로만 남겨 둡니다.
+-- ############################################################
+
 -- ============================================================
 --  패치: page_views 가 한 줄도 안 쌓이던 문제 수정
 --  (INSERT 시 Prefer: return=representation → RETURNING 에 SELECT 권한이 필요 →
