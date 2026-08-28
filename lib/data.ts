@@ -119,16 +119,16 @@ export const about = {
   ] as ProseParagraph[],
   proseMore: [
     [
-      { text: "That software mostly lands in places people stand in. At the Seoul Robot & AI Science Museum my Art Lab runs live on the exhibition floor, generating " },
+      { text: "That software mostly lands in places people stand in. At the Seoul Robot & AI Science Museum my Art Lab ran on the exhibition floor, generating " },
       { text: "3,049 images in June 2026 and over 8,000 in July", b: true },
-      { text: ", with volume measured through its own backend. Doctor-Green reaches down to " },
+      { text: " across its two months there, with volume measured through its own backend. Doctor-Green reaches down to " },
       { text: "ESP32 sensor nodes", b: true },
       { text: ", and with ATO I took it all the way to the hardware: firmware, servos, and an LCD face." },
     ],
     [
       { text: "The other half of the job is " },
       { text: "making it understood", b: true },
-      { text: ". The Yangpyeong Education Office commissioned my smart-farm program — curriculum, server, and web app — which runs with a 15-student cohort in October 2026; at the museum I guide visitors in Korean and English, and I mentor students week to week. " },
+      { text: ". The Yangpyeong Education Office commissioned my smart-farm program — curriculum, server, and web app — which I taught as a demo class to 5 high-school students in August 2026 and which runs with a 15-student cohort in October 2026; at the museum I guide visitors in Korean and English, and I mentor students week to week. " },
       { text: "Building something and explaining it well are the same job to me", b: true },
       { text: ": both come down to making a complex system make sense." },
     ],
@@ -176,7 +176,7 @@ export const projects: Project[] = [
     category: "Education Program",
     categories: ["AI", "IoT", "Education"],
     kicker: "Museum × Yangpyeong Education Office",
-    desc: "A hands-on program where students experience IoT smart farming and AI crop diagnosis. Commissioned by Yangpyeong Education Office; planned and built solo (full server and web-app environment), still in development ahead of classes for a 15-student high-school cohort in October 2026.",
+    desc: "A hands-on program where students experience IoT smart farming and AI crop diagnosis. Commissioned by Yangpyeong Education Office; planned and built solo (full server and web-app environment), now finished and taught as a demo class to 5 high-school students in August 2026, ahead of the 15-student cohort in October 2026.",
     year: "2026",
     role: "Solo: planning & development",
     tags: ["TensorFlow.js", "MobileNet v2", "Weather API", "Flask", "MicroPython", "Supabase", "IoT"],
@@ -184,14 +184,14 @@ export const projects: Project[] = [
     repo: "https://github.com/henna2022/smartfarm-device",
     stat: "15-student cohort · Oct 2026",
     overview:
-      "A hands-on education program commissioned by the Yangpyeong Education Office through the museum, where students experience an IoT smart farm and AI crop diagnosis first-hand. I planned the program and built everything it needed solo — **a Python/Flask server, MicroPython firmware on the sensor devices, and the web app** — designed so students watch data accumulate and **sensor values change in real time**, with their own eyes. The program is **still in development**, scheduled to run in **October 2026** as a class for a **cohort of 15 Yangpyeong high-school students**, selected by application.\n\nA class runs as a guided flow: students enter the virtual lab, pick a room at the hub, and move through four STEPs (weather, AI vision, IoT, and camera), watching data load into the lab's Supabase database before finishing with 'my app complete' and a live hardware demo. A location-based weather API ties the lessons to real growing conditions, and students **train a model themselves inside the browser** — transfer learning with TensorFlow.js on a self-hosted MobileNet v2 feature extractor — so the epoch and loss numbers they watch are the real values from their own run.\n\nThe program is a museum × education-office commission: an exhibition-linked education case **planned and built end to end by one person**.",
+      "A hands-on education program commissioned by the Yangpyeong Education Office through the museum, where students experience an IoT smart farm and AI crop diagnosis first-hand. I planned the program and built everything it needed solo — **a Python/Flask server, MicroPython firmware on the sensor devices, and the web app** — designed so students watch data accumulate and **sensor values change in real time**, with their own eyes. The program is **finished and was taught as a demo class to 5 high-school students in August 2026**, and is scheduled to run in **October 2026** as a class for a **cohort of 15 Yangpyeong high-school students**, selected by application.\n\nA class runs as a guided flow: students enter the virtual lab, pick a room at the hub, and move through four STEPs (weather, AI vision, IoT, and camera), watching data load into the lab's Supabase database before finishing with 'my app complete' and a live hardware demo. A location-based weather API ties the lessons to real growing conditions, and students **train a model themselves inside the browser** — transfer learning with TensorFlow.js on a self-hosted MobileNet v2 feature extractor — so the epoch and loss numbers they watch are the real values from their own run.\n\nThe program is a museum × education-office commission: an exhibition-linked education case **planned and built end to end by one person**.",
     highlights: [
       "Integrated a **location-based weather API** to tie lessons to real growing conditions.",
       "Students run **real transfer learning in the browser** — TensorFlow.js on a self-hosted MobileNet v2 — and read epoch and loss straight off their own training run.",
       "Students watch sensor values **load and change in real time** in the lab server's database.",
       "Designed the class flow: open lab → room-picker hub → 4 STEPs (weather · AI vision · IoT · camera) → Supabase → app complete → live demo.",
       "Commissioned by the Yangpyeong Education Office through the museum; **planned and built solo**, including the full server and web-app environment.",
-      "**Scheduled for October 2026**: a class for a 15-student cohort of Yangpyeong high-school students, selected by application. Currently in development.",
+      "**Built, and taught as a demo class to 5 high-school students in August 2026** on the museum's education floor; the full class is **scheduled for October 2026** with a 15-student cohort of Yangpyeong high-school students, selected by application.",
     ],
     flow: ["IoT sensors", "Weather API", "Server", "Student web app"],
     flowImage: {
@@ -200,6 +200,8 @@ export const projects: Project[] = [
     },
     image: "/portfolio_images/projects/smartfarm-edu-weather-en.jpg",
     gallery: [
+      // 데모 수업 현장 — 학생 얼굴은 게시 전 마스킹했다
+      "/portfolio_images/projects/smartfarm-edu-class.jpg",
       "/portfolio_images/projects/smartfarm-edu-hub-en.jpg",
       "/portfolio_images/projects/smartfarm-edu-weather-en.jpg",
       "/portfolio_images/projects/smartfarm-edu-vision-en.jpg",
@@ -207,6 +209,10 @@ export const projects: Project[] = [
       "/portfolio_images/projects/smartfarm-edu-camera-en.jpg",
       "/portfolio_images/projects/smartfarm-edu-app-en.jpg",
     ],
+    galleryAlts: {
+      "/portfolio_images/projects/smartfarm-edu-class.jpg":
+        "Demo class in August 2026 on the museum's education floor: students watch their own in-browser model training reach 87.5% accuracy, each with a mini smart-farm sensor rig beside them.",
+    },
   },
   {
     slug: "doctor-green",
@@ -251,8 +257,8 @@ export const projects: Project[] = [
     title: "Raimi's AI Art Lab",
     category: "Web App · Education",
     categories: ["AI", "Web", "Education"],
-    kicker: "Live @ Seoul Robot & AI Science Museum",
-    desc: "A guided prompt builder where visitors co-create AI artwork with the museum character Raimi. Running live at the museum, it generated 3,049 images in June 2026 and over 8,000 in July.",
+    kicker: "Seoul Robot & AI Science Museum · Jun–Jul 2026",
+    desc: "A guided prompt builder where visitors co-create AI artwork with the museum character Raimi. It ran on the museum floor through June and July 2026, generating 3,049 images in June and over 8,000 in July.",
     year: "2026",
     role: "Planning · development · operations",
     tags: ["JavaScript", "OpenAI API", "Vercel Serverless", "Supabase", "Cloudflare R2", "PWA"],
@@ -260,14 +266,14 @@ export const projects: Project[] = [
     image: "/portfolio_images/projects/artlab-mode-en.jpg",
     stat: "3,049 → 8,000+ images/mo",
     overview:
-      "Visitors compose a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI generates the artwork. Designed so young visitors learn the principles of prompt engineering through play, with a **10-step (+5 advanced) choice-based prompt builder** that shows how a prompt is put together.\n\nThe off-the-shelf GPT service used before would stop responding for no identifiable reason while visitors were using it. This is a hands-on exhibit, so a frozen screen meant the station sat unusable until staff intervened. After moving to a custom web app and serverless backend, **it has not frozen once**; the backend calls the OpenAI image-generation API, auto-watermarks every image with the museum logo, stores images on Cloudflare R2, and keeps generation metadata and stats in Supabase. Visitors take their creations home instantly via QR code, and because it runs as a web app, the exhibition kiosk could be locked down to a single full-screen browser.\n\nIt now runs live at the museum: **3,049 images in June 2026, rising above 8,000 in July**, the museum's peak season — with **generation volume measured in the app's own backend**.",
+      "Visitors compose a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI generates the artwork. Designed so young visitors learn the principles of prompt engineering through play, with a **10-step (+5 advanced) choice-based prompt builder** that shows how a prompt is put together.\n\nThe off-the-shelf GPT service used before would stop responding for no identifiable reason while visitors were using it. This is a hands-on exhibit, so a frozen screen meant the station sat unusable until staff intervened. After moving to a custom web app and serverless backend, **it has not frozen once**; the backend calls the OpenAI image-generation API, auto-watermarks every image with the museum logo, stores images on Cloudflare R2, and keeps generation metadata and stats in Supabase. Visitors take their creations home instantly via QR code, and because it runs as a web app, the exhibition kiosk could be locked down to a single full-screen browser.\n\nIt ran on the museum floor through June and July 2026: **3,049 images in June, rising above 8,000 in July**, the museum's peak season — with **generation volume measured in the app's own backend**.",
     highlights: [
       "**10-step (+5 advanced) choice-based prompt builder** that teaches prompt composition through play, designed for all-ages museum visitors.",
       "**Ended the unexplained freezes** of the prior off-the-shelf GPT service by moving to a custom web app and backend — none since the switch.",
       "Serverless backend on the OpenAI image-generation API, deployed on Vercel.",
       "**Auto-watermarks** every image with the museum logo, storing **images on Cloudflare R2 and generation stats in Supabase**.",
       "QR-code takeaway for visitors' creations; running as a web app let the exhibition kiosk be locked to a single full-screen browser.",
-      "**3,049 images in June 2026, rising above 8,000 in July** (the museum's peak season), with **generation volume measured in the app's own backend**.",
+      "**3,049 images in June 2026, rising above 8,000 in July** over its two months on the museum floor (July is the museum's peak season), with **generation volume measured in the app's own backend**.",
     ],
     flow: ["10-step prompt builder", "OpenAI API", "Auto-watermark", "R2 + Supabase"],
     flowImage: {
@@ -614,8 +620,8 @@ export const experience = [
       "/portfolio_images/experience/docent_3.jpg",
     ],
     points: [
-      "Research, build, and run the interactive AI education web apps visitors use live on the exhibition floor; the Art Lab alone went from 3,049 images in June 2026 to over 8,000 in July.",
-      "Design education programs end to end: a smart-farm curriculum commissioned by Yangpyeong Education Office, built with its full server and web-app stack, with classes upcoming for a 15-student high-school cohort.",
+      "Research, build, and run the interactive AI education web apps visitors use live on the exhibition floor; the Art Lab ran there through June and July 2026, going from 3,049 images in June to over 8,000 in July.",
+      "Design education programs end to end: a smart-farm curriculum commissioned by Yangpyeong Education Office, built with its full server and web-app stack, taught as a demo class to 5 high-school students in August 2026, with the 15-student cohort class scheduled for October 2026.",
       // 메타버스 전시는 어느 정도 완성되면 다시 추가한다 (data.ts 의 raim-metaverse 주석 블록과 함께)
       // 포토부스가 재개되면 "a staff scheduler and an AI photo booth."로 되돌린다 (data.ts 의 raim-photo-booth 주석 블록과 함께)
       "Ship the internal ops tooling behind them, such as the staff scheduler.",
@@ -654,6 +660,8 @@ export type Activity = {
   role: string;
   desc: string;
   photos: string[];
+  // 화면 캡처처럼 잘리면 안 되는 이미지는 "contain" (기본은 사진용 "cover")
+  photoFit?: "cover" | "contain";
 };
 
 export const activities: Activity[] = [
@@ -662,13 +670,13 @@ export const activities: Activity[] = [
     title: "KB LA School (Middle School)",
     role: "Middle-school mentor · 2x/week, 80 min · outside work hours",
     desc: "Dedicated mentoring for middle-school students in the KB LA School program.",
-    photos: [],
+    photos: ["/portfolio_images/activities/act_kb_middle.jpg"],
   },
   {
-    period: "2026.03 - Present",
+    period: "2026.03 - 2026.08",
     title: "Gwangyang AI Smart i-Kium",
     role: "Instructor · Grade-3 math & English · 1x/week · outside work hours",
-    desc: "Teaching Grade-3 math and English classes in Gwangyang City's AI Smart i-Kium program.",
+    desc: "Taught Grade-3 math and English classes in Gwangyang City's AI Smart i-Kium program.",
     photos: [],
   },
   {
@@ -733,7 +741,12 @@ export const activities: Activity[] = [
     title: "KB LA School",
     role: "High-school mentor · math & chemistry (online)",
     desc: "Two years as a dedicated online high-school mentor (Grade-11 Math I & Chemistry in 2024, Grade-10 Math in 2025), with mentees reaching top and perfect scores.",
-    photos: [],
+    // 온라인 수업 화면 캡처 — 멘티의 얼굴·이름은 게시 전 마스킹했다
+    photos: [
+      "/portfolio_images/activities/act_kb_high1.jpg",
+      "/portfolio_images/activities/act_kb_high2.jpg",
+    ],
+    photoFit: "contain",
   },
 ];
 

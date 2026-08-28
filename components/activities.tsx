@@ -87,7 +87,7 @@ export function Activities() {
                   </p>
 
                   {a.photos.length > 0 ? (
-                    <ImageCarousel images={a.photos} alt={a.title} />
+                    <ImageCarousel images={a.photos} alt={a.title} fit={a.photoFit} />
                   ) : null}
                 </div>
               </motion.div>

@@ -13,3 +13,6 @@ npm-debug.log*
 # Local tooling / OS files
 .claude/
 .env*
+
+# 내부 감사·리뷰 문서 (public repo 에 올리지 않는다)
+AUDIT-*.md
