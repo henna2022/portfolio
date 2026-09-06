@@ -44,7 +44,8 @@ export const ui = {
   comingSoon: "Coming soon",
 
   contactHeading: "Let's build something worth learning from.",
-  availability: "Open to commissions and collaborations on AI education programs — curriculum, web app, and hardware, built end to end.",
+  availability: "Open to commissions, collaborations, and roles in AI education — I build the curriculum and the web app end to end. Recent work: a program commissioned by the Yangpyeong Education Office, and hands-on AI sessions at the Seoul Robot & AI Science Museum, including a 100-student camp.",
+  mailSubject: "Inquiry from juwonlee.dev — commission / collaboration / role",
   getInTouch: "Get in touch",
   footerCopyright: "© 2026 Juwon Lee",
   privacyNotice: "This site keeps anonymous visit statistics.",
@@ -110,7 +111,8 @@ export const uiKo: UiStrings = {
   comingSoon: "준비 중",
 
   contactHeading: "서로 배울 수 있는 것을 함께 만들어요.",
-  availability: "AI 교육 프로그램 제작 외주·협업을 받고 있습니다 — 커리큘럼·웹앱·하드웨어까지 한 번에.",
+  availability: "AI 교육 프로그램 외주·협업·포지션 제안 모두 환영합니다 — 커리큘럼부터 웹앱까지 직접 만듭니다. 최근에는 양평교육청 위탁 프로그램과 서울로봇인공지능과학관의 AI 체험 수업(100명 규모 캠프 포함)을 맡았습니다.",
+  mailSubject: "juwonlee.dev 문의 — 외주 · 협업 · 포지션",
   getInTouch: "연락하기",
   footerCopyright: "© 2026 이주원",
   privacyNotice: "이 사이트는 익명 방문 통계를 수집합니다.",

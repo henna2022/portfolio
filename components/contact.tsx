@@ -58,7 +58,9 @@ export function Contact() {
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <a
-              href={`mailto:${person.email}`}
+              // 제목을 미리 채워 문의 메일이 받은편지함에서 바로 분류되게 한다.
+              // 아래 주소 링크는 복사해 쓰는 용도라 제목 없이 그대로 둔다.
+              href={`mailto:${person.email}?subject=${encodeURIComponent(t.mailSubject)}`}
               className="inline-flex items-center gap-2 rounded-full bg-cream px-6 py-3.5 text-sm font-medium text-ink transition-transform hover:scale-[1.03]"
             >
               {t.getInTouch} <ArrowIcon />
