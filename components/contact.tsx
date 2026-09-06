@@ -53,6 +53,9 @@ export function Contact() {
           <h2 className="font-display mt-6 max-w-2xl text-4xl font-semibold leading-[1.05] tracking-[-0.02em] sm:text-5xl">
             {t.contactHeading}
           </h2>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-cream/70">
+            {t.availability}
+          </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <a
               href={`mailto:${person.email}`}

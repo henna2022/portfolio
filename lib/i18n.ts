@@ -1,9 +1,5 @@
-// 한국어 버전 임시 비활성화 스위치.
-// false 이면 KO/EN 토글이 헤더에서 사라지고, 저장된 pf_lang 값과 무관하게 항상 EN 으로
-// 고정된다. KO 데이터(lib/data-ko.ts)와 번역 문자열은 그대로 두므로, 다시 켜려면
-// 이 값만 true 로 바꾸면 된다. (남은 작업: uiKo 의 미번역 라벨 — allWork/year/role/
-// focus/highlights/stack/previous/next/experienceHeading/activitiesHeading/awardsHeading)
-export const KO_ENABLED = false;
+// 한국어 버전 on/off 스위치. false 면 KO/EN 토글이 사라지고 항상 EN 으로 고정된다.
+export const KO_ENABLED = true;
 
 // Static UI strings (English-only). Content lives in lib/data.ts.
 export const ui = {
@@ -48,6 +44,7 @@ export const ui = {
   comingSoon: "Coming soon",
 
   contactHeading: "Let's build something worth learning from.",
+  availability: "Open to commissions and collaborations on AI education programs — curriculum, web app, and hardware, built end to end.",
   getInTouch: "Get in touch",
   footerCopyright: "© 2026 Juwon Lee",
   privacyNotice: "This site keeps anonymous visit statistics.",
@@ -107,27 +104,28 @@ export const uiKo: UiStrings = {
 
   deckButton: "아키텍처 덱 (PDF)",
 
-  experienceHeading: "Work Experience",
-  activitiesHeading: "Activities",
-  awardsHeading: "Awards",
+  experienceHeading: "경력",
+  activitiesHeading: "활동",
+  awardsHeading: "수상",
   comingSoon: "준비 중",
 
   contactHeading: "서로 배울 수 있는 것을 함께 만들어요.",
+  availability: "AI 교육 프로그램 제작 외주·협업을 받고 있습니다 — 커리큘럼·웹앱·하드웨어까지 한 번에.",
   getInTouch: "연락하기",
   footerCopyright: "© 2026 이주원",
   privacyNotice: "이 사이트는 익명 방문 통계를 수집합니다.",
   privacyLink: "개인정보 안내",
 
-  allWork: "All work",
-  year: "Year",
-  role: "Role",
-  focus: "Focus",
-  highlights: "Highlights",
-  stack: "Stack",
-  architecture: "Architecture",
+  allWork: "전체 프로젝트",
+  year: "연도",
+  role: "역할",
+  focus: "분야",
+  highlights: "주요 성과",
+  stack: "기술 스택",
+  architecture: "시스템 구조",
   architectureSub: "화면 · 역할 · 데이터 흐름으로 보는 앱 구조.",
-  previous: "← Previous",
-  next: "Next →",
+  previous: "← 이전",
+  next: "다음 →",
   live: "라이브",
   github: "GitHub",
 };
