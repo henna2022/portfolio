@@ -43,8 +43,8 @@ export const ui = {
   awardsHeading: "Awards",
   comingSoon: "Coming soon",
 
-  contactHeading: "From the first plan to the exhibition floor, one person sees it through.",
-  availability: "Education program commissions, collaborations, and project development. References: programs already running at a science museum and a regional education office. Pick a button, write the goal, audience, and timing, and you will hear back within two days.",
+  contactHeading: "Education programs, collaborations, project inquiries. All welcome.",
+  availability: "Leave a message. I usually reply within a day or two.",
   inquiries: [
     { label: "Education program", subject: "juwonlee.dev: education program commission" },
     { label: "Collaboration", subject: "juwonlee.dev: collaboration proposal" },
@@ -113,8 +113,8 @@ export const uiKo: UiStrings = {
   awardsHeading: "수상",
   comingSoon: "준비 중",
 
-  contactHeading: "기획부터 현장 운영까지, 한 사람이 끝까지 맡습니다.",
-  availability: "교육 프로그램 외주, 협업 제안, 프로젝트 개발 문의를 받습니다. 과학관과 교육청에서 실제 운영 중인 프로그램이 레퍼런스입니다. 아래 버튼을 눌러 목적, 대상, 시기만 적어 보내 주시면 2일 안에 답장드립니다.",
+  contactHeading: "교육 프로그램 외주, 협업, 프로젝트 문의 모두 환영합니다.",
+  availability: "메시지를 남겨 주세요. 보통 1~2일 안에 답장드립니다.",
   inquiries: [
     { label: "교육 프로그램 외주", subject: "juwonlee.dev 교육 프로그램 외주 문의" },
     { label: "협업 제안", subject: "juwonlee.dev 협업 제안" },
