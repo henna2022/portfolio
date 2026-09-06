@@ -126,16 +126,14 @@ function EnBody({ heading }: { heading?: string }) {
           items={[
             "the page path you opened (including the section anchor)",
             "the referring URL, if your browser sends one",
-            "an approximate country (see §4 — no city, no address)",
+            "an approximate country (see §4, no city, no address)",
             "device type (mobile or desktop), screen width, and page language",
             "how long the page stayed open",
-            "a random ID that groups the pages of one browser tab session — it is regenerated when the tab is closed and is never linked to a person",
+            "a random ID that groups the pages of one browser tab session, it is regenerated when the tab is closed and is never linked to a person",
           ]}
         />
         <p className="mt-4">
-          It also records clicks on project cards and on the main links —
-          resume/CV download, e-mail, GitHub, LinkedIn, and project demo links —
-          as the link type, not as anything about you.
+          It also records clicks on project cards and on the main links,           resume/CV download, e-mail, GitHub, LinkedIn, and project demo links,           as the link type, not as anything about you.
         </p>
       </Section>
 
@@ -146,7 +144,7 @@ function EnBody({ heading }: { heading?: string }) {
             "No IP address is stored in the database.",
             "No cookies, and no advertising, retargeting, or social-media trackers.",
             "No profile that follows you across other sites.",
-            "Nothing you type — there is no form on this site; contact goes through your own e-mail app.",
+            "Nothing you type: there is no form on this site; contact goes through your own e-mail app.",
           ]}
         />
       </Section>
@@ -154,7 +152,7 @@ function EnBody({ heading }: { heading?: string }) {
       <Section title="3. Why, and how long">
         <p>
           The records are used only to understand which projects are read and
-          whether the site works on the devices people use — that is, to improve
+          whether the site works on the devices people use, that is, to improve
           this portfolio. They are not sold, shared, or used to contact anyone.
           They are kept only as long as they are useful for that purpose, and
           are deleted on request.
@@ -166,11 +164,11 @@ function EnBody({ heading }: { heading?: string }) {
           items={[
             "Supabase (PostgreSQL) stores the records. Read access is locked to my own Google account by row-level security, so no visitor and no other account can read them.",
             "ipapi.co is called once per tab session to turn the connection into a country name. That request necessarily reaches ipapi.co with your IP address; the answer this site keeps is the country only.",
-            "Vercel hosts and serves the files, so — as with any web host — your request, including your IP address, passes through it and may appear in its short-lived access logs. An older copy of this site is also published on GitHub Pages, which sees requests the same way.",
+            "Vercel hosts and serves the files, so, as with any web host, your request, including your IP address, passes through it and may appear in its short-lived access logs. An older copy of this site is also published on GitHub Pages, which sees requests the same way.",
           ]}
         />
         <p className="mt-4">
-          Everything else — fonts, images, 3D models — is served from this site
+          Everything else, fonts, images, 3D models, is served from this site
           itself, so no font or CDN provider is contacted while you read. The
           admin dashboard at <code className="text-ink/70">/admin</code> does
           load libraries from a CDN, but that page is only reachable by the site
@@ -181,8 +179,8 @@ function EnBody({ heading }: { heading?: string }) {
       <Section title="5. What is stored in your browser">
         <List
           items={[
-            "sessionStorage — the tab session ID and the looked-up country name, both cleared when you close the tab.",
-            "localStorage — your light/dark theme choice, your language choice, and the opt-out flag above if you set it.",
+            "sessionStorage: the tab session ID and the looked-up country name, both cleared when you close the tab.",
+            "localStorage: your light/dark theme choice, your language choice, and the opt-out flag above if you set it.",
           ]}
         />
         <p className="mt-4">No cookies are set.</p>
@@ -221,10 +219,10 @@ function KoBody({ heading }: { heading?: string }) {
           items={[
             "열람한 페이지 경로 (섹션 앵커 포함)",
             "브라우저가 보내는 경우에 한해 유입 경로(referrer)",
-            "대략적인 국가 (§4 참고 — 도시·주소는 수집하지 않음)",
+            "대략적인 국가 (§4 참고, 도시·주소는 수집하지 않음)",
             "기기 구분(모바일/데스크톱), 화면 너비, 페이지 언어",
             "해당 페이지에 머무른 시간",
-            "브라우저 탭 세션을 묶는 임의의 식별자 — 탭을 닫으면 새로 만들어지며 개인과 연결되지 않습니다",
+            "브라우저 탭 세션을 묶는 임의의 식별자, 탭을 닫으면 새로 만들어지며 개인과 연결되지 않습니다",
           ]}
         />
         <p className="mt-4">
@@ -238,10 +236,10 @@ function KoBody({ heading }: { heading?: string }) {
         <List
           items={[
             "이름·이메일·계정·로그인 정보 (이 사이트에는 회원가입이 없습니다)",
-            "IP 주소 — 데이터베이스에 저장하지 않습니다",
+            "IP 주소: 데이터베이스에 저장하지 않습니다",
             "쿠키, 광고·리타게팅·소셜 추적기",
             "다른 사이트까지 따라다니는 프로필",
-            "입력값 — 이 사이트에는 입력 폼이 없으며, 연락은 방문자의 메일 앱을 통해 이루어집니다",
+            "입력값: 이 사이트에는 입력 폼이 없으며, 연락은 방문자의 메일 앱을 통해 이루어집니다",
           ]}
         />
       </Section>
@@ -258,13 +256,13 @@ function KoBody({ heading }: { heading?: string }) {
       <Section title="4. 처리에 관여하는 외부 서비스">
         <List
           items={[
-            "Supabase(PostgreSQL) — 기록이 저장되는 곳입니다. 행 수준 보안(RLS)으로 조회 권한이 운영자 본인의 구글 계정에만 열려 있어, 방문자나 다른 계정은 읽을 수 없습니다.",
-            "ipapi.co — 탭 세션당 1회 호출해 접속 정보를 국가명으로 변환합니다. 이 요청 특성상 ipapi.co 에는 방문자의 IP가 전달되며, 이 사이트가 저장하는 것은 국가명뿐입니다.",
-            "Vercel — 파일이 호스팅·전송되는 곳입니다. 모든 웹 호스트가 그렇듯 방문자의 요청이 IP 주소와 함께 이곳을 거치며, 단기간 보관되는 접속 로그에 남을 수 있습니다. 예전 사본이 GitHub Pages 에도 게시돼 있어 그곳 역시 같은 방식으로 요청을 확인합니다.",
+            "Supabase(PostgreSQL): 기록이 저장되는 곳입니다. 행 수준 보안(RLS)으로 조회 권한이 운영자 본인의 구글 계정에만 열려 있어, 방문자나 다른 계정은 읽을 수 없습니다.",
+            "ipapi.co: 탭 세션당 1회 호출해 접속 정보를 국가명으로 변환합니다. 이 요청 특성상 ipapi.co 에는 방문자의 IP가 전달되며, 이 사이트가 저장하는 것은 국가명뿐입니다.",
+            "Vercel: 파일이 호스팅·전송되는 곳입니다. 모든 웹 호스트가 그렇듯 방문자의 요청이 IP 주소와 함께 이곳을 거치며, 단기간 보관되는 접속 로그에 남을 수 있습니다. 예전 사본이 GitHub Pages 에도 게시돼 있어 그곳 역시 같은 방식으로 요청을 확인합니다.",
           ]}
         />
         <p className="mt-4">
-          그 밖의 것 — 폰트·이미지·3D 모델 — 은 모두 이 사이트에서 직접
+          그 밖의 폰트·이미지·3D 모델은 모두 이 사이트에서 직접
           제공하므로, 열람 중 폰트·CDN 업체로 나가는 요청은 없습니다. 관리자
           페이지(<code className="text-ink/70">/admin</code>)는 라이브러리를
           CDN 에서 받아오지만, 로그인한 운영자만 여는 화면이라 방문자가 그
@@ -275,8 +273,8 @@ function KoBody({ heading }: { heading?: string }) {
       <Section title="5. 브라우저에 저장되는 값">
         <List
           items={[
-            "sessionStorage — 탭 세션 식별자와 조회된 국가명. 탭을 닫으면 사라집니다.",
-            "localStorage — 라이트/다크 테마 선택값, 언어 선택값, 그리고 위에서 수집 중단을 설정한 경우 그 플래그.",
+            "sessionStorage: 탭 세션 식별자와 조회된 국가명. 탭을 닫으면 사라집니다.",
+            "localStorage: 라이트/다크 테마 선택값, 언어 선택값, 그리고 위에서 수집 중단을 설정한 경우 그 플래그.",
           ]}
         />
         <p className="mt-4">쿠키는 사용하지 않습니다.</p>

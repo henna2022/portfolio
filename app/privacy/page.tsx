@@ -5,7 +5,7 @@ import { PrivacyHomeLink } from "@/components/privacy-content";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Privacy — Juwon Lee",
+  title: "Privacy · Juwon Lee",
   description:
     "What this portfolio records about a visit, where it is stored, which third parties are involved, and how to turn the visit statistics off.",
   // 트레일링 슬래시 없음 — 실제 서빙 형태(privacy.html)와 일치시킨다.

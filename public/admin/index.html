@@ -87,7 +87,7 @@
   .dg-line em.down{color:var(--bad);background:rgba(248,113,113,.12)}
   .dg-line em.flat{color:var(--dim);background:rgba(255,255,255,.05)}
   .dg-line em.new{color:var(--accent);background:rgba(79,140,255,.14)}
-  .dg-line .go{font-size:12.5px;background:none;border:none;color:var(--accent);padding:0;text-decoration:underline;font-family:inherit}
+  .dg-line .go{font-size:12.5px;background:none;border:none;color:var(--accent);padding:0;text-decoration:none;font-family:inherit}
 
   .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:24px}
   .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
@@ -103,7 +103,7 @@
   .bars{display:flex;flex-direction:column;gap:8px}
   .row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;font-size:13px}
   .row .track{grid-column:1/2;position:relative;background:rgba(255,255,255,.05);border-radius:5px;height:22px;overflow:hidden}
-  .row .fill{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,rgba(79,140,255,.55),rgba(79,140,255,.25));border-radius:5px}
+  .row .fill{position:absolute;inset:0 auto 0 0;background:rgba(79,140,255,.55);border-radius:5px}
   .row .lbl{position:absolute;left:8px;top:0;line-height:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 12px)}
   .row .val{grid-column:2/3;font-family:'Paperlogy',sans-serif;font-variant-numeric:tabular-nums;color:var(--mid);min-width:38px;text-align:right}
   .empty{color:var(--dim);font-size:13px;padding:8px 0}
@@ -111,8 +111,8 @@
   .days{display:flex;align-items:flex-end;gap:3px;height:104px;padding-top:16px}
   .days .d{flex:1;background:rgba(79,140,255,.45);border-radius:3px 3px 0 0;min-height:2px;position:relative}
   /* 막대 위 상시 표시 수치 (호버 불필요) */
-  .days .d .v{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:2px;font-size:10px;line-height:1.2;color:var(--mid);font-variant-numeric:tabular-nums;pointer-events:none}
-  @media (max-width:500px){.days .d .v{font-size:8.5px}}
+  .days .d .v{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:2px;font-size:12px;line-height:1.2;color:var(--mid);font-variant-numeric:tabular-nums;pointer-events:none}
+  @media (max-width:500px){.days .d .v{font-size:12px}}
   /* 막대가 많을 때(45개 초과)는 상시 수치를 숨기고 호버 툴팁만 남긴다 */
   .days.dense{gap:1px}
   .days.dense .d .v{display:none}
@@ -135,12 +135,12 @@
   .mini:hover{border-color:var(--accent);color:var(--accent)}
   .mini.danger:hover{border-color:var(--bad);color:var(--bad)}
   .section-title{font-family:'Paperlogy',sans-serif;font-weight:500;font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;margin:0 0 12px}
-  .hint{background:rgba(79,140,255,.08);border:1px solid rgba(79,140,255,.3);border-radius:10px;padding:12px 14px;font-size:12.5px;color:var(--mid);margin-bottom:20px}
+  .hint{background:rgba(79,140,255,.08);border-radius:10px;padding:12px 14px;font-size:12.5px;color:var(--mid);margin-bottom:20px}
 
   /* 세계지도 */
   #c-map svg{width:100%;height:auto;display:block}
   .map-legend{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:11px;color:var(--dim)}
-  .map-legend .grad{flex:none;width:140px;height:8px;border-radius:4px;background:linear-gradient(90deg,rgba(79,140,255,.15),rgba(79,140,255,.95))}
+  .map-legend .grad{--slop-allow:gradient-fill;flex:none;width:140px;height:8px;border-radius:4px;background:linear-gradient(90deg,rgba(79,140,255,.15),rgba(79,140,255,.95))}
   .map-note{margin-top:6px;font-size:11.5px;color:var(--dim)}
 
   /* 설정 */
@@ -153,7 +153,8 @@
   .btn-col{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
   .links a{display:block;padding:5px 0;font-size:13px}
 </style>
-</head>
+<style id="gesso-text-wrap">h1,h2,h3{text-wrap:balance}p,li,figcaption,blockquote{text-wrap:pretty}</style>
+<style id="gesso-font-smoothing">html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}</style></head>
 <body>
 
 <!-- 로그인 -->
@@ -262,7 +263,7 @@
         <div class="card" style="grid-column:1/-1">
           <h2>세계지도 · 접속 분포</h2>
           <div id="c-map"><div class="empty">데이터를 불러오는 중…</div></div>
-          <div class="map-legend"><span>0</span><div class="grad"></div><span id="map-max"></span><span style="margin-left:auto">회색 = 방문 없음</span></div>
+          <div class="map-legend" data-slop-allow="nested-cards"><span>0</span><div class="grad"></div><span id="map-max"></span><span style="margin-left:auto">회색 = 방문 없음</span></div>
           <div class="map-note" id="c-map-note"></div>
         </div>
         <div class="card"><h2>국가별 방문 <span id="c-country-n"></span></h2><div class="bars" id="c-country"></div></div>
@@ -302,7 +303,7 @@
 
         <div class="card">
           <h2>관리자 계정</h2>
-          <div class="kv"><b>로그인 계정</b><span class="v" id="set-me">—</span></div>
+          <div class="kv"><b>로그인 계정</b><span class="v" id="set-me"></span></div>
           <div id="set-admins"></div>
           <div class="set-desc" style="margin:10px 0 0">관리자 추가·삭제는 보안 설계상 API로 불가능합니다(RLS에 쓰기 정책 없음). Supabase SQL Editor 에서 <code>admin_emails</code> 테이블을 직접 수정하세요.</div>
         </div>
@@ -338,7 +339,7 @@
 
         <div class="card">
           <h2>오래된 통계 정리</h2>
-          <p class="set-desc">통계 삭제는 보안 설계상 이 페이지(API)에서 불가능합니다 — 실수·계정 탈취에 대비해 RLS에 DELETE 정책을 두지 않았습니다. 필요할 때 아래 SQL을 Supabase SQL Editor 에서 실행하세요.</p>
+          <p class="set-desc">통계 삭제는 보안 설계상 이 페이지(API)에서 불가능합니다. 실수·계정 탈취에 대비해 RLS에 DELETE 정책을 두지 않았습니다. 필요할 때 아래 SQL을 Supabase SQL Editor 에서 실행하세요.</p>
           <pre class="sql" id="set-sql">-- 180일 지난 방문·이벤트 삭제
 delete from page_views where created_at &lt; now() - interval '180 days';
 delete from events     where created_at &lt; now() - interval '180 days';</pre>

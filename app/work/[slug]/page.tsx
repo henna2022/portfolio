@@ -16,10 +16,10 @@ export function generateMetadata({
 }): Metadata {
   const p = getProject(params.slug);
   if (!p) {
-    return { title: "Project — Juwon Lee" };
+    return { title: "Project · Juwon Lee" };
   }
 
-  const title = `${p.title} — Juwon Lee`;
+  const title = `${p.title} · Juwon Lee`;
   // 검색 결과 스니펫용 — 여러 문단짜리 overview 대신 한 줄 요약을 쓴다
   const description = p.desc;
   const url = `${SITE_URL}/work/${p.slug}`;

@@ -34,7 +34,7 @@ export function PrivacyOptOut() {
     return (
       <p className="text-sm text-muted">
         This browser blocks local storage, so the opt-out switch cannot be
-        saved — visit statistics are most likely already not being recorded.
+        saved, visit statistics are most likely already not being recorded.
         <br />
         이 브라우저는 로컬 저장소를 차단하고 있어 설정을 저장할 수 없습니다.
         (이 경우 방문 기록도 대부분 수집되지 않습니다.)

@@ -33,26 +33,18 @@ const generalSans = localFont({
 // 화면에 실제 등장한 글리프 범위만 병렬로 받아 초기 로드가 수십 KB 로 준다.
 // (public/fonts/pretendard/ 의 CSS 를 <head> 에서 링크; EN 모드에선 KO 폰트
 // 규칙이 적용되지 않아 아무 서브셋도 받지 않는다)
-// 페이퍼로지: KO 모드의 대문(히어로 헤드라인) 전용.
-const paperlogy = localFont({
-  src: [
-    { path: "../public/fonts/Paperlogy-600.woff2", weight: "600", style: "normal" },
-    { path: "../public/fonts/Paperlogy-700.woff2", weight: "700", style: "normal" },
-  ],
-  variable: "--font-paperlogy",
-  display: "swap",
-  preload: false,
-});
+// 페이퍼로지는 더 이상 텍스트에 쓰지 않는다(한국어는 프리텐다드로 통일).
+// 3D 히어로 씬만 public/fonts/paperlogy-hero.* 를 직접 읽으므로 여기서는 로드하지 않는다.
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "Juwon Lee | AI Product Engineer",
   description:
-    "Portfolio of Juwon Lee, an AI product engineer who takes ML-backed products from dataset to deployed interface — planned, shipped, and operated end to end on exhibition floors, in classrooms, and on real hardware.",
+    "Portfolio of Juwon Lee, an AI product engineer who takes ML-backed products from dataset to deployed interface, planned, shipped, and operated end to end on exhibition floors, in classrooms, and on real hardware.",
   openGraph: {
     title: "Juwon Lee | AI Product Engineer",
     description:
-      "Portfolio of Juwon Lee, an AI product engineer who takes ML-backed products from dataset to deployed interface — planned, shipped, and operated end to end on exhibition floors, in classrooms, and on real hardware.",
+      "Portfolio of Juwon Lee, an AI product engineer who takes ML-backed products from dataset to deployed interface, planned, shipped, and operated end to end on exhibition floors, in classrooms, and on real hardware.",
     url: `${SITE_URL}/`,
     images: ["/og-cover.png"],
   },
@@ -126,7 +118,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${generalSans.variable} ${paperlogy.variable}`}
+      className={`${inter.variable} ${generalSans.variable}`}
       suppressHydrationWarning
     >
       <head>
