@@ -56,15 +56,18 @@ export function Contact() {
           <p className="mt-5 max-w-xl text-base leading-relaxed text-cream/70">
             {t.availability}
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <a
-              // 제목을 미리 채워 문의 메일이 받은편지함에서 바로 분류되게 한다.
-              // 아래 주소 링크는 복사해 쓰는 용도라 제목 없이 그대로 둔다.
-              href={`mailto:${person.email}?subject=${encodeURIComponent(t.mailSubject)}`}
-              className="inline-flex items-center gap-2 rounded-full bg-cream px-6 py-3.5 text-sm font-medium text-ink transition-transform hover:scale-[1.03]"
-            >
-              {t.getInTouch} <ArrowIcon />
-            </a>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            {/* 문의 종류별로 메일 제목을 미리 채운다. 받은편지함에서 바로 분류되고,
+                보내는 쪽도 "뭐라고 써야 하지"를 건너뛴다. 아래 주소 링크는 복사용. */}
+            {t.inquiries.map(({ label, subject }) => (
+              <a
+                key={label}
+                href={`mailto:${person.email}?subject=${encodeURIComponent(subject)}`}
+                className="inline-flex items-center gap-2 rounded-full bg-cream px-6 py-3.5 text-sm font-medium text-ink transition-transform hover:scale-[1.03]"
+              >
+                {label} <ArrowIcon />
+              </a>
+            ))}
             <a
               href={`mailto:${person.email}`}
               className="text-sm text-cream/60 underline-offset-4 transition-colors hover:text-cream hover:underline"
