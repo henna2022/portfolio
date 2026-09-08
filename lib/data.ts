@@ -35,10 +35,8 @@ export const hero = {
 
 // ─── Statement ──────────────────────────────────────────────────────────────
 // 히어로 3D 씬 바로 아래 오는 sticky 선언문. 스크롤 진행도에 따라 단어가 하나씩
-// 점등되고, `pill`(반전 필)·`italic`(세리프 이탤릭)·`chip`(아토 얼굴)이 포인트.
-export type StatementToken =
-  | { t: "w"; w: string; pill?: boolean; italic?: boolean }
-  | { t: "chip" };
+// 점등되고, `pill`(반전 필) 한 단어만 앵커로 남긴다.
+export type StatementToken = { t: "w"; w: string; pill?: boolean };
 
 export const statement: StatementToken[] = [
   { t: "w", w: "I" },
@@ -46,10 +44,9 @@ export const statement: StatementToken[] = [
   { t: "w", w: "software" },
   { t: "w", w: "that" },
   { t: "w", w: "puts" },
-  { t: "chip" },
   { t: "w", w: "AI" },
   { t: "w", w: "to" },
-  { t: "w", w: "work", italic: true },
+  { t: "w", w: "work" },
   { t: "w", w: "for" },
   { t: "w", w: "real" },
   { t: "w", w: "people." },
@@ -142,7 +139,6 @@ export const about = {
 
 export type Project = {
   slug: string;
-  n: string;
   tier: "major" | "side";
   title: string;
   category: string;
@@ -170,7 +166,6 @@ export const projects: Project[] = [
   // ── Major projects ──
   {
     slug: "smart-farm-education",
-    n: "01",
     tier: "major",
     title: "Smart-Farm Education Program",
     category: "Education Program",
@@ -216,7 +211,6 @@ export const projects: Project[] = [
   },
   {
     slug: "doctor-green",
-    n: "02",
     tier: "major",
     title: "Doctor-Green",
     category: "AI · IoT Full-stack",
@@ -252,7 +246,6 @@ export const projects: Project[] = [
   },
   {
     slug: "raimi-art-lab",
-    n: "01",
     tier: "side",
     title: "Raimi's AI Art Lab",
     category: "Web App · Education",
@@ -296,7 +289,6 @@ export const projects: Project[] = [
   },
   {
     slug: "raim-staff-platform",
-    n: "02",
     tier: "side",
     title: "SEOUL RAIM Staff Platform",
     category: "Internal Operations Tool",
@@ -329,7 +321,6 @@ export const projects: Project[] = [
   // ── Side & toy projects ──
   {
     slug: "im-a-restorer",
-    n: "03",
     tier: "side",
     title: "I'm a Restorer!",
     category: "Interactive Web Game",
@@ -358,7 +349,6 @@ export const projects: Project[] = [
   },
   {
     slug: "raimi-language-lab",
-    n: "04",
     tier: "side",
     title: "Raimi's AI Language Lab",
     category: "Language-AI Education Game",
@@ -446,7 +436,6 @@ export const projects: Project[] = [
   // },
   {
     slug: "ato-care-robot",
-    n: "05",
     tier: "side",
     title: "ATO Care Robot",
     category: "AI Healthcare · Care Robot",
@@ -476,7 +465,6 @@ export const projects: Project[] = [
   },
   {
     slug: "exhibit-auto-recovery",
-    n: "06",
     tier: "side",
     title: "Exhibit Auto-Recovery",
     category: "Ops Automation · Reliability",

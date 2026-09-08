@@ -73,20 +73,6 @@ section[id] {
   scroll-margin-top: 6.5rem;
 }
 
-/* Statement — italic serif accent word */
-.font-serif-it {
-  font-family: Georgia, "Times New Roman", serif;
-  font-style: italic;
-  font-weight: 500;
-  letter-spacing: 0;
-}
-/* KO: 한글에는 세리프 이탤릭이 어색하다. 굵기와 액센트 색으로만 강조한다. */
-html.lang-ko .font-serif-it {
-  font-family: "Pretendard Variable", var(--font-inter), sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  color: #3b82f6;
-}
 /* KO: 프리텐다드 600 은 General Sans 600 보다 가늘어 보여
    프로젝트 이름(카드 제목·상세 제목·이전/다음)은 한 단계 굵게 */
 html.lang-ko #work h3,

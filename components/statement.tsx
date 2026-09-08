@@ -11,7 +11,6 @@ import {
 import { statement, type StatementToken } from "@/lib/data";
 import { statementKo } from "@/lib/data-ko";
 import { useI18n } from "./lang-provider";
-import { AtoChip } from "./ato-chip";
 
 // 스크롤 진행도 10~85% 구간에 단어를 순서대로 매핑 (portfolio_v2 와 동일한 배분).
 const FILL_START = 0.1;
@@ -46,10 +45,7 @@ function Word({
   }
 
   return (
-    <motion.span
-      style={still ? undefined : { opacity }}
-      className={token.italic ? "font-serif-it" : undefined}
-    >
+    <motion.span style={still ? undefined : { opacity }}>
       {token.w}
     </motion.span>
   );
@@ -92,17 +88,13 @@ export function Statement() {
           {/* 토큰 사이에 실제 공백 문자를 넣어 복사·스크린리더 낭독이 정상 동작하게 한다 */}
           {tokens.map((token, i) => (
             <span key={i}>
-              {token.t === "chip" ? (
-                <AtoChip />
-              ) : (
-                <Word
-                  token={token}
-                  index={wi++}
-                  total={total}
-                  progress={scrollYProgress}
-                  still={!!reduced}
-                />
-              )}{" "}
+              <Word
+                token={token}
+                index={wi++}
+                total={total}
+                progress={scrollYProgress}
+                still={!!reduced}
+              />{" "}
             </span>
           ))}
         </p>

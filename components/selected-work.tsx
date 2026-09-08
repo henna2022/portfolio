@@ -140,8 +140,6 @@ function MajorCard({
       </div>
 
       <div className="flex flex-1 flex-col px-2 pb-2">
-        <span className="text-xs font-medium text-muted">{p.n}</span>
-
         <h3 className="font-display mt-1 text-2xl font-semibold">
           {p.title}
         </h3>
@@ -180,7 +178,6 @@ function SideCard({ p, t }: { p: Project; t: UiStrings }) {
       className="group flex h-full cursor-pointer flex-col rounded-3xl bg-sand/40 p-5 text-ink transition-colors duration-300 hover:bg-sand/80"
     >
       <div className="flex items-baseline gap-3">
-        <span className="text-[11px] font-medium text-muted">{p.n}</span>
         <h4 className="font-display text-lg font-semibold leading-snug">
           {p.title}
         </h4>
