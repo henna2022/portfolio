@@ -8,7 +8,7 @@
 
 구성 파일
 - `admin-schema.sql` — DB 테이블 + 보안(RLS) 정책 · 권한 (신규 프로젝트는 이거 하나면 됨)
-- `admin-schema-patch-view-uid.sql` — page_views 가 안 쌓이던 문제 패치 (스키마 실행 후 이어서 Run)
+- `admin-schema-patch-view-uid.sql` — ⛔ **폐기됨. 실행 금지** (하드닝을 되돌림, 아래 1장 참고)
 - `admin-schema-patch-hardening.sql` — **보안 점검 후속 패치(2026-07-29)**. 이미 돌아가고 있는
   프로젝트에 적용하는 용도. 테이블 권한 회수 · 공개 메시지 INSERT 차단 · 체류시간 함수 전환
 - `public/supabase-config.js` — 연결 값 (여기만 본인 값으로 채우면 됨)
