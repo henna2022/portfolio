@@ -48,9 +48,17 @@
   // 방문 행 식별자는 클라이언트가 만들어 함께 넣는다.
   // (Prefer: return=representation 은 INSERT 후 RETURNING 을 위해 SELECT 권한을 요구하는데,
   //  anon 에게는 SELECT 정책이 없어 INSERT 자체가 42501 로 롤백된다 → return=minimal + view_uid)
+  // 위의 확인은 로드 시 1회뿐이다. Next 는 페이지 이동이 pushState 라 스크립트가
+  // 다시 돌지 않으므로, /privacy 에서 거부를 켠 뒤 같은 탭에서 이동해도 계속 수집됐다.
+  // → 전송 직전마다 다시 읽는다.
+  function optedOut() {
+    try { return localStorage.getItem('pf_notrack') === '1'; } catch (e) { return false; }
+  }
+
   var pvUid = null, viewSeq = 0, start = Date.now(), durationSent = false;
 
   function insertView(country) {
+    if (optedOut()) return;
     var uid = sid + '-' + (viewSeq++) + '-' + Math.random().toString(36).slice(2, 8);
     fetch(REST + 'page_views', {
       method: 'POST',
@@ -86,7 +94,7 @@
 
   // 체류시간: 페이지가 숨겨지거나 떠날 때 1회 전송 (keepalive 로 언로드 중에도 완료)
   function sendDuration() {
-    if (durationSent || !pvUid) return; durationSent = true;
+    if (durationSent || !pvUid || optedOut()) return; durationSent = true;
     // 예전에는 page_views 에 직접 PATCH 를 걸었는데, 그러려면 anon 에게 UPDATE 권한과
     // view_uid SELECT 권한을 열어줘야 했다. 그 조합이면 "최근 2시간 안의 아무 방문 행"의
     // 체류시간을 남이 덮어쓸 수 있어서(소유권 검사가 없었다) 통계가 오염된다.
@@ -103,6 +111,7 @@
 
   // 이벤트 로깅
   function logEvent(type, label) {
+    if (optedOut()) return;
     fetch(REST + 'events', {
       method: 'POST', keepalive: true, headers: Object.assign({ Prefer: 'return=minimal' }, H),
       body: JSON.stringify({ session_id: sid, type: type, label: label || null, path: location.pathname })
