@@ -225,7 +225,7 @@ if (!fs.existsSync(VERCEL_JSON)) {
   add("HIGH", "보안", "vercel.json 이 없습니다 — 보안 헤더(CSP·X-Frame-Options 등)가 전혀 붙지 않습니다");
 } else {
   const rules = JSON.parse(fs.readFileSync(VERCEL_JSON, "utf8")).headers || [];
-  const publicRule = rules.find((r) => r.source === "/((?!admin).*)");
+  const publicRule = rules.find((r) => r.source === "/((?!admin$|admin/).*)");
   const csp = publicRule?.headers?.find((h) => h.key === "Content-Security-Policy")?.value;
   if (!csp) {
     add("HIGH", "보안", "vercel.json 에 공개 페이지용 CSP 규칙이 없습니다");
