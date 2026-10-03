@@ -157,18 +157,15 @@ html.lang-ko article nav p {
 }
 /* 호버하면 살짝 갸웃 — 커서를 올려볼 이유 */
 .ato-chip:hover {
-  animation: atoWiggle 0.5s cubic-bezier(0.3, 1.4, 0.5, 1);
+  animation: atoWiggle 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 @keyframes atoWiggle {
   0%,
   100% {
-    transform: rotate(0);
+    transform: rotate(0) scale(1);
   }
   30% {
-    transform: rotate(-5deg) scale(1.06);
-  }
-  65% {
-    transform: rotate(4deg);
+    transform: rotate(-3deg) scale(1.02);
   }
 }
 @media (prefers-reduced-motion: reduce) {
