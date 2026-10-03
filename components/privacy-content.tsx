@@ -102,11 +102,11 @@ export function PrivacyHomeLink() {
 function Divider({ label }: { label: string }) {
   return (
     <div className="mt-16 flex items-center gap-4">
-      <hr className="flex-1 border-ink/10" />
+      <span aria-hidden="true" className="flex-1" />
       <span className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
         {label}
       </span>
-      <hr className="flex-1 border-ink/10" />
+      <span aria-hidden="true" className="flex-1" />
     </div>
   );
 }

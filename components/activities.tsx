@@ -26,7 +26,7 @@ export function Activities() {
         {t.activitiesHeading}
       </motion.h2>
 
-      <div className="border-t border-ink/10">
+      <div className="space-y-2">
         {items.map((a, i) => {
           const isOpen = open === i;
           return (
@@ -36,7 +36,6 @@ export function Activities() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.04, ease }}
-              className="border-b border-ink/10"
             >
               <button
                 onClick={() => setOpen(isOpen ? null : i)}

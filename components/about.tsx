@@ -93,7 +93,7 @@ export function About() {
           initial="hidden"
           whileInView="show"
           viewport={viewportOnce}
-          className="mx-auto w-full max-w-[440px] rounded-4xl border border-ink/10 bg-sand/40 p-6 text-center sm:p-8 lg:sticky lg:top-28 lg:mx-0 lg:max-w-none"
+          className="mx-auto w-full max-w-[440px] rounded-4xl bg-sand/40 p-6 text-center sm:p-8 lg:sticky lg:top-28 lg:mx-0 lg:max-w-none"
         >
           <div className="relative mx-auto mb-6 w-full max-w-[300px]">
             <img
@@ -102,7 +102,7 @@ export function About() {
               // STATEMENT(220vh) 뒤라 확실히 폴드 아래 — 첫 화면 대역폭과 경쟁하지 않게 지연 로드
               loading="lazy"
               decoding="async"
-              className="relative aspect-[1/1.05] w-full rounded-[28px] object-cover object-[center_28%] ring-1 ring-ink/10"
+              className="relative aspect-[1/1.05] w-full rounded-[28px] object-cover object-[center_28%]"
             />
           </div>
 
@@ -183,7 +183,7 @@ export function About() {
                   <Prose key={i} paragraph={p} />
                 ))}
                 {/* 카드에서 내려온 부차적 이력·자격 */}
-                <dl className="grid max-w-[640px] gap-x-10 gap-y-5 border-t border-ink/10 pt-6 sm:grid-cols-2">
+                <dl className="grid max-w-[640px] gap-x-10 gap-y-5 pt-6 sm:grid-cols-2">
                   {a.facts.map((f) => (
                     <div key={f.k}>
                       <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
@@ -208,7 +208,7 @@ export function About() {
               aria-controls="aboutMore"
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.2, ease }}
-              className="inline-flex items-center gap-2 rounded-full border border-ink/20 px-[18px] py-2.5 text-[13px] font-semibold text-ink transition-colors hover:border-lime hover:text-lime"
+              className="inline-flex items-center gap-2 rounded-full bg-ink/5 px-[18px] py-2.5 text-[13px] font-semibold text-ink transition-colors hover:bg-lime/10 hover:text-lime"
             >
               {open ? t.seeLess : t.seeMore}
               <CurlyArrow
@@ -230,7 +230,7 @@ export function About() {
               <a
                 href={assetPath(lang === "ko" ? person.cvKo : person.cv)}
                 download
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-lime/50 px-5 py-2.5 text-[13px] font-semibold text-lime transition-colors hover:bg-lime/10"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-lime/10 px-5 py-2.5 text-[13px] font-semibold text-lime transition-colors hover:bg-lime/20"
               >
                 <DownloadIcon /> {t.cv}
               </a>

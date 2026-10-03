@@ -94,7 +94,6 @@ html.lang-ko article nav p {
   overflow: hidden;
   border-radius: 999px;
   background: linear-gradient(135deg, #dbe6ff, #aec6ff);
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.35);
 }
 .ato-crop {
   position: absolute;

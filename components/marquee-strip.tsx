@@ -2,7 +2,7 @@ import { marqueeWords } from "@/lib/data";
 
 export function MarqueeStrip() {
   return (
-    <div className="marquee-mask overflow-hidden border-y border-ink/10 bg-cream py-4">
+    <div className="marquee-mask overflow-hidden bg-cream py-4">
       <div className="flex w-max animate-marquee">
         {[0, 1].map((k) => (
           <div key={k} className="flex items-center" aria-hidden={k === 1}>

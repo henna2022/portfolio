@@ -78,7 +78,7 @@ export function Contact() {
         </motion.div>
 
         {/* Divider + row */}
-        <div className="mt-14 flex flex-col gap-6 border-t border-cream/10 py-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             {socials.map(({ label, href, Icon }) => (
               <a

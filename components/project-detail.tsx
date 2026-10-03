@@ -65,7 +65,7 @@ export function ProjectDetail({
           ))}
         </div>
 
-        <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-ink/10 pt-6">
+        <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3 pt-6">
           <Meta k={t.year} v={p.year} />
           <Meta k={t.role} v={p.role} />
           <Meta k={t.focus} v={p.kicker} />
@@ -222,7 +222,7 @@ export function ProjectDetail({
       ) : null}
 
       {/* Prev / Next */}
-      <nav className="mt-16 grid gap-4 border-t border-ink/10 pt-8 sm:grid-cols-2">
+      <nav className="mt-16 grid gap-4 pt-8 sm:grid-cols-2">
         <Link
           href={`/work/${prev.slug}`}
           className="group rounded-4xl bg-sand/60 p-6 transition-colors hover:bg-sand"
