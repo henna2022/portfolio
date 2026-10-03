@@ -1,6 +1,6 @@
 "use client";
 
-import { Component, type ReactNode, useCallback, useEffect, useState } from "react";
+import { Component, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { hero } from "@/lib/data";
@@ -8,59 +8,24 @@ import { heroKo } from "@/lib/data-ko";
 import { useI18n } from "./lang-provider";
 import { ArrowIcon } from "./icons";
 
-// three.js 런타임은 별도 청크로 지연 로드 — 첫 화면 성능에 영향 없음.
-// 아래 useDesktopScene 게이트가 통과할 때만 <HeroScene> 을 마운트하므로,
-// dynamic import 자체(three.js/drei 청크 다운로드)가 모바일/터치 기기에서는
-// 아예 트리거되지 않는다.
-const HeroScene = dynamic(() => import("./hero-scene"), { ssr: false });
+// three.js 런타임은 별도 청크로 지연 로드 — 헤드라인·CTA 는 DOM 이라 먼저 그려진다.
+const HeroRobot = dynamic(() => import("./hero-robot"), { ssr: false });
 
-// 3D 청크 다운로드 실패처럼 <HeroScene> 이 마운트되기도 전에 터지는 경우까지 덮는
-// 바깥 경계. hero-scene.tsx 안의 SceneBoundary 는 씬이 이미 마운트된 뒤의 런타임
-// 오류만 잡으므로, 청크 로드 실패는 여기서 받아 히어로를 DOM 폴백으로 되돌린다.
-class SceneGuard extends Component<
-  { children: ReactNode; onFail: () => void },
-  { failed: boolean }
-> {
+// 3D 청크 다운로드 실패·WebGL 런타임 오류가 나도 히어로 전체가 깨지지 않게
+// 로봇 자리만 비운다.
+class RobotGuard extends Component<{ children: ReactNode }, { failed: boolean }> {
   state = { failed: false };
-  // null 을 돌려주면 자식을 그대로 다시 렌더해 같은 에러가 재발한다 —
-  // failed 로 끊어 두고 부모의 상태 갱신을 기다린다.
   static getDerivedStateFromError() {
     return { failed: true };
-  }
-  componentDidCatch() {
-    this.props.onFail();
   }
   render() {
     return this.state.failed ? null : this.props.children;
   }
 }
 
-// 데스크톱(넓은 화면 + 마우스 호버) + WebGL 지원 여부를 클라이언트에서만 판정.
-// SSR/최초 렌더에서는 null(false) 을 반환해 하이드레이션 불일치를 피한다.
-function useDesktopScene() {
-  const [ready, setReady] = useState(false);
-  useEffect(() => {
-    const mq = matchMedia("(min-width: 1024px) and (hover: hover)");
-    const probe = document.createElement("canvas");
-    const hasGL = !!(probe.getContext("webgl2") || probe.getContext("webgl"));
-    const update = () => setReady(mq.matches && hasGL);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-  return ready;
-}
-
 export function Hero() {
   const { t, lang } = useI18n();
   const h = lang === "ko" ? heroKo : hero;
-  const gateOpen = useDesktopScene();
-  // 씬이 실제로 살아 있을 때만 DOM 헤드라인/CTA 를 숨긴다. three.js 가 던지면
-  // sceneFailed 로 되돌아와 DOM 이 다시 보인다 — CSS 숨김과 JS 마운트가 어긋나
-  // 첫 화면이 통째로 비는 조합(아이패드 가로·WebGL 차단 PC)을 막는 장치.
-  const [sceneFailed, setSceneFailed] = useState(false);
-  const onSceneError = useCallback(() => setSceneFailed(true), []);
-  const desktopScene = gateOpen && !sceneFailed;
   return (
     <section
       id="top"
@@ -69,35 +34,26 @@ export function Hero() {
       // 하단 고정 CTA(absolute bottom-12)가 겹치지 않게 최소 높이를 확보.
       className="relative mx-auto flex min-h-[max(100svh,38rem)] max-w-shell flex-col justify-center px-6 pb-24 pt-28 text-center"
     >
+      {/* 걸어 들어와 인사하는 로봇 (시선 추적 + 클릭 리액션).
+          휴대폰: 헤드라인 위 전폭 띠 / 데스크톱: 오른쪽 아래 구석.
+          자리는 SSR 때부터 잡아 두어 로봇이 늦게 떠도 헤드라인이 밀리지 않는다. */}
       <div
-        // 장식용 헤드라인 래퍼 — 투명하지만 z-10 로 canvas 위에 떠서 3D 버튼의
-        // 상단 히트영역을 가로챘다(호버 데드존). 상호작용 대상이 아니므로 이벤트 통과.
-        className="pointer-events-none relative z-10 flex flex-col items-center"
+        aria-hidden
+        className="mb-2 h-36 w-full lg:absolute lg:bottom-0 lg:right-[3%] lg:mb-0 lg:h-60 lg:w-[16.5rem] xl:right-[5%] xl:h-72 xl:w-80"
       >
-        <h1
-          // 데스크톱에서는 3D 입체 글자가 헤드라인을 대신함 —
-          // DOM h1은 레이아웃 자리만 지키고(invisible) 모바일에서는 그대로 표시.
-          // 진입 모션은 CSS(intro-up) — 하이드레이션 전에 페인트되어 LCP 에 안전
-          // lg:invisible 은 씬이 실제로 뜰 때만 붙인다(desktopScene). 순수 CSS 로
-          // 두면 1024px 이상인데 씬이 없는 기기에서 헤드라인이 사라진다.
-          className={
-            "intro-up font-display ko-hero-display text-balance max-w-4xl text-[2.75rem] font-semibold leading-[1.14] tracking-[-0.015em] text-ink sm:text-6xl md:text-7xl" +
-            (desktopScene ? " lg:invisible" : "")
-          }
-        >
-          {h.headline}
-        </h1>
+        <RobotGuard>
+          <HeroRobot />
+        </RobotGuard>
       </div>
 
-      {/* 모바일 전용 CTA — 데스크톱에서는 3D 씬이 벽면 버튼을 렌더링.
-          씬이 안 뜨는 데스크톱(아이패드 가로·WebGL 차단)에서는 이 CTA 가 유일한
-          진입 동선이므로 lg:hidden 도 desktopScene 에 묶는다. */}
-      <div
-        className={
-          "intro-up-centered absolute bottom-12 left-1/2 z-10" +
-          (desktopScene ? " lg:hidden" : "")
-        }
+      <h1
+        // 진입 모션은 CSS(intro-up) — 하이드레이션 전에 페인트되어 LCP 에 안전
+        className="intro-up font-display ko-hero-display text-balance mx-auto max-w-4xl text-[2.75rem] font-semibold leading-[1.14] tracking-[-0.015em] text-ink sm:text-6xl md:text-7xl"
       >
+        {h.headline}
+      </h1>
+
+      <div className="intro-up-centered absolute bottom-12 left-1/2 z-10">
         <div className="flex flex-wrap items-center justify-center gap-4">
           <motion.a
             whileTap={{ y: 3 }}
@@ -116,16 +72,6 @@ export function Hero() {
           </motion.a>
         </div>
       </div>
-
-      {/* 3D 씬: 과학관 방 코너 + 벽걸이 헤드라인·버튼 + 로봇.
-          데스크톱 + WebGL 확인 전에는 마운트하지 않아 모바일은 three.js 청크를
-          다운로드조차 하지 않는다 (모바일 CTA 는 위 DOM 버튼이 담당). */}
-      {/* KO 도 EN 과 같은 3D 벽 팝업 — 페이퍼로지 서브셋 타입페이스 사용 */}
-      {desktopScene ? (
-        <SceneGuard onFail={onSceneError}>
-          <HeroScene showText ko={lang === "ko"} onSceneError={onSceneError} />
-        </SceneGuard>
-      ) : null}
     </section>
   );
 }

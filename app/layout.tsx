@@ -33,8 +33,7 @@ const generalSans = localFont({
 // 화면에 실제 등장한 글리프 범위만 병렬로 받아 초기 로드가 수십 KB 로 준다.
 // (public/fonts/pretendard/ 의 CSS 를 <head> 에서 링크; EN 모드에선 KO 폰트
 // 규칙이 적용되지 않아 아무 서브셋도 받지 않는다)
-// 페이퍼로지는 더 이상 텍스트에 쓰지 않는다(한국어는 프리텐다드로 통일).
-// 3D 히어로 씬만 public/fonts/paperlogy-hero.* 를 직접 읽으므로 여기서는 로드하지 않는다.
+// 페이퍼로지는 더 이상 쓰지 않는다(한국어는 프리텐다드로 통일).
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

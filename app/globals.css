@@ -43,8 +43,7 @@ body {
 
 /* ── 한국어 모드 타이포그래피 ─────────────────────────────────────
    html.lang-ko 는 LangProvider(+페인트 전 langScript)가 붙인다.
-   한국어는 전부 프리텐다드로 통일한다. (3D 히어로 씬의 페이퍼로지는
-   components/hero-scene.tsx 가 별도 파일로 직접 읽으므로 여기와 무관하다.) */
+   한국어는 전부 프리텐다드로 통일한다. */
 html.lang-ko body {
   font-family: "Pretendard Variable", var(--font-inter), system-ui, sans-serif;
   /* 한국어 조판: 단어(어절) 중간에서 줄이 끊기지 않게 */
