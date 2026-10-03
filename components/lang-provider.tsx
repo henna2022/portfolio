@@ -31,8 +31,11 @@ export function LangProvider({ children }: { children: ReactNode }) {
       } catch {}
       return;
     }
+    // 기본은 항상 EN. KO 선택은 탭 세션 동안만 유지한다(새 방문은 EN 으로 시작).
+    // 예전에 localStorage 에 영구 저장된 KO 선택은 지운다.
     try {
-      if (localStorage.getItem("pf_lang") === "ko") setLang("ko");
+      localStorage.removeItem("pf_lang");
+      if (sessionStorage.getItem("pf_lang") === "ko") setLang("ko");
     } catch {}
   }, []);
 
@@ -43,7 +46,7 @@ export function LangProvider({ children }: { children: ReactNode }) {
     root.classList.toggle("lang-ko", ko);
     if (!KO_ENABLED) return;
     try {
-      localStorage.setItem("pf_lang", lang);
+      sessionStorage.setItem("pf_lang", lang);
     } catch {}
   }, [lang]);
 

@@ -50,7 +50,7 @@ export function Header() {
               aria-label="Language"
               className="flex h-9 items-center rounded-lg bg-ink/5 p-0.5"
             >
-              {(["ko", "en"] as const).map((l) => (
+              {(["en", "ko"] as const).map((l) => (
                 <button
                   key={l}
                   type="button"

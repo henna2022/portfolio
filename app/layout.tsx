@@ -78,7 +78,8 @@ const langScript = KO_ENABLED
   ? `
 (function () {
   try {
-    if (localStorage.getItem('pf_lang') === 'ko') {
+    localStorage.removeItem('pf_lang');
+    if (sessionStorage.getItem('pf_lang') === 'ko') {
       document.documentElement.lang = 'ko';
       document.documentElement.classList.add('lang-ko');
     }
