@@ -610,6 +610,57 @@ export const projects: Project[] = [
       "Handover document covering setup, troubleshooting and maintenance.",
     ],
   },
+  // 볼트 resume: 예정형으로만. 서버 표 수는 외부 표가 섞일 수 있어 쓰지 않는다.
+  // 그림 4장은 AI 도구로 만든 것이라 직접 그렸다고 쓰지 않는다.
+  {
+    slug: "ai-ethics-vote",
+    tier: "side",
+    title: "Robot & AI Ethics Vote",
+    category: "Exhibit Kiosk · PWA",
+    categories: ["Web", "Education"],
+    kicker: "Robot & AI Ethics exhibit · in use since Sep 2026",
+    desc: "A voting kiosk for the museum's Robot & AI Ethics exhibit: visitors pick one of four questions with no right answer, vote between two positions, and see how others voted. Built as an offline-capable PWA in Korean and English, with votes tallied on a server.",
+    year: "2026",
+    role: "Solo: planning, development, deployment",
+    tags: ["JavaScript", "PWA", "Service Worker", "Supabase", "Vercel", "i18n"],
+    href: "https://raim-ethics-vote.vercel.app",
+    image: "/portfolio_images/projects/ai-ethics-vote-en.jpg",
+    stat: "4 topics · KO/EN",
+    overview:
+      "The Robot & AI Ethics exhibit raises questions that have no right answer yet. This kiosk turns them into a vote on a portrait 1080×1920 touchscreen meant to stand beside the exhibit. Four topics, an AI judge, a robot's feelings, disappearing jobs and AI-made art, each pose one either-or question with an illustration that puts Raimi and a person side by side. Visitors can **switch any screen between Korean and English** in place.\n\nI designed the flow so it does not steer answers. Both choices share one color, and results for other topics show **only a vote count until you vote on that topic yourself**. The screen returns to the cover when the visitor walks away, and taps in the first 0.45 seconds after a screen change are ignored, so a double tap cannot cast a vote nobody chose.\n\nVotes live on a server, not just the device. The kiosk posts each vote to an API I added to the exhibit usage hub, which keeps daily per-topic totals in Supabase. **If the network drops, votes queue on the device and upload without duplicates when it reconnects.** A service worker precaches the page, fonts and images, so the kiosk opens offline after one online visit, and a staff view charts votes by day, week or month with CSV export. The kiosk has stood beside the exhibit since September 2026.",
+    highlights: [
+      "**Korean/English toggle** that switches the current screen in place, one language per screen.",
+      "**Neutral by design**: same-color choices, other topics' splits hidden until you vote on them, illustrations pairing Raimi with a person.",
+      "**Server tally with an offline queue**: votes go to a Supabase-backed API and wait on the device while the network is down.",
+      "**Offline-capable PWA** with precached fonts and images, a full-screen portrait manifest and idle reset for walk-up use.",
+      "Staff view with daily, weekly and monthly charts and CSV export.",
+    ],
+  },
+  // 볼트 resume: 확인 필요(현장 QR 부착·운영 여부 미확인). 배포 사실만 쓴다.
+  {
+    slug: "ai-persona-web",
+    tier: "side",
+    title: "AI Persona Companion App",
+    category: "Computer Vision · Exhibit Web App",
+    categories: ["AI", "Web"],
+    kicker: "Caricature-robot exhibit · visitor phone app",
+    desc: "A phone web app for AI Persona, the museum's caricature-robot exhibit, opened from a QR code posted beside it. The visitor's own phone redraws their face in shapes the way the robots beside them do, with all face processing kept inside the browser.",
+    year: "2026",
+    role: "Solo: planning, development, deployment",
+    tags: ["MediaPipe Face Landmarker", "JavaScript", "Canvas 2D", "Web Share API", "GitHub Pages"],
+    href: "https://henna2022.github.io/ai-persona/",
+    repo: "https://github.com/henna2022/ai-persona",
+    image: "/portfolio_images/projects/ai-persona-web.jpg",
+    overview:
+      "AI Persona is a caricature-robot exhibit at the Seoul Robot & AI Science Museum, where robots draw a visitor's face in lines. I built a companion web app that visitors open on their own phone from a QR code: the camera finds their face, and **the eyes, nose, mouth and brows are redrawn as randomized geometric shapes**, with a button that reshuffles the combination.\n\nFace tracking runs entirely in the browser with **MediaPipe Face Landmarker**, on the GPU first and on the CPU when the GPU path fails. Its expression scores choose the icon above the head: a smile gets a heart, a frown an anger mark, an open mouth with raised brows an exclamation mark, and a neutral face a crown. The thresholds sit in one table, and a debug readout shows the live scores so they can be tuned on site.\n\nAfter the photo, the camera shuts off and a **30-second animation shows a pen plotter and a Doosan collaborative robot drawing the result**. The animation replays strokes recorded from the same draw calls that render the final image, so what the robots draw is exactly what the visitor keeps; with reduced motion turned on, only the finished frame is shown. The drawing saves through the phone's share sheet.\n\n**Video and face coordinates never leave the phone.** The only outbound data is a single usage count sent to the exhibit usage hub I built, queued while offline and carrying no device ID or cookies. The app is one HTML file with no build step, deployed on GitHub Pages in September 2026, and I designed the A3 QR poster now posted on the exhibit floor.",
+    highlights: [
+      "**In-browser face tracking** with MediaPipe Face Landmarker, GPU first with a CPU fallback; no image is uploaded.",
+      "**Expression to icon** from blendshape scores (smile, frown, surprise, neutral), with thresholds kept in one table and a live debug readout for on-site tuning.",
+      "**30-second robot-drawing animation** that replays the final image's own strokes, recorded from the same draw calls, with a reduced-motion fallback.",
+      "**Privacy by design**: the camera stops right after capture, and only an anonymous usage count leaves the device, queued when offline.",
+      "Single HTML file with no build step, deployed on GitHub Pages.",
+    ],
+  },
   // 볼트 resume: 예정형으로만. 마커 부착·첫 현장 운영 전이라 운영했다고 쓰지 않는다.
   // 규모로는 major 후보(현장 운영 뒤). 3D 모델은 AI 도구로 만든 것이라 직접 제작했다고 쓰지 않는다.
   {
@@ -636,32 +687,6 @@ export const projects: Project[] = [
       "**Offline-capable PWA** with self-hosted MindAR and Three.js, sized to the Galaxy Tab A9+ visible area.",
     ],
   },
-  // 볼트 resume: 예정형으로만. 서버 표 수는 외부 표가 섞일 수 있어 쓰지 않는다.
-  // 그림 4장은 AI 도구로 만든 것이라 직접 그렸다고 쓰지 않는다.
-  {
-    slug: "ai-ethics-vote",
-    tier: "side",
-    title: "Robot & AI Ethics Vote",
-    category: "Exhibit Kiosk · PWA",
-    categories: ["Web", "Education"],
-    kicker: "Robot & AI Ethics exhibit · deployed, on-site installation pending",
-    desc: "A voting kiosk for the museum's Robot & AI Ethics exhibit: visitors pick one of four questions with no right answer, vote between two positions, and see how others voted. Built as an offline-capable PWA in Korean and English, with votes tallied on a server.",
-    year: "2026",
-    role: "Solo: planning, development, deployment",
-    tags: ["JavaScript", "PWA", "Service Worker", "Supabase", "Vercel", "i18n"],
-    href: "https://raim-ethics-vote.vercel.app",
-    image: "/portfolio_images/projects/ai-ethics-vote-en.jpg",
-    stat: "4 topics · KO/EN",
-    overview:
-      "The Robot & AI Ethics exhibit raises questions that have no right answer yet. This kiosk turns them into a vote on a portrait 1080×1920 touchscreen meant to stand beside the exhibit. Four topics, an AI judge, a robot's feelings, disappearing jobs and AI-made art, each pose one either-or question with an illustration that puts Raimi and a person side by side. Visitors can **switch any screen between Korean and English** in place.\n\nI designed the flow so it does not steer answers. Both choices share one color, and results for other topics show **only a vote count until you vote on that topic yourself**. The screen returns to the cover when the visitor walks away, and taps in the first 0.45 seconds after a screen change are ignored, so a double tap cannot cast a vote nobody chose.\n\nVotes live on a server, not just the device. The kiosk posts each vote to an API I added to the exhibit usage hub, which keeps daily per-topic totals in Supabase. **If the network drops, votes queue on the device and upload without duplicates when it reconnects.** A service worker precaches the page, fonts and images, so the kiosk opens offline after one online visit, and a staff view charts votes by day, week or month with CSV export. The kiosk is deployed; installing it beside the exhibit is the next step.",
-    highlights: [
-      "**Korean/English toggle** that switches the current screen in place, one language per screen.",
-      "**Neutral by design**: same-color choices, other topics' splits hidden until you vote on them, illustrations pairing Raimi with a person.",
-      "**Server tally with an offline queue**: votes go to a Supabase-backed API and wait on the device while the network is down.",
-      "**Offline-capable PWA** with precached fonts and images, a full-screen portrait manifest and idle reset for walk-up use.",
-      "Staff view with daily, weekly and monthly charts and CSV export.",
-    ],
-  },
   // 볼트 resume: 예정형으로만. 담당자에게 넘겨 실제 업무에 쓰기 전.
   {
     slug: "document-formatter",
@@ -686,31 +711,6 @@ export const projects: Project[] = [
       "**Eight templates**: four document layouts and four slide layouts for photo manuals, exported as DOCX, PPTX or PDF.",
       "One layout function shared by the preview and the PowerPoint writer, with an editable preview for text and photos.",
       "Korean line-break settings in DOCX and PPTX output so lines do not break mid-word.",
-    ],
-  },
-  // 볼트 resume: 확인 필요(현장 QR 부착·운영 여부 미확인). 배포 사실만 쓴다.
-  {
-    slug: "ai-persona-web",
-    tier: "side",
-    title: "AI Persona Companion App",
-    category: "Computer Vision · Exhibit Web App",
-    categories: ["AI", "Web"],
-    kicker: "Caricature-robot exhibit · visitor phone app",
-    desc: "A phone web app for AI Persona, the museum's caricature-robot exhibit, made to open from a QR code beside it. The visitor's own phone redraws their face in shapes the way the robots beside them do, with all face processing kept inside the browser.",
-    year: "2026",
-    role: "Solo: planning, development, deployment",
-    tags: ["MediaPipe Face Landmarker", "JavaScript", "Canvas 2D", "Web Share API", "GitHub Pages"],
-    href: "https://henna2022.github.io/ai-persona/",
-    repo: "https://github.com/henna2022/ai-persona",
-    image: "/portfolio_images/projects/ai-persona-web.jpg",
-    overview:
-      "AI Persona is a caricature-robot exhibit at the Seoul Robot & AI Science Museum, where robots draw a visitor's face in lines. I built a companion web app that visitors open on their own phone from a QR code: the camera finds their face, and **the eyes, nose, mouth and brows are redrawn as randomized geometric shapes**, with a button that reshuffles the combination.\n\nFace tracking runs entirely in the browser with **MediaPipe Face Landmarker**, on the GPU first and on the CPU when the GPU path fails. Its expression scores choose the icon above the head: a smile gets a heart, a frown an anger mark, an open mouth with raised brows an exclamation mark, and a neutral face a crown. The thresholds sit in one table, and a debug readout shows the live scores so they can be tuned on site.\n\nAfter the photo, the camera shuts off and a **30-second animation shows a pen plotter and a Doosan collaborative robot drawing the result**. The animation replays strokes recorded from the same draw calls that render the final image, so what the robots draw is exactly what the visitor keeps; with reduced motion turned on, only the finished frame is shown. The drawing saves through the phone's share sheet.\n\n**Video and face coordinates never leave the phone.** The only outbound data is a single usage count sent to the exhibit usage hub I built, queued while offline and carrying no device ID or cookies. The app is one HTML file with no build step, deployed on GitHub Pages in September 2026, and I also designed the A3 QR poster for the exhibit floor.",
-    highlights: [
-      "**In-browser face tracking** with MediaPipe Face Landmarker, GPU first with a CPU fallback; no image is uploaded.",
-      "**Expression to icon** from blendshape scores (smile, frown, surprise, neutral), with thresholds kept in one table and a live debug readout for on-site tuning.",
-      "**30-second robot-drawing animation** that replays the final image's own strokes, recorded from the same draw calls, with a reduced-motion fallback.",
-      "**Privacy by design**: the camera stops right after capture, and only an anonymous usage count leaves the device, queued when offline.",
-      "Single HTML file with no build step, deployed on GitHub Pages.",
     ],
   },
   // 볼트 resume: 예정형으로만. 직원 전용(비밀번호 게이트)이라 href·캡처 없이 둔다.
@@ -742,7 +742,7 @@ export const projects: Project[] = [
     title: "Build-Your-Robot AR Tour",
     category: "Computer Vision · Mobile Web Prototype",
     categories: ["AI", "Web"],
-    kicker: "Exhibit stamp tour · prototype",
+    kicker: "Exhibit stamp tour · museum assignment · prototype",
     desc: "A mobile web prototype for a family stamp tour: visitors point their phone at robot exhibits to collect seven robot parts, compare each with the human body, and assemble a robot of their own. Exhibit recognition runs in the browser, checked with an evaluation harness I built.",
     year: "2026",
     role: "Solo: planning, development, evaluation",
