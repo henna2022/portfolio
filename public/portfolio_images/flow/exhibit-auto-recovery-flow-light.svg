@@ -4,15 +4,15 @@
 <defs><marker id="arwE" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
 <style>
 text{font-family:'Pretendard','Apple SD Gothic Neo','Helvetica Neue',Arial,sans-serif}
-.iaBg{fill:#F5F1E8}.iaPoster{fill:#FFFFFF;stroke:#E4DDCE}.iaLogo{fill:#3B82F6}.iaLogoR{fill:#FFFFFF;font-size:22px;font-weight:600}
-.iaTtl{fill:#22211E;font-size:19px;font-weight:600}.iaSub{fill:#7C786E;font-size:12.5px}.iaHdiv{stroke:#E4DDCE}.iaFdiv{stroke:#E4DDCE}
-.iaSec{fill:#EBE5D9;stroke:#E4DDCE}.iaDot{fill:#3B82F6}.iaLab{fill:#22211E;font-size:12px;font-weight:600}.iaLeg{fill:#7C786E;font-size:11.5px}
+.iaBg{fill:#F5F1E8}.iaPoster{fill:#FFFFFF;stroke:none}.iaLogo{fill:#3B82F6}.iaLogoR{fill:#FFFFFF;font-size:22px;font-weight:600}
+.iaTtl{fill:#22211E;font-size:19px;font-weight:600}.iaSub{fill:#7C786E;font-size:12.5px}.iaHdiv{stroke:none}.iaFdiv{stroke:none}
+.iaSec{fill:#EBE5D9;stroke:none}.iaDot{fill:#3B82F6}.iaLab{fill:#22211E;font-size:12px;font-weight:600}.iaLeg{fill:#7C786E;font-size:11.5px}
 .iaEbox{fill:#FFFFFF;stroke:#D6CEBF}.iaEt{fill:#22211E;font-size:14px;font-weight:600}.iaEs{fill:#7C786E;font-size:12px}
 .iaArw{stroke:#3B82F6;stroke-width:1.4;fill:none}.iaLeader{stroke:#93B8F0;stroke-width:1;stroke-dasharray:3 3;fill:none}
 .iaMbox{fill:#3B82F6;stroke:#2E6FDB}.iaMt{fill:#FFFFFF;font-size:14px;font-weight:600}.iaMs{fill:#DBE8FD;font-size:12px}
 .iaCcard{fill:#EFF4FE;stroke:#C7D9F9}.iaCt{fill:#22211E;font-size:14px;font-weight:600}.iaCl{fill:#7C786E;font-size:12px}
 .iaChip{fill:#F5F1E8;stroke:#D6CEBF}.iaChx{fill:#22211E;font-size:12px}.iaFoot{fill:#7C786E;font-size:11px}
-.iaHost{fill:#FBF8F1;stroke:#E4DDCE}.iaWarn{fill:#FDF3E3;stroke:#EBD3A6}.iaWt{fill:#22211E;font-size:13px;font-weight:600}.iaWs{fill:#7C786E;font-size:11.5px}
+.iaHost{fill:#FBF8F1;stroke:none}.iaWarn{fill:#FDF3E3;stroke:none}.iaWt{fill:#22211E;font-size:13px;font-weight:600}.iaWs{fill:#7C786E;font-size:11.5px}
 </style>
 
 <rect class="iaBg" x="0" y="0" width="680" height="554"/>
