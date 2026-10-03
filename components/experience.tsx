@@ -53,17 +53,30 @@ export function Experience() {
                 <p className="mt-1 text-sm text-muted">{e.role}</p>
                 <p className="mt-2 text-xs text-muted">{e.period}</p>
               </div>
-              <ul className="space-y-2">
-                {e.points.map((pt) => (
-                  <li
-                    key={pt}
-                    className="flex gap-2.5 text-sm leading-relaxed text-ink/75"
+              <div>
+                <ul className="space-y-2">
+                  {e.points.map((pt) => (
+                    <li
+                      key={pt}
+                      className="flex gap-2.5 text-sm leading-relaxed text-ink/75"
+                    >
+                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-lime" />
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+                {/* 행사 보도 링크. 수상 섹션의 기사 버튼과 같은 모양 */}
+                {"press" in e && e.press ? (
+                  <a
+                    href={e.press.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-4 inline-flex items-center rounded-full bg-sand/60 px-3 py-1.5 text-xs font-medium text-ink/80 transition-colors hover:bg-sand"
                   >
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-lime" />
-                    {pt}
-                  </li>
-                ))}
-              </ul>
+                    {e.press.label} ↗
+                  </a>
+                ) : null}
+              </div>
             </div>
 
             {"gallery" in e && e.gallery ? (
