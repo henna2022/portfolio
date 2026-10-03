@@ -8,7 +8,6 @@ import { localizeProject } from "@/lib/data-ko";
 import { assetPath } from "@/lib/asset";
 import { type UiStrings } from "@/lib/i18n";
 import { useI18n } from "./lang-provider";
-import { DownloadIcon } from "./icons";
 import { ease } from "@/lib/motion";
 
 // 표시 순서만 정해두고, 실제로 해당하는 major 프로젝트가 없는 칩은 렌더에서 뺀다.
@@ -232,19 +231,6 @@ export function SelectedWork() {
         >
           {t.workHeading}
         </motion.h2>
-
-        <motion.a
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.1, ease }}
-          download
-          href={assetPath("/files/Juwon_Lee_Architecture_Deck.pdf")}
-          className="inline-flex items-center gap-2 rounded-full bg-sand/60 px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-sand"
-        >
-          <DownloadIcon className="h-3.5 w-3.5" />
-          {t.deckButton}
-        </motion.a>
       </div>
 
       {/* Category filter — majors only */}

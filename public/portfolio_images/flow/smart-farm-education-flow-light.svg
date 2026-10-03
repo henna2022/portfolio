@@ -1,6 +1,6 @@
 <svg width="680" height="554" viewBox="0 0 680 554" role="img" xmlns="http://www.w3.org/2000/svg">
 <title>Smart-Farm Education Program system flow</title>
-<desc>IoT sensor kit to ESP32 node to relay server to live database to student web dashboard; location-based Weather API branch; YOLO crop-disease AI module with diagnosis demo.</desc>
+<desc>16 student ESP32 boards running Arduino (C++) firmware post temperature, humidity and soil readings directly to a Supabase practice database over Wi-Fi (no relay server); a Next.js student web app on Vercel shows live values and controls the LED, fan and pump. A server API route fetches KMA weather by location. AI vision: in-browser transfer learning with TensorFlow.js on MobileNet v2, a holdout test, then a camera check on a real leaf.</desc>
 <defs><marker id="arwE" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
 <style>
 text{font-family:'Pretendard','Apple SD Gothic Neo','Helvetica Neue',Arial,sans-serif}
@@ -32,28 +32,28 @@ text{font-family:'Pretendard','Apple SD Gothic Neo','Helvetica Neue',Arial,sans-
 
 <rect class="iaSec" x="28" y="126" width="624" height="148" rx="12"/>
 <circle class="iaDot" cx="44" cy="143" r="3"/><text class="iaLab" x="52" y="147">IoT live-data pipeline</text>
-<rect class="iaEbox" x="44" y="158" width="180" height="44" rx="10"/><text class="iaEt" x="134" y="180" text-anchor="middle">IoT sensor kit</text><text class="iaEs" x="134" y="196" text-anchor="middle">Temp · humidity · soil</text>
-<rect class="iaEbox" x="252" y="158" width="170" height="44" rx="10"/><text class="iaEt" x="337" y="180" text-anchor="middle">ESP32 node</text><text class="iaEs" x="337" y="196" text-anchor="middle">Reads &amp; transmits</text>
-<rect class="iaCcard" x="450" y="158" width="186" height="44" rx="10"/><text class="iaCt" x="543" y="180" text-anchor="middle">Relay server</text><text class="iaCl" x="543" y="196" text-anchor="middle">Collects &amp; forwards</text>
+<rect class="iaEbox" x="44" y="158" width="180" height="44" rx="10"/><text class="iaEt" x="134" y="180" text-anchor="middle">ESP32 boards × 16</text><text class="iaEs" x="134" y="196" text-anchor="middle">Temp · humidity · soil</text>
+<rect class="iaEbox" x="252" y="158" width="170" height="44" rx="10"/><text class="iaEt" x="337" y="180" text-anchor="middle">Arduino C++ firmware</text><text class="iaEs" x="337" y="196" text-anchor="middle">Wi-Fi direct POST</text>
+<rect class="iaCcard" x="450" y="158" width="186" height="44" rx="10"/><text class="iaCt" x="543" y="180" text-anchor="middle">Supabase</text><text class="iaCl" x="543" y="196" text-anchor="middle">Practice DB · no relay server</text>
 <line class="iaArw" x1="224" y1="180" x2="250" y2="180" marker-end="url(#arwE)"/>
 <line class="iaArw" x1="422" y1="180" x2="448" y2="180" marker-end="url(#arwE)"/>
-<path class="iaArw" d="M543 202 V209 H154 V214" marker-end="url(#arwE)"/>
-<rect class="iaCcard" x="44" y="216" width="220" height="44" rx="10"/><text class="iaCt" x="154" y="238" text-anchor="middle">Live database</text><text class="iaCl" x="154" y="254" text-anchor="middle">Realtime values · history</text>
-<line class="iaArw" x1="264" y1="238" x2="296" y2="238" marker-end="url(#arwE)"/>
-<rect class="iaMbox" x="300" y="216" width="336" height="44" rx="10"/><text class="iaMt" x="468" y="238" text-anchor="middle">Student web dashboard</text><text class="iaMs" x="468" y="254" text-anchor="middle">Watch values change in real time</text>
+<path class="iaArw" d="M543 202 V209 H340 V214" marker-end="url(#arwE)"/>
+<rect class="iaMbox" x="44" y="216" width="592" height="44" rx="10"/><text class="iaMt" x="340" y="238" text-anchor="middle">Student web app · Next.js on Vercel</text><text class="iaMs" x="340" y="254" text-anchor="middle">Live sensor values · LED, fan and pump control</text>
 
 <rect class="iaSec" x="28" y="286" width="624" height="88" rx="12"/>
 <circle class="iaDot" cx="44" cy="303" r="3"/><text class="iaLab" x="52" y="307">Weather branch · location-based lesson data</text>
-<rect class="iaEbox" x="44" y="316" width="250" height="44" rx="10"/><text class="iaEt" x="169" y="338" text-anchor="middle">Weather API</text><text class="iaEs" x="169" y="354" text-anchor="middle">Local forecast by location</text>
+<rect class="iaEbox" x="44" y="316" width="250" height="44" rx="10"/><text class="iaEt" x="169" y="338" text-anchor="middle">KMA weather API</text><text class="iaEs" x="169" y="354" text-anchor="middle">Live observations by location</text>
 <line class="iaArw" x1="294" y1="338" x2="316" y2="338" marker-end="url(#arwE)"/>
-<rect class="iaCcard" x="320" y="316" width="316" height="44" rx="10"/><text class="iaCt" x="478" y="338" text-anchor="middle">Lesson material</text><text class="iaCl" x="478" y="354" text-anchor="middle">Outdoor weather vs greenhouse data</text>
+<rect class="iaCcard" x="320" y="316" width="316" height="44" rx="10"/><text class="iaCt" x="478" y="338" text-anchor="middle">Server API route</text><text class="iaCl" x="478" y="354" text-anchor="middle">Runs on Vercel · API key stays on the server</text>
 
 <rect class="iaSec" x="28" y="386" width="624" height="112" rx="12"/>
-<circle class="iaDot" cx="44" cy="403" r="3"/><text class="iaLab" x="52" y="407">AI module · crop-disease exploration</text>
-<rect class="iaPcbox" x="44" y="418" width="280" height="44" rx="10"/><text class="iaPt" x="184" y="440" text-anchor="middle">YOLO training exploration</text><text class="iaPs" x="184" y="456" text-anchor="middle">Epoch experiments · loss curves</text>
-<line class="iaArw" x1="324" y1="440" x2="352" y2="440" marker-end="url(#arwE)"/>
-<rect class="iaPcbox" x="356" y="418" width="280" height="44" rx="10"/><text class="iaPt" x="496" y="440" text-anchor="middle">Diagnosis demo</text><text class="iaPs" x="496" y="456" text-anchor="middle">Leaf photo → result in web app</text>
-<text class="iaEs" x="340" y="484" text-anchor="middle">Students tune epochs, read loss curves, then try the trained model in the web app</text>
+<circle class="iaDot" cx="44" cy="403" r="3"/><text class="iaLab" x="52" y="407">AI vision · in-browser transfer learning</text>
+<rect class="iaPcbox" x="44" y="418" width="192" height="44" rx="10"/><text class="iaPt" x="140" y="440" text-anchor="middle">Transfer learning</text><text class="iaPs" x="140" y="456" text-anchor="middle">TensorFlow.js + MobileNet v2</text>
+<line class="iaArw" x1="236" y1="440" x2="262" y2="440" marker-end="url(#arwE)"/>
+<rect class="iaPcbox" x="264" y="418" width="172" height="44" rx="10"/><text class="iaPt" x="350" y="440" text-anchor="middle">Holdout test</text><text class="iaPs" x="350" y="456" text-anchor="middle">Photos kept out of training</text>
+<line class="iaArw" x1="436" y1="440" x2="462" y2="440" marker-end="url(#arwE)"/>
+<rect class="iaPcbox" x="464" y="418" width="172" height="44" rx="10"/><text class="iaPt" x="550" y="440" text-anchor="middle">Camera check</text><text class="iaPs" x="550" y="456" text-anchor="middle">On a real leaf</text>
+<text class="iaEs" x="340" y="484" text-anchor="middle">Training runs inside the browser, and each room keeps its own trained model</text>
 
 <line class="iaFdiv" x1="34" y1="518" x2="646" y2="518"/>
 <text class="iaFoot" x="340" y="534" text-anchor="middle">Smart-Farm Education Program · System Flow © Juwon Lee</text>

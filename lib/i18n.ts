@@ -36,8 +36,6 @@ export const ui = {
   swipeHint: "← swipe / drag →",
   stackHint: "Grouped by what I actually do.",
 
-  deckButton: "Architecture deck (PDF)",
-
   experienceHeading: "Work Experience",
   activitiesHeading: "Activities",
   awardsHeading: "Awards",
@@ -105,8 +103,6 @@ export const uiKo: UiStrings = {
   skillsHeading: "기술 스택",
   swipeHint: "← 스와이프 / 드래그 →",
   stackHint: "실제로 하는 일 기준으로 묶었습니다.",
-
-  deckButton: "아키텍처 덱 (PDF)",
 
   experienceHeading: "경력",
   activitiesHeading: "활동",

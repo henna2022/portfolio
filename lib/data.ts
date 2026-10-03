@@ -60,7 +60,7 @@ export type ProseParagraph = ProseSegment[];
 export const about = {
   photo: "/portfolio_images/profile/juwonlee.jpg",
   tagline:
-    "AI product engineer. I build ML-backed products end to end, from sensor to shipped interface, and keep them running where real users are: exhibition floors, classrooms, and hardware in the field.",
+    "AI product engineer. I build AI into working products end to end, from sensor to shipped interface, and keep them running where real users are: exhibition floors, classrooms, and hardware in the field.",
   // 카드 하단 요약 — 정체성과 "지금"만 짧게. 나머지 이력은 아래 facts 로 내린다.
   info: [
     {
@@ -101,7 +101,7 @@ export const about = {
   prose: [
     [
       { text: "Hi, I'm Juwon Lee, a " },
-      { text: "product engineer who takes ML from dataset to deployed interface", b: true },
+      { text: "product engineer who builds AI into working products, from the data pipeline to the deployed interface", b: true },
       { text: ". I care most about the moment an idea becomes something people actually use, and understand. On most of my projects I've owned the work " },
       { text: "from planning through deployment", b: true },
       { text: "." },
@@ -120,7 +120,7 @@ export const about = {
       { text: "3,049 images in June 2026 and over 8,000 in July", b: true },
       { text: " across its two months there, with volume measured through its own backend. Doctor-Green reaches down to " },
       { text: "ESP32 sensor nodes", b: true },
-      { text: ", and with ATO I took it all the way to the hardware: firmware, servos, and an LCD face." },
+      { text: "." },
     ],
     [
       { text: "The other half of the job is " },
@@ -174,21 +174,20 @@ export const projects: Project[] = [
     desc: "A hands-on program where students experience IoT smart farming and AI crop diagnosis. Commissioned by Yangpyeong Education Office; planned and built solo (full server and web-app environment), now finished and taught as a demo class to 5 high-school students in August 2026, ahead of the 15-student cohort in October 2026.",
     year: "2026",
     role: "Solo: planning & development",
-    tags: ["TensorFlow.js", "MobileNet v2", "Weather API", "Flask", "MicroPython", "Supabase", "IoT"],
+    tags: ["TensorFlow.js", "MobileNet v2", "Next.js", "Supabase", "ESP32", "Arduino / C++", "Weather API"],
     href: "https://doctor-green-edu.vercel.app/",
-    repo: "https://github.com/henna2022/smartfarm-device",
     stat: "15-student cohort · Oct 2026",
     overview:
-      "A hands-on education program commissioned by the Yangpyeong Education Office through the museum, where students experience an IoT smart farm and AI crop diagnosis first-hand. I planned the program and built everything it needed solo, **a Python/Flask server, MicroPython firmware on the sensor devices, and the web app**, designed so students watch data accumulate and **sensor values change in real time**, with their own eyes. The program is **finished and was taught as a demo class to 5 high-school students in August 2026**, and is scheduled to run in **October 2026** as a class for a **cohort of 15 Yangpyeong high-school students**, selected by application.\n\nA class runs as a guided flow: students enter the virtual lab, pick a room at the hub, and move through four STEPs (weather, AI vision, IoT, and camera), watching data load into the lab's Supabase database before finishing with 'my app complete' and a live hardware demo. A location-based weather API ties the lessons to real growing conditions, and students **train a model themselves inside the browser**, transfer learning with TensorFlow.js on a self-hosted MobileNet v2 feature extractor, so the epoch and loss numbers they watch are the real values from their own run.\n\nThe program is a museum × education-office commission: an exhibition-linked education case **planned and built end to end by one person**.",
+      "A hands-on education program commissioned by the Yangpyeong Education Office through the museum, where students experience an IoT smart farm and AI crop diagnosis first-hand. I planned the program and built everything it needed solo, **a Next.js web app with server API routes on Vercel, and Arduino (C++) firmware for the 16 ESP32 student boards, which write sensor readings straight to Supabase**. I designed it so students watch data accumulate and **sensor values change in real time**, with their own eyes. The first prototype ran on a Python/Flask relay and MicroPython firmware. The program is **finished and was taught as a demo class to 5 high-school students in August 2026**, and is scheduled to run in **October 2026** as a class for a **cohort of 15 Yangpyeong high-school students**, selected by application.\n\nA class runs as a guided flow: students enter the virtual lab, pick a room at the hub, and move through four STEPs (weather, AI vision, IoT, and camera), watching data load into the lab's Supabase database. Once all four are connected, a capstone opens where students code if-then automation rules, test them in a simulator and run them on the real board, followed by a closing quiz. A location-based weather API ties the lessons to real growing conditions, and students **train a model themselves inside the browser**, transfer learning with TensorFlow.js on a self-hosted MobileNet v2 feature extractor, so the epoch and loss numbers they watch are the real values from their own run.\n\nThe program is a museum × education-office commission: an exhibition-linked education case **planned and built end to end by one person**.",
     highlights: [
       "Integrated a **location-based weather API** to tie lessons to real growing conditions.",
       "Students run **real transfer learning in the browser**, TensorFlow.js on a self-hosted MobileNet v2, and read epoch and loss straight off their own training run.",
       "Students watch sensor values **load and change in real time** in the lab server's database.",
-      "Designed the class flow: open lab → room-picker hub → 4 STEPs (weather · AI vision · IoT · camera) → Supabase → app complete → live demo.",
+      "Designed the class flow: room-picker hub → 4 STEPs (weather · AI vision · IoT · camera) → capstone (automation rules, simulator, real board) → closing quiz.",
       "Commissioned by the Yangpyeong Education Office through the museum; **planned and built solo**, including the full server and web-app environment.",
       "**Built, and taught as a demo class to 5 high-school students in August 2026** on the museum's education floor; the full class is **scheduled for October 2026** with a 15-student cohort of Yangpyeong high-school students, selected by application.",
     ],
-    flow: ["IoT sensors", "Weather API", "Server", "Student web app"],
+    flow: ["ESP32 boards", "Supabase", "Weather API", "Student web app"],
     flowImage: {
       light: "/portfolio_images/flow/smart-farm-education-flow-light.svg",
       dark: "/portfolio_images/flow/smart-farm-education-flow-dark.svg",
@@ -225,12 +224,12 @@ export const projects: Project[] = [
     image: "/portfolio_images/projects/doctorgreen_app.png",
     stat: "End-to-end solo",
     overview:
-      "Doctor-Green is a smart-farm platform that brings crop-disease diagnosis and IoT environment control onto a **single web platform**, so both live on one screen. I **planned and built the whole pipeline solo, from sensor to dashboard**.\n\nIt grew out of a VGG16 plant-disease-diagnosis app I built with team MAKENEW, which won the **Excellence Award at the 2024 ICT·SW Women's Start-up Competition**. That model never reached usable accuracy, so in 2026 I rebuilt the project as a full smart-farm platform and restarted the diagnosis model from the data up.\n\nThe IoT half runs today. ESP32 sensor nodes post environment data **directly to Supabase over Wi-Fi, no relay server**, and a Next.js web app visualizes it with 5-second polling. Actuators such as LEDs and fans are controlled through a **desired-state pattern**: the app only writes the target state, the ESP32 polls it and drives the hardware, and optimistic UI absorbs the round-trip delay. It is deployed on Vercel as a live demo.\n\nThe diagnosis model is **still at the data stage**. AI Hub blocks downloads from non-Korean IPs, so I wrote a Windows-side downloader that calls their API directly, merges the split archives, restores Korean filenames, and converts the JSON labels to YOLO-format boxes. From 5 disease classes × 1,000 images I extracted **39.9K lesion crops** (train 32.2K / val 4,326 / test 3,408) using a **group-aware stratified split**, so crops from the same source photo never straddle train and validation. **Training the crop classifier, ConvNeXt-Tiny or EfficientNetV2-S, is the next step; there are no results yet.**",
+      "Doctor-Green is a smart-farm platform that brings crop-disease diagnosis and IoT environment control onto a **single web platform**, so both live on one screen. I **planned and built the whole pipeline solo, from sensor to dashboard**.\n\nIt grew out of a VGG16 plant-disease-diagnosis app I built with team MAKENEW, which won the **Excellence Award at the 2024 ICT·SW Women's Start-up Competition**. That model never reached usable accuracy, so in 2026 I rebuilt the project as a full smart-farm platform and restarted the diagnosis model from the data up.\n\nThe IoT half runs today. ESP32 sensor nodes post environment data **directly to Supabase over Wi-Fi, no relay server**, and a Next.js web app visualizes it with 5-second polling. Actuators such as LEDs and fans are controlled through a **desired-state pattern**: the app only writes the target state, the ESP32 polls it and drives the hardware, and optimistic UI absorbs the round-trip delay. It is deployed on Vercel as a live demo.\n\nThe diagnosis model is **still at the data stage**. AI Hub blocks downloads from non-Korean IPs, so I wrote a Windows-side downloader that calls their API directly, merges the split archives, restores Korean filenames, and converts the JSON labels to YOLO-format boxes. From 5 classes (healthy plus 4 diseases) × 1,000 images I extracted **39.9K lesion crops** (train 32.2K / val 4,326 / test 3,408) using a **group-aware stratified split**, so crops from the same source photo never straddle train and validation. **Training the crop classifier, ConvNeXt-Tiny or EfficientNetV2-S, is the next step; there are no results yet.**",
     highlights: [
       "**Data flow built end to end**: ESP32 posting directly to Supabase over Wi-Fi → Next.js dashboard on 5-second polling.",
       "**Desired-state actuator control** (LED, fan): the app writes target state, the device polls and applies it, optimistic UI covers the latency.",
       "Worked around AI Hub's non-Korean-IP download block with a **Windows-side downloader I wrote**: direct API calls, split-archive merge, Korean filename restore, and JSON → YOLO-format label conversion.",
-      "Built the training set myself: **39.9K lesion crops** (train 32.2K / val 4,326 / test 3,408) across 5 disease classes, with a **group-aware stratified split** so crops from one photo never cross the train/validation boundary.",
+      "Built the training set myself: **39.9K lesion crops** (train 32.2K / val 4,326 / test 3,408) across 5 classes (healthy plus 4 diseases), with a **group-aware stratified split** so crops from one photo never cross the train/validation boundary.",
       "**Classifier training is the next step** (ConvNeXt-Tiny / EfficientNetV2-S). The 2024 VGG16 attempt never reached usable accuracy, so the model is being rebuilt from the data up.",
       "Next.js 16 + TypeScript + Tailwind web app deployed on Vercel as a live demo.",
     ],
@@ -435,35 +434,6 @@ export const projects: Project[] = [
   //   ],
   // },
   {
-    slug: "ato-care-robot",
-    tier: "side",
-    title: "ATO Care Robot",
-    category: "AI Healthcare · Care Robot",
-    categories: ["AI", "Robotics"],
-    kicker: "Companion & medication-care robot",
-    desc: "A rabbit-shaped companion robot with animated LCD eyes that react to touch and to someone approaching. Built end to end, from circuits and firmware to a 3D-printed body, and currently being extended with YAKMOA, a medication-care service.",
-    year: "2026",
-    role: "Robot: solo build · YAKMOA service: 2-person team (PM & Dev)",
-    tags: ["ESP32", "Arduino / C++", "GC9A01 LCD", "Servo / PIR / Touch", "3D Printing"],
-    stat: "GH start-up prize",
-    overview:
-      "ATO is a rabbit-shaped emotional companion robot for single-person households and seniors. Two round displays act as expressive 'eyes' that show emotion, and sensors detect when someone approaches or pets it, triggering reactions.\n\nAn ESP32 drives the dual GC9A01 round LCDs for eye-expression animations such as blinking and gaze shifts, integrated with PIR proximity detection, capacitive petting touch, DFPlayer audio, and servo-driven ear and arm motion. The build covers the **entire process: circuit design, firmware, a 3D-printed body, and microfiber cover sewing patterns**.\n\nOn top of this, ATO is being extended with YAKMOA, an AI feature designed to recognize medicines and manage dose schedules, taking the robot from companionship into medication care. YAKMOA was designed as a medication-management service for digitally vulnerable users and people with disabilities, and **won a prize at the GH Youth Build-Up Start-up Competition**. The robot itself was **built solo end to end**; the YAKMOA service was planned and commercialized as the 2-person team MAKENEW, where I was PM & developer. The robot is currently a **Phase 1 prototype**, with medication care being integrated.",
-    highlights: [
-      "Eye-expression animations (blinking, gaze) on dual GC9A01 round LCDs driven by an ESP32.",
-      "Integrated PIR proximity detection, capacitive petting touch, DFPlayer audio, and servo ear/arm motion.",
-      "Robot built **100% solo** across the entire process: circuit design, firmware, a 3D-printed body, and microfiber sewing patterns.",
-      "Integrating **YAKMOA** (AI medicine recognition and dose management) to **combine companionship with medication care in one robot**, integration in progress.",
-      "YAKMOA designed as a medication-management service for digitally vulnerable users and people with disabilities; **won a prize at the GH Youth Build-Up Start-up Competition** (team MAKENEW).",
-      "For the YAKMOA service, worked as the 2-person team MAKENEW: as **PM & developer**, led service planning, user research, and authored the business plan & pitch deck.",
-      "Currently a **Phase 1 prototype**, integrating medication care.",
-    ],
-    flow: ["Sensors (PIR / touch)", "ESP32 / Arduino", "Servo + LCD expression", "YAKMOA medication care"],
-    flowImage: {
-      light: "/portfolio_images/flow/ato-care-robot-flow-light.svg",
-      dark: "/portfolio_images/flow/ato-care-robot-flow-dark.svg",
-    },
-  },
-  {
     slug: "exhibit-auto-recovery",
     tier: "side",
     title: "Exhibit Auto-Recovery",
@@ -519,7 +489,7 @@ export const skillGroups: SkillGroup[] = [
   {
     key: "ai",
     title: "AI & Computer Vision",
-    capability: "I train, evaluate, and ship vision models end to end.",
+    capability: "I build the data pipelines and in-browser training that vision models need, and wire AI APIs into shipped products.",
     items: [
       "Python",
       "TensorFlow.js",
@@ -581,7 +551,6 @@ export const skillGroups: SkillGroup[] = [
       "MicroPython",
       "Arduino / C++",
       "Sensors",
-      "3D Printing",
     ],
   },
   {
@@ -601,7 +570,7 @@ export const experience = [
     org: "Seoul Robot & AI Science Museum",
     site: "https://science.seoul.go.kr/RAIM/index.do",
     role: "Education R&D · Developer",
-    period: "2026.03 - Present · Full-time",
+    period: "2026.03 - Present · Full-time contract",
     gallery: [
       "/portfolio_images/experience/docent_1.JPG",
       "/portfolio_images/experience/docent_2.jpg",
@@ -760,11 +729,10 @@ export const awards: Award[] = [
     result: "Prize winner",
     role: "PM & Developer",
     topic:
-      "YAKMOA, a multimodal-AI medication-management service for digitally vulnerable users, built on the ATO care robot.",
+      "YAKMOA, a medication-management service for digitally vulnerable users.",
     // 시상식 화면 — 함께 입선한 다른 팀의 대표자 실명은 가려서 올린다
     // (본인 것이 아닌 개인정보를 공개 사이트에 싣지 않기 위해)
     photos: ["/portfolio_images/awards/gh_buildup_prize.jpg"],
-    relatedSlug: "ato-care-robot",
   },
   {
     // 2025.09~10 공백(대회 준비 기간) 설명은 이력서/CV 타임라인에서 다룬다.

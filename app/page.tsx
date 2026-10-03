@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Juwon Lee | AI Product Engineer",
     description:
-      "Portfolio of Juwon Lee, an AI product engineer building systems end to end, from sensor to shipped product.",
+      "Portfolio of Juwon Lee, an AI product engineer who builds AI features into products end to end, from data pipeline and sensors to deployed interface, and runs them on exhibition floors, in classrooms, and on real hardware.",
     url: `${SITE_URL}/`,
     images: ["/og-cover.png"],
   },
