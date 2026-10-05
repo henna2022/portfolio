@@ -81,7 +81,7 @@ export const about = {
   facts: [
     {
       k: "Education",
-      v: "Hankyong National University (2022–2027 expected · completing the degree while working full-time)\nRutgers University · Winter Intensive English (2025)\nCheongwon Girls' High School (2019–2022)",
+      v: "Hankyong National University (2022–2027 expected)\nRutgers University · Winter Intensive English (2025)\nCheongwon Girls' High School (2019–2022)",
     },
     {
       k: "Languages & Certifications",
@@ -116,9 +116,9 @@ export const about = {
   ] as ProseParagraph[],
   proseMore: [
     [
-      { text: "That software mostly lands in places people stand in. At the Seoul Robot & AI Science Museum my Art Lab ran on the exhibition floor, generating " },
-      { text: "3,049 images in June 2026 and over 8,000 in July", b: true },
-      { text: " across its two months there, with volume measured through its own backend. Doctor-Green reaches down to " },
+      { text: "That software mostly lands in places people stand in. At the Seoul Robot & AI Science Museum my Art Lab ran on the exhibition floor from June to August 2026, and its own backend counted " },
+      { text: "14,328 generated images, 9,865 of them in July", b: true },
+      { text: ". Doctor-Green reaches down to " },
       { text: "ESP32 sensor nodes", b: true },
       { text: "." },
     ],
@@ -224,13 +224,13 @@ export const projects: Project[] = [
     image: "/portfolio_images/projects/doctorgreen_app.png",
     stat: "End-to-end solo",
     overview:
-      "Doctor-Green is a smart-farm platform that brings crop-disease diagnosis and IoT environment control onto a **single web platform**, so both live on one screen. I **planned and built the whole pipeline solo, from sensor to dashboard**.\n\nIt grew out of a VGG16 plant-disease-diagnosis app I built with team MAKENEW, which won the **Excellence Award at the 2024 ICT·SW Women's Start-up Competition**. That model never reached usable accuracy, so in 2026 I rebuilt the project as a full smart-farm platform and restarted the diagnosis model from the data up.\n\nThe IoT half runs today. ESP32 sensor nodes post environment data **directly to Supabase over Wi-Fi, no relay server**, and a Next.js web app visualizes it with 5-second polling. Actuators such as LEDs and fans are controlled through a **desired-state pattern**: the app only writes the target state, the ESP32 polls it and drives the hardware, and optimistic UI absorbs the round-trip delay. It is deployed on Vercel as a live demo.\n\nThe diagnosis model is **still at the data stage**. AI Hub blocks downloads from non-Korean IPs, so I wrote a Windows-side downloader that calls their API directly, merges the split archives, restores Korean filenames, and converts the JSON labels to YOLO-format boxes. From 5 classes (healthy plus 4 diseases) × 1,000 images I extracted **39.9K lesion crops** (train 32.2K / val 4,326 / test 3,408) using a **group-aware stratified split**, so crops from the same source photo never straddle train and validation. **Training the crop classifier, ConvNeXt-Tiny or EfficientNetV2-S, is the next step; there are no results yet.**",
+      "Doctor-Green is a smart-farm platform that brings crop-disease diagnosis and IoT environment control onto a **single web platform**, so both live on one screen. I **planned and built the whole pipeline solo, from sensor to dashboard**.\n\nIt grew out of a VGG16 plant-disease-diagnosis app I built with team MAKENEW, which won the **Excellence Award at the 2024 ICT·SW Women's Start-up Competition**. That model stayed below the 95% accuracy the team had set as its bar for release, so in 2026 I rebuilt the project as a full smart-farm platform and restarted the diagnosis model from the data up.\n\nThe IoT half runs today. ESP32 sensor nodes post environment data **directly to Supabase over Wi-Fi, no relay server**, and a Next.js web app visualizes it with 5-second polling. Actuators such as LEDs and fans are controlled through a **desired-state pattern**: the app only writes the target state, the ESP32 polls it and drives the hardware, and optimistic UI absorbs the round-trip delay. It is deployed on Vercel as a live demo.\n\nThe diagnosis model is **still at the data stage**. AI Hub blocks downloads from non-Korean IPs, so I wrote a Windows-side downloader that calls their API directly, merges the split archives, restores Korean filenames, and converts the JSON labels to YOLO-format boxes. From 5 classes (healthy plus 4 diseases) × 1,000 images I extracted **39.9K image crops** (train 32.2K / val 4,326 / test 3,408) using a **group-aware stratified split**, so crops from the same source photo never straddle train and validation. **Training the crop classifier, ConvNeXt-Tiny or EfficientNetV2-S, is the next step; there are no results yet.**",
     highlights: [
       "**Data flow built end to end**: ESP32 posting directly to Supabase over Wi-Fi → Next.js dashboard on 5-second polling.",
       "**Desired-state actuator control** (LED, fan): the app writes target state, the device polls and applies it, optimistic UI covers the latency.",
       "Worked around AI Hub's non-Korean-IP download block with a **Windows-side downloader I wrote**: direct API calls, split-archive merge, Korean filename restore, and JSON → YOLO-format label conversion.",
-      "Built the training set myself: **39.9K lesion crops** (train 32.2K / val 4,326 / test 3,408) across 5 classes (healthy plus 4 diseases), with a **group-aware stratified split** so crops from one photo never cross the train/validation boundary.",
-      "**Classifier training is the next step** (ConvNeXt-Tiny / EfficientNetV2-S). The 2024 VGG16 attempt never reached usable accuracy, so the model is being rebuilt from the data up.",
+      "Built the training set myself: **39.9K image crops** (train 32.2K / val 4,326 / test 3,408) across 5 classes (healthy plus 4 diseases), with a **group-aware stratified split** so crops from one photo never cross the train/validation boundary.",
+      "**Classifier training is the next step** (ConvNeXt-Tiny / EfficientNetV2-S). The 2024 VGG16 model stayed below the team's 95% release bar, so the model is being rebuilt from the data up.",
       "Next.js 16 + TypeScript + Tailwind web app deployed on Vercel as a live demo.",
     ],
     flow: ["ESP32 direct POST", "Supabase", "Next.js · 5s polling", "Desired-state control"],
@@ -249,23 +249,23 @@ export const projects: Project[] = [
     title: "Raimi's AI Art Lab",
     category: "Web App · Education",
     categories: ["AI", "Web", "Education"],
-    kicker: "Seoul Robot & AI Science Museum · Jun–Jul 2026",
-    desc: "A guided prompt builder where visitors co-create AI artwork with the museum character Raimi. It ran on the museum floor through June and July 2026, generating 3,049 images in June and over 8,000 in July.",
+    kicker: "Seoul Robot & AI Science Museum · Jun–Aug 2026",
+    desc: "A guided prompt builder where visitors co-create AI artwork with the museum character Raimi. It ran on the museum floor from June to August 2026, and its backend counted 14,328 generated images, 9,865 of them in July.",
     year: "2026",
     role: "Planning · development · operations",
     tags: ["JavaScript", "OpenAI API", "Vercel Serverless", "Supabase", "Cloudflare R2", "PWA"],
     repo: "https://github.com/henna2022/raim-ai-artstudio",
     image: "/portfolio_images/projects/artlab-mode-en.jpg",
-    stat: "3,049 → 8,000+ images/mo",
+    stat: "14,328 images · Jun–Aug 2026",
     overview:
-      "Visitors compose a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI generates the artwork. Designed so young visitors learn the principles of prompt engineering through play, with a **10-step (+5 advanced) choice-based prompt builder** that shows how a prompt is put together.\n\nThe off-the-shelf GPT service used before would stop responding for no identifiable reason while visitors were using it. This is a hands-on exhibit, so a frozen screen meant the station sat unusable until staff intervened. After moving to a custom web app and serverless backend, **it has not frozen once**; the backend calls the OpenAI image-generation API, auto-watermarks every image with the museum logo, stores images on Cloudflare R2, and keeps generation metadata and stats in Supabase. Visitors take their creations home instantly via QR code, and because it runs as a web app, the exhibition kiosk could be locked down to a single full-screen browser.\n\nIt ran on the museum floor through June and July 2026: **3,049 images in June, rising above 8,000 in July**, the museum's peak season, with **generation volume measured in the app's own backend**.",
+      "Visitors compose a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI generates the artwork. Designed so young visitors learn the principles of prompt engineering through play, with a **10-step (+5 advanced) choice-based prompt builder** that shows how a prompt is put together.\n\nThe off-the-shelf GPT service used before would stop responding while visitors were using it. This is a hands-on exhibit, so a frozen screen meant the station sat unusable until staff intervened. After moving to a custom web app and serverless backend, **it has not frozen once**; the backend calls the OpenAI image-generation API, auto-watermarks every image with the museum logo, stores images on Cloudflare R2, and keeps generation metadata and stats in Supabase. Visitors take their creations home instantly via QR code, and because it runs as a web app, the exhibition kiosk could be locked down to a single full-screen browser.\n\nIt ran on the museum floor from June to August 2026, and **the app's own backend recorded 14,328 generated images**: 3,049 from 17 June, 9,865 in July and 1,414 in August. One image is one successful generation; blocked or failed requests are not counted.",
     highlights: [
       "**10-step (+5 advanced) choice-based prompt builder** that teaches prompt composition through play, designed for all-ages museum visitors.",
-      "**Ended the unexplained freezes** of the prior off-the-shelf GPT service by moving to a custom web app and backend, none since the switch.",
+      "**Ended the freezes** of the prior off-the-shelf GPT service by moving to a custom web app and backend, none since the switch.",
       "Serverless backend on the OpenAI image-generation API, deployed on Vercel.",
       "**Auto-watermarks** every image with the museum logo, storing **images on Cloudflare R2 and generation stats in Supabase**.",
       "QR-code takeaway for visitors' creations; running as a web app let the exhibition kiosk be locked to a single full-screen browser.",
-      "**3,049 images in June 2026, rising above 8,000 in July** over its two months on the museum floor (July is the museum's peak season), with **generation volume measured in the app's own backend**.",
+      "**14,328 images generated from June to August 2026, 9,865 of them in July**, with **generation volume measured in the app's own backend**.",
     ],
     flow: ["10-step prompt builder", "OpenAI API", "Auto-watermark", "R2 + Supabase"],
     flowImage: {
@@ -283,7 +283,7 @@ export const projects: Project[] = [
     ],
     galleryAlts: {
       "/portfolio_images/projects/artlab-usage-chart.png":
-        "Art Lab admin dashboard: daily image generation over the last 30 days (30 June–28 July 2026), peaking above 700 in a single day.",
+        "Art Lab admin dashboard: daily image generation over the last 30 days (30 June–29 July 2026), peaking above 700 in a single day.",
     },
   },
   {
@@ -300,16 +300,16 @@ export const projects: Project[] = [
     image: "/portfolio_images/projects/raimapp_main.png",
     stat: "20 staff daily",
     overview:
-      "An internal platform for managing the museum's docents and part-time workers: a **self-initiated project** where I defined a real operational pain point (repetitive on-site work) and built the answer myself. It brings a per-date schedule grid, staff roster, live duty status, and notices together in a single app.\n\nIt started as a single-HTML prototype and was **refactored into a structured Vite + React codebase** backed by Firebase (Firestore) for real-time data. The full screen flow was planned and built end to end: login and role-based routing into bottom tabs (home · notices · schedule · status · my page · admin), plus a manager PC console and shared modals.\n\nPackaged with Capacitor for internal iOS / Android distribution, it is currently running as an internal test distribution, **used daily by around 20 docents and part-time staff**.",
+      "An internal platform for managing the museum's docents and part-time workers: a **self-initiated project** where I defined a real operational pain point (repetitive on-site work) and built the answer myself. It brings a per-date schedule grid, staff roster, live duty status, and notices together in a single app.\n\nIt started as a single-HTML prototype and was **refactored into a structured Vite + React codebase** backed by Firebase (Firestore) for real-time data. The full screen flow was planned and built end to end: login and role-based routing into bottom tabs (home · notices · schedule · status · my page · admin), plus a manager PC console and shared modals.\n\nPackaged with Capacitor for internal mobile distribution, it is currently running as an internal test distribution, **used daily by around 20 docents and part-time staff**.",
     highlights: [
       "**Planned and built the entire service**: schedule grid, roster, duty status, and notice screens.",
       "Refactored a single-HTML prototype into a **maintainable Vite + React codebase**.",
       "**Real-time** roster and duty status backed by Firebase / Firestore.",
       "Designed the full screen flow: login/role routing → bottom tabs (home · notices · schedule · status · my page · admin) → manager PC console and shared modals.",
-      "Set up internal iOS / Android distribution with Capacitor, **used daily by ~20 docents and part-time staff**.",
+      "Set up internal mobile distribution with Capacitor, **used daily by ~20 docents and part-time staff**.",
       "A **self-initiated** internal project, started by defining a real operational problem on-site.",
     ],
-    flow: ["React + Vite", "Firebase / Firestore", "Capacitor", "iOS / Android internal"],
+    flow: ["React + Vite", "Firebase / Firestore", "Capacitor", "Internal mobile build"],
     flowImage: {
       light: "/portfolio_images/flow/raim-staff-platform-flow-light.svg",
       dark: "/portfolio_images/flow/raim-staff-platform-flow-dark.svg",
@@ -410,7 +410,7 @@ export const projects: Project[] = [
     category: "Ops Automation · Reliability",
     categories: ["Ops", "Web"],
     kicker: "Exhibit uptime · self-initiated",
-    desc: "A recovery system for a museum AI exhibit that used to need one specific person, at one specific machine, every time it froze. It now restarts itself within a minute of a detectable failure, and any staff member can recover it from their own phone in a single tap.",
+    desc: "A recovery system for a museum AI exhibit that used to need one specific person, at one specific machine, every time it froze. It checks the program every 20 seconds, relaunches it within a minute of a crash or freeze it can detect, and lets staff restart it from a button page on their own phone.",
     year: "2026",
     role: "Solo: diagnosis, build, rollout, handover",
     tags: [
@@ -423,13 +423,13 @@ export const projects: Project[] = [
     repo: "https://github.com/henna2022/maskbot-restart",
     stat: "1 operator → all staff",
     overview:
-      "MaskBot is a face- and voice-interaction robot exhibit on the museum floor. Its control software would intermittently freeze or exit mid-operation, and the only remedy was a manual restart, which in practice **only one person could perform, at one specific machine**, through a remote session. Every failure became a wait: find the person, get them to the machine, walk through the remote login. Meanwhile visitors stood in front of an exhibit that could not hear them.\n\nI took this on after performing that manual restart one too many times. The key observation was that the fix itself was trivial, closing a window and reopening it, and that the entire cost lived in who was permitted to perform it and how long it took them to get there. So the goal was never to make the restart smarter. It was to **remove the human bottleneck around it**.\n\nThe result runs in three layers on the exhibit machine. A watchdog **polls the program every 20 seconds** and restarts it when the process has died or its window stops responding, with a two-stage confirmation so a momentarily busy UI is not killed by mistake, and a back-off after repeated failures so a deeper hardware fault does not become a restart loop. Scheduled restarts run twice daily as preventive maintenance. And a small HTTP service serves a **single-button page**, so **any staff member can trigger recovery from their own phone**.\n\nThat third layer exists because of a limit I could not engineer away. The most common failure leaves the process alive and the window responsive while speech recognition silently stops working, and no health signal available to me distinguishes that from a healthy exhibit. Rather than paper over it, I designed around it: the automated layers handle every failure a machine can detect, and the human layer covers the one it cannot.\n\nReaching the exhibit machine from a personal phone was a separate problem, as staff devices had no route to it. I used Tailscale, a WireGuard-based mesh VPN, so enrolled devices reach the service over an encrypted peer-to-peer tunnel with no inbound port exposed; access stays limited to devices inside that private network.\n\nThe system now **runs unattended in daily operation**. I also wrote a handover document covering configuration, logs, routine maintenance, a diagnosis playbook, and the system's documented limitations, so the maintenance technician can own it without me.",
+      "MaskBot is a face- and voice-interaction robot exhibit on the museum floor. Its control software would intermittently freeze or exit mid-operation, and the only remedy was a manual restart, which in practice **only one person could perform, at one specific machine**, through a remote session. Every failure became a wait: find the person, get them to the machine, walk through the remote login. Meanwhile visitors stood in front of an exhibit that could not hear them.\n\nI took this on after performing that manual restart one too many times. The key observation was that the fix itself was trivial, closing a window and reopening it, and that the entire cost lived in who was permitted to perform it and how long it took them to get there. So the goal was never to make the restart smarter. It was to **remove the human bottleneck around it**.\n\nThe result runs in three layers on the exhibit machine. A watchdog **polls the program every 20 seconds** and restarts it when the process has died or its window stops responding, with a two-stage confirmation so a momentarily busy UI is not killed by mistake, and a five-minute pause after three restarts in a row, so a deeper hardware fault does not turn into nonstop restarts. Scheduled restarts run twice daily as preventive maintenance. And a small HTTP service serves a **single-button page**, so **any staff member can trigger recovery from their own phone**.\n\nThat third layer exists because of a limit I could not engineer away. One failure mode leaves the process alive and the window responsive while speech recognition silently stops working, and no health signal available to me distinguishes that from a healthy exhibit. Rather than paper over it, I designed around it: the automated layers handle every failure a machine can detect, and the human layer covers the one it cannot.\n\nReaching the exhibit machine from a personal phone was a separate problem, as staff devices had no route to it. I used Tailscale, a WireGuard-based mesh VPN, so enrolled devices reach the service over an encrypted tunnel without any port opened to the internet.\n\nI **installed it on the exhibit machine in July 2026, and it still runs unattended in daily operation**. I also wrote a handover document covering configuration, logs, routine maintenance, a diagnosis playbook, and the system's documented limitations, so the maintenance technician can own it without me.",
     highlights: [
       "**Reframed the problem**: the restart was trivial; the real cost was that **only one person, at one machine**, was able to perform it.",
-      "Watchdog **restarts the exhibit within a minute** of a crash or hang, with two-stage confirmation against false positives and back-off to prevent restart loops on deeper faults.",
-      "**One-tap recovery page** served from the exhibit machine, turning an escalation into something **any staff member can do from their own phone**.",
+      "Watchdog **relaunches the exhibit program within a minute** of a crash or hang it detects, with a two-stage check against false positives and a five-minute pause after three restarts in a row.",
+      "**One-button recovery page** served from the exhibit machine, turning an escalation into something **any staff member can do from their own phone**.",
       "**Designed around an undetectable failure mode**: when speech recognition dies silently, automation cannot tell, so scheduled restarts and the manual button cover what the watchdog structurally cannot.",
-      "**Encrypted mesh VPN** (Tailscale / WireGuard) gives enrolled devices access **without exposing any inbound port**.",
+      "**Encrypted mesh VPN** (Tailscale / WireGuard) lets enrolled devices reach the page **without opening any port to the internet**.",
       "Shipped with a **maintenance handover document**: configuration, logs, diagnosis playbook, and known limitations.",
     ],
     flow: ["Watchdog + schedule", "Restart service", "Mesh VPN", "Staff phone"],
@@ -447,22 +447,22 @@ export const projects: Project[] = [
     title: "RAIM EN: English Tour Booking",
     category: "Web Service · Reservations",
     categories: ["Web", "Ops"],
-    kicker: "Seoul Robot & AI Science Museum · in operation",
-    desc: "An English guide and tour-booking site for the museum's foreign visitors. Seoul's public reservation system requires Korean mobile identity verification, which kept foreign visitors from booking online; here they book with an email address.",
+    kicker: "Seoul Robot & AI Science Museum · public launch pending",
+    desc: "An English guide and tour-booking site for the museum's foreign visitors. Seoul's public reservation system requires Korean mobile identity verification, which kept foreign visitors from booking online, so I made it possible to book with an email address instead of a Korean phone number.",
     year: "2026",
-    role: "Solo: planning, development, deployment, operation",
+    role: "Solo: planning, development, deployment",
     tags: ["Node.js", "Express", "SQLite", "EJS", "Google Apps Script", "Fly.io"],
     href: "https://raim-en.fly.dev",
     image: "/portfolio_images/projects/raim-en-en.jpg",
     stat: "287 automated tests",
     overview:
-      "Guided exhibition tours at the museum are booked through Seoul's public reservation system, which requires identity verification with a Korean mobile number. Foreign visitors **could not book online at all**; they could only try on the day, and complaints followed. I built an English site that covers visit information and gives them a booking path that needs only an email address.\n\nThe first version worked by approval: a visitor applied, staff blocked the seats in the city system, then confirmed. In August 2026 the museum switched to monthly allocations, and the site now opens only the sessions and seat counts set aside for online booking each month. Within an allocated month a booking is **confirmed instantly against live remaining seats**, and a cancellation returns the seat on its own. Visitors look up, change, or cancel with their booking code and email; the code alone shows only a masked summary.\n\nFor staff there is an admin with individual accounts, a persistent session store, login lockout, and CSRF protection, and the public form has rate limiting and a honeypot. Reservations also mirror to a Google Sheet that works as a **shared ledger**: through Apps Script, staff can approve or decline from a dropdown, approval goes through only when the seat-blocked checkbox is ticked, and bulk edits over 20 rows are rejected. Personal data is deleted automatically 90 days after the visit (no-show records are kept longer), and visit statistics are counted on the server without storing IP addresses.\n\nThe codebase has **287 automated tests** (node:test), all passing. In October 2026 hosting moved from Render's free tier, where every redeploy wiped the SQLite database and bookings had to be restored from the sheet, to Fly.io with a persistent volume.",
+      "Guided exhibition tours at the museum are booked through Seoul's public reservation system, which requires identity verification with a Korean mobile number. Foreign visitors **could not book online at all**; they could only try on the day, and complaints followed. I built an English site that covers visit information and gives them a booking path that uses an email address instead of a Korean phone number.\n\nThe first version worked by approval: a visitor applied, staff blocked the seats in the city system, then confirmed. In August 2026 the museum set a monthly allocation of sessions and seats for online booking, and I rebuilt the site so it opens only those allocated sessions and seat counts. Within an allocated month a booking is **confirmed instantly against live remaining seats**, and a cancellation returns the seat on its own. Visitors look up, change, or cancel with their booking code and email; the code alone shows only a masked summary.\n\nFor staff there is an admin with individual accounts, a persistent session store, login lockout, and CSRF protection, and the public form has rate limiting and a honeypot. Reservations also mirror to a Google Sheet that works as a **shared ledger**: through Apps Script, staff can approve or decline from a dropdown, approval goes through only when the seat-blocked checkbox is ticked, and bulk edits over 20 rows are rejected. Personal data is deleted automatically 90 days after the visit (no-show records are kept longer), and visit statistics are counted on the server without storing IP addresses.\n\nThe codebase has **287 automated tests** (node:test). In October 2026 hosting moved from Render's free tier, where every redeploy wiped the SQLite database and its data had to be restored from the sheet, to Fly.io with a persistent volume.",
     highlights: [
-      "Opened online tour booking to foreign visitors, who were shut out by the **Korean mobile identity check** the city reservation system requires.",
+      "Built online tour booking for foreign visitors, who were shut out by the **Korean mobile identity check** the city reservation system requires.",
       "**Monthly allocation with instant confirmation** replaced the first approval flow: bookings confirm against live remaining seats, and cancellations return seats automatically.",
       "**Google Sheet as a shared ledger**: staff approve or decline from a dropdown via Apps Script, with guards against unblocked seats, mass edits, and duplicate emails.",
       "**Privacy by default**: personal data deleted 90 days after the visit (longer for no-shows), masked lookup by booking code alone, visit statistics without storing IP addresses.",
-      "**287 automated tests** covering booking, admin auth, CSRF, rate limiting, and sheet sync, all passing.",
+      "**287 automated tests** covering booking, admin auth, CSRF, rate limiting, and sheet sync.",
     ],
   },
   // 규모로는 major 후보(온디바이스 모델 5종·서버리스 API·현장 로그 보정). 승격은 본인이 정한다.
@@ -499,7 +499,7 @@ export const projects: Project[] = [
     category: "Photo Kiosk",
     categories: ["AI", "Web"],
     kicker: "Seoul Robot & AI Science Museum · Jun–Sep 2026",
-    desc: "A four-cut photo kiosk where visitors design a frame with the museum's robots and take the finished photo home by QR. It recorded 1,932 uses over 26 operating days between June and September 2026.",
+    desc: "A four-cut photo kiosk where visitors design a frame with the museum's robots and take the finished photo home by QR. It recorded 1,932 uses on 26 days between June and September 2026.",
     year: "2026",
     role: "Solo: planning, development, operations",
     tags: ["JavaScript", "MediaPipe", "Canvas", "Supabase", "QR", "PWA"],
@@ -507,9 +507,9 @@ export const projects: Project[] = [
     image: "/portfolio_images/projects/raim-4cut-studio-en.jpg",
     stat: "1,932 uses · 26 days",
     overview:
-      "RAIM 4-Cut Studio started as the photo kiosk for the museum's 2nd anniversary and runs on a portrait Galaxy Tab. Visitors choose a frame color, one of **ten museum robots** and an optional caption, take six shots on a three-second countdown, pick four, and scan a QR code to save the 1080×1620 frame to their phone. It recorded **1,932 uses over 26 operating days** between June 14 and September 6, 2026.\n\nShot recommendation runs on the device. A MediaPipe face model scores each shot on sharpness, face presence, open eyes and smile, and the top four are **highlighted, not auto-selected**, so the visitor makes the final pick. The QR link expires after two hours. Its center label was sized by test: at 30% of the code's width, all 12 URL lengths decoded at three scales with jsQR.\n\nStaff use a PIN-protected stats page with daily, weekly and monthly counts, robot popularity and frame colors, and can switch seasonal robot versions such as summer and Chuseok without a redeploy. Kiosk guards block long-press menus, zoom, auto-translation and back gestures, and the result screen returns to the start after 30 seconds.",
+      "RAIM 4-Cut Studio started as the photo kiosk for the museum's 2nd anniversary and runs on a portrait Galaxy Tab. Visitors choose a frame color, one of **ten museum robots** and an optional caption, take six shots on a three-second countdown, pick four, and scan a QR code to save the 1080×1620 frame to their phone. It recorded **1,932 uses on 26 days** between June 14 and September 6, 2026.\n\nShot recommendation runs on the device. A MediaPipe face model scores each shot on sharpness, face presence, open eyes and smile, and the top four are **highlighted, not auto-selected**, so the visitor makes the final pick. The QR link expires after two hours. Its center label was sized by test: at 30% of the code's width, all 12 URL lengths decoded at three scales with jsQR.\n\nStaff use a PIN-protected stats page with daily, weekly and monthly counts, robot popularity and frame colors, and can switch seasonal robot versions such as summer and Chuseok without a redeploy. Kiosk guards block long-press menus, zoom, auto-translation and back gestures, and the result screen returns to the start after 30 seconds.",
     highlights: [
-      "**1,932 uses over 26 operating days** between June and September 2026.",
+      "**1,932 uses recorded on 26 days** between June and September 2026.",
       "**On-device best-shot recommendation** from MediaPipe face scores; the visitor still picks the four cuts.",
       "QR center label sized by test: 12 of 12 URL lengths decoded at three scales with jsQR.",
       "Seasonal robot versions and frame logos switched from the staff page, no redeploy needed.",
@@ -577,13 +577,13 @@ export const projects: Project[] = [
     tags: ["Vercel Functions", "Supabase", "PostgreSQL", "Row Level Security", "JavaScript"],
     stat: "8 exhibits registered",
     overview:
-      "Each interactive exhibit I built for the museum recorded usage its own way: some on a server, some only in each tablet's browser storage, and one not at all. I'm a Restorer! runs on 8 tablets, so a total meant opening an admin screen on every device and adding the numbers by hand. I built a hub where every exhibit reports to one endpoint and **a single dashboard shows daily totals**.\n\nThe database keeps **one row per exhibit, day, and event** instead of one per use, and increments it atomically in a single SQL statement, so a full year tops out at 7,665 rows on a free tier. Row-level security is on with no public policies: only serverless functions read and write, using a service key that never reaches the browser. On the exhibit side, a drop-in collector script **queues events while offline** and sends them later, since Raimi's AI Language Lab runs as an offline-first app on tablets and must keep working without internet.\n\nEach exhibit was connected with a one-line hook, leaving its existing stats code untouched. For the two exhibits whose run had ended, I moved their past records into the hub: **14,328 uses over 47 days** for Raimi's AI Art Lab and 1,932 over 26 days for RAIM 4-Cut Studio. Because the collect endpoint has to be public, it accepts only registered exhibits and caps every request, and the documentation states that the numbers are for internal operations, not official figures.",
+      "Each interactive exhibit I built for the museum recorded usage its own way: some on a server, some only in each tablet's browser storage, and one not at all. I'm a Restorer! runs on 8 tablets, so a total meant opening an admin screen on every device and adding the numbers by hand. I built a hub where every exhibit reports to one endpoint and **a single dashboard shows daily totals**.\n\nThe database keeps **one row per exhibit, day, and event** instead of one per use, and increments it atomically in a single SQL statement, so a full year from the six exhibits still collecting tops out at 6,570 rows on a free tier. Row-level security is on with no public policies: only serverless functions read and write, using a service key that never reaches the browser. On the exhibit side, a drop-in collector script **queues events while offline** and sends them later, since Raimi's AI Language Lab runs as an offline-first app on tablets and must keep working without internet.\n\nEach exhibit was connected with a one-line hook, leaving its existing stats code untouched. For the two exhibits whose run had ended, I moved their past records into the hub: **14,328 generated images over 47 days** for Raimi's AI Art Lab and 1,932 uses over 26 days for RAIM 4-Cut Studio. Because the collect endpoint has to be public, it accepts only registered exhibits and caps every request, and the documentation states that the numbers are for internal operations, not official figures.",
     highlights: [
-      "**Daily counter schema**: one row per exhibit, day, and event, incremented atomically in SQL, at most 7,665 rows a year.",
+      "**Daily counter schema**: one row per exhibit, day, and event, incremented atomically in SQL, at most 6,570 rows a year from the six exhibits still collecting.",
       "**Offline queue in the collector**, so tablet exhibits without a connection keep counting and report later.",
       "**Service key stays on the server**: row-level security with no public policies; only serverless functions touch the table.",
-      "**Migrated past records** from two finished exhibits: 14,328 uses over 47 days and 1,932 over 26 days.",
-      "Limits on the public collect endpoint (exhibit allowlist, 200 rows per request, 500 per row, no future dates), with the remaining gap documented.",
+      "**Migrated past records** from two finished exhibits: 14,328 generated images over 47 days (Art Lab) and 1,932 uses over 26 days (4-Cut).",
+      "Limits on the public collect endpoint (exhibit allowlist, finished exhibits refused, 200 rows per request, 5,000 per row, no future dates), with the remaining gap documented.",
     ],
     flow: ["Exhibit + collect.js", "POST /api/collect", "Supabase daily counters", "Dashboard"],
   },
@@ -860,7 +860,7 @@ export const experience = [
     org: "Seoul Robot & AI Science Museum",
     site: "https://science.seoul.go.kr/RAIM/index.do",
     role: "Education R&D · Developer",
-    period: "2026.03 - Present · Full-time contract",
+    period: "2026.03 - Present",
     // 행사 보도 링크(본인 실명은 기사에 없음). 사진은 뉴스1 저작물이라 싣지 않고 링크만 건다.
     press: { label: "AI Future Camp coverage (News1)", href: "https://www.news1.kr/photos/8067724" },
     gallery: [
@@ -869,7 +869,7 @@ export const experience = [
       "/portfolio_images/experience/docent_3.jpg",
     ],
     points: [
-      "Research, build, and run the interactive AI education web apps visitors use live on the exhibition floor; the Art Lab ran there through June and July 2026, going from 3,049 images in June to over 8,000 in July.",
+      "Research, build, and run the interactive AI education web apps visitors use live on the exhibition floor; the Art Lab ran there from June to August 2026 and generated 14,328 images, 9,865 of them in July.",
       "Design education programs end to end: a smart-farm curriculum commissioned by Yangpyeong Education Office, built with its full server and web-app stack, taught as a demo class to 5 high-school students in August 2026, with the 15-student cohort class scheduled for October 2026.",
       // 메타버스 전시는 어느 정도 완성되면 다시 추가한다 (data.ts 의 raim-metaverse 주석 블록과 함께)
       "Ship the internal ops tooling behind them, such as the staff scheduler.",
@@ -896,7 +896,7 @@ export const experience = [
     role: "Youth Intern",
     period: "2025.04 - 2025.08",
     points: [
-      "Redesigned the national Pay-TV survey and drafted Broadcasting Act review materials.",
+      "Supported the revision of the national Pay-TV survey and drafted Broadcasting Act review materials.",
       "Covered 11 ministry exhibitions and conferences; authored reports and issue briefs.",
     ],
   },
@@ -937,8 +937,8 @@ export const activities: Activity[] = [
   {
     period: "2025.07",
     title: "Youth SW-Donghaeng Hackathon",
-    role: "University mentor · planning & development",
-    desc: "Mentored youth teams through a software hackathon as a university mentor, guiding both planning and development from idea to working demo.",
+    role: "University mentor · time coaching",
+    desc: "Served as a university mentor on time coaching, keeping youth teams on schedule through a one-day software hackathon.",
     photos: [
       "/portfolio_images/activities/2025swpj_1.jpg",
       "/portfolio_images/activities/2025swpj_2.jpg",
@@ -974,10 +974,10 @@ export const activities: Activity[] = [
     ],
   },
   {
-    period: "2024.07 - 2024.08",
+    period: "2024.06 - 2024.08",
     title: "LS Dream Science Class, 20th",
-    role: "Lead instructor for an elementary science program",
-    desc: "Lead instructor for an elementary science program, designing and running hands-on experiments for kids.",
+    role: "University mentor · elementary science experiments",
+    desc: "Ran hands-on science experiments for elementary students as a university mentor.",
     photos: [
       "/portfolio_images/activities/act_ls1.jpg",
       "/portfolio_images/activities/act_ls2.jpg",
@@ -1029,8 +1029,8 @@ export const awards: Award[] = [
     // 2025.09~10 공백(대회 준비 기간) 설명은 이력서/CV 타임라인에서 다룬다.
     year: "2025",
     title: "Science Museum & Community AI Hackathon",
-    detail: "2nd place (finals): AI docent for museum-community co-prosperity",
-    result: "2nd place",
+    detail: "Excellence Award (2nd place, finals): AI docent for museum-community co-prosperity",
+    result: "Excellence Award",
     role: "PM & Developer",
     topic:
       "An AI docent concept for museum-community co-prosperity, connecting exhibitions with the local community.",
@@ -1042,12 +1042,12 @@ export const awards: Award[] = [
   },
   {
     year: "2024",
-    title: "Chungnam Generative AI Start-up Idea Competition",
+    title: "2024 Chungnam Generative AI Technology Start-up Idea Competition",
     detail: "Encouragement Award (장려상): VGG16 plant-disease diagnosis app",
     result: "Encouragement Award",
     role: "PM & Developer",
     topic:
-      "The 2024 VGG16 version of Doctor-Green (a plant-disease diagnosis app), pitched as a generative/AI start-up idea, hosted by the Ministry of Science and ICT.",
+      "The 2024 VGG16 version of Doctor-Green (a plant-disease diagnosis app), pitched as a generative-AI start-up idea. Hosted by the Ministry of Science and ICT, the National IT Industry Promotion Agency (NIPA) and Chungnam Techno Park; organized by Sun Moon University.",
     photos: [
       "/portfolio_images/awards/award4_chungnam_1.jpg",
       "/portfolio_images/awards/award4_chungnam_2.jpg",
@@ -1056,7 +1056,7 @@ export const awards: Award[] = [
   },
   {
     year: "2024",
-    title: "HKNU StarUP&GO Audition",
+    title: "HKNU HK StartUP&GO Audition",
     detail: "Excellence Award (우수상): start-up competition",
     result: "Excellence Award",
     role: "PM & Developer",

@@ -16,3 +16,6 @@ npm-debug.log*
 
 # 내부 감사·리뷰 문서 (public repo 에 올리지 않는다)
 AUDIT-*.md
+
+# 로컬 디자인 점검 도구 설정
+.impeccable/

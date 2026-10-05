@@ -80,13 +80,19 @@
   withCountry(function (country) {
     insertView(country);
     // SPA(Next) 클라이언트 라우팅도 페이지뷰로 기록
+    // 같은 페이지 안 #앵커 이동(층 버튼·층별 안내)은 새 방문이 아니다. 경로가 바뀔 때만 센다.
+    var lastPath = location.pathname;
     var push = history.pushState;
     history.pushState = function () {
-      sendDuration();
       push.apply(this, arguments);
+      if (location.pathname === lastPath) return;
+      lastPath = location.pathname;
+      sendDuration();
       setTimeout(function () { pvUid = null; insertView(country); }, 0);
     };
     addEventListener('popstate', function () {
+      if (location.pathname === lastPath) return;
+      lastPath = location.pathname;
       sendDuration();
       setTimeout(function () { pvUid = null; insertView(country); }, 0);
     });

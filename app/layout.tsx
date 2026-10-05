@@ -1,39 +1,30 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import localFont from "next/font/local";
+import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
-import { SmoothScroll } from "@/components/smooth-scroll";
 import { LangProvider } from "@/components/lang-provider";
-import { ScrollProgress } from "@/components/scroll-progress";
+import { PageEffects } from "@/components/page-effects";
 import { ConsoleSignature } from "@/components/console-signature";
 import { NoContextMenu } from "@/components/no-context-menu";
 import { SITE_URL } from "@/lib/seo";
 import { KO_ENABLED } from "@/lib/i18n";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-
-// General Sans 를 셀프호스팅한다. fontshare 를 쓰면 api.fontshare.com 에서 CSS 를
-// 받고(실측 830ms) 다시 cdn.fontshare.com 으로 폰트를 받으러 가느라 외부 호스트
-// 두 곳의 DNS·TLS 핸드셰이크가 크리티컬 패스에 얹힌다. 같은 도메인 파일로 두면
-// next/font 가 <head> 에 preload 를 자동으로 넣어 문서와 같은 커넥션에서 병렬로 받는다.
-const generalSans = localFont({
-  src: [
-    { path: "../public/fonts/GeneralSans-400.woff2", weight: "400", style: "normal" },
-    { path: "../public/fonts/GeneralSans-500.woff2", weight: "500", style: "normal" },
-    { path: "../public/fonts/GeneralSans-600.woff2", weight: "600", style: "normal" },
-    { path: "../public/fonts/GeneralSans-700.woff2", weight: "700", style: "normal" },
-  ],
-  variable: "--font-display",
+// 안내 사인용 디스플레이 서체. 폭(wdth) 축까지 받아 이름·층 숫자는 넓게 쓴다.
+// next/font 가 빌드 때 받아 같은 도메인에서 서빙한다(서드파티 요청 없음).
+const archivo = Archivo({
+  subsets: ["latin"],
+  axes: ["wdth"],
+  variable: "--font-archivo",
+  display: "swap",
+});
+// 상태·연도 같은 라벨용. 아주 적게 쓴다.
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["500"],
+  variable: "--font-mono",
   display: "swap",
 });
 
-// ── 한국어 모드 전용 폰트 (모두 셀프호스팅 — QA의 서드파티 리소스 금지 준수) ──
-// 프리텐다드: 단일 가변 파일(2MB)은 KO 전환 시 수 초짜리 다운로드가 됐다.
-// 공식 다이내믹 서브셋(유니코드 범위별 92개 woff2)으로 교체 — 브라우저가
-// 화면에 실제 등장한 글리프 범위만 병렬로 받아 초기 로드가 수십 KB 로 준다.
-// (public/fonts/pretendard/ 의 CSS 를 <head> 에서 링크; EN 모드에선 KO 폰트
-// 규칙이 적용되지 않아 아무 서브셋도 받지 않는다)
-// 페이퍼로지는 더 이상 쓰지 않는다(한국어는 프리텐다드로 통일).
+// 본문은 라틴·한글 모두 프리텐다드(다이내믹 서브셋, public/fonts/pretendard).
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -45,11 +36,11 @@ export const metadata: Metadata = {
     description:
       "Portfolio of Juwon Lee, an AI product engineer who builds AI features into products end to end, from data pipeline and sensors to deployed interface, and runs them on exhibition floors, in classrooms, and on real hardware.",
     url: `${SITE_URL}/`,
-    images: ["/og-cover.png"],
+    images: ["/og-cover-2026-10.png"],
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/og-cover.png"],
+    images: ["/og-cover-2026-10.png"],
   },
   // Google Search Console 소유 확인
   verification: {
@@ -60,6 +51,7 @@ export const metadata: Metadata = {
 // Runs before paint: applies saved theme, or the OS preference on first visit.
 const themeScript = `
 (function () {
+  document.documentElement.classList.add('js');
   try {
     var stored = localStorage.getItem('theme');
     var dark = stored ? stored === 'dark'
@@ -118,7 +110,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${generalSans.variable}`}
+      className={`${archivo.variable} ${plexMono.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -128,6 +120,8 @@ export default function RootLayout({
             KO 모드에서 실제 쓰인 범위만 병렬 로드한다 (EN 모드에선 0바이트).
             KO 비활성화 중에는 CSS 자체를 안 붙인다 — 서브셋은 0바이트여도 이
             스타일시트는 렌더 블로킹이라 EN 방문자에게 순수 손해였다. */}
+        <meta name="theme-color" content="#F3F1EC" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#111110" media="(prefers-color-scheme: dark)" />
         {KO_ENABLED ? (
           <link
             rel="stylesheet"
@@ -143,10 +137,11 @@ export default function RootLayout({
         <ConsoleSignature />
         <NoContextMenu />
         <LangProvider>
-          <SmoothScroll>
-            <ScrollProgress />
-            {children}
-          </SmoothScroll>
+          <a href="#main" className="skip-link">
+            Skip to content
+          </a>
+          {children}
+          <PageEffects />
         </LangProvider>
         {/* (제거) Cloudflare Web Analytics — 아래 자체 통계와 수집 항목이 겹치는
             서드파티 비콘이었다. 이 사이트는 GitHub Pages 라 Cloudflare 뒤에 있지도

@@ -1,120 +1,131 @@
 "use client";
 
-import { useEffect, useState } from "react";
+// 에러 페이지 = 닫힌 전시실 앞 안내판. 코드가 적힌 층 표지, 안내 문구, 5초 뒤 층별 안내로.
+// 로비와 같은 도슨트 로봇이 걸어 들어와 손을 흔든다(WebGL 이 없으면 로봇 없이 안내판만).
+import { Component, useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
-import { AtoChip } from "./ato-chip";
+import { useRouter } from "next/navigation";
+import { useI18n } from "./lang-provider";
+import { ArrowRight } from "./pictos";
 
-// 에러 페이지 공용 레이아웃 — 코드별 설명 + 5초 카운트다운 후 홈으로 이동.
-// 마스코트: 404·502 는 3D 로봇(WebGL 미지원 시 아토로 폴백), 401·402 는 아토.
-const ErrorRobot = dynamic(() => import("./error-robot"), { ssr: false });
+const DocentRobot = dynamic(() => import("./docent-robot"), { ssr: false });
+
+class RobotGuard extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  render() {
+    return this.state.failed ? null : this.props.children;
+  }
+}
 
 const REDIRECT_SECONDS = 5;
 
 export type ErrorCode = "404" | "401" | "402" | "500" | "502";
 
-const COPY: Record<ErrorCode, { title: string; description: string; mascot: "robot" | "ato" }> = {
+type Bi = { en: string; ko: string };
+const COPY: Record<ErrorCode, { title: Bi; description: Bi }> = {
   "404": {
-    title: "Page not found",
-    description: "The page you're looking for doesn't exist or may have been moved.",
-    mascot: "robot",
+    title: { en: "This room is closed.", ko: "이 전시실은 닫혀 있어요." },
+    description: {
+      en: "The page you're looking for doesn't exist or may have been moved.",
+      ko: "찾는 페이지가 없거나 다른 곳으로 옮겨졌을 수 있습니다.",
+    },
   },
   "401": {
-    title: "Unauthorized",
-    description: "You need permission to view this page.",
-    mascot: "ato",
+    title: { en: "Staff only.", ko: "직원 전용 구역입니다." },
+    description: { en: "You need permission to view this page.", ko: "이 페이지를 보려면 권한이 필요합니다." },
   },
   "402": {
-    title: "Payment required",
-    description: "Access to this page requires payment.",
-    mascot: "ato",
+    title: { en: "Ticket required.", ko: "입장권이 필요합니다." },
+    description: { en: "Access to this page requires payment.", ko: "이 페이지는 결제가 필요합니다." },
   },
   "500": {
-    title: "Something went wrong",
-    description: "An unexpected error occurred while showing this page.",
-    mascot: "robot",
+    title: { en: "This room failed to open.", ko: "전시실을 여는 중에 문제가 생겼어요." },
+    description: {
+      en: "An unexpected error occurred while showing this page. Reload, or go back to the floor guide.",
+      ko: "페이지를 보여 주는 중 예기치 못한 오류가 났습니다. 새로고침하거나 층별 안내로 돌아가 주세요.",
+    },
   },
   "502": {
-    title: "Bad gateway",
-    description: "The server received an invalid response. This is usually temporary.",
-    mascot: "robot",
+    title: { en: "Temporarily closed.", ko: "잠시 닫혀 있어요." },
+    description: {
+      en: "The server received an invalid response. This is usually temporary.",
+      ko: "서버가 잘못된 응답을 받았습니다. 보통 잠깐이면 풀립니다.",
+    },
   },
 };
 
-// 히어로 씬과 같은 게이트 — 데스크톱 + WebGL 일 때만 3D 로봇을 띄운다.
-// 모바일에서는 robot.glb/three.js 청크를 받지 않고 아토가 대신 인사한다.
-// (SSR·최초 렌더에서는 null 을 반환해 하이드레이션 불일치를 피한다)
-function useRobotCapable() {
-  const [ok, setOk] = useState<boolean | null>(null);
-  useEffect(() => {
-    const mq = matchMedia("(min-width: 1024px) and (hover: hover)");
-    const probe = document.createElement("canvas");
-    const hasGL = !!(probe.getContext("webgl2") || probe.getContext("webgl"));
-    const update = () => setOk(mq.matches && hasGL);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-  return ok;
-}
-
 export function ErrorPage({ code }: { code: ErrorCode }) {
-  const { title, description, mascot } = COPY[code];
+  const { lang } = useI18n();
+  const ko = lang === "ko";
+  const { title, description } = COPY[code];
   const router = useRouter();
-  const robotCapable = useRobotCapable();
   const [left, setLeft] = useState(REDIRECT_SECONDS);
+  const stage = useRef<HTMLDivElement>(null);
+  const [targetPx, setTargetPx] = useState(0);
+  const [arrived, setArrived] = useState(false);
 
   useEffect(() => {
     const t = setInterval(() => setLeft((l) => l - 1), 1000);
     return () => clearInterval(t);
   }, []);
-
   useEffect(() => {
     if (left <= 0) router.replace("/");
   }, [left, router]);
 
-  const showRobot = mascot === "robot" && robotCapable === true;
-  const showAto = mascot === "ato" || robotCapable === false;
+  useEffect(() => {
+    const el = stage.current;
+    if (!el) return;
+    const measure = () => setTargetPx(el.getBoundingClientRect().width * 0.28);
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-cream px-6 text-center text-ink">
-      {/* 마스코트 + 인사 말풍선 */}
-      <div className="relative flex items-end justify-center">
-        <span className="error-bubble font-display absolute -top-5 left-1/2 z-10 whitespace-nowrap rounded-full bg-ink px-4 py-2 text-sm font-semibold text-cream">
-          Hi there!
-        </span>
-        {showRobot ? (
-          // 카메라를 물린 만큼 캔버스 위아래에 빈 공간이 생긴다 —
-          // 음수 마진으로 걷어내 말풍선·에러 코드와의 간격을 유지한다.
-          <div className="-my-9 h-64 w-64 sm:h-72 sm:w-72">
-            <ErrorRobot />
+    <main id="main" className="errorpage">
+      <div className="shell errorpage__inner">
+        <header className="floorsign errorpage__sign">
+          <div className="floorsign__tile is-in" aria-hidden="true">
+            <span className="floorsign__num errorpage__code">{code}</span>
+            <span className="floorsign__name">
+              {ko ? "안내" : "Notice"}
+              <small>{ko ? "Notice" : "안내"}</small>
+            </span>
           </div>
-        ) : null}
-        {showAto ? (
-          <span className="error-ato" style={{ fontSize: "clamp(64px, 12vw, 96px)" }}>
-            <AtoChip />
-          </span>
-        ) : null}
+          <div>
+            <h1 className="floorsign__title">{ko ? title.ko : title.en}</h1>
+            <p className="floorsign__intro">{ko ? description.ko : description.en}</p>
+            <p className="floorsign__meta mono" role="status" aria-live="polite">
+              {ko
+                ? `${Math.max(left, 0)}초 뒤 층별 안내로 돌아갑니다`
+                : `Back to the floor guide in ${Math.max(left, 0)}s`}
+            </p>
+            <div className="room__links">
+              <Link className="btn btn--solid" href="/">
+                {ko ? "층별 안내로" : "Floor guide"}
+                <ArrowRight />
+              </Link>
+            </div>
+          </div>
+        </header>
+
+        <div className="errorpage__stage" ref={stage} aria-hidden="true">
+          {targetPx > 0 ? (
+            <RobotGuard>
+              <DocentRobot targetPx={targetPx} onArrive={() => setArrived(true)} />
+            </RobotGuard>
+          ) : null}
+          {arrived ? (
+            <p className="speech" style={{ left: "calc(28% + 60px)", bottom: "62%" }}>
+              {ko ? "제가 안내해 드릴게요." : "Let me walk you back."}
+            </p>
+          ) : null}
+        </div>
       </div>
-
-      <p className="font-display mt-4 text-[5rem] font-semibold leading-none tracking-[-0.015em] sm:text-[7rem]">
-        {code}
-      </p>
-      <p className="font-display mt-4 text-xl font-semibold sm:text-2xl">{title}</p>
-      <p className="mt-2 max-w-md text-base text-muted">{description}</p>
-
-      <p className="mt-6 text-sm text-muted" role="status" aria-live="polite">
-        Taking you back home in{" "}
-        <span className="font-semibold tabular-nums text-ink">{Math.max(left, 0)}s</span>
-      </p>
-
-      <Link
-        href="/"
-        className="mt-6 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-cream transition-opacity hover:opacity-90"
-      >
-        Back to home now
-      </Link>
     </main>
   );
 }

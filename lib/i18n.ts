@@ -41,12 +41,13 @@ export const ui = {
   awardsHeading: "Awards",
   comingSoon: "Coming soon",
 
-  contactHeading: "Education programs, collaborations, project inquiries. All welcome.",
+  contactHeading: "Hiring and education-program inquiries are welcome.",
   availability: "Leave a message. I usually reply within a day or two.",
+  // 채용 문의를 맨 앞에 (채용 담당자 검토 반영: 외주 홍보처럼 읽히지 않게)
   inquiries: [
-    { label: "Education program", subject: "juwonlee.dev: education program commission" },
-    { label: "Collaboration", subject: "juwonlee.dev: collaboration proposal" },
-    { label: "Project inquiry", subject: "juwonlee.dev: project inquiry" },
+    { label: "Hiring inquiry", subject: "juwonlee.dev: hiring inquiry" },
+    { label: "Education program", subject: "juwonlee.dev: education program inquiry" },
+    { label: "Research / collaboration", subject: "juwonlee.dev: research or collaboration" },
   ],
   footerCopyright: "© 2026 Juwon Lee",
   privacyNotice: "This site keeps anonymous visit statistics.",
@@ -109,12 +110,12 @@ export const uiKo: UiStrings = {
   awardsHeading: "수상",
   comingSoon: "준비 중",
 
-  contactHeading: "교육 프로그램 외주, 협업, 프로젝트 문의 모두 환영합니다.",
+  contactHeading: "채용·교육 프로그램 문의를 기다립니다.",
   availability: "메시지를 남겨 주세요. 보통 1~2일 안에 답장드립니다.",
   inquiries: [
-    { label: "교육 프로그램 외주", subject: "juwonlee.dev 교육 프로그램 외주 문의" },
-    { label: "협업 제안", subject: "juwonlee.dev 협업 제안" },
-    { label: "프로젝트 문의", subject: "juwonlee.dev 프로젝트 문의" },
+    { label: "채용 문의", subject: "juwonlee.dev 채용 문의" },
+    { label: "교육 프로그램 문의", subject: "juwonlee.dev 교육 프로그램 문의" },
+    { label: "연구·협업 제안", subject: "juwonlee.dev 연구·협업 제안" },
   ],
   footerCopyright: "© 2026 이주원",
   privacyNotice: "이 사이트는 익명 방문 통계를 수집합니다.",

@@ -1,12 +1,14 @@
 "use client";
 
+import { assetPath } from "@/lib/asset";
+
 import Link from "next/link";
 
 import { useI18n } from "@/components/lang-provider";
 import { PrivacyOptOut } from "@/components/privacy-opt-out";
 import { person } from "@/lib/data";
 
-const UPDATED = "29 July 2026 / 2026년 7월 29일";
+const UPDATED = { en: "5 October 2026", ko: "2026년 10월 5일" };
 
 // 전문(全文)은 EN·KO 두 벌 모두 항상 페이지에 남긴다 — 방침 문서라 어느
 // 언어로든 원문을 확인할 수 있어야 한다. 언어 토글은 "무엇을 지우는가"가
@@ -17,16 +19,19 @@ export function PrivacyContent() {
 
   return (
     <>
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-        Privacy · 개인정보처리방침
-      </p>
+      <ol className="crumbs mono">
+        <li>
+          <a href={assetPath("/")}>{ko ? "층별 안내" : "Directory"}</a>
+        </li>
+        <li>{ko ? "개인정보 안내" : "Privacy"}</li>
+      </ol>
       <h1 className="font-display mt-3 text-4xl font-semibold leading-[1.05] tracking-[-0.03em] sm:text-5xl">
         {ko ? "이 사이트가 남기는 기록" : "What this site records"}
       </h1>
       <p className="mt-4 text-lg leading-relaxed text-muted">
         {ko ? (
           <>
-            이 사이트는 이주원(Juwon Lee)이 운영하는 개인 포트폴리오입니다. 어떤
+            이 사이트는 이주원(Juwon Lee)&#8288;이 운영하는 개인 포트폴리오입니다. 어떤
             작업이 실제로 읽히는지 확인하기 위해 익명 방문 기록을 남기며, 광고·
             광고성 추적기·쿠키는 사용하지 않습니다.
           </>
@@ -40,11 +45,11 @@ export function PrivacyContent() {
         )}
       </p>
       <p className="mt-2 text-sm text-muted">
-        {ko ? `최종 수정: ${UPDATED}` : `Last updated: ${UPDATED}`}
+        {ko ? `최종 수정: ${UPDATED.ko}` : `Last updated: ${UPDATED.en}`}
       </p>
 
       {/* Opt-out */}
-      <div className="mt-10 rounded-4xl bg-sand/60 p-6">
+      <div className="mt-10 rounded-md bg-sand/60 p-6">
         <h2 className="font-display text-lg font-semibold">
           {ko ? "수집 거부 / Turn it off" : "Turn it off / 수집 거부"}
         </h2>
@@ -91,7 +96,7 @@ export function PrivacyHomeLink() {
   return (
     <Link
       href="/"
-      className="mt-16 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-cream transition-opacity hover:opacity-90"
+      className="btn btn--solid mt-16"
     >
       {lang === "ko" ? "홈으로 돌아가기" : "Back to home"}
     </Link>
@@ -103,7 +108,7 @@ function Divider({ label }: { label: string }) {
   return (
     <div className="mt-16 flex items-center gap-4">
       <span aria-hidden="true" className="flex-1" />
-      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+      <span className="mono text-muted">
         {label}
       </span>
       <span aria-hidden="true" className="flex-1" />
@@ -179,8 +184,8 @@ function EnBody({ heading }: { heading?: string }) {
       <Section title="5. What is stored in your browser">
         <List
           items={[
-            "sessionStorage: the tab session ID and the looked-up country name, both cleared when you close the tab.",
-            "localStorage: your light/dark theme choice, your language choice, and the opt-out flag above if you set it.",
+            "sessionStorage: the tab session ID, the looked-up country name and your language choice, all cleared when you close the tab.",
+            "localStorage: your light/dark theme choice, and the opt-out flag above if you set it.",
           ]}
         />
         <p className="mt-4">No cookies are set.</p>
@@ -227,7 +232,7 @@ function KoBody({ heading }: { heading?: string }) {
         />
         <p className="mt-4">
           또한 프로젝트 카드 클릭과 주요 링크 클릭(이력서·CV 다운로드, 이메일,
-          GitHub, LinkedIn, 프로젝트 데모)이 &ldquo;링크 종류&rdquo;로만
+          GitHub, LinkedIn, 프로젝트 데모)&#8288;이 &ldquo;링크 종류&rdquo;로만
           기록됩니다.
         </p>
       </Section>
@@ -264,7 +269,7 @@ function KoBody({ heading }: { heading?: string }) {
         <p className="mt-4">
           그 밖의 폰트·이미지·3D 모델은 모두 이 사이트에서 직접
           제공하므로, 열람 중 폰트·CDN 업체로 나가는 요청은 없습니다. 관리자
-          페이지(<code className="text-ink/70">/admin</code>)는 라이브러리를
+          페이지(<code className="text-ink/70">/admin</code>)&#8288;는 라이브러리를
           CDN 에서 받아오지만, 로그인한 운영자만 여는 화면이라 방문자가 그
           페이지를 불러오는 일은 없습니다.
         </p>
@@ -273,8 +278,8 @@ function KoBody({ heading }: { heading?: string }) {
       <Section title="5. 브라우저에 저장되는 값">
         <List
           items={[
-            "sessionStorage: 탭 세션 식별자와 조회된 국가명. 탭을 닫으면 사라집니다.",
-            "localStorage: 라이트/다크 테마 선택값, 언어 선택값, 그리고 위에서 수집 중단을 설정한 경우 그 플래그.",
+            "sessionStorage: 탭 세션 식별자, 조회된 국가명, 언어 선택값. 탭을 닫으면 사라집니다.",
+            "localStorage: 라이트/다크 테마 선택값, 그리고 위에서 수집 중단을 설정한 경우 그 플래그.",
           ]}
         />
         <p className="mt-4">쿠키는 사용하지 않습니다.</p>

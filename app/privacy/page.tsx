@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Header } from "@/components/header";
+import { SiteHeader } from "@/components/site-header";
 import { PrivacyContent } from "@/components/privacy-content";
 import { PrivacyHomeLink } from "@/components/privacy-content";
 import { SITE_URL } from "@/lib/seo";
@@ -16,13 +16,15 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <main>
-      <Header />
-      <article className="mx-auto max-w-3xl px-6 pb-24 pt-28">
-        {/* 본문은 EN·KO 전문을 모두 담되, 언어 토글에 따라 순서만 바뀐다 */}
-        <PrivacyContent />
-        <PrivacyHomeLink />
-      </article>
-    </main>
+    <>
+      <SiteHeader fixedFloor="INFO" />
+      <main id="main">
+        <article className="mx-auto max-w-3xl px-6 pb-24 pt-28">
+          {/* 본문은 EN·KO 전문을 모두 담되, 언어 토글에 따라 순서만 바뀐다 */}
+          <PrivacyContent />
+          <PrivacyHomeLink />
+        </article>
+      </main>
+    </>
   );
 }
