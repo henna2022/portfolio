@@ -189,8 +189,8 @@ export const projects: Project[] = [
     ],
     flow: ["ESP32 boards", "Supabase", "Weather API", "Student web app"],
     flowImage: {
-      light: "/portfolio_images/flow/smart-farm-education-flow-light.svg",
-      dark: "/portfolio_images/flow/smart-farm-education-flow-dark.svg",
+      light: "/portfolio_images/flow-reborn/smart-farm-education-flow-light.svg",
+      dark: "/portfolio_images/flow-reborn/smart-farm-education-flow-dark.svg",
     },
     image: "/portfolio_images/projects/smartfarm-edu-weather-en.jpg",
     gallery: [
@@ -235,12 +235,11 @@ export const projects: Project[] = [
     ],
     flow: ["ESP32 direct POST", "Supabase", "Next.js · 5s polling", "Desired-state control"],
     flowImage: {
-      light: "/portfolio_images/flow/doctor-green-flow-light.svg",
-      dark: "/portfolio_images/flow/doctor-green-flow-dark.svg",
+      light: "/portfolio_images/flow-reborn/doctor-green-flow-light.svg",
+      dark: "/portfolio_images/flow-reborn/doctor-green-flow-dark.svg",
     },
     gallery: [
       "/portfolio_images/projects/doctorgreen_app.png",
-      "/portfolio_images/logo/logo_doctorgreen.png",
     ],
   },
   {
@@ -269,8 +268,8 @@ export const projects: Project[] = [
     ],
     flow: ["10-step prompt builder", "OpenAI API", "Auto-watermark", "R2 + Supabase"],
     flowImage: {
-      light: "/portfolio_images/flow/raimi-art-lab-flow-light.svg",
-      dark: "/portfolio_images/flow/raimi-art-lab-flow-dark.svg",
+      light: "/portfolio_images/flow-reborn/raimi-art-lab-flow-light.svg",
+      dark: "/portfolio_images/flow-reborn/raimi-art-lab-flow-dark.svg",
     },
     gallery: [
       "/portfolio_images/projects/artlab-home-en.jpg",
@@ -311,8 +310,8 @@ export const projects: Project[] = [
     ],
     flow: ["React + Vite", "Firebase / Firestore", "Capacitor", "Internal mobile build"],
     flowImage: {
-      light: "/portfolio_images/flow/raim-staff-platform-flow-light.svg",
-      dark: "/portfolio_images/flow/raim-staff-platform-flow-dark.svg",
+      light: "/portfolio_images/flow-reborn/raim-staff-platform-flow-light.svg",
+      dark: "/portfolio_images/flow-reborn/raim-staff-platform-flow-dark.svg",
     },
     gallery: ["/portfolio_images/projects/raimapp_main.png"],
   },
@@ -371,8 +370,8 @@ export const projects: Project[] = [
     ],
     flow: ["5 NLP mini-games", "Plain JS · no server", "Offline PWA kiosk"],
     flowImage: {
-      light: "/portfolio_images/flow/raimi-language-lab-flow-light.svg",
-      dark: "/portfolio_images/flow/raimi-language-lab-flow-dark.svg",
+      light: "/portfolio_images/flow-reborn/raimi-language-lab-flow-light.svg",
+      dark: "/portfolio_images/flow-reborn/raimi-language-lab-flow-dark.svg",
     },
     gallery: [
       "/portfolio_images/projects/langlab-home-en.jpg",
@@ -410,7 +409,7 @@ export const projects: Project[] = [
     category: "Ops Automation · Reliability",
     categories: ["Ops", "Web"],
     kicker: "Exhibit uptime · self-initiated",
-    desc: "A recovery system for a museum AI exhibit that used to need one specific person, at one specific machine, every time it froze. It checks the program every 20 seconds, relaunches it within a minute of a crash or freeze it can detect, and lets staff restart it from a button page on their own phone.",
+    desc: "A recovery system for a museum AI exhibit that could only be restarted by hand from one specific machine every time it froze. It checks the program every 20 seconds, relaunches it within a minute of a crash or freeze it can detect, and lets staff restart it from a button page on their own phone.",
     year: "2026",
     role: "Solo: diagnosis, build, rollout, handover",
     tags: [
@@ -421,11 +420,11 @@ export const projects: Project[] = [
       "WireGuard",
     ],
     repo: "https://github.com/henna2022/maskbot-restart",
-    stat: "1 operator → all staff",
+    stat: "1 machine → any staff phone",
     overview:
-      "MaskBot is a face- and voice-interaction robot exhibit on the museum floor. Its control software would intermittently freeze or exit mid-operation, and the only remedy was a manual restart, which in practice **only one person could perform, at one specific machine**, through a remote session. Every failure became a wait: find the person, get them to the machine, walk through the remote login. Meanwhile visitors stood in front of an exhibit that could not hear them.\n\nI took this on after performing that manual restart one too many times. The key observation was that the fix itself was trivial, closing a window and reopening it, and that the entire cost lived in who was permitted to perform it and how long it took them to get there. So the goal was never to make the restart smarter. It was to **remove the human bottleneck around it**.\n\nThe result runs in three layers on the exhibit machine. A watchdog **polls the program every 20 seconds** and restarts it when the process has died or its window stops responding, with a two-stage confirmation so a momentarily busy UI is not killed by mistake, and a five-minute pause after three restarts in a row, so a deeper hardware fault does not turn into nonstop restarts. Scheduled restarts run twice daily as preventive maintenance. And a small HTTP service serves a **single-button page**, so **any staff member can trigger recovery from their own phone**.\n\nThat third layer exists because of a limit I could not engineer away. One failure mode leaves the process alive and the window responsive while speech recognition silently stops working, and no health signal available to me distinguishes that from a healthy exhibit. Rather than paper over it, I designed around it: the automated layers handle every failure a machine can detect, and the human layer covers the one it cannot.\n\nReaching the exhibit machine from a personal phone was a separate problem, as staff devices had no route to it. I used Tailscale, a WireGuard-based mesh VPN, so enrolled devices reach the service over an encrypted tunnel without any port opened to the internet.\n\nI **installed it on the exhibit machine in July 2026, and it still runs unattended in daily operation**. I also wrote a handover document covering configuration, logs, routine maintenance, a diagnosis playbook, and the system's documented limitations, so the maintenance technician can own it without me.",
+      "MaskBot is a face- and voice-interaction robot exhibit on the museum floor. Its control software would intermittently freeze or exit mid-operation, and the only remedy was a manual restart, which could only be done **from one specific machine**, through a remote session. Every failure became a wait: get someone to that machine and walk through the remote login. Meanwhile visitors stood in front of an exhibit that could not hear them.\n\nI took this on after performing that manual restart one too many times. The key observation was that the fix itself was trivial, closing a window and reopening it, and that the entire cost lived in where it could be done from and how long it took to get someone there. So the goal was never to make the restart smarter. It was to **remove the single-machine bottleneck around it**.\n\nThe result runs in three layers on the exhibit machine. A watchdog **polls the program every 20 seconds** and restarts it when the process has died or its window stops responding, with a two-stage confirmation so a momentarily busy UI is not killed by mistake, and a five-minute pause after three restarts in a row, so a deeper hardware fault does not turn into nonstop restarts. Scheduled restarts run twice daily as preventive maintenance. And a small HTTP service serves a **single-button page**, so **any staff member can trigger recovery from their own phone**.\n\nThat third layer exists because of a limit I could not engineer away. One failure mode leaves the process alive and the window responsive while speech recognition silently stops working, and no health signal available to me distinguishes that from a healthy exhibit. Rather than paper over it, I designed around it: the automated layers handle every failure a machine can detect, and the human layer covers the one it cannot.\n\nReaching the exhibit machine from a personal phone was a separate problem, as staff devices had no route to it. I used Tailscale, a WireGuard-based mesh VPN, so enrolled devices reach the service over an encrypted tunnel without any port opened to the internet.\n\nI **installed it on the exhibit machine in July 2026, and it still runs unattended in daily operation**. I also wrote a handover document covering configuration, logs, routine maintenance, a diagnosis playbook, and the system's documented limitations, so the maintenance technician can own it without me.",
     highlights: [
-      "**Reframed the problem**: the restart was trivial; the real cost was that **only one person, at one machine**, was able to perform it.",
+      "**Reframed the problem**: the restart was trivial; the real cost was that it could only be done **from one machine**.",
       "Watchdog **relaunches the exhibit program within a minute** of a crash or hang it detects, with a two-stage check against false positives and a five-minute pause after three restarts in a row.",
       "**One-button recovery page** served from the exhibit machine, turning an escalation into something **any staff member can do from their own phone**.",
       "**Designed around an undetectable failure mode**: when speech recognition dies silently, automation cannot tell, so scheduled restarts and the manual button cover what the watchdog structurally cannot.",
@@ -434,8 +433,8 @@ export const projects: Project[] = [
     ],
     flow: ["Watchdog + schedule", "Restart service", "Mesh VPN", "Staff phone"],
     flowImage: {
-      light: "/portfolio_images/flow/exhibit-auto-recovery-flow-light.svg",
-      dark: "/portfolio_images/flow/exhibit-auto-recovery-flow-dark.svg",
+      light: "/portfolio_images/flow-reborn/exhibit-auto-recovery-flow-light.svg",
+      dark: "/portfolio_images/flow-reborn/exhibit-auto-recovery-flow-dark.svg",
     },
   },
   // ── 과학관에서 만든 것 (2026-10 추가): 운영 중 → 배포·설치 전 → 준비 중 → 프로토타입 순 ──
@@ -918,7 +917,7 @@ export const activities: Activity[] = [
     title: "KB LA School (Middle School)",
     role: "Middle-school mentor · 2x/week, 80 min · outside work hours",
     desc: "Dedicated mentoring for middle-school students in the KB LA School program.",
-    photos: ["/portfolio_images/activities/act_kb_middle.jpg"],
+    photos: [],
   },
   {
     period: "2026.03 - 2026.08",
@@ -932,7 +931,7 @@ export const activities: Activity[] = [
     title: "Geuruteogi Learning Mentoring",
     role: "University mentor · 2x/week, 90 min · outside work hours",
     desc: "A university mentoring program where I coach teenagers on study habits and self-directed learning, tailored to each mentee's level.",
-    photos: ["/portfolio_images/activities/act_geuruteogi.jpg"],
+    photos: [],
   },
   {
     period: "2025.07",
@@ -950,7 +949,7 @@ export const activities: Activity[] = [
     title: "CIEE SEOULMATE",
     role: "Mentor for international students",
     desc: "One-on-one mentoring in Korean language and culture for international students, plus planning cross-cultural exchange programs between Korean and international students.",
-    photos: ["/portfolio_images/activities/act_ciee.jpg"],
+    photos: [],
   },
   {
     period: "2024.09 - 2024.12",
@@ -967,11 +966,7 @@ export const activities: Activity[] = [
     title: "Hankyong Start-up Club (MAKENEW)",
     role: "Team leader",
     desc: "Led team MAKENEW as team leader, the start-up club team behind our award-winning plant-disease diagnosis app and the YAKMOA medication-care service.",
-    photos: [
-      "/portfolio_images/activities/act_makenew1.jpg",
-      "/portfolio_images/activities/act_makenew2.jpg",
-      "/portfolio_images/activities/act_makenew3.jpg",
-    ],
+    photos: [],
   },
   {
     period: "2024.06 - 2024.08",
@@ -989,11 +984,7 @@ export const activities: Activity[] = [
     title: "KB LA School",
     role: "High-school mentor · math & chemistry (online)",
     desc: "Two years as a dedicated online high-school mentor (Grade-11 Math I & Chemistry in 2024, Grade-10 Math in 2025), with mentees reaching top and perfect scores.",
-    // 온라인 수업 화면 캡처 — 멘티의 얼굴·이름은 게시 전 마스킹했다
-    photos: [
-      "/portfolio_images/activities/act_kb_high1.jpg",
-      "/portfolio_images/activities/act_kb_high2.jpg",
-    ],
+    photos: [],
     photoFit: "contain",
   },
 ];

@@ -1,434 +1,337 @@
 {
-"/portfolio_images/restorer2.jpg": [
-480,
-960,
-1400
-],
-"/portfolio_images/restorer1.jpg": [
-480,
-960,
-1400
-],
-"/portfolio_images/experience/docent_1.JPG": [
-480,
-960,
-1066
-],
-"/portfolio_images/experience/docent_2.jpg": [
-480,
-640
-],
-"/portfolio_images/experience/docent_3.jpg": [
-480,
-680
-],
-"/portfolio_images/projects/yakmoa_1.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/time-machine-ar.jpg": [
-480,
-960,
-1280
-],
-"/portfolio_images/projects/raim-4cut-studio-en.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/smartfarm-edu-sensor.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/doctorgreen_app.png": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/robot-ar-tour.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/artlab-mode-en.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/smartfarm-edu-sensor-en.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/lidar-explainer-kiosk.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/ai-studio-3.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/langlab-home.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/lidar-explainer-kiosk-en.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/ai-studio-2.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/artlab-onsite-prompt.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/artlab-builder.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/ai-studio-1.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/ai-ethics-vote.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/mystery-playground-replay-en.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/smartfarm-edu-vision.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/artlab-usage-chart.png": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/raim-floor-guide.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/smartfarm-edu-camera-en.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/langlab-home-en.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/artlab-onsite-result.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/smartfarm-edu-class.jpg": [
-480,
-960,
-1400
-],
-"/portfolio_images/projects/artlab-builder-en.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/langlab-intro-en.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/langlab1.jpg": [
-480,
-960,
-1400
-],
-"/portfolio_images/projects/artlab-mode.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/smartfarm-edu-weather-en.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/raimapp1.jpg": [
-480,
-644
-],
-"/portfolio_images/projects/document-formatter.jpg": [
-480,
-960,
-1440
-],
-"/portfolio_images/projects/smartfarm-edu-camera.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/smartfarm-edu-app.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/raim-en-en.jpg": [
-480,
-960,
-1440
-],
-"/portfolio_images/projects/langlab-intro.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/smartfarm-edu-hub.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/education-room-board.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/smartfarm-edu-weather.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/raim-4cut-studio.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/smartfarm-edu-app-en.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/smartfarm-edu-hub-en.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/raim-floor-guide-en.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/artlab-home.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/ai-ethics-vote-en.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/artlab-home-en.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/langlab-token.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/langlab-token-en.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/smartfarm-edu-vision-en.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/raimapp_main.png": [
-480,
-960,
-1400
-],
-"/portfolio_images/projects/mystery-playground-replay.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects/ai-persona-web.jpg": [
-480,
-960,
-1600
-],
-"/portfolio_images/profile/juwonlee-sm.jpg": [
-150
-],
-"/portfolio_images/profile/juwonlee.jpg": [
-480,
-600
-],
-"/portfolio_images/logo/logo_doctorgreen.png": [
-480,
-960,
-1182
-],
-"/portfolio_images/projects-cutout/ai-persona-web.webp": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects-cutout/raim-4cut-studio-en.webp": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects-cutout/robot-ar-tour.webp": [
-480,
-960,
-1600
-],
-"/portfolio_images/projects-cutout/ai-ethics-vote-en.webp": [
-480,
-960,
-1600
-],
-"/portfolio_images/awards/gh_buildup_prize.jpg": [
-480,
-960,
-1024
-],
-"/portfolio_images/awards/award4_chungnam_2.jpg": [
-480,
-960,
-1162
-],
-"/portfolio_images/awards/award4_chungnam_1.jpg": [
-480,
-960,
-1200
-],
-"/portfolio_images/awards/hknu_photo.jpg": [
-480,
-960,
-1400
-],
-"/portfolio_images/awards/award2_science_museum_2.png": [
-480,
-600
-],
-"/portfolio_images/awards/award2_science_museum_1.jpg": [
-480,
-600
-],
-"/portfolio_images/activities/act_geuruteogi.jpg": [
-480,
-960,
-1050
-],
-"/portfolio_images/activities/act_kb_middle.jpg": [
-480,
-960,
-1400
-],
-"/portfolio_images/activities/act_makenew3.jpg": [
-480,
-960,
-1400
-],
-"/portfolio_images/activities/2025swpj_1.jpg": [
-480,
-960,
-1400
-],
-"/portfolio_images/activities/act_makenew2.jpg": [
-480,
-960,
-1400
-],
-"/portfolio_images/activities/2025swpj_3.jpg": [
-480,
-960,
-1400
-],
-"/portfolio_images/activities/2025swpj_2.jpg": [
-480,
-960,
-1400
-],
-"/portfolio_images/activities/act_makenew1.jpg": [
-480,
-960,
-1400
-],
-"/portfolio_images/activities/act_kb_high1.jpg": [
-480,
-960,
-1400
-],
-"/portfolio_images/activities/act_ls3.jpg": [
-480,
-960,
-1050
-],
-"/portfolio_images/activities/act_ls2.jpg": [
-480,
-960
-],
-"/portfolio_images/activities/act_kb_high2.jpg": [
-480,
-960,
-1260
-],
-"/portfolio_images/activities/act_ls1.jpg": [
-480,
-960,
-1400
-],
-"/portfolio_images/activities/2024swpj_1.jpg": [
-480,
-960,
-1318
-],
-"/portfolio_images/activities/2024swpj_2.jpg": [
-480,
-960,
-1039
-],
-"/portfolio_images/activities/act_ciee.jpg": [
-480,
-960,
-1400
-],
-"/portfolio_images/projects-tight/ai-persona-web.webp": [
-480
-],
-"/portfolio_images/projects-tight/raim-4cut-studio-en.webp": [
-480,
-634
-],
-"/portfolio_images/projects-tight/ai-ethics-vote-en.webp": [
-480,
-574
-]
+  "/portfolio_images/restorer2.jpg": [
+    480,
+    960,
+    1400
+  ],
+  "/portfolio_images/restorer1.jpg": [
+    480,
+    960,
+    1400
+  ],
+  "/portfolio_images/experience/docent_1.JPG": [
+    480,
+    960,
+    1066
+  ],
+  "/portfolio_images/experience/docent_2.jpg": [
+    480,
+    640
+  ],
+  "/portfolio_images/experience/docent_3.jpg": [
+    480,
+    680
+  ],
+  "/portfolio_images/projects/time-machine-ar.jpg": [
+    480,
+    960,
+    1280
+  ],
+  "/portfolio_images/projects/raim-4cut-studio-en.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/smartfarm-edu-sensor.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/doctorgreen_app.png": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/robot-ar-tour.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/artlab-mode-en.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/smartfarm-edu-sensor-en.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/lidar-explainer-kiosk.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/langlab-home.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/lidar-explainer-kiosk-en.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/artlab-onsite-prompt.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/artlab-builder.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/ai-ethics-vote.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/mystery-playground-replay-en.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/smartfarm-edu-vision.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/artlab-usage-chart.png": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/raim-floor-guide.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/smartfarm-edu-camera-en.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/langlab-home-en.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/artlab-onsite-result.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/smartfarm-edu-class.jpg": [
+    480,
+    960,
+    1400
+  ],
+  "/portfolio_images/projects/artlab-builder-en.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/langlab-intro-en.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/artlab-mode.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/smartfarm-edu-weather-en.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/document-formatter.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/portfolio_images/projects/smartfarm-edu-camera.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/smartfarm-edu-app.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/raim-en-en.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/portfolio_images/projects/langlab-intro.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/smartfarm-edu-hub.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/education-room-board.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/smartfarm-edu-weather.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/raim-4cut-studio.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/smartfarm-edu-app-en.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/smartfarm-edu-hub-en.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/raim-floor-guide-en.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/artlab-home.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/ai-ethics-vote-en.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/artlab-home-en.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/langlab-token.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/langlab-token-en.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/smartfarm-edu-vision-en.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/raimapp_main.png": [
+    480,
+    960,
+    1400
+  ],
+  "/portfolio_images/projects/mystery-playground-replay.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/projects/ai-persona-web.jpg": [
+    480,
+    960,
+    1600
+  ],
+  "/portfolio_images/profile/juwonlee.jpg": [
+    480,
+    600
+  ],
+  "/portfolio_images/awards/gh_buildup_prize.jpg": [
+    480,
+    960,
+    1024
+  ],
+  "/portfolio_images/awards/award4_chungnam_2.jpg": [
+    480,
+    960,
+    1162
+  ],
+  "/portfolio_images/awards/award4_chungnam_1.jpg": [
+    480,
+    960,
+    1200
+  ],
+  "/portfolio_images/awards/hknu_photo.jpg": [
+    480,
+    960,
+    1400
+  ],
+  "/portfolio_images/awards/award2_science_museum_2.png": [
+    480,
+    600
+  ],
+  "/portfolio_images/awards/award2_science_museum_1.jpg": [
+    480,
+    600
+  ],
+  "/portfolio_images/activities/2025swpj_1.jpg": [
+    480,
+    960,
+    1400
+  ],
+  "/portfolio_images/activities/2025swpj_3.jpg": [
+    480,
+    960,
+    1400
+  ],
+  "/portfolio_images/activities/2025swpj_2.jpg": [
+    480,
+    960,
+    1400
+  ],
+  "/portfolio_images/activities/act_ls3.jpg": [
+    480,
+    960,
+    1050
+  ],
+  "/portfolio_images/activities/act_ls2.jpg": [
+    480,
+    960
+  ],
+  "/portfolio_images/activities/act_ls1.jpg": [
+    480,
+    960,
+    1400
+  ],
+  "/portfolio_images/activities/2024swpj_1.jpg": [
+    480,
+    960,
+    1318
+  ],
+  "/portfolio_images/activities/2024swpj_2.jpg": [
+    480,
+    960,
+    1039
+  ],
+  "/portfolio_images/projects-tight/ai-persona-web.webp": [
+    480
+  ],
+  "/portfolio_images/projects-tight/raim-4cut-studio-en.webp": [
+    480,
+    634
+  ],
+  "/portfolio_images/projects-tight/ai-ethics-vote-en.webp": [
+    480,
+    574
+  ]
 }

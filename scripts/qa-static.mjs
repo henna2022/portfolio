@@ -92,7 +92,7 @@ badImgs.length ? add("HIGH", "자산", `data.ts 가 가리키는 없는 이미�
                : pass("자산", `data.ts 이미지 참조 ${new Set(imgRefs).size}개 전부 존재`);
 
 // flow SVG (light/dark 쌍)
-const flowRefs = [...src.matchAll(/"(\/portfolio_images\/flow\/[^"]+)"/g)].map((m) => m[1]);
+const flowRefs = [...src.matchAll(/"(\/portfolio_images\/flow-reborn\/[^"]+)"/g)].map((m) => m[1]);
 const badFlow = [...new Set(flowRefs)].filter((p) => !fs.existsSync(path.join(OUT, p)));
 badFlow.length ? add("MED", "자산", `없는 flow 다이어그램: ${badFlow.join(", ")}`)
                : pass("자산", `flow 다이어그램 ${new Set(flowRefs).size}개 전부 존재`);

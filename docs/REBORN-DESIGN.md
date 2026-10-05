@@ -37,8 +37,8 @@ borrows the language of museum wayfinding and wall labels.
 - Korean: keep-all, text-wrap pretty (balance on short KO blocks), one sentence per line
   in KO prose and floor intros, runtime tail fixer (letter-spacing -0.01 to -0.05em) for
   last lines of one or two eojeol; unfixable ones land in window.koTailReport.
-- Images: phone screenshots with a baked beige field use transparent cutouts
-  (public/portfolio_images/projects-cutout, mapped in lib/exhibit.ts). Architecture
+- Images: phone and portrait-kiosk screenshots are cropped to the device
+  (public/portfolio_images/projects-tight, mapped in lib/exhibit.ts). Architecture
   diagrams use recolored copies (public/portfolio_images/flow-reborn).
 - Hierarchy per screen: one big title, one filled emphasis.
 - Motion: lobby name "lights on" intro (letters unfold from wdth 62/wght 100 to 112/800 in a
