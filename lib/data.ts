@@ -100,7 +100,7 @@ export const about = {
   // `b: true` 조각은 굵게 — 훑어봐도 핵심 문장이 먼저 눈에 들어오게 한다.
   prose: [
     [
-      { text: "Hi, I'm Juwon Lee, a " },
+      { text: "Hi, I'm Juwon Lee, an " },
       { text: "education R&D developer who plans education programs and builds AI into working products, from the data pipeline to the deployed interface", b: true },
       { text: ". I care most about the moment an idea becomes something people actually use, and understand. On most of my projects I've owned the work " },
       { text: "from planning through deployment", b: true },
