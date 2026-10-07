@@ -1,7 +1,7 @@
 "use client";
 
-// 1F 경력·수상. 방 다섯 개, 채용 담당자가 먼저 찾는 순서로:
-// 경력 → 검증 방법 → 수상 → 기술 → 교육·멘토링.
+// 1F 경력·수상. 방 네 개, 채용 담당자가 먼저 찾는 순서로: 경력 → 수상 → 기술 → 교육·멘토링.
+// 검증 방법(Methods)은 같은 파일에 두고 4F 바로 앞에 건다 (page.tsx).
 import { useState } from "react";
 import Link from "next/link";
 import { experience, activities, awards, skillGroups, getProject, type Award } from "@/lib/data";
@@ -13,7 +13,7 @@ import { assetPath } from "@/lib/asset";
 import { useI18n } from "./lang-provider";
 import { FloorSign, RoomSign } from "./floor-sign";
 import { useLightbox, type Shot } from "./lightbox";
-import { KoText } from "./rich";
+import { KoText, nbHyphen } from "./rich";
 import {
   ArchivePicto,
   ArrowDown,
@@ -179,47 +179,6 @@ export function Archive() {
           </ol>
         </div>
 
-        {/* 검증 방법: 이미 쓴 문장을 방법별로 모은 색인 */}
-        <div id="methods" className="archive-room">
-          <RoomSign title={s.methods} other="" icon={<GearPicto />} />
-          <KoText className="room-intro" text={s.methodsIntro} />
-          <ul className="methods">
-            {methods.map((m) => {
-              const p = m.slug ? localizeProject(getProject(m.slug)!, lang) : null;
-              // keys 가 있으면 본문에서 그 문장을 그대로 가져온다
-              let quoted = "";
-              if (p && m.keys) {
-                const sents = p.overview
-                  .replace(/\n+/g, " ")
-                  .split(ko ? /(?<=다\.|요\.|다\*\*\.)\s*/ : /(?<=[.!?])\s+/);
-                // 굵은 표시(**) 바로 뒤 마침표도 문장 끝으로 보고, 같은 문장은 한 번만
-                quoted = Array.from(
-                  new Set((ko ? m.keys.ko : m.keys.en).map((k) => sents.find((x) => x.includes(k))).filter(Boolean)),
-                ).join(" ");
-              }
-              const text = quoted || (p ? p.highlights[m.idx] : exp[m.exp ?? 0]?.points[m.idx]);
-              if (!text) return null;
-              return (
-                <li key={bi(lang, m.type)} className="methods__row reveal">
-                  <span className="methods__type mono">{bi(lang, m.type)}</span>
-                  <KoText className="methods__text" text={text} />
-                  {p ? (
-                    <Link className="methods__src" href={`/work/${p.slug}`}>
-                      {projTitle(p.slug)}
-                      <ArrowRight />
-                    </Link>
-                  ) : (
-                    <a className="methods__src" href="#experience">
-                      {exp[m.exp ?? 0].org}
-                      <ArrowRight />
-                    </a>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-
         {/* 수상 */}
         <div id="awards" className="archive-room">
           <RoomSign title={s.awards} other="" icon={<AwardPicto />} />
@@ -322,6 +281,61 @@ export function Archive() {
         </div>
       </div>
       {lb.node}
+    </section>
+  );
+}
+
+// 검증 방법: 이미 쓴 문장을 방법별로 모은 색인. 4F 바로 앞에 둔다
+export function Methods() {
+  const { lang } = useI18n();
+  const s = siteStrings(lang);
+  const ko = lang === "ko";
+  const exp = ko ? experienceKo : experience;
+  const projTitle = (slug: string) => {
+    const p = getProject(slug)!;
+    return ko ? koProjectTitle(slug) ?? p.title : p.title;
+  };
+  return (
+    <section id="methods" className="methods-section" aria-labelledby="methods-heading">
+      <div className="shell">
+        <RoomSign title={s.methods} other="" icon={<GearPicto />} as="h2" id="methods-heading" />
+        <KoText className="room-intro" text={s.methodsIntro} />
+        <ul className="methods">
+          {methods.map((m) => {
+            const p = m.slug ? localizeProject(getProject(m.slug)!, lang) : null;
+            // keys 가 있으면 본문에서 그 문장을 그대로 가져온다
+            let quoted = "";
+            if (p && m.keys) {
+              const sents = p.overview
+                .replace(/\n+/g, " ")
+                .split(ko ? /(?<=다\.|요\.|다\*\*\.)\s*/ : /(?<=[.!?])\s+/);
+              // 굵은 표시(**) 바로 뒤 마침표도 문장 끝으로 보고, 같은 문장은 한 번만
+              quoted = Array.from(
+                new Set((ko ? m.keys.ko : m.keys.en).map((k) => sents.find((x) => x.includes(k))).filter(Boolean)),
+              ).join(" ");
+            }
+            const text = quoted || (p ? p.highlights[m.idx] : exp[m.exp ?? 0]?.points[m.idx]);
+            if (!text) return null;
+            return (
+              <li key={bi(lang, m.type)} className="methods__row reveal">
+                <span className="methods__type mono">{bi(lang, m.type)}</span>
+                <KoText className="methods__text" text={text} />
+                {p ? (
+                  <Link className="methods__src" href={`/work/${p.slug}`}>
+                    {nbHyphen(projTitle(p.slug))}
+                    <ArrowRight />
+                  </Link>
+                ) : (
+                  <a className="methods__src" href="#experience">
+                    {exp[m.exp ?? 0].org}
+                    <ArrowRight />
+                  </a>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </section>
   );
 }

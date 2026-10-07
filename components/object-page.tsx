@@ -7,7 +7,7 @@ import Link from "next/link";
 import { getProject, type Project } from "@/lib/data";
 import { localizeProject } from "@/lib/data-ko";
 import { img as pic } from "@/lib/img";
-import { floorById, floorOf, floorPlan, siteStrings, bi, displaySrc, factGroups, withWhom, approved } from "@/lib/exhibit";
+import { floorById, floorOf, floorPlan, siteStrings, bi, displaySrc, isTight, factGroups, withWhom, approved } from "@/lib/exhibit";
 import { useI18n } from "./lang-provider";
 import { RoomSign } from "./floor-sign";
 import { Dot } from "./status";
@@ -136,7 +136,7 @@ export function ObjectPage({ slug }: { slug: string }) {
             <section className="object__hero" aria-label={s.moreInRoom}>
               <button
                 type="button"
-                className="frame"
+                className={isTight(curSrc) ? "frame frame--tight" : "frame"}
                 style={{ display: "block", width: "100%", padding: undefined, cursor: "zoom-in" }}
                 onClick={() => lb.open(shots, cur)}
                 aria-label={`${altFor(p, curSrc, lang)} (${lang === "ko" ? "크게 보기" : "open larger"})`}

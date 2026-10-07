@@ -6,7 +6,7 @@ import { Introduction } from "@/components/introduction";
 import { SpecialExhibition } from "@/components/special-exhibition";
 import { Galleries } from "@/components/galleries";
 import { Services } from "@/components/services";
-import { Archive } from "@/components/archive";
+import { Archive, Methods } from "@/components/archive";
 import { InfoDesk } from "@/components/info-desk";
 
 // 루트 레이아웃의 openGraph 는 자식이 정의하면 통째로 대체되므로(부분 병합 안 됨),
@@ -29,6 +29,7 @@ export default function Home() {
       <main id="main">
         <Lobby />
         <Introduction />
+        <Methods />
         <SpecialExhibition />
         <Galleries />
         <Services />

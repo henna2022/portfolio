@@ -67,11 +67,11 @@ export const floors: Floor[] = [
     code: "1",
     name: { en: "Experience & awards", ko: "경력·수상" },
     short: { en: "Career", ko: "경력" },
-    sub: { en: "Work, methods, awards, skills", ko: "경력, 검증 방법, 수상, 기술" },
+    sub: { en: "Work, awards, skills, teaching", ko: "경력, 수상, 기술, 교육" },
     title: { en: "Experience and record", ko: "경력과 기록" },
     intro: {
-      en: "Where I have worked, how I check my work, what it has won, the skills it uses, and who I have taught.",
-      ko: "일한 곳, 작업을 검증하는 방법, 받은 상, 쓰는 기술, 그리고 가르친 사람들입니다.",
+      en: "Where I have worked, the awards I have received, the skills I use, and who I have taught.",
+      ko: "일한 곳, 받은 상, 쓰는 기술, 그리고 가르친 사람들입니다.",
     },
   },
   {
@@ -127,6 +127,7 @@ export const floorPlan: Record<"4F" | "3F" | "2F", string[]> = {
 const imageOverride: Record<string, string> = {
   "/portfolio_images/projects/ai-ethics-vote-en.jpg": "/portfolio_images/projects-tight/ai-ethics-vote-en.webp",
   "/portfolio_images/projects/raim-4cut-studio-en.jpg": "/portfolio_images/projects-tight/raim-4cut-studio-en.webp",
+  "/portfolio_images/projects/raim-4cut-studio.jpg": "/portfolio_images/projects-tight/raim-4cut-studio.webp",
   "/portfolio_images/projects/ai-persona-web.jpg": "/portfolio_images/projects-tight/ai-persona-web.webp",
 };
 export const displaySrc = (src: string) => imageOverride[src] ?? src;

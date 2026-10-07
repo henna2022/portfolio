@@ -13,7 +13,7 @@ import { useI18n } from "./lang-provider";
 import { FloorSign } from "./floor-sign";
 import { StatusLine } from "./status";
 import { ArrowRight } from "./pictos";
-import { KoText, nbHyphen } from "./rich";
+import { nbHyphen } from "./rich";
 import { Evidence } from "./galleries";
 
 export function Pipeline({ steps }: { steps: string[] }) {
@@ -41,9 +41,6 @@ export function FlowDiagram({ p, className = "" }: { p: Project; className?: str
     </figure>
   );
 }
-
-// 첫 문장만 (나머지는 작품 페이지에)
-const lead = (t: string) => t.split(/(?<=\.)\s+/)[0];
 
 function Viewer({ p }: { p: Project }) {
   const img = p.image ?? p.gallery?.[0];
@@ -120,7 +117,6 @@ export function Services() {
                         {nbHyphen(p.title)}
                       </h3>
                       <StatusLine slug={p.slug} className="catalog__status" id={`cat-st-${p.slug}`} />
-                      <KoText className="catalog__desc" text={lead(p.desc)} />
                       <Evidence p={p} />
                     </div>
                     <span className="catalog__year" aria-hidden="true">
