@@ -306,7 +306,10 @@ export function Archive() {
                 {moreActs.map((a) => (
                   <li key={a.title + a.period}>
                     <span className="mono">{a.period}</span>
-                    <span>{a.title}</span>
+                    <span>
+                      <b className="learn-more__name">{a.title}</b>
+                      <span className="learn-more__role">{a.role}</span>
+                    </span>
                   </li>
                 ))}
               </ul>

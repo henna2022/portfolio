@@ -1,7 +1,7 @@
 export const person = {
   name: "Juwon Lee",
   hangul: "이주원",
-  role: "AI Product Engineer",
+  role: "Education planning & development",
   email: "hello@juwonlee.dev",
   github: "https://github.com/henna2022",
   githubHandle: "henna2022",
@@ -60,7 +60,7 @@ export type ProseParagraph = ProseSegment[];
 export const about = {
   photo: "/portfolio_images/profile/juwonlee.jpg",
   tagline:
-    "AI product engineer. I build AI into working products end to end, from sensor to shipped interface, and keep them running where real users are: exhibition floors, classrooms, and hardware in the field.",
+    "I plan education programs and build the AI products behind them end to end, from sensor to shipped interface, and keep them running where real users are: exhibition floors, classrooms, and hardware in the field.",
   // 카드 하단 요약 — 정체성과 "지금"만 짧게. 나머지 이력은 아래 facts 로 내린다.
   info: [
     {
@@ -101,7 +101,7 @@ export const about = {
   prose: [
     [
       { text: "Hi, I'm Juwon Lee, a " },
-      { text: "product engineer who builds AI into working products, from the data pipeline to the deployed interface", b: true },
+      { text: "education R&D developer who plans education programs and builds AI into working products, from the data pipeline to the deployed interface", b: true },
       { text: ". I care most about the moment an idea becomes something people actually use, and understand. On most of my projects I've owned the work " },
       { text: "from planning through deployment", b: true },
       { text: "." },
@@ -178,7 +178,7 @@ export const projects: Project[] = [
     href: "https://doctor-green-edu.vercel.app/",
     stat: "15-student cohort · Oct 2026",
     overview:
-      "A hands-on education program commissioned by the Yangpyeong Education Office through the museum, where students experience an IoT smart farm and AI crop diagnosis first-hand. I planned the program and built everything it needed solo, **a Next.js web app with server API routes on Vercel, and Arduino (C++) firmware for the 16 ESP32 student boards, which write sensor readings straight to Supabase**. I designed it so students watch data accumulate and **sensor values change in real time**, with their own eyes. The first prototype ran on a Python/Flask relay and MicroPython firmware. The program is **finished and was taught as a demo class to 5 high-school students in August 2026**, and is scheduled to run in **October 2026** as a class for a **cohort of 15 Yangpyeong high-school students**, selected by application.\n\nA class runs as a guided flow: students enter the virtual lab, pick a room at the hub, and move through four STEPs (weather, AI vision, IoT, and camera), watching data load into the lab's Supabase database. Once all four are connected, a capstone opens where students code if-then automation rules, test them in a simulator and run them on the real board, followed by a closing quiz. A location-based weather API ties the lessons to real growing conditions, and students **train a model themselves inside the browser**, transfer learning with TensorFlow.js on a self-hosted MobileNet v2 feature extractor, so the epoch and loss numbers they watch are the real values from their own run.\n\nThe program is a museum × education-office commission: an exhibition-linked education case **planned and built end to end by one person**.",
+      "A hands-on education program commissioned by the Yangpyeong Education Office through the museum, where students experience an IoT smart farm and AI crop diagnosis first-hand. I planned the program and built everything it needed solo, **a Next.js web app with server API routes on Vercel, and Arduino (C++) firmware for the 16 ESP32 student boards, which write sensor readings straight to Supabase**. I designed it so students watch data accumulate and **sensor values change in real time**, with their own eyes. The first prototype ran on a Python/Flask relay and MicroPython firmware. The program is **finished and was taught as a demo class to 5 high-school students in August 2026**, and is scheduled to run in **October 2026** as a class for a **cohort of 15 Yangpyeong high-school students**, selected by application.\n\nA class runs as a guided flow: students enter the virtual lab, pick a room at the hub, and move through four STEPs (weather, AI vision, IoT, and camera), watching data load into the lab's Supabase database. Once all four are connected, a capstone opens where students code if-then automation rules, test them in a simulator and run them on the real board, followed by a closing quiz. A location-based weather API ties the lessons to real growing conditions, and students **train a model themselves inside the browser**, transfer learning with TensorFlow.js on a self-hosted MobileNet v2 feature extractor, so the epoch and loss numbers they watch are the real values from their own run.",
     highlights: [
       "Integrated a **location-based weather API** to tie lessons to real growing conditions.",
       "Students run **real transfer learning in the browser**, TensorFlow.js on a self-hosted MobileNet v2, and read epoch and loss straight off their own training run.",

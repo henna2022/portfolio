@@ -28,13 +28,13 @@ const plexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Juwon Lee | AI Product Engineer",
+  title: "Juwon Lee | Education Planning & Development",
   description:
-    "Portfolio of Juwon Lee, an AI product engineer who builds AI features into products end to end, from data pipeline and sensors to deployed interface, and runs them on exhibition floors, in classrooms, and on real hardware.",
+    "Portfolio of Juwon Lee, an education R&D developer at the Seoul Robot & AI Science Museum who plans education programs and builds the AI exhibits, classroom tools and staff systems behind them, end to end, and runs them on exhibition floors, in classrooms and on real hardware.",
   openGraph: {
-    title: "Juwon Lee | AI Product Engineer",
+    title: "Juwon Lee | Education Planning & Development",
     description:
-      "Portfolio of Juwon Lee, an AI product engineer who builds AI features into products end to end, from data pipeline and sensors to deployed interface, and runs them on exhibition floors, in classrooms, and on real hardware.",
+      "Portfolio of Juwon Lee, an education R&D developer at the Seoul Robot & AI Science Museum who plans education programs and builds the AI exhibits, classroom tools and staff systems behind them, end to end, and runs them on exhibition floors, in classrooms and on real hardware.",
     url: `${SITE_URL}/`,
     images: ["/og-cover-2026-10.png"],
   },
@@ -91,7 +91,7 @@ const personJsonLd = {
   alternateName: "이주원",
   url: `${SITE_URL}/`,
   image: `${SITE_URL}/portfolio_images/profile/juwonlee.jpg`,
-  jobTitle: "AI Product Engineer",
+  jobTitle: "Education R&D Developer",
   worksFor: {
     "@type": "Organization",
     name: "Seoul Robot & AI Science Museum",

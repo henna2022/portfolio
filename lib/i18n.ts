@@ -50,6 +50,7 @@ export const ui = {
     { label: "Research / collaboration", subject: "juwonlee.dev: research or collaboration" },
   ],
   footerCopyright: "© 2026 Juwon Lee",
+  lastUpdated: "Last updated 2026.10.07",
   privacyNotice: "This site keeps anonymous visit statistics.",
   privacyLink: "Privacy",
 
@@ -118,6 +119,7 @@ export const uiKo: UiStrings = {
     { label: "연구·협업 제안", subject: "juwonlee.dev 연구·협업 제안" },
   ],
   footerCopyright: "© 2026 이주원",
+  lastUpdated: "최종 업데이트 2026.10.07",
   privacyNotice: "이 사이트는 익명 방문 통계를 수집합니다.",
   privacyLink: "개인정보 안내",
 

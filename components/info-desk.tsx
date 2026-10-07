@@ -67,7 +67,9 @@ export function InfoDesk({ compact }: { compact?: boolean }) {
       </section>
       <footer className="footer">
         <div className="shell footer__inner">
-          <span>{t.footerCopyright}</span>
+          <span>
+            {t.footerCopyright} · {t.lastUpdated}
+          </span>
           <span>
             {t.privacyNotice}{" "}
             <Link href="/privacy">{t.privacyLink}</Link>

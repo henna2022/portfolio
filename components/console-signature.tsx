@@ -18,7 +18,7 @@ export function ConsoleSignature() {
     const link = "font: 12px ui-monospace, monospace; color: #6B7280;";
     console.log(
       "%cJUWON LEE\n" +
-        "%cAI Product Engineer · you found the staff entrance\n\n" +
+        "%cEducation R&D · Developer · you found the staff entrance\n\n" +
         "%c여기까지 열어보셨다면, 코드가 궁금하셨군요 👋\n" +
         "Curious how this site is built?\n\n" +
         "%cGitHub   → https://github.com/henna2022\n" +

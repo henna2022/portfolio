@@ -14,9 +14,9 @@ import { InfoDesk } from "@/components/info-desk";
 export const metadata: Metadata = {
   alternates: { canonical: `${SITE_URL}/` },
   openGraph: {
-    title: "Juwon Lee | AI Product Engineer",
+    title: "Juwon Lee | Education Planning & Development",
     description:
-      "Portfolio of Juwon Lee, an AI product engineer who builds AI features into products end to end, from data pipeline and sensors to deployed interface, and runs them on exhibition floors, in classrooms, and on real hardware.",
+      "Portfolio of Juwon Lee, an education R&D developer at the Seoul Robot & AI Science Museum who plans education programs and builds the AI exhibits, classroom tools and staff systems behind them, end to end, and runs them on exhibition floors, in classrooms and on real hardware.",
     url: `${SITE_URL}/`,
     images: ["/og-cover-2026-10.png"],
   },

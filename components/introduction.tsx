@@ -123,9 +123,6 @@ export function Introduction() {
           {/* 자기소개 본문은 접어 둔다 (대문과 리드에서 이미 한 번 말했으므로) */}
           <div className="prose">
             <div id="intro-more" hidden={!more}>
-              <blockquote className="intro__quote">
-                {a.quote.map((q, i) => (q.em ? <em key={i}>{q.text}</em> : <span key={i}>{q.text}</span>))}
-              </blockquote>
               <SegmentParas paras={a.prose} />
             </div>
             <button

@@ -54,11 +54,11 @@ export const floors: Floor[] = [
     code: "2",
     name: { en: "Internal systems", ko: "운영 시스템" },
     short: { en: "Systems", ko: "시스템" },
-    sub: { en: "Booking, staff, uptime", ko: "예약, 근무, 복구" },
+    sub: { en: "Staff, uptime, booking", ko: "근무, 복구, 예약" },
     title: { en: "Systems behind the exhibits", ko: "전시 뒤에서 돌아가는 시스템" },
     intro: {
-      en: "Booking for foreign visitors, staff schedules, exhibit recovery, usage counts, document templates, and a course for the museum's own staff.",
-      ko: "외국인 예약과 근무 일정, 전시물 복구, 이용 집계, 문서 양식, 그리고 직원 교육까지 맡는 작업들입니다.",
+      en: "Staff schedules, exhibit recovery, usage counts, document templates, booking for foreign visitors, and a course for the museum's own staff.",
+      ko: "근무 일정과 전시물 복구, 이용 집계, 문서 양식, 외국인 예약, 그리고 직원 교육까지 맡는 작업들입니다.",
     },
   },
   {
@@ -111,12 +111,13 @@ export const floorPlan: Record<"4F" | "3F" | "2F", string[]> = {
   // 스마트팜이 가장 큰 프로젝트라 맨 위 (본인 요청 2026-10-05)
   "4F": ["smart-farm-education", "mystery-playground-replay", "doctor-green"],
   "3F": [...galleryWall, ...galleryCase],
+  // 지금 돌아가는 것부터 (채점 반영 2026-10-07): 매일 쓰는 앱 → 무인 복구 → 집계 → 문서 도구 → 공개 전 예약 → 직원 과정
   "2F": [
-    "raim-en",
     "raim-staff-platform",
     "exhibit-auto-recovery",
     "exhibit-stats-hub",
     "document-formatter",
+    "raim-en",
     "staff-ai-class",
   ],
 };
@@ -163,7 +164,7 @@ export const status: Record<string, { kind: StatusKind } & Bi> = {
   "raim-floor-guide": { kind: "on", en: "Online", ko: "공개 중" },
   "education-room-board": { kind: "on", en: "In operation", ko: "운영 중" },
   "document-formatter": { kind: "soon", en: "Online · handover pending", ko: "공개 중 · 인수인계 전" },
-  "staff-ai-class": { kind: "soon", en: "First session Oct 7, 2026", ko: "2026년 10월 7일 첫 수업" },
+  "staff-ai-class": { kind: "soon", en: "7 sessions · Oct–Nov 2026", ko: "7회 과정 · 2026년 10~11월" },
 };
 
 // 기획전 두 작품의 큰 숫자. 전부 data.ts 본문에 있는 수치만.
@@ -216,7 +217,7 @@ export const proof: Array<{ v: string; vKo?: string; slug?: string; href?: strin
   { v: "14,328", vKo: "14,328장", slug: "raimi-art-lab", en: "AI images generated, June to August 2026 (July alone: 9,865)", ko: "2026년 6~8월 AI 생성 이미지 (7월 한 달 9,865장)" },
   { v: "1,932", slug: "raim-4cut-studio", en: "photo-kiosk uses recorded on 26 days, June to September 2026", ko: "2026년 6~9월, 이용 기록이 있는 26일 동안 포토 키오스크 이용 횟수" },
   { v: "~20", vKo: "약 20명", slug: "raim-staff-platform", en: "docents and part-time staff using the staff app daily", ko: "근무 앱을 매일 쓰는 해설사·단기인력" },
-  { v: "100", vKo: "100명", href: "#experience", src: { en: "KT × Seoul City AI Future Camp", ko: "KT·서울시 AI 미래 캠프" }, en: "camp students in Aug 2026; I taught the camp's 50-minute Picabot class", ko: "규모 캠프(2026년 8월)에서 피카봇 50분 확장 수업 담당" },
+  { v: "100", vKo: "100명", href: "#experience", src: { en: "KT × Seoul City AI Future Camp", ko: "KT·서울시 AI 미래 캠프" }, en: "camp students in Aug 2026; I taught the camp's 50-minute Picabot class", ko: "2026년 8월 KT·서울시 AI 미래 캠프 참가 학생, 피카봇 50분 확장 수업 담당" },
 ];
 
 // 작품 페이지 핵심 사실 묶음 (highlights 번호, EN·KO 같은 순서). 없는 작품은 한 목록 그대로.
@@ -318,7 +319,7 @@ export const statusLegend: Array<{ kind: StatusKind } & Bi> = [
 const siteEn = {
   floorGuide: "Floor Guide",
   floorGuideOther: "층별 안내",
-  role: "Education planning & development",
+  role: "Target role: Education planning & development",
   introduction: "Introduction",
   introductionOther: "들어가며",
   readMore: "Read more",
@@ -349,7 +350,7 @@ const siteEn = {
   displayCaseOther: "진열장",
   chronology: "Experience",
   chronologyOther: "경력",
-  learning: "Teaching & mentoring",
+  learning: "Teaching, mentoring & activities",
   learningOther: "교육 · 멘토링",
   awards: "Awards",
   awardsOther: "수상",
@@ -357,7 +358,7 @@ const siteEn = {
   materialsOther: "기술",
   methods: "How I check my work",
   methodsIntro: "Sentences quoted from each case study.",
-  otherTeaching: "Other teaching and mentoring",
+  otherTeaching: "More teaching, mentoring and activities",
   cvForMore: "Full list in the CV",
   proofTitle: "In use, by the numbers",
   careerTitle: "Career",
@@ -393,7 +394,7 @@ const siteKo: SiteStrings = {
   ...siteEn,
   floorGuide: "층별 안내",
   floorGuideOther: "Floor Guide",
-  role: "교육 기획 · 개발",
+  role: "희망 직무: 교육 기획 · 개발",
   introduction: "들어가며",
   introductionOther: "Introduction",
   readMore: "더 읽기",
@@ -423,7 +424,7 @@ const siteKo: SiteStrings = {
   displayCaseOther: "Display case",
   chronology: "경력",
   chronologyOther: "Experience",
-  learning: "교육 · 멘토링",
+  learning: "교육·멘토링·활동",
   learningOther: "Teaching & mentoring",
   awards: "수상",
   awardsOther: "Awards",
@@ -431,7 +432,7 @@ const siteKo: SiteStrings = {
   materialsOther: "Skills",
   methods: "검증 방법",
   methodsIntro: "각 작업 본문에서 옮긴 문장입니다.",
-  otherTeaching: "그 밖의 교육·멘토링",
+  otherTeaching: "그 밖의 교육·멘토링·활동",
   cvForMore: "전체 목록은 경력기술서에",
   proofTitle: "운영·이용 기록",
   careerTitle: "경력",
