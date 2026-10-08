@@ -1,6 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* ko-linebreak:2026-10-08 한국어 줄바꿈 기본값 */
+html { word-break: keep-all; line-break: strict; overflow-wrap: break-word; }
+h1, h2, h3, h4, caption, figcaption, th { text-wrap-style: balance; }
+p, li, dd, td, blockquote, .note { text-wrap-style: pretty; }
+code, .url { overflow-wrap: anywhere; }
+button, .btn, .badge, .chip { white-space: nowrap; }
+.user-text { white-space: pre-line; }
+/* /ko-linebreak */
+/* 개인정보 페이지 통계 수집 버튼은 문장 라벨이라 줄바꿈 허용 */
+button.shrink-0.self-start { white-space: normal; }
+
 
 /* ─────────────────────────────────────────────────────────────────────────
    juwonlee.dev reborn. 박물관 안내 사인과 작품 라벨의 언어.
