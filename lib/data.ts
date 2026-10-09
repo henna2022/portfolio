@@ -451,7 +451,7 @@ export const projects: Project[] = [
     year: "2026",
     role: "Solo: planning, development, deployment",
     tags: ["Node.js", "Express", "SQLite", "EJS", "Google Apps Script", "Fly.io"],
-    href: "https://raim-en.fly.dev",
+    href: "https://visitseoulraim.com",
     image: "/portfolio_images/projects/raim-en-en.jpg",
     stat: "287 automated tests",
     overview:
