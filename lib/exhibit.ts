@@ -307,8 +307,10 @@ export const approved = new Set(["exhibit-auto-recovery", "raim-en", "raim-staff
 // 기술 그룹 순서: 실제로 배포한 스택부터 (data.ts skillGroups 의 key)
 export const skillOrder = ["front", "back", "ai", "data", "hw", "edu"];
 
-// 교육·멘토링 중 먼저 보여 줄 항목 (activities 순서 기준), 나머지는 접는다
-export const featuredActivities = [3, 5, 7];
+// 교육·멘토링 중 먼저 보여 줄 항목 (activities 순서 기준), 나머지는 접는다.
+// activities 앞쪽에 항목을 끼우면 번호가 밀리니 같이 고칠 것.
+// 2026 SW·AI 동행(0) · 2025 SW동행 해커톤(4) · 2024 SW동행 프로젝트(6): 같은 사업 3년, 모두 사진 있음
+export const featuredActivities = [0, 4, 6];
 
 export const statusLegend: Array<{ kind: StatusKind } & Bi> = [
   { kind: "on", en: "On view / in use", ko: "운영 중" },
