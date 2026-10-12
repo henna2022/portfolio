@@ -81,7 +81,7 @@ export const about = {
   facts: [
     {
       k: "Education",
-      v: "Hankyong National University (2022–2027 expected)\nRutgers University · Winter Intensive English (2025)\nCheongwon Girls' High School (2019–2022)",
+      v: "Hankyong National University (2022–2027.02, requirements expected; graduation deferred)\nRutgers University · Winter Intensive English (2025)\nCheongwon Girls' High School (2019–2022)",
     },
     {
       k: "Languages & Certifications",
