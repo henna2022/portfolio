@@ -190,7 +190,7 @@ export const glance: Array<{ k: Bi; v: Bi }> = [
   {
     k: { en: "Degree", ko: "학력" },
     v: {
-      en: "Hankyong National University, Plant Life & Environment + Software Convergence double major, graduation requirements expected Feb 2027 (graduation deferred)",
+      en: "Hankyong National University, Plant Life & Environment + Software Convergence double major, expected to complete graduation requirements in Feb 2027 (graduation deferred)",
       ko: "한경국립대학교 식물생명환경전공 · 소프트웨어융합전공 복수전공, 2027년 2월 졸업요건 이수 예정(졸업 유예)",
     },
   },
