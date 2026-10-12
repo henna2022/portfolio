@@ -44,7 +44,7 @@ export const floors: Floor[] = [
     sub: { en: "Exhibits visitors touch", ko: "관람객이 직접 만지는 전시물" },
     title: { en: "Built for the exhibition floor", ko: "전시장을 위해 만든 작업들" },
     intro: {
-      en: "Kiosks, tablet games and phone apps made for the Seoul Robot & AI Science Museum. Each label says whether the work is on view, has closed, or is still waiting to open.",
+      en: "Kiosks, tablet games and phone apps made for the Seoul Robot & AI Museum. Each label says whether the work is on view, has closed, or is still waiting to open.",
       ko: "서울로봇인공지능과학관 전시장을 위해 만든 키오스크, 태블릿 게임, 휴대폰 웹앱입니다. 라벨마다 지금 운영 중인지, 운영을 마쳤는지, 아직 현장에 나가기 전인지 적었습니다.",
     },
   },
@@ -152,8 +152,8 @@ export const status: Record<string, { kind: StatusKind } & Bi> = {
   "lidar-explainer-kiosk": { kind: "on", en: "On view since Sep 2026", ko: "2026년 9월부터 운영" },
   "ai-ethics-vote": { kind: "on", en: "On view since Sep 2026", ko: "2026년 9월부터 운영" },
   "im-a-restorer": { kind: "on", en: "Running · once-daily program", ko: "운영 중 · 매일 1회" },
-  "raimi-language-lab": { kind: "on", en: "On view · 3 tablets", ko: "운영 중 · 태블릿 3대" },
-  "raim-4cut-studio": { kind: "closed", en: "Ran Jun–Sep 2026", ko: "2026년 6~9월 운영" },
+  "raimi-language-lab": { kind: "closed", en: "Ran Jun–Oct 8, 2026", ko: "2026년 6월~10월 8일 운영" },
+  "raim-4cut-studio": { kind: "soon", en: "Seasonal use since Jun 2026", ko: "2026년 6월부터 시즌 운영" },
   "ai-persona-web": { kind: "on", en: "Online · QR at the exhibit", ko: "공개 중 · 전시물 옆 QR" },
   "time-machine-ar": { kind: "soon", en: "Deployed · on-site launch pending", ko: "배포 완료 · 현장 운영 전" },
   "robot-ar-tour": { kind: "proto", en: "Prototype", ko: "프로토타입" },
@@ -165,7 +165,7 @@ export const status: Record<string, { kind: StatusKind } & Bi> = {
   "raim-floor-guide": { kind: "on", en: "Online", ko: "공개 중" },
   "education-room-board": { kind: "on", en: "In operation", ko: "운영 중" },
   "document-formatter": { kind: "soon", en: "Online · handover pending", ko: "공개 중 · 인수인계 전" },
-  "staff-ai-class": { kind: "soon", en: "7 sessions · Oct–Nov 2026", ko: "7회 과정 · 2026년 10~11월" },
+  "staff-ai-class": { kind: "soon", en: "10 sessions · Oct 23–Dec 23, 2026 (planned)", ko: "10회 과정 · 2026.10.23~12.23 예정" },
 };
 
 // 기획전 두 작품의 큰 숫자. 전부 data.ts 본문에 있는 수치만.
@@ -176,7 +176,7 @@ export const figures: Record<string, Array<{ v: string; vKo?: string } & Bi>> = 
     { v: "128", en: "visitor logs used to fix avatar rules", ko: "아바타 규칙 수정에 쓴 관람객 기록" },
   ],
   "smart-farm-education": [
-    { v: "16", en: "ESP32 boards for students", ko: "학생용 ESP32 보드" },
+    { v: "15", en: "ESP32 boards for students, one each", ko: "학생용 ESP32 보드 (1인 1대)" },
     { v: "4", en: "lesson steps: weather, AI vision, IoT, camera", ko: "수업 단계 (날씨 · AI 비전 · IoT · 카메라)" },
   ],
   "doctor-green": [
@@ -190,8 +190,8 @@ export const glance: Array<{ k: Bi; v: Bi }> = [
   {
     k: { en: "Degree", ko: "학력" },
     v: {
-      en: "Hankyong National University, Plant Life & Environment (B.Ag.) + Software Convergence (B.Eng.) double major, graduating Feb 2027",
-      ko: "한경국립대학교 식물생명환경전공(농학사) · 소프트웨어융합전공(공학사) 복수전공, 2027년 2월 졸업 예정",
+      en: "Hankyong National University, Plant Life & Environment + Software Convergence double major, graduating Feb 2027",
+      ko: "한경국립대학교 식물생명환경전공 · 소프트웨어융합전공 복수전공, 2027년 2월 졸업 예정",
     },
   },
   {
@@ -206,7 +206,7 @@ export const glance: Array<{ k: Bi; v: Bi }> = [
 // 대문 첫 줄: 실제 직함과 소속 (data.ts experience[0] 그대로). 고용 형태는 본인 요청으로 쓰지 않는다 (2026-10-05)
 export const jobLine: { title: Bi; meta: Bi } = {
   title: {
-    en: "Education R&D · Developer, Seoul Robot & AI Science Museum",
+    en: "Education R&D · Developer, Seoul Robot & AI Museum",
     ko: "서울로봇인공지능과학관 교육 R&D · 개발자",
   },
   meta: { en: "Since 2026.03", ko: "2026.03~" },
@@ -216,9 +216,9 @@ export const jobLine: { title: Bi; meta: Bi } = {
 // src 가 없으면 출처 이름은 그 작품 제목.
 export const proof: Array<{ v: string; vKo?: string; slug?: string; href?: string; src?: Bi } & Bi> = [
   { v: "14,328", vKo: "14,328장", slug: "raimi-art-lab", en: "AI images generated, June to August 2026 (July alone: 9,865)", ko: "2026년 6~8월 AI 생성 이미지 (7월 한 달 9,865장)" },
-  { v: "1,932", slug: "raim-4cut-studio", en: "photo-kiosk uses recorded on 26 days, June to September 2026", ko: "2026년 6~9월, 이용 기록이 있는 26일 동안 포토 키오스크 이용 횟수" },
+  { v: "1,932", slug: "raim-4cut-studio", en: "photo-kiosk uses recorded on 26 days, June 14 to September 6, 2026", ko: "2026년 6월 14일~9월 6일, 이용 기록이 있는 26일 동안 포토 키오스크 이용 횟수" },
   { v: "~20", vKo: "약 20명", slug: "raim-staff-platform", en: "docents and part-time staff using the staff app daily", ko: "근무 앱을 매일 쓰는 해설사·단기인력" },
-  { v: "100", vKo: "100명", href: "#experience", src: { en: "KT × Seoul City AI Future Camp", ko: "KT·서울시 AI 미래 캠프" }, en: "camp students in Aug 2026; I taught the camp's 50-minute Picabot class", ko: "2026년 8월 KT·서울시 AI 미래 캠프 참가 학생, 피카봇 50분 확장 수업 담당" },
+  { v: "100", vKo: "100명", href: "#experience", src: { en: "KT × Seoul City AI Future Camp", ko: "KT·서울시 AI 미래 캠프" }, en: "elementary students attended the camp in Aug 2026; I taught its 50-minute Picabot class", ko: "2026년 8월 KT·서울시 AI 미래 캠프 참가 초등학생, 피카봇 50분 확장 수업 담당" },
 ];
 
 // 작품 페이지 핵심 사실 묶음 (highlights 번호, EN·KO 같은 순서). 없는 작품은 한 목록 그대로.
@@ -231,7 +231,7 @@ export const factGroups: Record<string, Array<{ h: Bi; idx: number[] }>> = {
     { h: { en: "Handover", ko: "인수인계" }, idx: [5] },
   ],
   "doctor-green": [
-    { h: { en: "Running today", ko: "지금 돌아가는 것" }, idx: [0, 1, 5] },
+    { h: { en: "Built and verified", ko: "구현·검증한 것" }, idx: [0, 1, 5] },
     { h: { en: "Data method", ko: "데이터 구축 방법" }, idx: [3] },
     { h: { en: "Not done yet", ko: "아직 남은 일" }, idx: [4] },
   ],
@@ -295,10 +295,10 @@ export const methods: Array<{
 export const withWhom: Record<string, Bi> = {
   "smart-farm-education": { en: "Commissioned by the Yangpyeong Education Office through the museum", ko: "과학관 × 양평교육청 위탁 사업" },
   "exhibit-auto-recovery": { en: "Handover document written for the museum's maintenance technician", ko: "유지보수 담당자용 인수인계 문서 작성" },
-  "raim-en": { en: "Built for museum staff to manage bookings in a shared Google Sheet ledger", ko: "직원이 구글 시트 공용 장부로 예약을 관리하도록 설계" },
+  "raim-en": { en: "Built for museum staff to check bookings and mark visits and no-shows in the admin", ko: "직원이 관리자 화면에서 예약을 확인하고 방문·노쇼를 표시하도록 설계" },
   "raim-staff-platform": { en: "Used daily by about 20 docents and part-time staff", ko: "해설사·단기인력 약 20명이 매일 사용" },
   "raim-4cut-studio": { en: "Staff read usage and switch seasonal robots on a PIN-protected page", ko: "직원이 PIN 화면에서 이용 수 확인, 시즌 로봇 전환" },
-  "raimi-language-lab": { en: "Staff track per-device usage in a PIN-gated panel with Excel export", ko: "직원이 PIN 운영 패널에서 기기별 이용 현황 확인, 엑셀 내보내기" },
+  "raimi-language-lab": { en: "Staff tracked per-device usage in a PIN-gated panel with Excel export", ko: "직원이 PIN 운영 패널에서 기기별 이용 현황 확인, 엑셀 내보내기" },
 };
 
 // 기관 승인을 받은 시스템 (본인 확인 2026-10-05). 작품 페이지 벽 라벨에 한 줄

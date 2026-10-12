@@ -30,11 +30,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "Juwon Lee | Education Planning & Development",
   description:
-    "Portfolio of Juwon Lee, an education R&D developer at the Seoul Robot & AI Science Museum who plans education programs and builds the AI exhibits, classroom tools and staff systems behind them, end to end, and runs them on exhibition floors, in classrooms and on real hardware.",
+    "Portfolio of Juwon Lee, an education R&D developer at the Seoul Robot & AI Museum who plans education programs and builds the AI exhibits, classroom tools and staff systems behind them, end to end, and runs them on exhibition floors, in classrooms and on real hardware.",
   openGraph: {
     title: "Juwon Lee | Education Planning & Development",
     description:
-      "Portfolio of Juwon Lee, an education R&D developer at the Seoul Robot & AI Science Museum who plans education programs and builds the AI exhibits, classroom tools and staff systems behind them, end to end, and runs them on exhibition floors, in classrooms and on real hardware.",
+      "Portfolio of Juwon Lee, an education R&D developer at the Seoul Robot & AI Museum who plans education programs and builds the AI exhibits, classroom tools and staff systems behind them, end to end, and runs them on exhibition floors, in classrooms and on real hardware.",
     url: `${SITE_URL}/`,
     images: ["/og-cover-2026-10.png"],
   },
@@ -94,7 +94,7 @@ const personJsonLd = {
   jobTitle: "Education R&D Developer",
   worksFor: {
     "@type": "Organization",
-    name: "Seoul Robot & AI Science Museum",
+    name: "Seoul Robot & AI Museum",
   },
   sameAs: [
     "https://github.com/henna2022",
