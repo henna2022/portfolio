@@ -913,6 +913,13 @@ export type Activity = {
 
 export const activities: Activity[] = [
   {
+    period: "2026.09 - 2026.10",
+    title: "2026 SW·AI Donghaeng Project",
+    role: "Youth mentor (KOFAC program, run by Elice Group)",
+    desc: "Live online mentoring for a middle-school class, with four sessions scheduled for October 2026, including one career-mentoring session I lead on my own.",
+    photos: [],
+  },
+  {
     period: "2026.07 - Present",
     title: "KB LA School (Middle School)",
     role: "Middle-school mentor · 2x/week, 80 min · outside work hours",

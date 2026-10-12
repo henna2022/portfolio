@@ -559,6 +559,12 @@ export const experienceKo = experience.map((e, i) => ({
 // ─── Activities ─────────────────────────────────────────────────────────────
 const activitiesKoOverrides: Array<Partial<Activity>> = [
   {
+    period: "2026.09–2026.10",
+    title: "2026 SW·AI 동행 프로젝트",
+    role: "청년 멘토(한국과학창의재단 사업, 주관 ㈜엘리스그룹)",
+    desc: "중학교 학급 실시간 온라인 멘토링. 2026년 10월에 4회 예정이고, 그중 진로 멘토링 1회는 단독으로 진행합니다.",
+  },
+  {
     period: "2026.07–현재",
     title: "KB LA School (중등)",
     role: "중등부 전담 멘토 · 주 2회 80분 · 업무 외 시간",
