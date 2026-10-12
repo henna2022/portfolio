@@ -592,7 +592,7 @@ const activitiesKoOverrides: Array<Partial<Activity>> = [
     period: "2024.09–2024.12",
     title: "SW 동행 프로젝트",
     role: "청년 멘토(퓨처챌린지)",
-    desc: "미래산업과학고 '청정에너지 심화' 4차시 방문 수업, 고교생 6명 피지컬 컴퓨팅 코드 지도.",
+    desc: "3개월간 고교 방문 수업 3회, 피지컬 컴퓨팅 코드 지도.",
   },
   {
     period: "2024.07–2025.02",

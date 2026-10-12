@@ -955,7 +955,7 @@ export const activities: Activity[] = [
     period: "2024.09 - 2024.12",
     title: "SW-Donghaeng Project",
     role: "Youth mentor (Future Challenge)",
-    desc: "Taught a 4-period 'Advanced Clean Energy' class on a high-school visit and coached 6 students on their physical-computing code.",
+    desc: "Taught 3 visiting classes at high schools over 3 months and coached students on their physical-computing code.",
     photos: [
       "/portfolio_images/activities/2024swpj_1.jpg",
       "/portfolio_images/activities/2024swpj_2.jpg",
