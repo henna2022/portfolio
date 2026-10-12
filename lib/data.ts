@@ -916,8 +916,11 @@ export const activities: Activity[] = [
     period: "2026.09 - 2026.10",
     title: "2026 SW·AI Donghaeng Project",
     role: "Youth mentor (KOFAC program, run by Elice Group)",
-    desc: "Live online mentoring for a middle-school class, with four sessions scheduled for October 2026, including one career-mentoring session I lead on my own.",
-    photos: [],
+    desc: "Coached middle-school students in person at the program's makerthon on October 11, 2026, and mentor a middle-school class in live online sessions: four are scheduled for October 2026, including one career-mentoring session I lead on my own.",
+    photos: [
+      "/portfolio_images/activities/act_aidonghaeng_1.jpg",
+      "/portfolio_images/activities/act_aidonghaeng_2.jpg",
+    ],
   },
   {
     period: "2026.07 - Present",
