@@ -295,7 +295,7 @@ export const methods: Array<{
 export const withWhom: Record<string, Bi> = {
   "smart-farm-education": { en: "Commissioned by the Yangpyeong Education Office through the museum", ko: "과학관 × 양평교육청 위탁 사업" },
   "exhibit-auto-recovery": { en: "Handover document written for the museum's maintenance technician", ko: "유지보수 담당자용 인수인계 문서 작성" },
-  "raim-en": { en: "Built for museum staff to check bookings and mark visits and no-shows in the admin", ko: "직원이 관리자 화면에서 예약을 확인하고 방문·노쇼를 표시하도록 설계" },
+  "raim-en": { en: "Built for museum staff to approve requests, check bookings, and mark visits and no-shows in the admin", ko: "직원이 관리자 화면에서 신청을 승인하고 예약 확인과 방문·노쇼 표시를 하도록 설계" },
   "raim-staff-platform": { en: "Used daily by about 20 docents and part-time staff", ko: "해설사·단기인력 약 20명이 매일 사용" },
   "raim-4cut-studio": { en: "Staff read usage and switch seasonal robots on a PIN-protected page", ko: "직원이 PIN 화면에서 이용 수 확인, 시즌 로봇 전환" },
   "raimi-language-lab": { en: "Staff tracked per-device usage in a PIN-gated panel with Excel export", ko: "직원이 PIN 운영 패널에서 기기별 이용 현황 확인, 엑셀 내보내기" },
