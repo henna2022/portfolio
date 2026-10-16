@@ -34,10 +34,9 @@ const MODEL = "/robot.glb";
 // 레귤러 굵기 — 글자 속 공간('e','a')이 시원하게 뚫려 보이도록
 const FONT = "/fonts/helvetiker_regular.typeface.json";
 const REACTIONS = ["Robot_Jump", "Robot_Dance", "Robot_ThumbsUp"];
-const HEADLINE = ["Building end-to-end", "systems where AI meets", "the physical world."];
-// KO: 페이퍼로지에서 히어로에 쓰는 글자만 추린 3D 타입페이스(35KB)와
-// 버튼 라벨용 서브셋 TTF(14KB) — EN 과 동일한 벽 팝업 연출을 그대로 쓴다.
-const HEADLINE_KO = ["만들 줄 아는 교육자,", "가르칠 줄 아는", "개발자입니다."];
+const HEADLINE = ["Building AI products", "that run where", "people are."];
+// Paperlogy 6 SemiBold subset: all headline/button characters plus printable ASCII.
+const HEADLINE_KO = ["사람이 있는 현장에서", "돌아가는 AI 제품을", "만듭니다."];
 const FONT_KO = "/fonts/paperlogy-hero.typeface.json";
 // 버튼 라벨(troika Text)용 서브셋 TTF — EN·KO 양쪽 라벨 글자를 모두 담고 있다.
 // ⚠️ font 를 비워두면 troika 가 unicode-font-resolver 로 넘어가 런타임에
@@ -54,6 +53,20 @@ const ROBOT_START = 1.5;
 const ROBOT_DURATION = 1.1;
 
 const easeOutCubic = (p: number) => 1 - Math.pow(1 - p, 3);
+
+// Begin switching on just before the robot rises; fully lit before its wave.
+const lampLevel = (elapsed: number, reduced: boolean) => reduced ? 1
+  : easeOutCubic(THREE.MathUtils.clamp((elapsed - (ROBOT_START - 0.2)) / 0.6, 0, 1));
+
+function RoomFill({ dark, reduced }: { dark: boolean; reduced: boolean }) {
+  const ref = useRef<THREE.HemisphereLight>(null);
+  const elapsed = useRef(0);
+  useFrame((_, delta) => {
+    elapsed.current += Math.min(delta, 0.1);
+    if (ref.current) ref.current.intensity = (dark ? 0.85 : 1) + 0.3 * lampLevel(elapsed.current, reduced);
+  });
+  return <hemisphereLight ref={ref} intensity={(dark ? 0.85 : 1) + (reduced ? 0.3 : 0)} groundColor={dark ? "#1a2028" : "#aab4c4"} />;
+}
 
 // ── 발광 글로우 스프라이트 (색상별 텍스처 캐시) ───────────────
 // 전구·원자·홀로그램·행성 등 emissive 소품 주변의 빛 번짐을 공용으로 처리.
@@ -273,7 +286,8 @@ const TEXT_TARGET_Z = WALL_Z + 0.18; // 벽면보다 살짝 돌출
 // 헤드라인이 차지해도 되는 화면 폭 (NDC 기준, 1 = 화면 가장자리)
 const HEADLINE_WIDTH_RATIO = 0.94;
 
-function RisingHeadline({ dark, reduced, ko }: { dark: boolean; reduced: boolean; ko: boolean }) {
+function RisingHeadline({ dark, reduced, ko, onHeadlineShown }: { dark: boolean; reduced: boolean; ko: boolean; onHeadlineShown?: () => void }) {
+  const notified = useRef(false);
   const lines = ko ? HEADLINE_KO : HEADLINE;
   const line0 = useRef<THREE.Group>(null);
   const line1 = useRef<THREE.Group>(null);
@@ -362,6 +376,10 @@ function RisingHeadline({ dark, reduced, ko }: { dark: boolean; reduced: boolean
         : THREE.MathUtils.clamp((elapsed.current - start) / TEXT_DURATION, 0, 1);
       g.position.z = THREE.MathUtils.lerp(TEXT_START_Z, TEXT_TARGET_Z, easeOutCubic(p));
     });
+    if (!notified.current && (reduced || elapsed.current >= TEXT_START + 2 * TEXT_STAGGER + TEXT_DURATION)) {
+      notified.current = true;
+      onHeadlineShown?.();
+    }
   });
 
   return (
@@ -528,18 +546,35 @@ function WallButtons({
 function StandingLamp({
   position,
   dark,
+  reduced,
 }: {
   position: [number, number, number];
   dark: boolean;
+  reduced: boolean;
 }) {
   const light = useRef<THREE.SpotLight>(null);
   const target = useRef<THREE.Object3D>(null);
 
-  // 라이트 모드에서는 스포트라이트가 언마운트되므로, 테마가 바뀌어 다시 켜질 때
-  // 타깃을 새로 연결해 준다 (deps 를 비워두면 두 번째 마운트에서 조명이 엉뚱한 곳을 본다)
+  const effects = useRef<THREE.Group>(null);
+  const elapsed = useRef(0);
   useEffect(() => {
     if (light.current && target.current) light.current.target = target.current;
-  }, [dark]);
+  }, []);
+  useFrame((_, delta) => {
+    elapsed.current += Math.min(delta, 0.1);
+    const level = lampLevel(elapsed.current, reduced);
+    effects.current?.traverse((object) => {
+      const target = object.userData.lampTarget;
+      if (typeof target !== "number") return;
+      const value = target * level * (dark ? 1 : 0.5);
+      if (object instanceof THREE.Light) object.intensity = value;
+      else if (object instanceof THREE.Mesh || object instanceof THREE.Sprite) {
+        const material = object.material;
+        if (material instanceof THREE.MeshStandardMaterial) material.emissiveIntensity = value;
+        else if (!Array.isArray(material)) material.opacity = value;
+      }
+    });
+  });
 
   // 라디얼 그라디언트 글로우 텍스처 (전구 주변 빛 번짐)
   const glowTex = useMemo(() => {
@@ -574,70 +609,60 @@ function StandingLamp({
           roughness={0.5}
         />
       </mesh>
-      {/* 라이트 모드에서는 실내가 이미 밝아 램프를 꺼 둔다. 전구 발광·글로우·
-          빛기둥·바닥 웅덩이가 통째로 사라지면서 화면을 크게 덮던 가산 블렌딩
-          오버드로와 동적 조명 2개(스포트 + 포인트)도 함께 빠진다. */}
-      {dark ? (
-        <>
-          {/* 전구 + 빛 번짐(블러 글로우 2겹) */}
-          <mesh position-y={2.6}>
-            <sphereGeometry args={[0.12, 14, 14]} />
-            <meshStandardMaterial color="#fff2d6" emissive="#ffc46b" emissiveIntensity={1.8} />
-          </mesh>
-          <sprite position-y={2.6} scale={[3.4, 3.4, 1]}>
-            <spriteMaterial
-              map={glowTex}
-              transparent
-              depthWrite={false}
-              blending={THREE.AdditiveBlending}
-              opacity={0.7}
-            />
-          </sprite>
-          <sprite position-y={2.6} scale={[1.6, 1.6, 1]}>
-            <spriteMaterial
-              map={glowTex}
-              transparent
-              depthWrite={false}
-              blending={THREE.AdditiveBlending}
-              opacity={0.6}
-            />
-          </sprite>
-          {/* 빛 기둥: 넓고 옅은 외곽 콘 + 밝은 내부 콘 (볼류메트릭) */}
-          <mesh position-y={1.4}>
-            <coneGeometry args={[1.5, 2.6, 28, 1, true]} />
-            <meshBasicMaterial color="#ffdca6" transparent opacity={0.06} side={THREE.DoubleSide} depthWrite={false} blending={THREE.AdditiveBlending} />
-          </mesh>
-          <mesh position-y={1.4}>
-            <coneGeometry args={[1.0, 2.6, 24, 1, true]} />
-            <meshBasicMaterial color="#ffe6bd" transparent opacity={0.14} side={THREE.DoubleSide} depthWrite={false} blending={THREE.AdditiveBlending} />
-          </mesh>
-          {/* 바닥 빛 웅덩이: 발광 원반 + 번짐 스프라이트 */}
-          <mesh position={[0, 0.02, 0.25]} rotation-x={-Math.PI / 2}>
-            <circleGeometry args={[1.45, 32]} />
-            <meshBasicMaterial color="#ffd9a0" transparent opacity={0.2} depthWrite={false} blending={THREE.AdditiveBlending} />
-          </mesh>
-          <sprite position={[0, 0.05, 0.25]} scale={[3.2, 3.2, 1]}>
-            <spriteMaterial map={glowTex} transparent depthWrite={false} blending={THREE.AdditiveBlending} opacity={0.34} />
-          </sprite>
-          {/* 실제 조명 — 램프 스포트 + 웜 필 (은은하게) */}
-          <spotLight
-            ref={light}
-            position={[0, 2.6, 0]}
-            angle={0.72}
-            penumbra={0.7}
-            intensity={4}
-            color="#ffdca6"
-            distance={13}
-          />
-          <pointLight position={[0, 2.6, 0]} intensity={1.2} color="#ffd9a0" distance={8} />
-        </>
-      ) : (
-        /* 꺼진 전구 — 발광 없이 유리알만 남긴다 */
-        <mesh position-y={2.6}>
+      <group ref={effects}>
+        {/* 전구 + 빛 번짐(블러 글로우 2겹) */}
+        <mesh userData={{ lampTarget: 1.8 }} position-y={2.6}>
           <sphereGeometry args={[0.12, 14, 14]} />
-          <meshStandardMaterial color="#eee8da" roughness={0.3} metalness={0.1} />
+          <meshStandardMaterial color="#fff2d6" emissive="#ffc46b" emissiveIntensity={reduced ? (dark ? 1.8 : 0.9) : 0} />
         </mesh>
-      )}
+        <sprite position-y={2.6} scale={[3.4, 3.4, 1]} userData={{ lampTarget: 0.7 }}>
+          <spriteMaterial
+            map={glowTex}
+            transparent
+            depthWrite={false}
+            blending={THREE.AdditiveBlending}
+            opacity={reduced ? 0.7 * (dark ? 1 : 0.5) : 0}
+          />
+        </sprite>
+        <sprite position-y={2.6} scale={[1.6, 1.6, 1]} userData={{ lampTarget: 0.6 }}>
+          <spriteMaterial
+            map={glowTex}
+            transparent
+            depthWrite={false}
+            blending={THREE.AdditiveBlending}
+            opacity={reduced ? 0.6 * (dark ? 1 : 0.5) : 0}
+          />
+        </sprite>
+        {/* 빛 기둥: 넓고 옅은 외곽 콘 + 밝은 내부 콘 (볼류메트릭) */}
+        <mesh position-y={1.4} userData={{ lampTarget: 0.06 }}>
+          <coneGeometry args={[1.5, 2.6, 28, 1, true]} />
+          <meshBasicMaterial color="#ffdca6" transparent opacity={reduced ? 0.06 * (dark ? 1 : 0.5) : 0} side={THREE.DoubleSide} depthWrite={false} blending={THREE.AdditiveBlending} />
+        </mesh>
+        <mesh position-y={1.4} userData={{ lampTarget: 0.14 }}>
+          <coneGeometry args={[1.0, 2.6, 24, 1, true]} />
+          <meshBasicMaterial color="#ffe6bd" transparent opacity={reduced ? 0.14 * (dark ? 1 : 0.5) : 0} side={THREE.DoubleSide} depthWrite={false} blending={THREE.AdditiveBlending} />
+        </mesh>
+        {/* 바닥 빛 웅덩이: 발광 원반 + 번짐 스프라이트 */}
+        <mesh position={[0, 0.02, 0.25]} rotation-x={-Math.PI / 2} userData={{ lampTarget: 0.2 }}>
+          <circleGeometry args={[1.45, 32]} />
+          <meshBasicMaterial color="#ffd9a0" transparent opacity={reduced ? 0.2 * (dark ? 1 : 0.5) : 0} depthWrite={false} blending={THREE.AdditiveBlending} />
+        </mesh>
+        <sprite position={[0, 0.05, 0.25]} scale={[3.2, 3.2, 1]} userData={{ lampTarget: 0.34 }}>
+          <spriteMaterial map={glowTex} transparent depthWrite={false} blending={THREE.AdditiveBlending} opacity={reduced ? 0.34 * (dark ? 1 : 0.5) : 0} />
+        </sprite>
+        {/* 실제 조명 — 램프 스포트 + 웜 필 (은은하게) */}
+        <spotLight
+          ref={light}
+          userData={{ lampTarget: 4 }}
+          position={[0, 2.6, 0]}
+          angle={0.72}
+          penumbra={0.7}
+          intensity={reduced ? (dark ? 4 : 2) : 0}
+          color="#ffdca6"
+          distance={13}
+        />
+        <pointLight userData={{ lampTarget: 1.2 }} position={[0, 2.6, 0]} intensity={reduced ? (dark ? 1.2 : 0.6) : 0} color="#ffd9a0" distance={8} />
+      </group>
       <object3D ref={target} position={[0, 0, 0.6]} />
     </group>
   );
@@ -645,7 +670,7 @@ function StandingLamp({
 
 // ── 과학관 전시물 (프리미티브 조합) ──────────────────────────
 // 원자 모형·홀로그램 프로젝터·유리 진열장·기어 전시대로 미래적 무드 연출
-function MuseumProps({ dark }: { dark: boolean }) {
+function MuseumProps({ dark, reduced }: { dark: boolean; reduced: boolean }) {
   const atom = useRef<THREE.Group>(null);
   const gem = useRef<THREE.Mesh>(null);
   const gem2 = useRef<THREE.Mesh>(null);
@@ -676,7 +701,7 @@ function MuseumProps({ dark }: { dark: boolean }) {
       <GLBProp src="/props/desk.glb" position={[7.0, 0, -4.1]} rotation={[0, -1.35, 0]} scale={1.05} />
 
       {/* 스탠딩 램프 (책상 옆) — 따뜻한 빛 웅덩이 + 글로우 */}
-      <StandingLamp position={[4.7, 0, -4.35]} dark={dark} />
+      <StandingLamp position={[4.7, 0, -4.35]} dark={dark} reduced={reduced} />
 
       {/* 원자 모형 전시대 (벽가 왼쪽) */}
       <group position={[-4.6, 0, -4.1]}>
@@ -766,6 +791,8 @@ function MuseumProps({ dark }: { dark: boolean }) {
 
 // 받침 블럭을 타고 올라와 인사하는 로봇
 function RobotOnBlock({ dark, reduced }: { dark: boolean; reduced: boolean }) {
+  const vw = useThree((s) => s.viewport.width);
+  const x = Math.min(2.45, vw / 2 - 0.8);
   const rig = useRef<THREE.Group>(null); // 블럭+로봇 (상승)
   const body = useRef<THREE.Group>(null); // 로봇만 (시선 회전)
   const { scene, animations } = useGLTF(assetPath(MODEL), assetPath("/draco/"));
@@ -831,11 +858,12 @@ function RobotOnBlock({ dark, reduced }: { dark: boolean; reduced: boolean }) {
     b.rotation.y += state.pointer.x * 0.12;
     b.rotation.x += -state.pointer.y * 0.06;
 
+    // Reapply height after viewport/theme rerenders update the group's position.
+    const p = reduced
+      ? 1
+      : THREE.MathUtils.clamp((elapsed.current - ROBOT_START) / ROBOT_DURATION, 0, 1);
+    g.position.y = THREE.MathUtils.lerp(-1.6, 0, easeOutCubic(p));
     if (phase.current === "rise") {
-      const p = reduced
-        ? 1
-        : THREE.MathUtils.clamp((elapsed.current - ROBOT_START) / ROBOT_DURATION, 0, 1);
-      g.position.y = THREE.MathUtils.lerp(-1.6, 0, easeOutCubic(p));
       if (p === 1) {
         phase.current = "greet";
         toIdleAfter(play("Robot_Wave", false));
@@ -846,10 +874,12 @@ function RobotOnBlock({ dark, reduced }: { dark: boolean; reduced: boolean }) {
   return (
     <group
       ref={rig}
-      position={[2.45, -1.6, 0.2]}
+      position={[x, -1.6, -0.6]}
       onPointerOver={() => oneShot("Robot_Wave")}
       onClick={() => oneShot(REACTIONS[Math.floor(Math.random() * REACTIONS.length)])}
     >
+      <pointLight position={[0, 2.8, -2]} intensity={dark ? 2.8 : 1.4} color="#5b8cff" distance={6} />
+      <pointLight position={[0.15, 2.4, 2.4]} intensity={dark ? 1 : 0.5} color="#ffe3b8" distance={6.5} />
       <mesh geometry={pedestalGeo} position-y={0.16}>
         <meshStandardMaterial color={dark ? "#2c2f34" : "#f4f6fa"} roughness={0.9} />
       </mesh>
@@ -868,7 +898,7 @@ useGLTF.preload && useGLTF.preload(assetPath("/props/desk.glb"), assetPath("/dra
 // 미리 받아 HTTP 캐시에 올려두면 GLB·draco 와 같은 구간에서 병렬로 내려온다.
 // (본문까지 읽어야 캐시에 기록되므로 arrayBuffer 로 끝까지 소비한다)
 if (typeof window !== "undefined") {
-  for (const f of [FONT, FONT_KO, LABEL_FONT]) {
+  for (const f of [document.documentElement.classList.contains("lang-ko") ? FONT_KO : FONT, LABEL_FONT]) {
     fetch(assetPath(f))
       .then((r) => r.arrayBuffer())
       .catch(() => {});
@@ -898,11 +928,13 @@ export default function HeroScene({
   showText,
   ko = false,
   onSceneError,
+  onHeadlineShown,
 }: {
   showText: boolean;
   ko?: boolean;
   // 씬이 죽었을 때 부모가 DOM 헤드라인·CTA 를 되살리도록 알리는 콜백
   onSceneError?: () => void;
+  onHeadlineShown?: () => void;
 }) {
   const dark = useDark();
   const reduced = useReducedMotion();
@@ -976,7 +1008,7 @@ export default function HeroScene({
           frameloop={visible ? "always" : "never"}
           dpr={[1, 1.25]}
           performance={{ min: 0.5 }}
-          camera={{ fov: CAM_FOV }}
+          camera={{ fov: CAM_FOV, position: CAM_POS }}
           gl={{ antialias: true, alpha: true }}
           onCreated={(state) => {
             // dev 전용: 프레이밍 검증용
@@ -996,27 +1028,24 @@ export default function HeroScene({
           <Rig />
           {/* 원경이 푸른 안개로 부드럽게 사라지는 과학관 조도 (벽·글자는 선명) */}
           <fog attach="fog" args={[dark ? "#0e1218" : "#dbe4f0", 15, 32]} />
-          <hemisphereLight intensity={dark ? 1.15 : 1.3} groundColor={dark ? "#1a2028" : "#aab4c4"} />
           {/* 다크모드에서 방이 너무 어둡지 않게 은은한 보조광 */}
           {dark ? <ambientLight intensity={0.4} color="#8fa8cc" /> : null}
           <directionalLight position={[4, 7, 5]} intensity={1.6} />
           <directionalLight position={[-3, 4, 8]} intensity={0.5} color="#cfe0ff" />
           <pointLight position={[0, 3, -6]} intensity={0.7} color="#7fb3ff" />
           <Suspense fallback={null}>
+            <RoomFill dark={dark} reduced={reduced} />
             {/* 방 코너 뷰: 방 전체를 회전시켜 왼쪽 벽이 비스듬히 화면 대부분을
                 차지하고 오른쪽 코너로 원근이 소실되게 함 (스케치 구도) */}
             <group rotation-y={0.5} position={[1.8, 0, 0]}>
               <Wall dark={dark} />
-              {showText ? <RisingHeadline dark={dark} reduced={reduced} ko={ko} /> : null}
+              {showText ? <RisingHeadline dark={dark} reduced={reduced} ko={ko} onHeadlineShown={onHeadlineShown} /> : null}
               {showText ? (
                 <WallButtons dark={dark} onNavigate={navigate} ko={ko} />
               ) : null}
-              <MuseumProps dark={dark} />
-              {/* ── 씬 액센트광 (방 좌표계) ──
-                  전시 글자를 비추는 쿨 워시 + 로봇 뒤 블루 림 + 로봇 앞 웜 키 */}
+              <MuseumProps dark={dark} reduced={reduced} />
+              {/* Wall wash; robot accent lights travel with its pedestal. */}
               <pointLight position={[0, 3.4, -3.6]} intensity={dark ? 2.6 : 1.1} color="#b9ccff" distance={12} />
-              <pointLight position={[2.45, 2.8, -1.8]} intensity={dark ? 2.8 : 1.4} color="#5b8cff" distance={6} />
-              <pointLight position={[2.6, 2.4, 2.6]} intensity={dark ? 1.0 : 0.5} color="#ffe3b8" distance={6.5} />
             </group>
             <Floor dark={dark} />
             {/* 접지 그림자 — 글자·로봇이 면 위에 "서 있는" 느낌의 핵심 */}
