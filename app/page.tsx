@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     description:
       "Portfolio of Juwon Lee, an education R&D developer at the Seoul Robot & AI Museum who plans education programs and builds the AI exhibits, classroom tools and staff systems behind them, and runs them on exhibition floors, in classrooms and on real hardware.",
     url: `${SITE_URL}/`,
-    images: ["/og-cover.png"],
+    images: ["/og-cover-room.png"],
   },
 };
 

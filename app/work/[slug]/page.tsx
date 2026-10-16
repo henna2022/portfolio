@@ -24,7 +24,7 @@ export function generateMetadata({
   const description = p.desc;
   const url = `${SITE_URL}/work/${p.slug}`;
   // 프로젝트별 og:image 가 있으면 절대 URL로, 없으면 기존 공용 og 커버로 폴백
-  const ogImage = p.image ? `${SITE_URL}${p.image}` : `${SITE_URL}/og-cover.png`;
+  const ogImage = p.image ? `${SITE_URL}${p.image}` : `${SITE_URL}/og-cover-room.png`;
 
   return {
     title,
