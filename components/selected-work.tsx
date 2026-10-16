@@ -176,6 +176,39 @@ function SideCard({ p, t }: { p: Project; t: UiStrings }) {
       href={`/work/${p.slug}`}
       className="group flex h-full cursor-pointer flex-col rounded-3xl bg-sand/40 p-5 text-ink transition-colors duration-300 hover:bg-sand/80"
     >
+      {/* 사진 한 장: 대표 사진 → 없으면 구조도 → 없으면 이니셜 (메이저 카드와 같은 순서) */}
+      <div className="relative mb-4 aspect-[16/10] overflow-hidden rounded-2xl bg-sand-deep">
+        {p.image ? (
+          <img
+            src={assetPath(p.image)}
+            alt={p.title}
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover"
+          />
+        ) : p.flowImage ? (
+          <>
+            <img
+              src={assetPath(p.flowImage.light)}
+              alt={`${p.title} architecture`}
+              loading="lazy"
+              decoding="async"
+              className="block h-full w-full bg-cream object-contain p-3 dark:hidden"
+            />
+            <img
+              src={assetPath(p.flowImage.dark)}
+              alt={`${p.title} architecture`}
+              loading="lazy"
+              decoding="async"
+              className="hidden h-full w-full bg-cream object-contain p-3 dark:block"
+            />
+          </>
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-sand-deep to-sand">
+            <span className="font-display text-4xl font-semibold text-ink/15">{initials(p.title)}</span>
+          </div>
+        )}
+      </div>
       <div className="flex items-baseline gap-3">
         <h4 className="font-display text-lg font-semibold leading-snug">
           {p.title}
