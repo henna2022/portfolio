@@ -15,7 +15,7 @@ const sources: Record<string, { url: string; toFigures: (s: PublicStats | null) 
       if (!(s && s.bookings >= 1)) return null;
       const n = (x: number) => Number(x).toLocaleString("en-US");
       return [
-        { v: n(s.bookings), en: `bookings so far · ${n(s.people)} people`, ko: `누적 예약 · ${n(s.people)}명` },
+        { v: n(s.people), vKo: `${n(s.people)}명`, en: `people booked so far · ${n(s.bookings)} bookings`, ko: `누적 예약 인원 · ${n(s.bookings)}건` },
         { v: n(s.visits), en: `site visits since opening · ${n(s.countries)} countries`, ko: `오픈 후 사이트 방문 · ${n(s.countries)}개국` },
         { v: `${s.searchSocialPct}%`, en: "of visits from search or social media", ko: "검색·SNS 유입" },
       ];
