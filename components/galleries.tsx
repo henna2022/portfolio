@@ -69,7 +69,7 @@ export function Galleries() {
               <Link
                 key={p.slug}
                 href={`/work/${p.slug}`}
-                className="work reveal"
+                className="work"
                 aria-labelledby={`work-${p.slug}`}
                 aria-describedby={`work-st-${p.slug}`}
               >
@@ -88,10 +88,10 @@ export function Galleries() {
 
         <div className="vitrine">
           <ul className="vitrine__shelf" style={{ ["--n" as string]: shelf.length }}>
-            {shelf.map((p, i) => {
+            {shelf.map((p) => {
               const img = p.image ?? p.gallery?.[0];
               return (
-                <li key={p.slug} className="reveal" style={{ ["--delay" as string]: `${i * 90}ms` }}>
+                <li key={p.slug}>
                   <Link
                     href={`/work/${p.slug}`}
                     className="vitrine__item"

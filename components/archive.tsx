@@ -70,8 +70,8 @@ export function Archive() {
       </div>
     ) : null;
 
-  const Activity = ({ a, i }: { a: (typeof acts)[number]; i: number }) => (
-    <li className="reveal" style={{ ["--delay" as string]: `${(i % 3) * 70}ms` }}>
+  const Activity = ({ a }: { a: (typeof acts)[number] }) => (
+    <li>
       {a.photos.length ? (
         <button
           type="button"
@@ -115,7 +115,7 @@ export function Archive() {
               const keep = ei === 0 ? e.points.length : 3;
               const key = `exp-${ei}`;
               return (
-                <li key={e.org} className="chron__item grid12 reveal">
+                <li key={e.org} className="chron__item grid12">
                   <p className="chron__period mono" style={{ margin: 0 }}>
                     {e.period}
                   </p>
@@ -182,7 +182,7 @@ export function Archive() {
           <RoomSign title={s.awards} other="" icon={<AwardPicto />} />
           <ol className="awards">
             {single.map((a) => (
-              <li key={a.title} className="award grid12 reveal">
+              <li key={a.title} className="award grid12">
                 <span className="award__year">{a.year}</span>
                 <div className="award__main">
                   <span className="award__result mono">
@@ -203,7 +203,7 @@ export function Archive() {
               </li>
             ))}
             {grouped.length ? (
-              <li className="award grid12 reveal">
+              <li className="award grid12">
                 <span className="award__year">{grouped[0].year}</span>
                 <div className="award__main">
                   <h4 className="award__title">{s.awardGroup}</h4>
@@ -234,7 +234,7 @@ export function Archive() {
           <RoomSign title={s.materials} other="" icon={<ToolsPicto />} />
           <div className="materials">
             {skills.map((g) => (
-              <div key={g.key} className="material reveal">
+              <div key={g.key} className="material">
                 <h4>{g.title}</h4>
                 <p>{g.capability}</p>
                 <ul>
@@ -251,8 +251,8 @@ export function Archive() {
         <div id="activities" className="archive-room">
           <RoomSign title={s.learning} other="" icon={<TeachPicto />} />
           <ul className="learn">
-            {shownActs.map((a, i) => (
-              <Activity key={a.title + a.period} a={a} i={i} />
+            {shownActs.map((a) => (
+              <Activity key={a.title + a.period} a={a} />
             ))}
           </ul>
           {/* 나머지는 한 줄씩만 (사진·설명은 경력기술서에) */}

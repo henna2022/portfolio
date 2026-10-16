@@ -27,7 +27,7 @@ function Room({ p, flip }: { p: Project; flip: boolean }) {
 
   return (
     <article className={`room grid12${flip ? " room--flip" : ""}`} aria-labelledby={`room-${p.slug}`}>
-      <div className="room__media reveal">
+      <div className="room__media">
         <Link href={href} aria-label={`${p.title}: ${s.enterRoom}`} tabIndex={-1}>
           <figure className="frame" style={{ margin: 0 }}>
             <div className="frame__window">
@@ -48,7 +48,7 @@ function Room({ p, flip }: { p: Project; flip: boolean }) {
         ) : null}
       </div>
 
-      <div className="room__label label reveal" style={{ ["--delay" as string]: "120ms" }}>
+      <div className="room__label label">
         <h3 id={`room-${p.slug}`} className="label__title">
           <Link href={href} style={{ color: "inherit", textDecoration: "none" }}>
             {nbHyphen(p.title)}

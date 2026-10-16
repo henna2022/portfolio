@@ -1,7 +1,7 @@
 "use client";
 
-// 도슨트 로봇. 오른쪽에서 걸어 들어와 인사하고, 평소엔 정면(화면 밖 관람객)을 보며
-// 가끔 손 흔들기·끄덕·엄지를 한다. 커서가 움직이면 살짝 돌아보고, 클릭하면 점프·엄지·끄덕·춤.
+// 도슨트 로봇. 오른쪽에서 걸어 들어와 인사하고, 그 뒤엔 정면(화면 밖 관람객)을 보고 서 있다.
+// 클릭하면 점프·엄지·끄덕·춤. (커서 따라보기·저절로 하는 몸짓은 산만해서 뺐다)
 // 재질은 툰 셰이딩 3단 + 몸통 코발트, 관절은 잉크(다크 모드에선 밝은 회색).
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
@@ -13,10 +13,6 @@ import { assetPath } from "@/lib/asset";
 const MODEL = "/robot.glb";
 // 클릭할 때마다 차례로 (네 번째에 춤)
 const REACTIONS = ["Robot_Jump", "Robot_ThumbsUp", "Robot_Yes", "Robot_Dance"];
-// 가만히 서 있을 때 가끔 하는 작은 몸짓
-const IDLE_GESTURES = ["Robot_Wave", "Robot_Yes", "Robot_ThumbsUp"];
-const GAZE_PX = 650; // 커서가 로봇에서 이만큼 떨어지면 최대로 돌아본다
-const GAZE_MAX = 0.38; // 최대 고개 돌림(rad). 기본은 정면 = 화면 밖 관람객을 본다
 const FEET_Y = -1.5;
 
 type Phase = "walk" | "greet" | "idle" | "react";
@@ -86,22 +82,6 @@ function Robot({ targetPx, onArrive, onReact, reduced, onSettle, onBusy }: Inner
     onBusy?.(p !== "idle");
   };
   const reactIdx = useRef(0);
-  const nextGesture = useRef(0);
-  const gestureIdx = useRef(0);
-  // 커서가 최근에 움직였는지. 오래 멈추거나 창 밖으로 나가면 다시 정면을 본다
-  const lastMove = useRef(-1e9);
-  useEffect(() => {
-    const move = (e: PointerEvent) => {
-      if (e.pointerType === "mouse") lastMove.current = performance.now();
-    };
-    const leave = () => (lastMove.current = -1e9);
-    window.addEventListener("pointermove", move, { passive: true });
-    document.documentElement.addEventListener("mouseleave", leave);
-    return () => {
-      window.removeEventListener("pointermove", move);
-      document.documentElement.removeEventListener("mouseleave", leave);
-    };
-  }, []);
   const { size, viewport } = useThree();
   const { scene, animations } = useGLTF(assetPath(MODEL), assetPath("/draco/"));
   const { actions } = useAnimations(animations, group);
@@ -150,10 +130,9 @@ function Robot({ targetPx, onArrive, onReact, reduced, onSettle, onBusy }: Inner
   };
 
   const timer = useRef<number>(0);
-  // force: 클릭은 진행 중인 손 인사(호버)를 끊고 바로 반응한다. 걷는 중에는 무시.
-  const oneShot = (name: string, force = false) => {
+  // 클릭 반응. 진행 중인 동작을 끊고 바로 한다. 걷는 중에는 무시.
+  const oneShot = (name: string) => {
     if (phase.current === "walk") return false;
-    if (phase.current !== "idle" && !force) return false;
     setPhase("react");
     const dur = play(name, false);
     window.clearTimeout(timer.current);
@@ -222,25 +201,8 @@ function Robot({ targetPx, onArrive, onReact, reduced, onSettle, onBusy }: Inner
     // 창 크기가 바뀌면 멈출 자리도 따라간다
     g.position.x = THREE.MathUtils.lerp(g.position.x, target, 0.12);
 
-    // 시선: 기본은 정면(화면 밖 관람객). 커서가 움직이는 동안만 로봇 자리 기준으로 살짝 돌아본다.
-    // (예전엔 넓은 캔버스 가운데를 기준으로 재서, 커서가 대문 글 위에 있으면 내내 왼쪽만 봤다)
-    const clamp = (v: number) => THREE.MathUtils.clamp(v, -1, 1);
-    const following = performance.now() - lastMove.current < 2500;
-    const px = ((state.pointer.x + 1) / 2) * size.width;
-    const py = ((1 - state.pointer.y) / 2) * size.height;
-    const yaw = following ? clamp((px - targetPx) / GAZE_PX) * GAZE_MAX : 0;
-    const pitch = following ? clamp((py - size.height * 0.3) / 500) * 0.1 : 0;
-    g.rotation.y = THREE.MathUtils.lerp(g.rotation.y, yaw, 0.08);
-    g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, pitch, 0.08);
-
-    // 가만히 서 있으면 7~12초마다 작은 몸짓 (손 흔들기 · 끄덕 · 엄지)
-    if (reduced) return;
-    const t = state.clock.elapsedTime;
-    if (phase.current !== "idle") {
-      nextGesture.current = t + 7 + Math.random() * 5;
-    } else if (t >= nextGesture.current) {
-      oneShot(IDLE_GESTURES[gestureIdx.current++ % IDLE_GESTURES.length]);
-    }
+    // 걸어 들어온 뒤엔 정면(화면 밖 관람객)으로 돌아선다
+    g.rotation.y = THREE.MathUtils.lerp(g.rotation.y, 0, 0.08);
   });
 
   return (
@@ -255,7 +217,6 @@ function Robot({ targetPx, onArrive, onReact, reduced, onSettle, onBusy }: Inner
         rotation={[0, -0.95, 0]}
         onPointerOver={() => {
           document.body.style.cursor = "pointer";
-          if (!reduced) oneShot("Robot_Wave");
         }}
         onPointerOut={() => {
           document.body.style.cursor = "";
@@ -266,7 +227,7 @@ function Robot({ targetPx, onArrive, onReact, reduced, onSettle, onBusy }: Inner
             return;
           }
           const name = REACTIONS[reactIdx.current % REACTIONS.length];
-          if (oneShot(name, true)) {
+          if (oneShot(name)) {
             reactIdx.current += 1;
             onReact?.();
           }

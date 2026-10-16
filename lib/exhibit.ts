@@ -28,11 +28,11 @@ export const floors: Floor[] = [
     // 채용 담당자가 바로 읽게 평이한 이름을 먼저 쓴다 (과학관 실제 4층 기획전시와도 헷갈리지 않게)
     name: { en: "Featured work", ko: "대표 작업" },
     short: { en: "Featured", ko: "대표" },
-    sub: { en: "Exhibit, class, IoT platform", ko: "전시물, 수업, IoT 플랫폼" },
+    sub: { en: "Class, booking, exhibit, IoT platform", ko: "수업, 예약, 전시물, IoT 플랫폼" },
     title: { en: "From the museum floor to the classroom", ko: "전시장에서 교실까지" },
     intro: {
-      en: "An exhibit tuned from visitor logs, a class commissioned by an education office, and the IoT platform that class grew from.",
-      ko: "관람객 기록으로 다듬은 전시물, 교육청이 의뢰한 수업, 그리고 그 수업의 바탕이 된 IoT 플랫폼입니다.",
+      en: "A class commissioned by an education office, the museum's official booking site for foreign visitors, an exhibit on view, and the IoT platform the class grew from.",
+      ko: "교육청이 의뢰한 수업, 과학관 외국인 공식 예약 사이트, 운영 중인 전시물, 그 수업의 바탕이 된 IoT 플랫폼입니다.",
     },
   },
   {
@@ -42,10 +42,10 @@ export const floors: Floor[] = [
     name: { en: "Museum exhibits", ko: "전시물" },
     short: { en: "Exhibits", ko: "전시물" },
     sub: { en: "Exhibits visitors touch", ko: "관람객이 직접 만지는 전시물" },
-    title: { en: "Built for the exhibition floor", ko: "전시장을 위해 만든 작업들" },
+    title: { en: "Built for the exhibition floor", ko: "전시장용으로 만든 작업" },
     intro: {
-      en: "Kiosks, tablet games and phone apps made for the Seoul Robot & AI Museum. Each label says whether the work is on view, has closed, or is still waiting to open.",
-      ko: "서울로봇인공지능과학관 전시장을 위해 만든 키오스크, 태블릿 게임, 휴대폰 웹앱입니다. 라벨마다 지금 운영 중인지, 운영을 마쳤는지, 아직 현장에 나가기 전인지 적었습니다.",
+      en: "Kiosks, tablet games and phone apps made for the Seoul Robot & AI Museum.",
+      ko: "서울로봇인공지능과학관 전시장에 맞춰 만든 키오스크, 태블릿 게임, 휴대폰 웹앱입니다.",
     },
   },
   {
@@ -54,11 +54,11 @@ export const floors: Floor[] = [
     code: "2",
     name: { en: "Internal systems", ko: "운영 시스템" },
     short: { en: "Systems", ko: "시스템" },
-    sub: { en: "Staff, uptime, booking", ko: "근무, 복구, 예약" },
+    sub: { en: "Staff, uptime, usage counts", ko: "근무, 복구, 이용 집계" },
     title: { en: "Systems behind the exhibits", ko: "전시 뒤에서 돌아가는 시스템" },
     intro: {
-      en: "Staff schedules, exhibit recovery, usage counts, document templates, booking for foreign visitors, and a course for the museum's own staff.",
-      ko: "근무 일정과 전시물 복구, 이용 집계, 문서 양식, 외국인 예약, 그리고 직원 교육까지 맡는 작업들입니다.",
+      en: "Staff schedules, exhibit recovery, usage counts, document templates, and a course for the museum's own staff.",
+      ko: "근무 일정, 전시물 복구, 이용 집계, 문서 양식, 과학관 직원 교육 과정입니다.",
     },
   },
   {
@@ -70,8 +70,8 @@ export const floors: Floor[] = [
     sub: { en: "Work, awards, skills, teaching", ko: "경력, 수상, 기술, 교육" },
     title: { en: "Experience and record", ko: "경력과 기록" },
     intro: {
-      en: "Where I have worked, the awards I have received, the skills I use, and who I have taught.",
-      ko: "일한 곳, 받은 상, 쓰는 기술, 그리고 가르친 사람들입니다.",
+      en: "",
+      ko: "",
     },
   },
   {
@@ -146,12 +146,12 @@ export function floorOf(slug: string): FloorId {
 export const status: Record<string, { kind: StatusKind } & Bi> = {
   "smart-farm-education": { kind: "soon", en: "Demo class Aug 2026 · 15-student cohort Oct 2026", ko: "2026년 8월 데모 수업 · 10월 15명 본 수업" },
   "doctor-green": { kind: "soon", en: "Live demo · classifier in progress", ko: "데모 공개 · 진단 모델 개발 중" },
-  "raimi-art-lab": { kind: "closed", en: "Ran Jun–Aug 2026", ko: "2026년 6~8월 운영" },
+  "raimi-art-lab": { kind: "closed", en: "Ran June to August 2026", ko: "2026년 6~8월 운영" },
   "mystery-playground-replay": { kind: "on", en: "On view", ko: "운영 중" },
   "lidar-explainer-kiosk": { kind: "on", en: "On view since Sep 2026", ko: "2026년 9월부터 운영" },
   "ai-ethics-vote": { kind: "on", en: "On view since Sep 2026", ko: "2026년 9월부터 운영" },
   "im-a-restorer": { kind: "on", en: "Running · once-daily program", ko: "운영 중 · 매일 1회" },
-  "raimi-language-lab": { kind: "closed", en: "Ran Jun–Oct 8, 2026", ko: "2026년 6월~10월 8일 운영" },
+  "raimi-language-lab": { kind: "closed", en: "Ran June to October 8, 2026", ko: "2026년 6월~10월 8일 운영" },
   "raim-4cut-studio": { kind: "soon", en: "Seasonal use since Jun 2026", ko: "2026년 6월부터 시즌 운영" },
   "ai-persona-web": { kind: "on", en: "Online · QR at the exhibit", ko: "공개 중 · 전시물 옆 QR" },
   "time-machine-ar": { kind: "soon", en: "Deployed · on-site launch pending", ko: "배포 완료 · 현장 운영 전" },
@@ -164,15 +164,14 @@ export const status: Record<string, { kind: StatusKind } & Bi> = {
   "raim-floor-guide": { kind: "on", en: "Online", ko: "공개 중" },
   "education-room-board": { kind: "on", en: "In operation", ko: "운영 중" },
   "document-formatter": { kind: "soon", en: "Online · handover pending", ko: "공개 중 · 인수인계 전" },
-  "staff-ai-class": { kind: "soon", en: "10 sessions · Oct 23–Dec 23, 2026 (planned)", ko: "10회 과정 · 2026.10.23~12.23 예정" },
+  "staff-ai-class": { kind: "soon", en: "10 sessions · Oct 23 to Dec 23, 2026 (planned)", ko: "10회 과정 · 2026.10.23~12.23 예정" },
 };
 
 // 기획전 두 작품의 큰 숫자. 전부 data.ts 본문에 있는 수치만.
 export const figures: Record<string, Array<{ v: string; vKo?: string } & Bi>> = {
   "mystery-playground-replay": [
-    { v: "10", en: "missions on one floor map", ko: "한 장의 층 지도 위 미션" },
+    { v: "10", en: "missions on one floor map", ko: "층 지도 한 장에 담은 미션" },
     { v: "5", en: "MediaPipe models running on the tablet", ko: "태블릿 안에서 도는 MediaPipe 모델" },
-    { v: "128", en: "visitor logs used to fix avatar rules", ko: "아바타 규칙 수정에 쓴 관람객 기록" },
   ],
   "smart-farm-education": [
     { v: "15", en: "ESP32 boards for students, one each", ko: "학생용 ESP32 보드 (1인 1대)" },
@@ -180,8 +179,7 @@ export const figures: Record<string, Array<{ v: string; vKo?: string } & Bi>> = 
   ],
   // 오픈 뒤 관리자 통계(엑셀)의 실제 예약·방문자 수로 바꿀 자리 (본인 요청 2026-10-15)
   "raim-en": [
-    { v: "130", en: "online seats a week for foreign visitors, up from none", ko: "외국인 온라인 예약 좌석 (주, 이전 0석)" },
-    { v: "300+", en: "automated tests", ko: "자동 테스트" },
+    { v: "130", en: "online seats a week for foreign visitors, up from none", ko: "주당 외국인 온라인 예약 좌석 (이전 0석)" },
   ],
   "doctor-green": [
     { v: "39.9K", vKo: "39,889", en: "image crops in the training set", ko: "학습용 크롭 이미지" },
@@ -220,37 +218,10 @@ export const jobLine: { title: Bi; meta: Bi } = {
 // src 가 없으면 출처 이름은 그 작품 제목.
 export const proof: Array<{ v: string; vKo?: string; slug?: string; href?: string; src?: Bi } & Bi> = [
   { v: "14,328", vKo: "14,328장", slug: "raimi-art-lab", en: "AI images generated, June to August 2026 (July alone: 9,865)", ko: "2026년 6~8월 AI 생성 이미지 (7월 한 달 9,865장)" },
-  { v: "1,932", slug: "raim-4cut-studio", en: "photo-kiosk uses recorded on 26 days, June 14 to September 6, 2026", ko: "2026년 6월 14일~9월 6일, 이용 기록이 있는 26일 동안 포토 키오스크 이용 횟수" },
+  { v: "1,932", slug: "raim-4cut-studio", en: "photo-kiosk uses recorded on 26 days, June 14 to September 6, 2026", ko: "포토 키오스크 이용 횟수 (2026년 6월 14일~9월 6일 중 이용 기록이 있는 26일)" },
   { v: "~20", vKo: "약 20명", slug: "raim-staff-platform", en: "docents and part-time staff using the staff app daily", ko: "근무 앱을 매일 쓰는 해설사·단기인력" },
-  { v: "100", vKo: "100명", href: "#experience", src: { en: "KT × Seoul City AI Future Camp", ko: "KT·서울시 AI 미래 캠프" }, en: "elementary students attended the camp in Aug 2026; I taught its 50-minute Picabot class", ko: "2026년 8월 KT·서울시 AI 미래 캠프 참가 초등학생, 피카봇 50분 확장 수업 담당" },
+  { v: "100", vKo: "100명", href: "#experience", src: { en: "KT × Seoul City AI Future Camp", ko: "KT·서울시 AI 미래 캠프" }, en: "elementary students attended the camp in Aug 2026; I taught its 50-minute Picabot class", ko: "2026년 8월 캠프에 참가한 초등학생 (피카봇 50분 확장 수업 담당)" },
 ];
-
-// 작품 페이지 핵심 사실 묶음 (highlights 번호, EN·KO 같은 순서). 없는 작품은 한 목록 그대로.
-// 닥터그린 2번(AI Hub 다운로드 문장)은 일부러 뺐다: 공공기관 독자에게 '우회'로 읽힌다. 본문(overview)에는 남아 있다.
-export const factGroups: Record<string, Array<{ h: Bi; idx: number[] }>> = {
-  "exhibit-auto-recovery": [
-    { h: { en: "Problem", ko: "문제" }, idx: [0] },
-    { h: { en: "Approach", ko: "접근" }, idx: [1, 2, 4] },
-    { h: { en: "Known limits", ko: "한계와 대응" }, idx: [3] },
-    { h: { en: "Handover", ko: "인수인계" }, idx: [5] },
-  ],
-  "doctor-green": [
-    { h: { en: "Built and verified", ko: "구현·검증한 것" }, idx: [0, 1, 5] },
-    { h: { en: "Data method", ko: "데이터 구축 방법" }, idx: [3] },
-    { h: { en: "Not done yet", ko: "아직 남은 일" }, idx: [4] },
-  ],
-  "time-machine-ar": [
-    { h: { en: "Approach", ko: "접근" }, idx: [0] },
-    { h: { en: "Diagnosis", ko: "원인 진단" }, idx: [1] },
-    { h: { en: "Test method", ko: "시험 방법" }, idx: [2] },
-    { h: { en: "Operations", ko: "운영" }, idx: [3, 4] },
-  ],
-  "mystery-playground-replay": [
-    { h: { en: "What it is", ko: "무엇인가" }, idx: [0, 1, 2] },
-    { h: { en: "Evidence from the floor", ko: "현장 데이터로 고친 것" }, idx: [3] },
-    { h: { en: "Operations", ko: "운영" }, idx: [4] },
-  ],
-};
 
 // 카드마다 보여 줄 근거 한 줄 = 그 작품 highlights 의 몇 번째 문장 (EN·KO 같은 순서)
 export const cardLine: Record<string, number> = {
@@ -259,13 +230,13 @@ export const cardLine: Record<string, number> = {
   "lidar-explainer-kiosk": 2,
   "time-machine-ar": 0,
   "raimi-art-lab": 0,
-  "ai-persona-web": 3,
-  "raim-4cut-studio": 1,
-  "raim-en": 5,
-  "raim-staff-platform": 2,
+  "ai-persona-web": 4,
+  "raim-4cut-studio": 0,
+  "raim-en": 1,
+  "raim-staff-platform": 0,
   "exhibit-auto-recovery": 1,
   "exhibit-stats-hub": 1,
-  "document-formatter": 1,
+  "document-formatter": 2,
   "staff-ai-class": 0,
 };
 
@@ -273,10 +244,10 @@ export const cardLine: Record<string, number> = {
 export const withWhom: Record<string, Bi> = {
   "smart-farm-education": { en: "Commissioned by the Yangpyeong Education Office through the museum", ko: "과학관 × 양평교육청 위탁 사업" },
   "exhibit-auto-recovery": { en: "Handover document written for the museum's maintenance technician", ko: "유지보수 담당자용 인수인계 문서 작성" },
-  "raim-en": { en: "Built for museum staff to approve requests, check bookings, and mark visits and no-shows in the admin", ko: "직원이 관리자 화면에서 신청을 승인하고 예약 확인과 방문·노쇼 표시를 하도록 설계" },
+  "raim-en": { en: "Museum staff approve requests, check bookings, and mark visits and no-shows in the admin", ko: "직원이 관리자 화면에서 신청 승인, 예약 확인, 방문·노쇼 표시" },
   "raim-staff-platform": { en: "Used daily by about 20 docents and part-time staff", ko: "해설사·단기인력 약 20명이 매일 사용" },
   "raim-4cut-studio": { en: "Staff read usage and switch seasonal robots on a PIN-protected page", ko: "직원이 PIN 화면에서 이용 수 확인, 시즌 로봇 전환" },
-  "raimi-language-lab": { en: "Staff tracked per-device usage in a PIN-gated panel with Excel export", ko: "직원이 PIN 운영 패널에서 기기별 이용 현황 확인, 엑셀 내보내기" },
+  "raimi-language-lab": { en: "Staff tracked per-device usage on a PIN-protected panel with Excel export", ko: "직원이 PIN 운영 패널에서 기기별 이용 현황 확인, 엑셀 내보내기" },
 };
 
 // 기관 승인을 받은 시스템 (본인 확인 2026-10-05). 작품 페이지 벽 라벨에 한 줄

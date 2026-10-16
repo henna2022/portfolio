@@ -98,7 +98,7 @@ export function Services() {
             {list.map((p, i) => {
               const img = p.image ?? p.gallery?.[0];
               return (
-                <li key={p.slug} className="reveal" data-row={i} style={{ ["--delay" as string]: `${i * 40}ms` }}>
+                <li key={p.slug} data-row={i}>
                   <Link
                     href={`/work/${p.slug}`}
                     className="catalog__row"

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { getProject, type Project } from "@/lib/data";
 import { localizeProject } from "@/lib/data-ko";
 import { img as pic } from "@/lib/img";
-import { floorById, floorOf, floorPlan, siteStrings, bi, displaySrc, isTight, factGroups, withWhom, approved } from "@/lib/exhibit";
+import { floorById, floorOf, floorPlan, siteStrings, bi, displaySrc, isTight, withWhom, approved } from "@/lib/exhibit";
 import { useI18n } from "./lang-provider";
 import { RoomSign } from "./floor-sign";
 import { Dot } from "./status";
@@ -186,17 +186,13 @@ export function ObjectPage({ slug }: { slug: string }) {
               <RoomSign title={s.keyFacts} other={lang === "ko" ? "Key facts" : "핵심 사실"} icon={<FloorIcon />} as="h2" />
             </div>
             <div className="object__text">
-              {/* 묶음이 있는 작품은 문제 · 접근 · 한계처럼 나눠 읽히게 (문장은 그대로) */}
-              {(factGroups[slug] ?? [{ h: null, idx: p.highlights.map((_, i) => i) }]).map((g, gi) => (
-                <div key={gi} className="facts-group">
-                  {g.h ? <h3 className="facts-group__h mono">{bi(lang, g.h)}</h3> : null}
-                  <ul className="facts-list">
-                    {g.idx.map((i) => (
-                      <KoText key={i} as="li" text={p.highlights[i]} />
-                    ))}
-                  </ul>
-                </div>
-              ))}
+              <div className="facts-group">
+                <ul className="facts-list">
+                  {p.highlights.map((h, i) => (
+                    <KoText key={i} as="li" text={h} />
+                  ))}
+                </ul>
+              </div>
             </div>
 
             {p.flow?.length || (p.flowImage && images.length) ? (

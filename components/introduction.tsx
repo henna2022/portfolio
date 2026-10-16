@@ -41,7 +41,7 @@ export function Introduction() {
                   ? koProjectTitle(f.slug!) ?? getProject(f.slug!)!.title
                   : getProject(f.slug!)!.title;
               return (
-                <li key={f.v} className="reveal">
+                <li key={f.v}>
                   <Link href={f.href ?? `/work/${f.slug}`} className="proof__item">
                     <span className="proof__v">{lang === "ko" && f.vKo ? f.vKo : f.v}</span>
                     <span className="proof__l">{bi(lang, f)}</span>
@@ -63,7 +63,7 @@ export function Introduction() {
             as="h2"
             id="intro-heading"
           />
-          <figure className="frame portrait reveal" style={{ margin: 0 }}>
+          <figure className="frame portrait" style={{ margin: 0 }}>
             <div className="frame__window">
               <img
                 {...pic(a.photo, "(max-width: 900px) 140px, 30vw")}
@@ -91,7 +91,7 @@ export function Introduction() {
         </aside>
 
         <div className="intro__body">
-          <KoText className="intro__lede reveal" text={a.tagline} />
+          <KoText className="intro__lede" text={a.tagline} />
 
           {/* 경력 요약 3줄: 전체는 1F 경력으로 */}
           <div className="career">

@@ -207,18 +207,6 @@ html.lang-ko .prose p {
   transform: none;
 }
 
-/* 스크롤 진입 모션: JS 가 있을 때만 숨겼다가 보인다 */
-html.js .reveal {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.9s ease, transform 0.9s var(--ease);
-  transition-delay: var(--delay, 0ms);
-}
-html.js .reveal.is-in {
-  opacity: 1;
-  transform: none;
-}
-
 /* ═════════════════════════════════════════════════════════════════════════
    Header · elevator panel
    ═════════════════════════════════════════════════════════════════════════ */
@@ -291,7 +279,6 @@ html.js .reveal.is-in {
   height: 10px;
   flex: none;
   color: rgb(var(--signal));
-  transition: transform 0.4s var(--ease);
 }
 .elevator__arrow[data-dir="up"] {
   transform: rotate(180deg);
@@ -317,28 +304,12 @@ html.js .reveal.is-in {
   text-overflow: ellipsis;
   font-size: 13px;
   font-weight: 600;
-  animation: elevIn 0.5s var(--ease) both;
-}
-.elevator__line[data-dir="up"] {
-  animation-name: elevInUp;
 }
 .elevator__line b {
   font-family: var(--font-archivo), sans-serif;
   font-weight: 800;
   font-size: 14px;
   font-variation-settings: "wdth" 110;
-}
-@keyframes elevIn {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-}
-@keyframes elevInUp {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
-  }
 }
 
 .elevator__buttons {
@@ -362,27 +333,14 @@ html.js .reveal.is-in {
   font-weight: 750;
   font-size: 13px;
   line-height: 1;
-  transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease,
-    transform 0.15s ease;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 .elevator__btn:hover {
   background: rgb(var(--ink) / 0.12);
 }
-.elevator__btn:active {
-  transform: scale(0.93);
-}
 .elevator__btn[aria-current="true"] {
   background: rgb(var(--ink));
   color: rgb(var(--wall));
-  animation: ding 0.7s var(--ease);
-}
-@keyframes ding {
-  0% {
-    box-shadow: 0 0 0 0 rgb(var(--signal) / 0.6);
-  }
-  100% {
-    box-shadow: 0 0 0 10px rgb(var(--signal) / 0);
-  }
 }
 .elevator__btn svg {
   width: 15px;
@@ -604,48 +562,12 @@ html.lang-ko .lobby__name {
   letter-spacing: -0.035em;
   line-height: 0.95;
 }
-/* 이름 글자: 켜지기(간판 불 켜지듯) → 렌즈(커서 근처가 넓고 굵어지며 파랗게) */
-.lobby__name .nm-ch {
-  display: inline-block;
-  font-variation-settings: "wdth" 112, "wght" 800;
-  color: color-mix(in oklab, rgb(var(--ink)), rgb(var(--signal)) calc(var(--glow, 0) * 92%));
-  text-shadow: 0 0 calc(var(--glow, 0) * 0.3em) rgb(var(--signal) / calc(var(--glow, 0) * 0.5));
-}
-.lobby__name .nm-sp {
-  display: inline-block;
-  width: 0.24em;
-}
-.lobby__name[data-state="intro"] .nm-ch {
-  animation: nameOn 1.3s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  animation-delay: calc(var(--i) * 75ms + 150ms);
-}
-@keyframes nameOn {
-  0% {
-    opacity: 0;
-    transform: translateY(0.12em);
-    font-variation-settings: "wdth" 62, "wght" 100;
-    color: rgb(var(--signal));
-    text-shadow: 0 0 0 rgb(var(--signal) / 0);
-  }
-  45% {
-    opacity: 1;
-    color: rgb(var(--signal));
-    text-shadow: 0 0 0.38em rgb(var(--signal) / 0.7);
-  }
-  100% {
-    transform: none;
-    font-variation-settings: "wdth" 112, "wght" 800;
-    color: rgb(var(--ink));
-    text-shadow: 0 0 0 rgb(var(--signal) / 0);
-  }
-}
 .lobby__byline {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 4px 14px;
   margin: clamp(14px, 2.2vh, 22px) 0 0;
-  animation: fadeUp 0.9s 0.25s var(--ease) both;
 }
 .lobby__job {
   font-size: clamp(16px, 1.35vw, 20px);
@@ -666,7 +588,6 @@ html.lang-ko .lobby__name {
   font-size: 14.5px;
   font-weight: 600;
   color: rgb(var(--ink-2));
-  animation: fadeUp 0.9s 0.28s var(--ease) both;
 }
 .lobby__role i {
   width: 4px;
@@ -686,7 +607,6 @@ html.lang-ko .lobby__name {
   gap: 10px clamp(16px, 2vw, 28px);
   margin: clamp(16px, 2.4vh, 24px) 0 0;
   padding-top: 14px;
-  animation: fadeUp 0.9s 0.3s var(--ease) both;
 }
 .lobby__glance div {
   min-width: 0;
@@ -735,7 +655,6 @@ html.lang-ko .lobby__name {
   grid-column: 1 / span 5;
   align-self: start;
   padding-bottom: clamp(32px, 6vh, 64px);
-  animation: fadeUp 0.9s 0.4s var(--ease) both;
 }
 .lobby__headline {
   margin: 0;
@@ -768,14 +687,6 @@ html.lang-ko .lobby__headline {
   z-index: 4;
   display: flex;
   flex-direction: column;
-  animation: fadeUp 0.9s 0.55s var(--ease) both;
-}
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
 }
 
 /* 로봇 캔버스: 무대에서 화면 오른쪽 끝까지 덮어 걸어 들어오는 길을 만든다 */
@@ -829,14 +740,6 @@ html.lang-ko .lobby__headline {
   line-height: 1.45;
   pointer-events: none;
   white-space: pre-line;
-  transform-origin: 100% 100%;
-  animation: bubble 0.45s var(--ease) both;
-}
-@keyframes bubble {
-  from {
-    opacity: 0;
-    transform: scale(0.85) translateY(6px);
-  }
 }
 
 /* 층별 안내 입간판 */
@@ -928,10 +831,6 @@ html.lang-ko .lobby__headline {
 .dirsign__arrow {
   width: 13px;
   height: 13px;
-  transition: transform 0.25s var(--ease);
-}
-.dirsign__row:hover .dirsign__arrow {
-  transform: translateY(2px);
 }
 .dirsign__posts {
   flex: 1;
@@ -987,12 +886,6 @@ html.lang-ko .lobby__headline {
     margin-top: 28px;
   }
   .lobby__sub { order: 7; }
-  /* 감싸는 칸이 contents 라 그 페이드가 빠지므로 자식에 직접 */
-  .lobby__headline,
-  .lobby__sub,
-  .lobby__cta {
-    animation: fadeUp 0.9s 0.4s var(--ease) both;
-  }
   .lobby__stand {
     order: 8;
     margin-top: 28px;
@@ -1057,13 +950,6 @@ html.lang-ko .lobby__headline {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-html.js .floorsign__tile {
-  clip-path: inset(0 0 100% 0 round 8px);
-  transition: clip-path 0.9s var(--ease);
-}
-html.js .floorsign__tile.is-in {
-  clip-path: inset(0 0 0 0 round 8px);
 }
 .floorsign__tile[data-signal] {
   background: rgb(var(--signal));
@@ -1199,28 +1085,6 @@ html.lang-ko .floorsign__title {
 .dot--on {
   background: rgb(var(--signal));
 }
-.dot--on::after {
-  content: "";
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  background: rgb(var(--signal) / 0.35);
-  opacity: 0;
-}
-.dot--on.is-live::after {
-  animation: livePulse 2.6s ease-out infinite;
-}
-@keyframes livePulse {
-  0% {
-    transform: scale(0.5);
-    opacity: 0.9;
-  }
-  70%,
-  100% {
-    transform: scale(1.35);
-    opacity: 0;
-  }
-}
 .dot--soon {
   border: 1.5px solid rgb(var(--signal));
   background: linear-gradient(90deg, rgb(var(--signal)) 50%, transparent 50%);
@@ -1241,7 +1105,6 @@ html.lang-ko .floorsign__title {
   padding: clamp(8px, 1.6%, 18px);
   border-radius: 2px;
   box-shadow: 0 0 0 1px rgb(var(--ink) / 0.07), 0 18px 30px -24px rgb(0 0 0 / 0.3);
-  transition: transform 0.6s var(--ease);
 }
 .frame__window {
   position: relative;
@@ -1260,11 +1123,6 @@ html.lang-ko .floorsign__title {
   width: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
-  transition: transform 0.9s var(--ease);
-}
-a:hover .frame,
-a:focus-visible .frame {
-  transform: translateY(-4px);
 }
 
 .label {
@@ -1337,10 +1195,6 @@ html.lang-ko .label__title {
 .label__view svg {
   width: 13px;
   height: 13px;
-  transition: transform 0.3s var(--ease);
-}
-a:hover .label__view svg {
-  transform: translateX(4px);
 }
 
 /* ═════════════════════════════════════════════════════════════════════════
@@ -1536,11 +1390,10 @@ html.lang-ko .intro__lede {
   width: 13px;
   height: 13px;
   opacity: 0.5;
-  transition: transform 0.3s var(--ease), opacity 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 .proof__item:hover .proof__go {
   opacity: 1;
-  transform: translateX(3px);
 }
 .proof__item:hover .proof__v {
   color: rgb(var(--signal));
@@ -1753,7 +1606,7 @@ html.lang-ko .room .label__title {
   font-weight: 700;
   color: inherit;
   text-decoration: none;
-  transition: transform 0.25s var(--ease), background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 .btn svg {
   width: 13px;
@@ -1762,9 +1615,6 @@ html.lang-ko .room .label__title {
 .btn--solid {
   background: rgb(var(--ink));
   color: rgb(var(--wall));
-}
-.btn--solid:hover {
-  transform: translateY(-2px);
 }
 .btn--line {
   background: rgb(var(--ink) / 0.06);
@@ -1874,11 +1724,6 @@ html.lang-ko .room .label__title {
   width: auto;
   height: auto;
   filter: drop-shadow(0 18px 22px rgb(0 0 0 / 0.16));
-  transition: transform 0.6s var(--ease);
-}
-.vitrine__item:hover .vitrine__obj,
-.vitrine__item:focus-visible .vitrine__obj {
-  transform: translateY(-6px);
 }
 @media (max-width: 960px) {
   .wall {
@@ -1971,10 +1816,6 @@ html.lang-ko .catalog__title {
   width: 13px;
   height: 13px;
   color: rgb(var(--ink));
-  transition: transform 0.3s var(--ease);
-}
-.catalog__row:hover .catalog__year svg {
-  transform: translateX(4px);
 }
 .catalog__thumb {
   display: none;
@@ -1984,15 +1825,6 @@ html.lang-ko .catalog__title {
   position: sticky;
   top: calc(var(--header-h) + 28px);
   align-self: start;
-}
-.viewer__frame img {
-  animation: viewerIn 0.5s var(--ease) both;
-}
-@keyframes viewerIn {
-  from {
-    opacity: 0;
-    transform: scale(1.03);
-  }
 }
 /* 화면 캡처가 없는 시스템: 검은 빈 액자 대신 연결 단계를 밝은 판 위에 */
 .viewer__flow {
@@ -2226,7 +2058,6 @@ html.lang-ko .viewer__title {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.8s var(--ease);
 }
 .learn__photo[data-fit="contain"] img {
   object-fit: contain;
@@ -2588,10 +2419,6 @@ html.lang-ko .desk__title {
 .desk__links a svg {
   width: 13px;
   height: 13px;
-  transition: transform 0.25s var(--ease);
-}
-.desk__links a:hover svg {
-  transform: translate(2px, -2px);
 }
 
 .footer {
@@ -2822,26 +2649,6 @@ html.lang-ko .object__title {
   color: rgb(var(--ink));
   font-weight: 600;
 }
-.facts-group + .facts-group {
-  margin-top: 28px;
-}
-.facts-group__h {
-  margin: 0 0 8px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgb(var(--signal));
-}
-:root.dark .facts-group__h {
-  color: rgb(100 135 255);
-}
-html.lang-ko .facts-group__h {
-  font-family: "Pretendard Variable", Pretendard, sans-serif;
-  font-size: 14px;
-  letter-spacing: 0;
-  text-transform: none;
-}
 .object__flow {
   padding: clamp(20px, 3vw, 32px);
   background: rgb(var(--sign));
@@ -2912,18 +2719,12 @@ html.lang-ko .facts-group__h {
   grid-template-rows: auto minmax(0, 1fr) auto;
   background: rgb(10 10 9 / 0.94);
   color: rgb(236 233 226);
-  animation: lbIn 0.25s ease both;
 }
 .lightbox:not([open]) {
   display: none;
 }
 .lightbox::backdrop {
   background: transparent;
-}
-@keyframes lbIn {
-  from {
-    opacity: 0;
-  }
 }
 .lightbox__bar {
   display: flex;
@@ -2985,10 +2786,6 @@ html.lang-ko .facts-group__h {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
-  html.js .reveal {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 /* ═════════════════════════════════════════════════════════════════════════
@@ -3023,7 +2820,6 @@ html.lang-ko .facts-group__h {
 }
 .errorpage__stage .speech {
   border-radius: 12px 12px 12px 3px;
-  transform-origin: 0 100%;
 }
 
 /* 구조도(SVG): 테마에 맞는 한 장만. 액자 사진용 3:2 자르기는 풀어 그림 전체가 보이게 */

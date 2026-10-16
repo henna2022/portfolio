@@ -118,7 +118,7 @@ export function SiteHeader({ fixedFloor }: { fixedFloor?: FloorId }) {
               <ArrowDown />
             </span>
             <div className="elevator__readout">
-              <span className="elevator__line" data-dir={dir} key={`${current}-${lang}`}>
+              <span className="elevator__line">
                 {cur ? (
                   <>
                     <b>{cur.id === "INFO" ? "i" : cur.id}</b>

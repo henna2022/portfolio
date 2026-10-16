@@ -12,7 +12,6 @@ import { assetPath } from "@/lib/asset";
 import { useI18n } from "./lang-provider";
 import { floorPicto, ArrowDown, ArrowRight, DownloadPicto } from "./pictos";
 import { KoText, nbHyphen } from "./rich";
-import { LobbyName } from "./lobby-name";
 
 const DocentRobot = dynamic(() => import("./docent-robot"), { ssr: false });
 
@@ -60,7 +59,9 @@ export function Lobby() {
   return (
     <section id="top" className="lobby" aria-labelledby="lobby-name">
       <div className="shell lobby__wall">
-        <LobbyName text={lang === "ko" ? "이주원" : "Juwon Lee"} hangul={lang === "ko"} />
+        <h1 id="lobby-name" className="lobby__name">
+          {lang === "ko" ? "이주원" : "Juwon Lee"}
+        </h1>
         {/* 실제 직함·소속을 먼저, 둘째 줄은 직무 분야 (본인 지정: 교육 기획 · 개발) */}
         <p className="lobby__byline">
           <span className="lobby__job">{bi(lang, jobLine.title)}</span>

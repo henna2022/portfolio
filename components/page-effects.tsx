@@ -1,8 +1,7 @@
 "use client";
 
-// 화면 전역 효과 두 가지. 레이아웃에 한 번만 붙인다.
-// 1) .reveal 요소가 화면에 들어오면 .is-in 을 붙인다 (새로 그려진 요소도 MutationObserver 로 잡는다).
-// 2) 한국어 모드에서 문단·문장의 마지막 줄이 한두 어절만 넘어가면 자간을 조금씩 줄여
+// 화면 전역 효과. 레이아웃에 한 번만 붙인다.
+// 한국어 모드에서 문단·문장의 마지막 줄이 한두 어절만 넘어가면 자간을 조금씩 줄여
 //    한 줄로 붙인다(-0.01 ~ -0.05em). 안 되면 window.koTailReport 에 남긴다.
 //    글자는 건드리지 않고 style.letterSpacing 만 바꾸므로 React 렌더와 충돌하지 않는다.
 import { useEffect } from "react";
@@ -111,37 +110,6 @@ function fixTails() {
 
 export function PageEffects() {
   useEffect(() => {
-    // ── reveal ──
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) {
-            e.target.classList.add("is-in");
-            // 층 표지 타일은 clip-path 로 숨겨져 있어 자기 자신은 교차 0 이다. 부모를 보고 타일에 붙인다.
-            e.target.querySelector(":scope > .floorsign__tile")?.classList.add("is-in");
-            io.unobserve(e.target);
-          }
-        }
-      },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
-    );
-    const watch = (root: ParentNode) => {
-      root.querySelectorAll(".reveal:not(.is-in)").forEach((el) => io.observe(el));
-      root
-        .querySelectorAll(".floorsign__tile:not(.is-in)")
-        .forEach((el) => el.parentElement && io.observe(el.parentElement));
-    };
-    watch(document);
-
-    // ── 운영 중 점의 맥박: 화면에 보이는 점만 움직인다 ──
-    const dotIo = new IntersectionObserver((entries) => {
-      for (const e of entries) e.target.classList.toggle("is-live", e.isIntersecting);
-    });
-    const watchDots = (root: ParentNode) =>
-      root.querySelectorAll(".dot--on").forEach((el) => dotIo.observe(el));
-    watchDots(document);
-
-    // ── tails ──
     // 스크롤 중에 끼어들지 않게 브라우저가 한가할 때 돌린다
     let raf = 0;
     let idle = 0;
@@ -164,8 +132,6 @@ export function PageEffects() {
         if (t?.closest(NOISY)) continue;
         m.addedNodes.forEach((n) => {
           if (!(n instanceof Element)) return;
-          watch(n.parentNode || n);
-          watchDots(n);
           if (n.matches("p, li, dd, .sent") || n.querySelector("p, li, dd")) content = true;
         });
       }
@@ -185,8 +151,6 @@ export function PageEffects() {
     schedule();
 
     return () => {
-      io.disconnect();
-      dotIo.disconnect();
       mo.disconnect();
       htmlMo.disconnect();
       window.removeEventListener("resize", onResize);

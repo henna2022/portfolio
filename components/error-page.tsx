@@ -89,7 +89,7 @@ export function ErrorPage({ code }: { code: ErrorCode }) {
     <main id="main" className="errorpage">
       <div className="shell errorpage__inner">
         <header className="floorsign errorpage__sign">
-          <div className="floorsign__tile is-in" aria-hidden="true">
+          <div className="floorsign__tile" aria-hidden="true">
             <span className="floorsign__num errorpage__code">{code}</span>
             <span className="floorsign__name">
               {ko ? "안내" : "Notice"}

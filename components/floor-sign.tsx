@@ -49,7 +49,7 @@ export function FloorSign({
   return (
     <header className="floorsign">
       <FloorTile id={id} signal={signal} />
-      <div className="reveal">
+      <div>
         <h2 className="floorsign__title" id={`floor-${id}`}>
           <span className="sr-only">
             {f.id} {bi(lang, f.name)}.{" "}
