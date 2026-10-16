@@ -180,8 +180,8 @@ export const figures: Record<string, Array<{ v: string; vKo?: string } & Bi>> = 
   ],
   // 오픈 뒤 관리자 통계(엑셀)의 실제 예약·방문자 수로 바꿀 자리 (본인 요청 2026-10-15)
   "raim-en": [
+    { v: "130", en: "online seats a week for foreign visitors, up from none", ko: "외국인 온라인 예약 좌석 (주, 이전 0석)" },
     { v: "300+", en: "automated tests", ko: "자동 테스트" },
-    { v: "90", en: "days until personal data is deleted", ko: "일 뒤 개인정보 자동 삭제" },
   ],
   "doctor-green": [
     { v: "39.9K", vKo: "39,889", en: "image crops in the training set", ko: "학습용 크롭 이미지" },
@@ -261,7 +261,7 @@ export const cardLine: Record<string, number> = {
   "raimi-art-lab": 0,
   "ai-persona-web": 3,
   "raim-4cut-studio": 1,
-  "raim-en": 4,
+  "raim-en": 5,
   "raim-staff-platform": 2,
   "exhibit-auto-recovery": 1,
   "exhibit-stats-hub": 1,
