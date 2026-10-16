@@ -151,7 +151,6 @@ html.lang-ko .facts dd,
 html.lang-ko .material p,
 html.lang-ko .facts-list li,
 html.lang-ko .label__evidence,
-html.lang-ko .methods__text,
 html.lang-ko .proof__l,
 html.lang-ko .lobby__glance dd,
 html.lang-ko .walllabel dd,
@@ -2433,74 +2432,6 @@ html.lang-ko .viewer__title {
   }
   .learn__photo--none {
     aspect-ratio: 3 / 1;
-  }
-}
-
-/* 검증 방법 색인: 4F 바로 앞 (위 여백은 소개 섹션의 아래 여백이 맡는다) */
-.methods-section {
-  padding-bottom: 48px;
-}
-@media (max-width: 620px) {
-  .methods-section { padding-bottom: 32px; }
-}
-.room-intro {
-  margin: 12px 0 20px;
-  max-width: 62ch;
-  color: rgb(var(--ink-2));
-}
-.methods {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  border-top: 2px solid rgb(var(--ink));
-}
-.methods__row {
-  display: grid;
-  grid-template-columns: minmax(150px, 2.2fr) minmax(0, 6fr) minmax(140px, 2.4fr);
-  gap: 8px clamp(16px, 2vw, 28px);
-  align-items: baseline;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--rule);
-}
-.methods__type {
-  color: rgb(var(--ink));
-}
-.methods__text {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.55;
-  color: rgb(var(--ink-2));
-}
-.methods__text strong {
-  color: rgb(var(--ink));
-  font-weight: 650;
-}
-.methods__src {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  justify-self: end;
-  color: inherit;
-  font-size: 14px;
-  font-weight: 650;
-  text-decoration: none;
-  text-align: right;
-}
-.methods__src svg {
-  width: 12px;
-  height: 12px;
-  flex: none;
-  transition: transform 0.3s var(--ease);
-}
-.methods__src:hover svg {
-  transform: translateX(3px);
-}
-@media (max-width: 900px) {
-  .methods__row {
-    grid-template-columns: 1fr;
-  }
-  .methods__src {
-    justify-self: start;
   }
 }
 

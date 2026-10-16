@@ -269,32 +269,6 @@ export const cardLine: Record<string, number> = {
   "staff-ai-class": 0,
 };
 
-// 검증 색인: 이미 쓴 문장을 방법별로 모은다. keys 가 있으면 그 작품 본문(overview)에서
-// 해당 문장을 그대로 가져오고, 없으면 highlights[idx] 를 쓴다. 숫자·주장은 새로 만들지 않는다.
-export const methods: Array<{
-  type: Bi;
-  slug?: string;
-  idx: number;
-  exp?: number;
-  keys?: { en: string[]; ko: string[] };
-}> = [
-  {
-    type: { en: "Field-data analysis", ko: "현장 데이터 분석" },
-    slug: "mystery-playground-replay",
-    idx: 3,
-    keys: { en: ["128 visitor logs", "45% of cases"], ko: ["128건", "은발 45%"] },
-  },
-  {
-    type: { en: "Controlled recognition test", ko: "인식 통제 시험" },
-    slug: "time-machine-ar",
-    idx: 2,
-    keys: { en: ["4 of 5 trials"], ko: ["시험 도구로 재 보니", "5건 중 4건"] },
-  },
-  { type: { en: "End-to-end test harness", ko: "엔드투엔드 시험 장치" }, slug: "time-machine-ar", idx: 2 },
-  { type: { en: "Split grouped by source photo", ko: "원본 사진 단위 데이터 분할" }, slug: "doctor-green", idx: 3 },
-  { type: { en: "Source check for every sentence", ko: "문장마다 출처 확인" }, slug: "lidar-explainer-kiosk", idx: 4 },
-];
-
 // 작품 페이지 벽 라벨 '협업·사용자' 줄. 각 작품 본문에 이미 있는 사실만 (없으면 줄을 안 그린다)
 export const withWhom: Record<string, Bi> = {
   "smart-farm-education": { en: "Commissioned by the Yangpyeong Education Office through the museum", ko: "과학관 × 양평교육청 위탁 사업" },
@@ -363,8 +337,6 @@ const siteEn = {
   awardsOther: "수상",
   materials: "Skills",
   materialsOther: "기술",
-  methods: "How I check my work",
-  methodsIntro: "Sentences quoted from each case study.",
   otherTeaching: "More teaching, mentoring and activities",
   cvForMore: "Full list in the CV",
   proofTitle: "In use, by the numbers",
@@ -437,8 +409,6 @@ const siteKo: SiteStrings = {
   awardsOther: "Awards",
   materials: "기술",
   materialsOther: "Skills",
-  methods: "검증 방법",
-  methodsIntro: "각 작업 본문에서 옮긴 문장입니다.",
   otherTeaching: "그 밖의 교육·멘토링·활동",
   cvForMore: "전체 목록은 경력기술서에",
   proofTitle: "운영·이용 기록",
