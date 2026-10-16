@@ -879,17 +879,6 @@ export const experience = [
     ],
   },
   {
-    org: "Ubase, Inc. (dispatched to Select Star)",
-    site: "https://selectstar.ai/",
-    role: "VQA Dataset Builder & QA Reviewer",
-    period: "2025.11 - 2025.12",
-    points: [
-      "Built and reviewed visual question-answering (VQA) datasets for LLM training on an ETRI (Electronics and Telecommunications Research Institute) project, including complex 3-hop reasoning Q&A sets.",
-      "Checked each question–response pair against the project's correction guidelines for grammatical and semantic accuracy, and rewrote the assistant answers that did not follow logically from the user's question.",
-      "Sustained about 1.5× the team's average throughput while holding accuracy.",
-    ],
-  },
-  {
     org: "Ministry of Science and ICT",
     site: "https://www.msit.go.kr/index.do",
     role: "Youth Intern",
