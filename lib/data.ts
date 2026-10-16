@@ -48,8 +48,10 @@ export const statement: StatementToken[] = [
   { t: "w", w: "to" },
   { t: "w", w: "work" },
   { t: "w", w: "for" },
-  { t: "w", w: "real" },
-  { t: "w", w: "people." },
+  { t: "w", w: "museum" },
+  { t: "w", w: "visitors" },
+  { t: "w", w: "and" },
+  { t: "w", w: "students." },
 ];
 
 // ─── About ──────────────────────────────────────────────────────────────────
@@ -90,10 +92,10 @@ export const about = {
   ],
   // 인용문 — `em` 로 감싼 조각은 액센트 하이라이트 처리
   quote: [
-    { text: "“I turn ideas into " },
-    { text: "software that ships", em: true },
-    { text: ", and I care just as much about making it " },
-    { text: "understood", em: true },
+    { text: "“I " },
+    { text: "teach", em: true },
+    { text: " with the " },
+    { text: "software I build", em: true },
     { text: ".”" },
   ],
   // 앞 2문단은 항상 노출, 나머지는 '더 보기' 안쪽.
@@ -116,23 +118,18 @@ export const about = {
   ] as ProseParagraph[],
   proseMore: [
     [
-      { text: "That software mostly lands in places people stand in. At the Seoul Robot & AI Museum my Art Lab ran on the exhibition floor from June to August 2026, and its own backend counted " },
-      { text: "14,328 generated images, 9,865 of them in July", b: true },
-      { text: ". Doctor-Green reaches down to " },
+      { text: "Of those, " },
+      { text: "9,865 were generated in July", b: true },
+      { text: " (counted by the app's own backend). Doctor-Green, my smart-farm platform, reaches down to " },
       { text: "ESP32 sensor nodes", b: true },
       { text: "." },
     ],
     [
-      { text: "The other half of the job is " },
-      { text: "making it understood", b: true },
-      { text: ". For the smart-farm class the Yangpyeong Education Office commissioned through the museum, I wrote the curriculum and teach it on a lab platform I built from my own Doctor-Green work; I taught it as a demo class to 5 high-school students in August 2026 and it runs with a 15-student cohort in October 2026; at the museum I guide visitors in Korean and English, and I mentor students week to week. " },
-      { text: "Building something and explaining it well are the same job to me", b: true },
-      { text: ": both come down to making a complex system make sense." },
-    ],
-    [
-      { text: "That intersection is my lane. I'll keep " },
-      { text: "shipping AI products that run in production, and measuring whether they work", b: true },
-      { text: "." },
+      { text: "For the smart-farm class the Yangpyeong Education Office commissioned through the museum, I wrote the curriculum and teach it on a lab platform I built from my own Doctor-Green work. I taught it as a demo class to " },
+      { text: "5 high-school students in August 2026", b: true },
+      { text: ", and it runs with " },
+      { text: "a 15-student cohort in October 2026", b: true },
+      { text: ". At the museum I guide visitors in Korean and English, and I mentor students week to week." },
     ],
   ] as ProseParagraph[],
 };
@@ -162,7 +159,7 @@ export type Project = {
   galleryAlts?: Record<string, string>;
 };
 
-export const projects: Project[] = [
+const allProjects: Project[] = [
   // ── Major projects ──
   {
     slug: "smart-farm-education",
@@ -741,6 +738,10 @@ export const projects: Project[] = [
     ],
   },
 ];
+
+// 사이트에서 빼 둔 작품 (2026-10-04 본인 요청). 데이터는 남기고 화면·상세·사이트맵에서 뺀다.
+const hiddenSlugs = new Set(["raim-floor-guide", "education-room-board", "robot-ar-tour", "ai-ethics-vote"]);
+export const projects: Project[] = allProjects.filter((p) => !hiddenSlugs.has(p.slug));
 
 export function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);

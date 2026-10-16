@@ -29,8 +29,8 @@ export const ui = {
   viewProject: "View project →",
   newsArticle: "Press coverage ↗",
 
-  sideProjectsHeading: "Side & toy projects",
-  sideProjectsSub: "Smaller experiments built along the way.",
+  sideProjectsHeading: "More projects",
+  sideProjectsSub: "Exhibits, visitor apps and staff tools built for the Seoul Robot & AI Museum.",
 
   skillsHeading: "Tech Stack",
   swipeHint: "← swipe / drag →",
@@ -99,8 +99,8 @@ export const uiKo: UiStrings = {
   viewProject: "프로젝트 보기 →",
   newsArticle: "언론 보도 ↗",
 
-  sideProjectsHeading: "Side & toy projects",
-  sideProjectsSub: "작업 틈틈이 만든 작은 실험들.",
+  sideProjectsHeading: "More projects",
+  sideProjectsSub: "서울로봇인공지능과학관에 맞춰 만든 전시물, 관람객용 앱, 직원용 도구.",
 
   skillsHeading: "기술 스택",
   swipeHint: "← 스와이프 / 드래그 →",
