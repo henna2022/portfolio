@@ -446,7 +446,7 @@ export const projects: Project[] = [
     title: "RAIM EN: English Tour Booking",
     category: "Web Service · Reservations",
     categories: ["Web", "Ops"],
-    kicker: "Seoul Robot & AI Museum · public launch pending",
+    kicker: "Seoul Robot & AI Museum · live since October 2026",
     desc: "An English guide and tour-booking site for the museum's foreign visitors. Seoul's public reservation system requires Korean mobile identity verification, which kept foreign visitors from booking online, so I made it possible to book with an email address instead of a Korean phone number.",
     year: "2026",
     role: "Solo: planning, development, deployment",

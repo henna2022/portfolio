@@ -156,8 +156,8 @@ export const status: Record<string, { kind: StatusKind } & Bi> = {
   "ai-persona-web": { kind: "on", en: "Online · QR at the exhibit", ko: "공개 중 · 전시물 옆 QR" },
   "time-machine-ar": { kind: "soon", en: "Deployed · on-site launch pending", ko: "배포 완료 · 현장 운영 전" },
   "robot-ar-tour": { kind: "proto", en: "Prototype", ko: "프로토타입" },
-  // 본인 확인 2026-10-05: 서버를 아직 열지 않음 (일반 공개 전)
-  "raim-en": { kind: "soon", en: "Built · public launch pending", ko: "구축 완료 · 공개 전" },
+  // 본인 확인 2026-10-15: 정식 오픈
+  "raim-en": { kind: "on", en: "Live since Oct 2026", ko: "2026년 10월부터 운영" },
   "raim-staff-platform": { kind: "on", en: "In daily use · ~20 staff", ko: "직원 약 20명이 매일 사용" },
   "exhibit-auto-recovery": { kind: "on", en: "Running unattended", ko: "무인 운영 중" },
   "exhibit-stats-hub": { kind: "on", en: "In operation", ko: "운영 중" },

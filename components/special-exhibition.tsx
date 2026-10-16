@@ -6,6 +6,7 @@ import { getProject, type Project } from "@/lib/data";
 import { localizeProject } from "@/lib/data-ko";
 import { img as pic } from "@/lib/img";
 import { floorPlan, figures, siteStrings, bi, displaySrc } from "@/lib/exhibit";
+import { useLiveFigures, liveCaption } from "@/lib/live-stats";
 import { useI18n } from "./lang-provider";
 import { FloorSign } from "./floor-sign";
 import { StatusLine } from "./status";
@@ -20,7 +21,8 @@ function Room({ p, flip }: { p: Project; flip: boolean }) {
   const hero = p.image ?? p.gallery?.[0];
   // 로고 같은 비(非)화면 이미지는 액자에 걸지 않는다
   const thumbs = (p.gallery ?? []).filter((g) => g !== hero && !g.includes("/logo/")).slice(0, 4);
-  const figs = figures[p.slug] ?? [];
+  const live = useLiveFigures(p.slug);
+  const figs = live ?? figures[p.slug] ?? [];
   const href = `/work/${p.slug}`;
 
   return (
@@ -60,9 +62,10 @@ function Room({ p, flip }: { p: Project; flip: boolean }) {
         {figs.length ? (
           <>
           {p.slug === "doctor-green" ? <p className="figures__cap mono">{s.datasetCaption}</p> : null}
+          {live ? <p className="figures__cap mono">{bi(lang, liveCaption)}</p> : null}
           <dl className="figures">
-            {figs.map((f) => (
-              <div key={f.v}>
+            {figs.map((f, i) => (
+              <div key={i}>
                 <dt>{lang === "ko" && f.vKo ? f.vKo : f.v}</dt>
                 <dd>{bi(lang, f)}</dd>
               </div>
