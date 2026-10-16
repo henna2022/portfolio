@@ -31,7 +31,7 @@ export function useLiveFigures(slug: string): Fig[] | null {
     const src = sources[slug];
     if (!src) return;
     const ctl = new AbortController();
-    const timer = setTimeout(() => ctl.abort(), 6000);
+    const timer = setTimeout(() => ctl.abort(), 15000); // 느린 회선에서도 받도록 넉넉히(그동안은 정적 숫자)
     fetch(src.url, { signal: ctl.signal })
       .then((r) => (r.ok ? r.json() : null))
       .then((s) => setFigs(src.toFigures(s)))
