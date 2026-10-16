@@ -108,16 +108,15 @@ export const galleryCase = ["ai-persona-web", "raim-4cut-studio"];
 
 // 층별 배치. 순서가 곧 화면 순서다.
 export const floorPlan: Record<"4F" | "3F" | "2F", string[]> = {
-  // 스마트팜이 가장 큰 프로젝트라 맨 위 (본인 요청 2026-10-05)
-  "4F": ["smart-farm-education", "mystery-playground-replay", "doctor-green"],
+  // 스마트팜이 가장 큰 프로젝트라 맨 위 (본인 요청 2026-10-05), 외국인 예약은 큰 프로젝트라 그다음 (본인 요청 2026-10-15)
+  "4F": ["smart-farm-education", "raim-en", "mystery-playground-replay", "doctor-green"],
   "3F": [...galleryWall, ...galleryCase],
-  // 지금 돌아가는 것부터 (채점 반영 2026-10-07): 매일 쓰는 앱 → 무인 복구 → 집계 → 문서 도구 → 공개 전 예약 → 직원 과정
+  // 지금 돌아가는 것부터 (채점 반영 2026-10-07): 매일 쓰는 앱 → 무인 복구 → 집계 → 문서 도구 → 직원 과정
   "2F": [
     "raim-staff-platform",
     "exhibit-auto-recovery",
     "exhibit-stats-hub",
     "document-formatter",
-    "raim-en",
     "staff-ai-class",
   ],
 };
@@ -178,6 +177,11 @@ export const figures: Record<string, Array<{ v: string; vKo?: string } & Bi>> = 
   "smart-farm-education": [
     { v: "15", en: "ESP32 boards for students, one each", ko: "학생용 ESP32 보드 (1인 1대)" },
     { v: "4", en: "lesson steps: weather, AI vision, IoT, camera", ko: "수업 단계 (날씨 · AI 비전 · IoT · 카메라)" },
+  ],
+  // 오픈 뒤 관리자 통계(엑셀)의 실제 예약·방문자 수로 바꿀 자리 (본인 요청 2026-10-15)
+  "raim-en": [
+    { v: "300+", en: "automated tests", ko: "자동 테스트" },
+    { v: "90", en: "days until personal data is deleted", ko: "일 뒤 개인정보 자동 삭제" },
   ],
   "doctor-green": [
     { v: "39.9K", vKo: "39,889", en: "image crops in the training set", ko: "학습용 크롭 이미지" },
