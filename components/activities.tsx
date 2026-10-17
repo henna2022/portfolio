@@ -40,9 +40,9 @@ export function Activities() {
               <button
                 onClick={() => setOpen(isOpen ? null : i)}
                 aria-expanded={isOpen}
-                className="group -mx-3 flex w-[calc(100%+1.5rem)] items-center gap-4 rounded-2xl px-3 py-5 text-left transition-colors hover:bg-sand/40"
+                className="group -mx-3 flex w-[calc(100%+1.5rem)] items-center gap-4 whitespace-normal rounded-2xl px-3 py-5 text-left transition-colors hover:bg-sand/40"
               >
-                <span className="grid flex-1 grid-cols-[1fr] items-baseline gap-x-6 gap-y-1 sm:grid-cols-[150px_1fr_auto]">
+                <span className="grid min-w-0 flex-1 grid-cols-[minmax(0,1fr)] items-baseline gap-x-6 gap-y-1 sm:grid-cols-[150px_minmax(0,1fr)_auto]">
                   <span className="font-display order-2 text-xs text-muted sm:order-1 sm:text-sm">
                     {a.period}
                   </span>

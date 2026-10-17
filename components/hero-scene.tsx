@@ -151,13 +151,10 @@ function Rig({ compact }: { compact: boolean }) {
   useEffect(() => {
     if (!(camera instanceof THREE.PerspectiveCamera)) return;
     if (compact) {
-      // Fit an 11-unit-wide, 5.2-unit-high room window at the robot plane.
-      // The rotated lamp is at x≈3.8 and the desk at x≈6; both stay visible.
-      const aspect = size.width / Math.max(1, size.height);
-      const halfHeight = Math.max(2.6, 5.5 / aspect);
-      camera.position.set(2.4, 1.8, 10);
-      camera.fov = THREE.MathUtils.radToDeg(2 * Math.atan(halfHeight / 10));
-      camera.lookAt(2.4, 1.8, 0);
+      // Fixed vertical framing keeps the room and robot close in portrait.
+      camera.position.set(0, 2.2, 7.4);
+      camera.fov = 50;
+      camera.lookAt(0, 2.2, 0);
     } else {
       camera.position.set(...CAM_POS);
       camera.fov = CAM_FOV;
@@ -301,13 +298,19 @@ const TEXT_TARGET_Z = WALL_Z + 0.18; // 벽면보다 살짝 돌출
 // 헤드라인이 차지해도 되는 화면 폭 (NDC 기준, 1 = 화면 가장자리)
 const HEADLINE_WIDTH_RATIO = 0.94;
 
-function RisingHeadline({ dark, reduced, ko, onHeadlineShown }: { dark: boolean; reduced: boolean; ko: boolean; onHeadlineShown?: () => void }) {
+function RisingHeadline({ dark, reduced, ko, compact, onHeadlineShown }: { dark: boolean; reduced: boolean; ko: boolean; compact: boolean; onHeadlineShown?: () => void }) {
   const notified = useRef(false);
-  const lines = ko ? HEADLINE_KO : HEADLINE;
+  const viewport = useThree((s) => s.size);
+  const portraitLines = compact && viewport.width / viewport.height < 0.6;
+  const lines = portraitLines
+    ? ko ? ["사람이 있는", "현장에서 돌아가는", "AI 제품을", "만듭니다."]
+      : ["Building AI", "products that", "run where", "people are."]
+    : ko ? HEADLINE_KO : HEADLINE;
   const line0 = useRef<THREE.Group>(null);
   const line1 = useRef<THREE.Group>(null);
   const line2 = useRef<THREE.Group>(null);
-  const refs = [line0, line1, line2];
+  const line3 = useRef<THREE.Group>(null);
+  const refs = portraitLines ? [line0, line1, line2, line3] : [line0, line1, line2];
   const elapsed = useRef(0);
 
   // ── 화면 폭에 맞춰 헤드라인 축소 ──────────────────────────────────────
@@ -318,8 +321,13 @@ function RisingHeadline({ dark, reduced, ko, onHeadlineShown }: { dark: boolean;
   // 가장자리를 넘지 않도록 그룹을 줄인다. 넓은 화면에서는 1(원래 크기)로 수렴한다.
   const groupRef = useRef<THREE.Group>(null);
   const [fit, setFit] = useState(1);
+  const [koreanLineStep, setKoreanLineStep] = useState(0.6);
+  const measureKoreanLine = useCallback(({ height }: { height: number }) => {
+    // Measure the rendered Hangul outlines, including bevels; font metadata
+    // can understate their height. Keep 18% leading between adjacent lines.
+    setKoreanLineStep((step) => Math.max(step, height * 1.18));
+  }, []);
   const camera = useThree((s) => s.camera);
-  const viewport = useThree((s) => s.size);
 
   useEffect(() => {
     const box = new THREE.Box3();
@@ -333,6 +341,64 @@ function RisingHeadline({ dark, reduced, ko, onHeadlineShown }: { dark: boolean;
       if (g) {
         // 측정은 항상 "원래 크기 · 등장 완료" 상태 기준으로 한다.
         // (지금 스케일이나 등장 애니메이션 중간 z 로 재면 값이 계속 흔들린다)
+        if (compact) {
+          // Project actual text boxes in wall coordinates, preserving perspective.
+          // Solve both width and horizontal centering; scaling alone drifts left.
+          const zs = g.children.map((c) => c.position.z);
+          g.children.forEach((c) => (c.position.z = TEXT_TARGET_Z));
+          const bounds = () => {
+            g.updateWorldMatrix(true, true);
+            let left = Infinity, right = -Infinity;
+            g.traverse((o) => {
+              if (!(o instanceof THREE.Mesh)) return;
+              o.geometry.computeBoundingBox();
+              const b = o.geometry.boundingBox;
+              if (!b) return;
+              for (const x of [b.min.x, b.max.x])
+                for (const y of [b.min.y, b.max.y])
+                  for (const z of [b.min.z, b.max.z]) {
+                    corner.set(x, y, z).applyMatrix4(o.matrixWorld).project(camera);
+                    left = Math.min(left, corner.x);
+                    right = Math.max(right, corner.x);
+                  }
+            });
+            return [left, right];
+          };
+          let scale = 1;
+          g.position.x = 0;
+          g.position.y = 5.2;
+          for (let i = 0; i < 24; i++) {
+            g.scale.set(scale, scale, 1);
+            const [left, right] = bounds();
+            if (!Number.isFinite(left) || right <= left) break;
+            const middle = (left + right) / 2;
+            g.position.x += 0.01;
+            const shifted = bounds();
+            g.position.x -= 0.01 + middle / (((shifted[0] + shifted[1]) / 2 - middle) / 0.01);
+            scale *= (ko ? 1.6 : 1.76) / (right - left);
+          }
+          g.scale.set(scale, scale, 1);
+          const [left, right] = bounds();
+          // Leave space for the fixed navigation above the wall lettering.
+          box.setFromObject(g);
+          let top = -Infinity;
+          for (const x of [box.min.x, box.max.x])
+            for (const y of [box.min.y, box.max.y])
+              for (const z of [box.min.z, box.max.z]) {
+                corner.set(x, y, z).project(camera);
+                top = Math.max(top, corner.y);
+              }
+          const origin = new THREE.Vector3(box.max.x, box.max.y, box.max.z);
+          const y0 = origin.clone().project(camera).y;
+          const y1 = origin.clone().add(new THREE.Vector3(0, 1, 0)).project(camera).y;
+          g.position.y += (0.7 - top) / (y1 - y0);
+          g.children.forEach((c, i) => (c.position.z = zs[i]));
+          if (Number.isFinite(left) && right > left) {
+            setFit(scale);
+            return;
+          }
+        }
+        if (!compact) g.position.set(0, HEADLINE_CENTER_Y, 0);
         const scaled = g.scale.x;
         const zs = g.children.map((c) => c.position.z);
         g.scale.set(1, 1, 1);
@@ -366,7 +432,7 @@ function RisingHeadline({ dark, reduced, ko, onHeadlineShown }: { dark: boolean;
     return () => {
       cancelled = true;
     };
-  }, [camera, viewport.width, viewport.height, ko]);
+  }, [camera, viewport.width, viewport.height, ko, compact, koreanLineStep]);
 
   useFrame((_, delta) => {
     if (process.env.NODE_ENV !== "production") {
@@ -391,7 +457,7 @@ function RisingHeadline({ dark, reduced, ko, onHeadlineShown }: { dark: boolean;
         : THREE.MathUtils.clamp((elapsed.current - start) / TEXT_DURATION, 0, 1);
       g.position.z = THREE.MathUtils.lerp(TEXT_START_Z, TEXT_TARGET_Z, easeOutCubic(p));
     });
-    if (!notified.current && (reduced || elapsed.current >= TEXT_START + 2 * TEXT_STAGGER + TEXT_DURATION)) {
+    if (!notified.current && (reduced || elapsed.current >= TEXT_START + (lines.length - 1) * TEXT_STAGGER + TEXT_DURATION)) {
       notified.current = true;
       onHeadlineShown?.();
     }
@@ -401,10 +467,10 @@ function RisingHeadline({ dark, reduced, ko, onHeadlineShown }: { dark: boolean;
     // 벽면에 걸린 문단 — 코너 원근이 자연스러운 사선을 만들어 준다
     // scale 의 z 를 1 로 두는 이유: 자식 그룹의 z 는 "벽에서 튀어나오는" 등장
     // 애니메이션 좌표라, 같이 줄이면 글자가 벽 앞에 떠버린다.
-    <group ref={groupRef} position={[0, HEADLINE_CENTER_Y, 0]} scale={[fit, fit, 1]}>
+    <group ref={groupRef} position-y={compact ? undefined : HEADLINE_CENTER_Y} scale={[fit, fit, 1]}>
       {lines.map((line, i) => (
-        <group key={line} ref={refs[i]} position={[0, LINE_OFFSET_Y[i], TEXT_START_Z]}>
-          <Center disableY disableZ>
+        <group key={line} ref={refs[i]} position={[0, compact ? ((lines.length - 1) / 2 - i) * (ko ? koreanLineStep : 0.6) : LINE_OFFSET_Y[i], TEXT_START_Z]}>
+          <Center disableY disableZ onCentered={compact && ko ? measureKoreanLine : undefined}>
             <Text3D
               font={assetPath(ko ? FONT_KO : FONT)}
               size={0.52}
@@ -685,7 +751,7 @@ function StandingLamp({
 
 // ── 과학관 전시물 (프리미티브 조합) ──────────────────────────
 // 원자 모형·홀로그램 프로젝터·유리 진열장·기어 전시대로 미래적 무드 연출
-function MuseumProps({ dark, reduced }: { dark: boolean; reduced: boolean }) {
+function MuseumProps({ dark, reduced, compact }: { dark: boolean; reduced: boolean; compact: boolean }) {
   const atom = useRef<THREE.Group>(null);
   const gem = useRef<THREE.Mesh>(null);
   const gem2 = useRef<THREE.Mesh>(null);
@@ -713,10 +779,10 @@ function MuseumProps({ dark, reduced }: { dark: boolean; reduced: boolean }) {
     <group>
       {/* 책상 + iMac (왼쪽 벽가, 의자가 오른쪽) — Desk by dook (Poly Pizza) */}
       {/* 책상: 두 벽이 만나는 코너에, 모니터가 오른쪽 벽을 향하도록 회전 */}
-      <GLBProp src="/props/desk.glb" position={[7.0, 0, -4.1]} rotation={[0, -1.35, 0]} scale={1.05} />
+      <GLBProp src="/props/desk.glb" position={compact ? [1.2, 0, -4.1] : [7.0, 0, -4.1]} rotation={[0, -1.35, 0]} scale={compact ? 0.85 : 1.05} />
 
       {/* 스탠딩 램프 (책상 옆) — 따뜻한 빛 웅덩이 + 글로우 */}
-      <StandingLamp position={[4.7, 0, -4.35]} dark={dark} reduced={reduced} />
+      <StandingLamp position={compact ? [-0.5, 0, -4.35] : [4.7, 0, -4.35]} dark={dark} reduced={reduced} />
 
       {/* 원자 모형 전시대 (벽가 왼쪽) */}
       <group position={[-4.6, 0, -4.1]}>
@@ -805,9 +871,9 @@ function MuseumProps({ dark, reduced }: { dark: boolean; reduced: boolean }) {
 }
 
 // 받침 블럭을 타고 올라와 인사하는 로봇
-function RobotOnBlock({ dark, reduced }: { dark: boolean; reduced: boolean }) {
+function RobotOnBlock({ dark, reduced, compact }: { dark: boolean; reduced: boolean; compact: boolean }) {
   const vw = useThree((s) => s.viewport.width);
-  const x = Math.min(2.45, vw / 2 - 0.8);
+  const x = compact ? 0.15 : Math.min(2.45, vw / 2 - 0.8);
   const rig = useRef<THREE.Group>(null); // 블럭+로봇 (상승)
   const body = useRef<THREE.Group>(null); // 로봇만 (시선 회전)
   const { scene, animations } = useGLTF(assetPath(MODEL), assetPath("/draco/"));
@@ -890,6 +956,7 @@ function RobotOnBlock({ dark, reduced }: { dark: boolean; reduced: boolean }) {
     <group
       ref={rig}
       position={[x, -1.6, -0.6]}
+      scale={compact ? 1.3 : 1}
       onPointerOver={() => oneShot("Robot_Wave")}
       onClick={() => oneShot(REACTIONS[Math.floor(Math.random() * REACTIONS.length)])}
     >
@@ -1021,7 +1088,7 @@ export default function HeroScene({
       ref={wrapper}
       aria-hidden
       className="absolute inset-y-0 left-1/2 z-0 w-screen -translate-x-1/2 [&_canvas]:!touch-pan-y"
-      style={compact ? { top: "38%", bottom: "18%", touchAction: "pan-y" } : { touchAction: "pan-y" }}
+      style={{ touchAction: "pan-y" }}
     >
       <SceneBoundary onFail={onSceneError}>
         <Canvas
@@ -1059,11 +1126,11 @@ export default function HeroScene({
                 차지하고 오른쪽 코너로 원근이 소실되게 함 (스케치 구도) */}
             <group rotation-y={0.5} position={[1.8, 0, 0]}>
               <Wall dark={dark} />
-              {showText ? <RisingHeadline dark={dark} reduced={reduced} ko={ko} onHeadlineShown={onHeadlineShown} /> : null}
-              {showText ? (
+              {showText ? <RisingHeadline compact={compact} dark={dark} reduced={reduced} ko={ko} onHeadlineShown={onHeadlineShown} /> : null}
+              {showText && !compact ? (
                 <WallButtons dark={dark} onNavigate={navigate} ko={ko} />
               ) : null}
-              <MuseumProps dark={dark} reduced={reduced} />
+              <MuseumProps compact={compact} dark={dark} reduced={reduced} />
               {/* Wall wash; robot accent lights travel with its pedestal. */}
               <pointLight position={[0, 3.4, -3.6]} intensity={dark ? 2.6 : 1.1} color="#b9ccff" distance={12} />
             </group>
@@ -1084,7 +1151,7 @@ export default function HeroScene({
               // blur 2.4 로 어차피 뭉개지는 블롭이라 256 → 128 로 낮춰도 차이가 없다
               resolution={128}
             />
-            <RobotOnBlock dark={dark} reduced={reduced} />
+            <RobotOnBlock compact={compact} dark={dark} reduced={reduced} />
           </Suspense>
         </Canvas>
       </SceneBoundary>

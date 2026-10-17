@@ -73,7 +73,7 @@ export function Hero() {
   const [headlineLanguage, setHeadlineLanguage] = useState<string | null>(null);
   const onHeadlineShown = useCallback(() => setHeadlineLanguage(lang), [lang]);
   useEffect(() => { if (!desktopScene) setHeadlineLanguage(null); }, [desktopScene]);
-  const headlineShown = desktopScene && !compact && headlineLanguage === lang;
+  const headlineShown = desktopScene && headlineLanguage === lang;
   return (
     <section
       id="top"
@@ -98,7 +98,7 @@ export function Hero() {
           className={
             "intro-up font-display ko-hero-display text-balance max-w-4xl text-[2.75rem] font-semibold leading-[1.14] tracking-[-0.015em] text-ink sm:text-6xl md:text-7xl" +
             (headlineShown ? " text-transparent" : "") +
-            (desktopScene && compact ? " rounded-2xl bg-white/90 p-3 !text-[clamp(1.75rem,5vw,3.5rem)] dark:bg-[#191d23]/95" : "")
+            (desktopScene && compact ? " !text-[clamp(1.75rem,5vw,3.5rem)]" : "")
           }
         >
           {h.headline}
@@ -109,7 +109,7 @@ export function Hero() {
       <div
         className={
           "intro-up absolute inset-x-0 bottom-12 z-10 flex justify-center px-6" +
-          (headlineShown ? " pointer-events-none opacity-0 focus-within:pointer-events-auto focus-within:opacity-100" : "")
+          (headlineShown && !compact ? " pointer-events-none opacity-0 focus-within:pointer-events-auto focus-within:opacity-100" : "")
         }
         style={{ "--intro-delay": "0.6s", ...(headlineShown ? { animation: "none" } : {}) } as CSSProperties}
       >
@@ -134,7 +134,7 @@ export function Hero() {
 
       {desktopScene ? (
         <SceneGuard onFail={onSceneError}>
-          <HeroScene key={lang} compact={compact} showText={!compact} ko={lang === "ko"} onSceneError={onSceneError} onHeadlineShown={onHeadlineShown} />
+          <HeroScene key={lang} compact={compact} showText={true} ko={lang === "ko"} onSceneError={onSceneError} onHeadlineShown={onHeadlineShown} />
         </SceneGuard>
       ) : null}
     </section>
