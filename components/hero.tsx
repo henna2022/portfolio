@@ -8,7 +8,7 @@ import { heroKo } from "@/lib/data-ko";
 import { useI18n } from "./lang-provider";
 import { ArrowIcon } from "./icons";
 
-// Load each scene only after its device gate has resolved.
+// Load each scene only after the WebGL gate has resolved.
 const HeroRobot = dynamic(() => import("./hero-robot"), { ssr: false });
 
 class RobotGuard extends Component<{ children: ReactNode }, { failed: boolean }> {
@@ -40,18 +40,14 @@ class SceneGuard extends Component<
   }
 }
 
-// 데스크톱(넓은 화면 + 마우스 호버) + WebGL 지원 여부를 클라이언트에서만 판정.
+// WebGL 지원 여부만 클라이언트에서 판정 — 화면 크기나 입력 방식은 무관.
 // SSR/최초 렌더에서는 null(false) 을 반환해 하이드레이션 불일치를 피한다.
 function useDesktopScene() {
   const [ready, setReady] = useState<boolean | null>(null);
   useEffect(() => {
-    const mq = matchMedia("(min-width: 1024px) and (hover: hover)");
     const probe = document.createElement("canvas");
     const hasGL = !!(probe.getContext("webgl2") || probe.getContext("webgl"));
-    const update = () => setReady(mq.matches && hasGL);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
+    setReady(hasGL);
   }, []);
   return ready;
 }
@@ -60,6 +56,14 @@ export function Hero() {
   const { t, lang } = useI18n();
   const h = lang === "ko" ? heroKo : hero;
   const gateOpen = useDesktopScene();
+  const [compact, setCompact] = useState(true);
+  useEffect(() => {
+    const mq = matchMedia("(min-width: 1024px) and (orientation: landscape)");
+    const update = () => setCompact(!mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
   // 씬이 실제로 살아 있을 때만 DOM 헤드라인/CTA 를 숨긴다. three.js 가 던지면
   // sceneFailed 로 되돌아와 DOM 이 다시 보인다 — CSS 숨김과 JS 마운트가 어긋나
   // 첫 화면이 통째로 비는 조합(아이패드 가로·WebGL 차단 PC)을 막는 장치.
@@ -69,7 +73,7 @@ export function Hero() {
   const [headlineLanguage, setHeadlineLanguage] = useState<string | null>(null);
   const onHeadlineShown = useCallback(() => setHeadlineLanguage(lang), [lang]);
   useEffect(() => { if (!desktopScene) setHeadlineLanguage(null); }, [desktopScene]);
-  const headlineShown = desktopScene && headlineLanguage === lang;
+  const headlineShown = desktopScene && !compact && headlineLanguage === lang;
   return (
     <section
       id="top"
@@ -86,13 +90,15 @@ export function Hero() {
       <div
         // 장식용 헤드라인 래퍼 — 투명하지만 z-10 로 canvas 위에 떠서 3D 버튼의
         // 상단 히트영역을 가로챘다(호버 데드존). 상호작용 대상이 아니므로 이벤트 통과.
-        className="pointer-events-none relative z-10 flex flex-col items-center"
+        className={"pointer-events-none z-10 flex flex-col items-center" +
+          (desktopScene && compact ? " absolute inset-x-6 top-28" : " relative")}
       >
         <h1
           // Keep the semantic heading after the wall text finishes its entrance.
           className={
             "intro-up font-display ko-hero-display text-balance max-w-4xl text-[2.75rem] font-semibold leading-[1.14] tracking-[-0.015em] text-ink sm:text-6xl md:text-7xl" +
-            (headlineShown ? " lg:text-transparent" : "")
+            (headlineShown ? " text-transparent" : "") +
+            (desktopScene && compact ? " rounded-2xl bg-white/90 p-3 !text-[clamp(1.75rem,5vw,3.5rem)] dark:bg-[#191d23]/95" : "")
           }
         >
           {h.headline}
@@ -103,7 +109,7 @@ export function Hero() {
       <div
         className={
           "intro-up absolute inset-x-0 bottom-12 z-10 flex justify-center px-6" +
-          (headlineShown ? " lg:pointer-events-none lg:opacity-0 lg:focus-within:pointer-events-auto lg:focus-within:opacity-100" : "")
+          (headlineShown ? " pointer-events-none opacity-0 focus-within:pointer-events-auto focus-within:opacity-100" : "")
         }
         style={{ "--intro-delay": "0.6s", ...(headlineShown ? { animation: "none" } : {}) } as CSSProperties}
       >
@@ -128,7 +134,7 @@ export function Hero() {
 
       {desktopScene ? (
         <SceneGuard onFail={onSceneError}>
-          <HeroScene key={lang} showText ko={lang === "ko"} onSceneError={onSceneError} onHeadlineShown={onHeadlineShown} />
+          <HeroScene key={lang} compact={compact} showText={!compact} ko={lang === "ko"} onSceneError={onSceneError} onHeadlineShown={onHeadlineShown} />
         </SceneGuard>
       ) : null}
     </section>

@@ -27,7 +27,7 @@ import { ui, uiKo } from "@/lib/i18n";
 
 // ─────────────────────────────────────────────────────────────
 // 3D 히어로 씬: 타일 바닥 + 땅에서 올라오는 입체 헤드라인 +
-// 블럭을 타고 올라와 인사하는 로봇 (데스크톱 전용)
+// 블럭을 타고 올라와 인사하는 로봇 (모든 WebGL 기기)
 // ─────────────────────────────────────────────────────────────
 
 const MODEL = "/robot.glb";
@@ -145,12 +145,27 @@ function useReducedMotion() {
 // "벽면에서 실제로 보이는 폭"을 계산한다 (RisingHeadline 참고).
 const CAM_FOV = 35;
 const CAM_POS: [number, number, number] = [0, 2.1, 7.4];
-function Rig() {
+function Rig({ compact }: { compact: boolean }) {
   const camera = useThree((s) => s.camera);
+  const size = useThree((s) => s.size);
   useEffect(() => {
-    camera.position.set(...CAM_POS);
-    camera.lookAt(0, 2.1, 0);
-  }, [camera]);
+    if (!(camera instanceof THREE.PerspectiveCamera)) return;
+    if (compact) {
+      // Fit an 11-unit-wide, 5.2-unit-high room window at the robot plane.
+      // The rotated lamp is at x≈3.8 and the desk at x≈6; both stay visible.
+      const aspect = size.width / Math.max(1, size.height);
+      const halfHeight = Math.max(2.6, 5.5 / aspect);
+      camera.position.set(2.4, 1.8, 10);
+      camera.fov = THREE.MathUtils.radToDeg(2 * Math.atan(halfHeight / 10));
+      camera.lookAt(2.4, 1.8, 0);
+    } else {
+      camera.position.set(...CAM_POS);
+      camera.fov = CAM_FOV;
+      camera.lookAt(0, 2.1, 0);
+    }
+    camera.updateProjectionMatrix();
+    camera.updateMatrixWorld();
+  }, [camera, compact, size]);
   return null;
 }
 
@@ -890,8 +905,7 @@ function RobotOnBlock({ dark, reduced }: { dark: boolean; reduced: boolean }) {
   );
 }
 
-// 이 청크는 데스크톱 + WebGL 게이트를 통과했을 때만 로드되므로, 여기서 미리
-// 받아두면 모바일에 부담을 주지 않는다.
+// WebGL 게이트를 통과한 기기에서 방의 공용 모델을 미리 로드한다.
 useGLTF.preload && useGLTF.preload(assetPath(MODEL), assetPath("/draco/"));
 useGLTF.preload && useGLTF.preload(assetPath("/props/desk.glb"), assetPath("/draco/"));
 // Text3D 의 타입페이스는 컴포넌트가 마운트된 뒤에야 요청돼 GLB 뒤로 밀린다.
@@ -926,11 +940,13 @@ class SceneBoundary extends Component<
 
 export default function HeroScene({
   showText,
+  compact = false,
   ko = false,
   onSceneError,
   onHeadlineShown,
 }: {
   showText: boolean;
+  compact?: boolean;
   ko?: boolean;
   // 씬이 죽었을 때 부모가 DOM 헤드라인·CTA 를 되살리도록 알리는 콜백
   onSceneError?: () => void;
@@ -960,19 +976,22 @@ export default function HeroScene({
     [lenis],
   );
   const [enabled, setEnabled] = useState(false);
+  const [smallScreen, setSmallScreen] = useState(true);
   // 히어로가 화면 밖으로 스크롤되면 렌더 루프를 멈춰 나머지 페이지에 GPU/CPU 양보
   const [visible, setVisible] = useState(true);
   const wrapper = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const mq = matchMedia("(min-width: 1024px) and (hover: hover)");
+    const mq = matchMedia("(max-width: 767px)");
     const probe = document.createElement("canvas");
     const hasGL = !!(probe.getContext("webgl2") || probe.getContext("webgl"));
-    const update = () => setEnabled(mq.matches && hasGL);
+    setEnabled(hasGL);
+    if (!hasGL) onSceneError?.();
+    const update = () => setSmallScreen(mq.matches);
     update();
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);
-  }, []);
+  }, [onSceneError]);
 
   // 백그라운드 탭에서 마운트될 때 초기 사이징이 누락되는 경우 대비
   useEffect(() => {
@@ -1001,12 +1020,13 @@ export default function HeroScene({
     <div
       ref={wrapper}
       aria-hidden
-      className="absolute inset-y-0 left-1/2 z-0 w-screen -translate-x-1/2"
+      className="absolute inset-y-0 left-1/2 z-0 w-screen -translate-x-1/2 [&_canvas]:!touch-pan-y"
+      style={compact ? { top: "38%", bottom: "18%", touchAction: "pan-y" } : { touchAction: "pan-y" }}
     >
       <SceneBoundary onFail={onSceneError}>
         <Canvas
           frameloop={visible ? "always" : "never"}
-          dpr={[1, 1.25]}
+          dpr={smallScreen ? 1 : [1, 1.25]}
           performance={{ min: 0.5 }}
           camera={{ fov: CAM_FOV, position: CAM_POS }}
           gl={{ antialias: true, alpha: true }}
@@ -1025,7 +1045,7 @@ export default function HeroScene({
             );
           }}
         >
-          <Rig />
+          <Rig compact={compact} />
           {/* 원경이 푸른 안개로 부드럽게 사라지는 과학관 조도 (벽·글자는 선명) */}
           <fog attach="fog" args={[dark ? "#0e1218" : "#dbe4f0", 15, 32]} />
           {/* 다크모드에서 방이 너무 어둡지 않게 은은한 보조광 */}
