@@ -316,9 +316,11 @@ export function SelectedWork() {
         <p className="mt-1 text-sm text-muted">{t.sideProjectsSub}</p>
       </motion.div>
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      {/* 넓은 화면 3열, 마지막 줄이 덜 차면 가운데로 모은다 */}
+      <div className="flex flex-wrap justify-center gap-3">
         {sides.map((p, i) => (
           <motion.div
+            className="w-full sm:w-[calc(50%-0.375rem)] lg:w-[calc((100%-1.5rem)/3)]"
             key={p.slug}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -204,6 +204,32 @@ const allProjects: Project[] = [
     },
   },
   {
+    slug: "raim-en",
+    tier: "major",
+    title: "RAIM EN: English Tour Booking",
+    category: "Web Service · Reservations",
+    categories: ["Web", "Ops"],
+    kicker: "Seoul Robot & AI Museum · live since October 2026",
+    desc: "An English guide and tour-booking site that the museum adopted as its official booking channel for foreign visitors. They book with an email address instead of the Korean mobile identity verification that Seoul's public reservation system requires. Online seats for foreign visitors went from none to 130 a week.",
+    year: "2026",
+    role: "Solo: planning, development, deployment",
+    tags: ["Node.js", "Express", "SQLite", "EJS", "Fly.io"],
+    href: "https://visitseoulraim.com",
+    image: "/portfolio_images/projects/raim-en-en.jpg",
+    stat: "130 online seats a week",
+    overview:
+      "The museum adopted this site as its official booking channel for foreign visitors. Guided exhibition tours at the museum are booked through Seoul's public reservation system, which requires identity verification with a Korean mobile number, so foreign visitors **could not book online at all** and complaints followed. On this site they book with an email address instead. For launch, the museum opens sessions 1, 3, and 6 of the Korean-guided Permanent Exhibition tour with 10 seats each, plus a Wednesday English-guided session with 10 more, up to 5 people per booking: **130 seats a week** that foreign visitors can now book online, where before they had none.\n\nThe museum decides each month which sessions open online and how many seats they have, and **each request waits for staff approval**. A pending request already holds its seat, so a session cannot be overbooked, and a cancellation returns the seat on its own. Online booking closes the day before the visit, leaving same-day seats to visitors on site. Visitors get a request-received email right away and a confirmation email with a calendar file once staff approve. They look up or cancel with their booking code and email.\n\nIn the admin, staff approve requests session by session, check bookings, mark visits and no-shows, and read booking and traffic statistics (where visitors came from, time spent on each page) with an Excel export. Personal data is deleted automatically 90 days after the visit (no-show records are kept longer), and visit statistics are counted on the server without storing IP addresses.",
+    highlights: [
+      "Foreign visitors book tours online with an email address instead of the **Korean mobile identity check** the city reservation system requires.",
+      "**Adopted as the museum's official booking channel for foreign visitors**: sessions 1, 3, and 6 with 10 seats each plus a Wednesday English-guided session, **130 online seats a week** where foreign visitors previously had none.",
+      "Every request waits for **staff approval** within the museum's monthly seat allocation; a pending request already holds its seat, so sessions cannot be overbooked, and cancellations return seats automatically.",
+      "**Staff admin** where staff approve requests per session, mark visits and no-shows, and read booking and traffic statistics with an Excel export.",
+      "Personal data is deleted automatically 90 days after the visit (no-show records are kept longer), a booking code alone shows only a masked summary, and visit statistics store no IP addresses.",
+    ],
+    flow: ["Email-only booking form", "Seat held while pending", "Staff approval in admin", "Confirmation email + calendar file"],
+  },
+  // 규모로는 major 후보(온디바이스 모델 5종·서버리스 API·현장 로그 보정). 승격은 본인이 정한다.
+  {
     slug: "doctor-green",
     tier: "major",
     title: "Doctor-Green",
@@ -428,32 +454,6 @@ const allProjects: Project[] = [
   // ── 과학관에서 만든 것 (2026-10 추가): 운영 중 → 배포·설치 전 → 준비 중 → 프로토타입 순 ──
   // 규모로는 major 후보(서버·DB·인증·자동 테스트). 승격은 본인이 정한다.
   // repo 는 공개 저장소지만 README 에 개발용 기본 관리자 계정이 있어 걸지 않는다.
-  {
-    slug: "raim-en",
-    tier: "major",
-    title: "RAIM EN: English Tour Booking",
-    category: "Web Service · Reservations",
-    categories: ["Web", "Ops"],
-    kicker: "Seoul Robot & AI Museum · live since October 2026",
-    desc: "An English guide and tour-booking site that the museum adopted as its official booking channel for foreign visitors. They book with an email address instead of the Korean mobile identity verification that Seoul's public reservation system requires. Online seats for foreign visitors went from none to 130 a week.",
-    year: "2026",
-    role: "Solo: planning, development, deployment",
-    tags: ["Node.js", "Express", "SQLite", "EJS", "Fly.io"],
-    href: "https://visitseoulraim.com",
-    image: "/portfolio_images/projects/raim-en-en.jpg",
-    stat: "130 online seats a week",
-    overview:
-      "The museum adopted this site as its official booking channel for foreign visitors. Guided exhibition tours at the museum are booked through Seoul's public reservation system, which requires identity verification with a Korean mobile number, so foreign visitors **could not book online at all** and complaints followed. On this site they book with an email address instead. For launch, the museum opens sessions 1, 3, and 6 of the Korean-guided Permanent Exhibition tour with 10 seats each, plus a Wednesday English-guided session with 10 more, up to 5 people per booking: **130 seats a week** that foreign visitors can now book online, where before they had none.\n\nThe museum decides each month which sessions open online and how many seats they have, and **each request waits for staff approval**. A pending request already holds its seat, so a session cannot be overbooked, and a cancellation returns the seat on its own. Online booking closes the day before the visit, leaving same-day seats to visitors on site. Visitors get a request-received email right away and a confirmation email with a calendar file once staff approve. They look up or cancel with their booking code and email.\n\nIn the admin, staff approve requests session by session, check bookings, mark visits and no-shows, and read booking and traffic statistics (where visitors came from, time spent on each page) with an Excel export. Personal data is deleted automatically 90 days after the visit (no-show records are kept longer), and visit statistics are counted on the server without storing IP addresses.",
-    highlights: [
-      "Foreign visitors book tours online with an email address instead of the **Korean mobile identity check** the city reservation system requires.",
-      "**Adopted as the museum's official booking channel for foreign visitors**: sessions 1, 3, and 6 with 10 seats each plus a Wednesday English-guided session, **130 online seats a week** where foreign visitors previously had none.",
-      "Every request waits for **staff approval** within the museum's monthly seat allocation; a pending request already holds its seat, so sessions cannot be overbooked, and cancellations return seats automatically.",
-      "**Staff admin** where staff approve requests per session, mark visits and no-shows, and read booking and traffic statistics with an Excel export.",
-      "Personal data is deleted automatically 90 days after the visit (no-show records are kept longer), a booking code alone shows only a masked summary, and visit statistics store no IP addresses.",
-    ],
-    flow: ["Email-only booking form", "Seat held while pending", "Staff approval in admin", "Confirmation email + calendar file"],
-  },
-  // 규모로는 major 후보(온디바이스 모델 5종·서버리스 API·현장 로그 보정). 승격은 본인이 정한다.
   {
     slug: "mystery-playground-replay",
     tier: "side",
@@ -740,7 +740,8 @@ const allProjects: Project[] = [
 ];
 
 // 사이트에서 빼 둔 작품 (2026-10-04 본인 요청). 데이터는 남기고 화면·상세·사이트맵에서 뺀다.
-const hiddenSlugs = new Set(["raim-floor-guide", "education-room-board", "robot-ar-tour", "ai-ethics-vote"]);
+// 2026-10-17: 개인용으로 만든 전시물 집계 허브·문서 양식 변환기도 뺌 (본인 요청)
+const hiddenSlugs = new Set(["raim-floor-guide", "education-room-board", "robot-ar-tour", "ai-ethics-vote", "exhibit-stats-hub", "document-formatter"]);
 export const projects: Project[] = allProjects.filter((p) => !hiddenSlugs.has(p.slug));
 
 export function getProject(slug: string): Project | undefined {
