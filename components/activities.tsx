@@ -42,7 +42,9 @@ export function Activities() {
                 aria-expanded={isOpen}
                 className="group -mx-3 flex w-[calc(100%+1.5rem)] items-center gap-4 whitespace-normal rounded-2xl px-3 py-5 text-left transition-colors hover:bg-sand/40"
               >
-                <span className="grid min-w-0 flex-1 grid-cols-[minmax(0,1fr)] items-baseline gap-x-6 gap-y-1 sm:grid-cols-[150px_minmax(0,1fr)_auto]">
+                {/* 제목·역할 칸을 반씩 고정: 역할이 auto 면 긴 글 길이만큼 넓어져
+                    제목 칸이 0으로 눌린다. 긴 역할은 오른쪽에서 두세 줄로 내려간다 */}
+                <span className="grid min-w-0 flex-1 grid-cols-[minmax(0,1fr)] items-baseline gap-x-6 gap-y-1 sm:grid-cols-[150px_minmax(0,1fr)_minmax(0,1fr)]">
                   <span className="font-display order-2 text-xs text-muted sm:order-1 sm:text-sm">
                     {a.period}
                   </span>

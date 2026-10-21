@@ -148,6 +148,7 @@ export type Project = {
   href?: string;
   repo?: string;
   image?: string;
+  imageTall?: string;
   // 현재 어떤 컴포넌트에서도 렌더링되지 않음 — 노출을 되살릴 때 단위 포함 표기 유지
   stat?: string;
   overview: string;
@@ -492,6 +493,7 @@ const allProjects: Project[] = [
     tags: ["JavaScript", "MediaPipe", "Canvas", "Supabase", "QR", "PWA"],
     href: "https://raim-4cut-studio.vercel.app",
     image: "/portfolio_images/projects/raim-4cut-studio-en.jpg",
+    imageTall: "/portfolio_images/projects/raim-4cut-studio-en-tall.jpg",
     stat: "1,932 uses · 26 days",
     overview:
       "RAIM 4-Cut Studio recorded **1,932 uses on 26 days** between June 14 and September 6, 2026. It started as the photo kiosk for the museum's 2nd anniversary and runs on a portrait Galaxy Tab.\n\nVisitors choose a frame color, one of **ten museum robots** and an optional caption, then take six shots on a three-second countdown. A MediaPipe face model on the device marks the top four shots, and the visitor picks the final four. The finished 1080×1620 frame goes to their phone by QR code, and the link expires after two hours.\n\nStaff use a PIN-protected stats page with daily, weekly and monthly counts, robot popularity and frame colors, and can switch seasonal robot versions such as summer and Chuseok without a redeploy. The kiosk blocks long-press menus, zoom, auto-translation and back gestures, and the result screen returns to the start after 30 seconds.",
@@ -631,6 +633,7 @@ const allProjects: Project[] = [
     href: "https://henna2022.github.io/ai-persona/",
     repo: "https://github.com/henna2022/ai-persona",
     image: "/portfolio_images/projects/ai-persona-web.jpg",
+    imageTall: "/portfolio_images/projects/ai-persona-web-tall.jpg",
     overview:
       "AI Persona is a caricature-robot exhibit at the Seoul Robot & AI Museum, where robots draw a visitor's face in lines. I built a companion web app that visitors open on their own phone from a QR code. It finds the face with the camera and **redraws the eyes, nose, mouth and brows as randomized geometric shapes**, and a button reshuffles the combination. The icon above the head follows the visitor's expression: a heart for a smile, an anger mark for a frown, an exclamation mark for surprise and a crown for a neutral face.\n\nAfter the photo, a **30-second animation shows a pen plotter and a Doosan collaborative robot drawing the result**, and the visitor saves the drawing through the phone's share sheet.\n\n**Video and face coordinates never leave the phone.** Face tracking runs in the browser with MediaPipe Face Landmarker, and the only data sent out is an anonymous usage count for the exhibit usage hub I built. I deployed the app on GitHub Pages in September 2026 and designed the A3 QR poster now posted on the exhibit floor.",
     highlights: [
@@ -741,7 +744,8 @@ const allProjects: Project[] = [
 
 // 사이트에서 빼 둔 작품 (2026-10-04 본인 요청). 데이터는 남기고 화면·상세·사이트맵에서 뺀다.
 // 2026-10-17: 개인용으로 만든 전시물 집계 허브·문서 양식 변환기도 뺌 (본인 요청)
-const hiddenSlugs = new Set(["raim-floor-guide", "education-room-board", "robot-ar-tour", "ai-ethics-vote", "exhibit-stats-hub", "document-formatter"]);
+// 2026-10-21: 직원 AI 코딩 수업(staff-ai-class)은 첫 수업 전이라 일단 비공개 (본인 요청)
+const hiddenSlugs = new Set(["raim-floor-guide", "education-room-board", "robot-ar-tour", "ai-ethics-vote", "exhibit-stats-hub", "document-formatter", "staff-ai-class"]);
 export const projects: Project[] = allProjects.filter((p) => !hiddenSlugs.has(p.slug));
 
 export function getProject(slug: string): Project | undefined {

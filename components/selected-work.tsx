@@ -174,17 +174,17 @@ function SideCard({ p, t }: { p: Project; t: UiStrings }) {
   return (
     <Link
       href={`/work/${p.slug}`}
-      className="group flex h-full cursor-pointer flex-col rounded-3xl bg-sand/40 p-5 text-ink transition-colors duration-300 hover:bg-sand/80"
+      className={`group flex h-full cursor-pointer rounded-3xl bg-sand/40 p-5 text-ink transition-colors duration-300 hover:bg-sand/80 ${p.imageTall ? "flex-row gap-4 sm:flex-col sm:gap-0" : "flex-col"}`}
     >
       {/* 사진 한 장: 대표 사진 → 없으면 구조도 → 없으면 이니셜 (메이저 카드와 같은 순서) */}
-      <div className="relative mb-4 aspect-[16/10] overflow-hidden rounded-2xl bg-sand-deep">
-        {p.image ? (
+      <div className={`relative overflow-hidden rounded-2xl bg-sand-deep ${p.imageTall ? "w-[38%] shrink-0 self-stretch sm:mb-4 sm:min-h-0 sm:w-full sm:flex-1" : "mb-4 aspect-[16/10] shrink-0"}`}>
+        {p.imageTall || p.image ? (
           <img
-            src={assetPath(p.image)}
+            src={assetPath((p.imageTall || p.image)!)}
             alt={p.title}
             loading="lazy"
             decoding="async"
-            className="h-full w-full object-cover"
+            className={p.imageTall ? "absolute inset-0 h-full w-full object-cover" : "h-full w-full object-cover"}
           />
         ) : p.flowImage ? (
           <>
@@ -209,29 +209,31 @@ function SideCard({ p, t }: { p: Project; t: UiStrings }) {
           </div>
         )}
       </div>
-      <div className="flex items-baseline gap-3">
-        <h4 className="font-display text-lg font-semibold leading-snug">
-          {p.title}
-        </h4>
-      </div>
-      <p className="mt-1.5 text-[13px] leading-relaxed text-ink/60">
-        {firstSentence(p.desc)}
-      </p>
-      <div className="mt-3 flex flex-wrap gap-1.5">
-        {p.tags.slice(0, 3).map((tag) => (
-          <span
-            key={tag}
-            className="rounded-full bg-sand-deep/70 px-2 py-0.5 text-[10px] text-ink/55"
-          >
-            {tag}
+      <div className={`flex min-w-0 flex-col ${p.imageTall ? "flex-1 sm:flex-none" : "flex-1"}`}>
+        <div className="flex items-baseline gap-3">
+          <h4 className="font-display text-lg font-semibold leading-snug">
+            {p.title}
+          </h4>
+        </div>
+        <p className="mt-1.5 text-[13px] leading-relaxed text-ink/60">
+          {firstSentence(p.desc)}
+        </p>
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {p.tags.slice(0, 3).map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full bg-sand-deep/70 px-2 py-0.5 text-[10px] text-ink/55"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+        {/* 상세 페이지로 가는 명시적 CTA (메이저 카드와 동일 패턴) */}
+        <div className="mt-auto pt-4">
+          <span className="inline-flex items-center rounded-full bg-ink px-3 py-1.5 text-xs font-medium text-cream transition-transform duration-300 group-hover:scale-[1.05]">
+            {t.viewProject}
           </span>
-        ))}
-      </div>
-      {/* 상세 페이지로 가는 명시적 CTA (메이저 카드와 동일 패턴) */}
-      <div className="mt-auto pt-4">
-        <span className="inline-flex items-center rounded-full bg-ink px-3 py-1.5 text-xs font-medium text-cream transition-transform duration-300 group-hover:scale-[1.05]">
-          {t.viewProject}
-        </span>
+        </div>
       </div>
     </Link>
   );
@@ -244,6 +246,11 @@ export function SelectedWork() {
   const localized = projects.map((p) => localizeProject(p, lang));
   const majors = localized.filter((p) => p.tier === "major");
   const sides = localized.filter((p) => p.tier === "side");
+  // 세로 카드를 앞·뒤에 나눠 2열과 3열 모두 빈칸 없이 채운다.
+  const wideSides = sides.filter((p) => !p.imageTall);
+  const tallSides = sides.filter((p) => p.imageTall);
+  const orderedSides = [...wideSides];
+  tallSides.forEach((p, i) => orderedSides.splice(2 + i * 5, 0, p));
   const visibleMajors =
     filter === "All"
       ? majors
@@ -316,11 +323,11 @@ export function SelectedWork() {
         <p className="mt-1 text-sm text-muted">{t.sideProjectsSub}</p>
       </motion.div>
 
-      {/* 넓은 화면 3열, 마지막 줄이 덜 차면 가운데로 모은다 */}
-      <div className="flex flex-wrap justify-center gap-3">
-        {sides.map((p, i) => (
+      {/* 세로 카드는 두 행을 쓰고, 나머지는 빈칸부터 채운다 */}
+      <div className="grid grid-flow-dense grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {orderedSides.map((p, i) => (
           <motion.div
-            className="w-full sm:w-[calc(50%-0.375rem)] lg:w-[calc((100%-1.5rem)/3)]"
+            className={`min-w-0 ${p.imageTall ? "sm:row-span-2" : ""}`}
             key={p.slug}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

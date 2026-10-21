@@ -306,6 +306,7 @@ const projectsKo: Record<string, Partial<Project>> = {
       "길게 누르기·확대·번역·뒤로 가기를 막는 키오스크 방어와 첫 화면 자동 복귀.",
     ],
     image: "/portfolio_images/projects/raim-4cut-studio.jpg",
+    imageTall: "/portfolio_images/projects/raim-4cut-studio-tall.jpg",
   },
   "lidar-explainer-kiosk": {
     title: "라이다의 눈으로 보기",
