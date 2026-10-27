@@ -872,7 +872,10 @@ function MuseumProps({ dark, reduced, compact }: { dark: boolean; reduced: boole
 
 // 받침 블럭을 타고 올라와 인사하는 로봇
 function RobotOnBlock({ dark, reduced, compact }: { dark: boolean; reduced: boolean; compact: boolean }) {
-  const vw = useThree((s) => s.viewport.width);
+  // store 의 viewport.width 는 setSize 때 카메라 fov 로 계산돼, 좁은 창→넓은 창 전환 직후엔
+  // compact fov 50 값이 남아 로봇이 화면 밖으로 밀린다. 넓은 화면 고정 카메라로 직접 계산.
+  const aspect = useThree((s) => s.size.width / s.size.height);
+  const vw = 2 * Math.tan(THREE.MathUtils.degToRad(CAM_FOV / 2)) * Math.hypot(...CAM_POS) * aspect;
   const x = compact ? 0.15 : Math.min(2.45, vw / 2 - 0.8);
   const rig = useRef<THREE.Group>(null); // 블럭+로봇 (상승)
   const body = useRef<THREE.Group>(null); // 로봇만 (시선 회전)
@@ -1105,11 +1108,15 @@ export default function HeroScene({
             // GPU 리셋·드라이버 크래시로 컨텍스트가 날아가면 three 는 예외를 던지지
             // 않고 조용히 멈춘다 → 에러 경계가 안 잡히고 캔버스만 얼어붙은 채 남는다.
             // 이때도 부모에게 알려 DOM 헤드라인·CTA 로 되돌린다.
-            state.gl.domElement.addEventListener(
-              "webglcontextlost",
-              () => onSceneError?.(),
-              { once: true },
-            );
+            const canvas = state.gl.domElement;
+            canvas.addEventListener("webglcontextlost", () => {
+              // R3F 는 언마운트한 캔버스를 500ms 뒤 forceContextLoss 한다. 페이지에서 빠진 캔버스는 고장이 아니다.
+              if (!canvas.isConnected) return;
+              // three 가 preventDefault 해 두므로 브라우저가 2초 안에 되살려 주면 방을 그대로 둔다.
+              // 2초 사이 페이지를 떠나 캔버스가 빠졌으면 알리지 않는다
+              const t = setTimeout(() => { if (canvas.isConnected) onSceneError?.(); }, 2000);
+              canvas.addEventListener("webglcontextrestored", () => clearTimeout(t), { once: true });
+            });
           }}
         >
           <Rig compact={compact} />
@@ -1126,7 +1133,13 @@ export default function HeroScene({
                 차지하고 오른쪽 코너로 원근이 소실되게 함 (스케치 구도) */}
             <group rotation-y={0.5} position={[1.8, 0, 0]}>
               <Wall dark={dark} />
-              {showText ? <RisingHeadline compact={compact} dark={dark} reduced={reduced} ko={ko} onHeadlineShown={onHeadlineShown} /> : null}
+              {/* 언어가 바뀌면 제목만 새로 올라온다 (방·램프·로봇은 그대로).
+                  제목만 따로 기다리게 해서, 국문 글꼴을 받는 동안 방 전체가 사라지지 않게 한다 */}
+              {showText ? (
+                <Suspense fallback={null}>
+                  <RisingHeadline key={ko ? "ko" : "en"} compact={compact} dark={dark} reduced={reduced} ko={ko} onHeadlineShown={onHeadlineShown} />
+                </Suspense>
+              ) : null}
               {showText && !compact ? (
                 <WallButtons dark={dark} onNavigate={navigate} ko={ko} />
               ) : null}

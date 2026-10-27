@@ -27,7 +27,8 @@ export function Experience() {
         {items.map((e, i) => {
           return (
           <motion.div
-            key={e.org}
+            // 언어와 무관한 key (awards.tsx 와 같은 이유)
+            key={i}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-8%" }}

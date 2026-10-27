@@ -31,7 +31,8 @@ export function Activities() {
           const isOpen = open === i;
           return (
             <motion.div
-              key={a.title}
+              // 언어와 무관한 key (awards.tsx 와 같은 이유)
+              key={i}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

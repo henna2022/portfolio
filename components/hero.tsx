@@ -7,6 +7,7 @@ import { hero } from "@/lib/data";
 import { heroKo } from "@/lib/data-ko";
 import { useI18n } from "./lang-provider";
 import { ArrowIcon } from "./icons";
+import { assetPath } from "@/lib/asset";
 
 // Load each scene only after the WebGL gate has resolved.
 const HeroRobot = dynamic(() => import("./hero-robot"), { ssr: false });
@@ -47,6 +48,15 @@ function useDesktopScene() {
   useEffect(() => {
     const probe = document.createElement("canvas");
     const hasGL = !!(probe.getContext("webgl2") || probe.getContext("webgl"));
+    // 로봇·책상 GLB 와 draco 디코더를 3D 청크와 동시에 받기 시작한다. 그대로 두면 청크를 평가한 뒤
+    // GLB, GLB 를 받은 뒤 draco 순으로 차례차례 내려와 로봇이 늦게 뜬다. (three 의 fetch 와 같은 cors 모드)
+    if (hasGL)
+      for (const f of ["/robot.glb", "/props/desk.glb", "/draco/draco_wasm_wrapper.js", "/draco/draco_decoder.wasm"]) {
+        const href = assetPath(f);
+        // 홈으로 돌아올 때마다 같은 링크가 쌓이지 않게
+        if (!document.head.querySelector(`link[rel="preload"][href="${href}"]`))
+          document.head.append(Object.assign(document.createElement("link"), { rel: "preload", as: "fetch", crossOrigin: "anonymous", href }));
+      }
     setReady(hasGL);
   }, []);
   return ready;
@@ -73,14 +83,18 @@ export function Hero() {
   const [headlineLanguage, setHeadlineLanguage] = useState<string | null>(null);
   const onHeadlineShown = useCallback(() => setHeadlineLanguage(lang), [lang]);
   useEffect(() => { if (!desktopScene) setHeadlineLanguage(null); }, [desktopScene]);
-  const headlineShown = desktopScene && headlineLanguage === lang;
+  // 3D 제목이 한 번 올라온 뒤에는 언어를 바꿔도 DOM 제목을 다시 띄우지 않는다
+  // (방은 그대로고 벽 제목만 새로 올라오므로, 다시 띄우면 두 제목이 겹친다)
+  const headlineShown = desktopScene && headlineLanguage !== null;
   return (
     <section
       id="top"
       // 첫 화면을 뷰포트 높이에 맞춰 다음 섹션(프로필 사진)이 폴드 아래로 내려가게 함.
-      // min-h-[34rem]: 가로 모드 폰처럼 낮은 뷰포트에서 중앙 헤드라인과
+      // 38rem: 가로 모드 폰처럼 낮은 뷰포트에서 중앙 헤드라인과
       // 하단 고정 CTA(absolute bottom-12)가 겹치지 않게 최소 높이를 확보.
-      className="relative mx-auto flex min-h-[max(100svh,38rem)] max-w-shell flex-col justify-center px-6 pb-24 pt-28 text-center"
+      // 3D 방일 때는 빼서 캔버스가 화면 높이를 넘지 않게 한다. 넘으면 가로 폰에서 로봇이 폴드 아래로 내려간다.
+      className={"relative mx-auto flex max-w-shell flex-col justify-center px-6 pb-24 pt-28 text-center " +
+        (desktopScene ? "min-h-[100svh]" : "min-h-[max(100svh,38rem)]")}
     >
       {!desktopScene ? (
         <div aria-hidden className="mb-2 h-36 w-full">
@@ -134,7 +148,7 @@ export function Hero() {
 
       {desktopScene ? (
         <SceneGuard onFail={onSceneError}>
-          <HeroScene key={lang} compact={compact} showText={true} ko={lang === "ko"} onSceneError={onSceneError} onHeadlineShown={onHeadlineShown} />
+          <HeroScene compact={compact} showText={true} ko={lang === "ko"} onSceneError={onSceneError} onHeadlineShown={onHeadlineShown} />
         </SceneGuard>
       ) : null}
     </section>

@@ -44,12 +44,13 @@ export function Awards() {
         viewport={{ once: true, margin: "-8%" }}
         className="grid gap-4 sm:grid-cols-2"
       >
-        {ordered.map((a) => {
+        {ordered.map((a, i) => {
           const hasPhotos = a.photos.length > 0;
           return (
           // 같은 행의 카드는 항상 같은 높이 (self-start 를 두면 본문 길이만큼 제각각이 된다)
           <motion.div
-            key={a.title}
+            // 언어와 무관한 key. 제목으로 두면 KO 전환 때 카드가 새로 마운트돼 lazy 사진이 바로 내려받아진다.
+            key={i}
             variants={card}
             className="flex flex-col rounded-4xl bg-sand/70 p-4 sm:p-5"
           >
