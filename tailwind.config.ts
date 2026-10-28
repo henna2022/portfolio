@@ -14,6 +14,7 @@ const config: Config = {
         // Accent (kept token name "lime" for compatibility; value is the point color).
         lime: "#3B82F6",
         "lime-ink": "#FFFFFF",
+        "blue-accessible": "#1D4ED8",
       },
       fontFamily: {
         // next/font/local 이 주입하는 셀프호스팅 General Sans (외부 호스트 왕복 없음)

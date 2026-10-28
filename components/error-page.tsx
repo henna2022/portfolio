@@ -106,7 +106,7 @@ export function ErrorPage({ code }: { code: ErrorCode }) {
         href="/"
         className="mt-6 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-cream transition-opacity hover:opacity-90"
       >
-        Back to home now
+        Go home now
       </Link>
     </main>
   );

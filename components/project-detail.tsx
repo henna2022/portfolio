@@ -54,67 +54,58 @@ export function ProjectDetail({
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
           {p.category}
         </p>
-        <h1 className="font-display mt-3 max-w-3xl text-4xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-5xl md:text-6xl">
+        <h1 className="font-display mt-3 text-4xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-5xl md:text-6xl">
           {p.title}
         </h1>
-        <div className="mt-4 max-w-2xl space-y-4 text-lg leading-relaxed text-muted">
-          {p.overview.split("\n\n").map((para) => (
-            <p key={para}>
-              <Rich text={para} />
-            </p>
-          ))}
-        </div>
+        <div className={shots.length > 0 ? "mt-4 flex flex-col lg:grid lg:grid-cols-[1.15fr_1fr] lg:grid-rows-[auto_1fr] lg:gap-x-8" : "mt-4"}>
+          <div className={`space-y-4 text-lg leading-relaxed text-muted ${shots.length > 0 ? "min-w-0 lg:row-span-2" : "max-w-prose"}`}>
+            {p.overview.split("\n\n").map((para) => (
+              <p key={para}>
+                <Rich text={para} />
+              </p>
+            ))}
+          </div>
 
-        <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3 pt-6">
-          <Meta k={t.year} v={p.year} />
-          <Meta k={t.role} v={p.role} />
-          <Meta k={t.focus} v={p.kicker} />
-          <div className="flex gap-3 sm:ml-auto">
-            {p.href ? (
-              <a
-                href={p.href}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-cream transition-transform hover:scale-[1.03]"
-              >
-                {t.live} <ArrowIcon className="h-3.5 w-3.5 text-lime" />
-              </a>
-            ) : null}
-            {p.repo ? (
-              <a
-                href={p.repo}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-sand/60 px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-sand"
-              >
-                {t.github}
-              </a>
-            ) : null}
+          {shots.length > 0 ? (
+            <div className="order-last mt-8 min-w-0 lg:order-none lg:col-start-2 lg:row-start-1 lg:mt-0">
+              <ImageCarousel
+                images={shots}
+                alt={p.title}
+                alts={p.galleryAlts}
+                aspect="aspect-[3/2]"
+              />
+            </div>
+          ) : null}
+
+          <div className={`mt-6 flex flex-wrap content-start items-start gap-x-8 gap-y-3 pt-6 ${shots.length > 0 ? "lg:col-start-2 lg:row-start-2 lg:mt-0" : ""}`}>
+            <Meta k={t.year} v={p.year} />
+            <Meta k={t.role} v={p.role} />
+            <Meta k={t.focus} v={p.kicker} />
+            <div className="flex flex-wrap gap-3">
+              {p.href ? (
+                <a
+                  href={p.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-cream transition-colors hover:bg-ink/90"
+                >
+                  {t.live} <ArrowIcon className="h-3.5 w-3.5 text-lime" />
+                </a>
+              ) : null}
+              {p.repo ? (
+                <a
+                  href={p.repo}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-sand/60 px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-sand"
+                >
+                  {t.github}
+                </a>
+              ) : null}
+            </div>
           </div>
         </div>
       </motion.header>
-
-      {/* Hero visual — 이미지가 없으면 자리만 차지하는 대체 블록을 두지 않고
-          아래 Highlights 가 바로 올라오게 한다 */}
-      {shots.length > 0 ? (
-        <motion.div
-          variants={reveal}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-10%" }}
-          className="mt-8"
-        >
-          {/* contain 은 프레임에 레터박스(빈 여백)를 남긴다. 상세 히어로는
-              여백 없이 꽉 차게 보여주는 쪽이 나아서 항상 cover 로 채운다.
-              (이미지들이 1.33~1.7 비율이라 3/2 프레임 기준 잘림은 최대 12% 정도) */}
-          <ImageCarousel
-            images={shots}
-            alt={p.title}
-            alts={p.galleryAlts}
-            aspect="aspect-[3/2]"
-          />
-        </motion.div>
-      ) : null}
 
       <div className="mt-12 grid gap-12 sm:grid-cols-[1.4fr_1fr]">
         {/* Highlights */}
@@ -206,14 +197,14 @@ export function ProjectDetail({
           <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-cream/40">
             {t.architecture}
           </h3>
-          <div className="mt-6 flex flex-wrap items-center gap-3">
+          <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
             {p.flow.map((step, i) => (
-              <div key={step} className="flex items-center gap-3">
-                <span className="rounded-2xl bg-cream/10 px-4 py-3 text-sm font-medium text-cream">
+              <div key={step} className="flex min-w-0 flex-col items-center gap-3 sm:flex-1 sm:flex-row">
+                <span className="w-full min-w-0 whitespace-normal break-words rounded-2xl bg-cream/10 px-4 py-3 text-center text-sm font-medium text-cream sm:w-auto sm:flex-1 sm:text-left">
                   {step}
                 </span>
                 {i < p.flow!.length - 1 ? (
-                  <ArrowIcon className="h-4 w-4 text-lime" />
+                  <ArrowIcon className="h-4 w-4 shrink-0 rotate-90 text-lime sm:rotate-0" />
                 ) : null}
               </div>
             ))}

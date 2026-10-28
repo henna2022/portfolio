@@ -1,11 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { experience } from "@/lib/data";
 import { experienceKo } from "@/lib/data-ko";
 import { assetPath } from "@/lib/asset";
 import { useI18n } from "./lang-provider";
-import { ease } from "@/lib/motion";
 import { ArrowIcon } from "./icons";
 
 export function Experience() {
@@ -13,29 +11,21 @@ export function Experience() {
   const items = lang === "ko" ? experienceKo : experience;
   return (
     <section id="experience" className="mx-auto max-w-shell px-6 py-16">
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, ease }}
+      <h2
         className="font-display mb-10 text-3xl font-semibold tracking-[-0.02em] sm:text-4xl"
       >
         {t.experienceHeading}
-      </motion.h2>
+      </h2>
 
       <div className="space-y-3">
         {items.map((e, i) => {
           return (
-          <motion.div
+          <div
             // 언어와 무관한 key (awards.tsx 와 같은 이유)
             key={i}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-8%" }}
-            transition={{ duration: 0.6, delay: i * 0.05, ease }}
             className="rounded-4xl bg-sand/60 p-7"
           >
-            <div className="grid gap-4 sm:grid-cols-[1fr_1.6fr]">
+            <div className="space-y-5">
               <div>
                 {/* 기관 홈페이지 — "실제로 운영 중인 곳"이라는 주장을 바로 확인시켜 준다 */}
                 {"site" in e && e.site ? (
@@ -55,11 +45,11 @@ export function Experience() {
                 <p className="mt-2 text-xs text-muted">{e.period}</p>
               </div>
               <div>
-                <ul className="space-y-2">
+                <ul className="gap-x-8 lg:columns-2">
                   {e.points.map((pt) => (
                     <li
                       key={pt}
-                      className="flex gap-2.5 text-sm leading-relaxed text-ink/75"
+                      className="mb-3 break-inside-avoid flex max-w-[75ch] gap-2.5 text-sm leading-relaxed text-ink/75"
                     >
                       <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-lime" />
                       {pt}
@@ -108,7 +98,7 @@ export function Experience() {
                 })}
               </div>
             ) : null}
-          </motion.div>
+          </div>
           );
         })}
       </div>

@@ -1,10 +1,8 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
 import { skillGroups } from "@/lib/data";
 import { skillGroupsKo } from "@/lib/data-ko";
 import { useI18n } from "./lang-provider";
-import { ease } from "@/lib/motion";
 import { assetPath } from "@/lib/asset";
 
 // Simple Icons (monochrome) downloaded into /public/icons. Items missing
@@ -27,46 +25,23 @@ const chipIcons: Record<string, string> = {
   ESP32: "espressif.svg",
 };
 
-const parent: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
-};
-
-const card: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
-};
-
 export function SkillsDrag() {
   const { t, lang } = useI18n();
   const groups = lang === "ko" ? skillGroupsKo : skillGroups;
 
   return (
     <section id="skills" className="mx-auto max-w-shell px-6 py-16">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, ease }}
-        className="mb-8"
-      >
+      <div className="mb-8">
         <h2 className="font-display text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">
           {t.skillsHeading}
         </h2>
-      </motion.div>
+      </div>
 
-      <motion.div
-        variants={parent}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-8%" }}
-        className="grid gap-4 sm:grid-cols-2"
-      >
+      <div className="grid gap-4 sm:grid-cols-2">
         {groups.map((g) => {
           return (
-            <motion.div
+            <div
               key={g.key}
-              variants={card}
               className="flex flex-col rounded-4xl bg-sand/70 p-6"
             >
               {/* 제목·한 줄 소개는 로케일별로 갈리고(data-ko.ts 의 오버라이드),
@@ -111,10 +86,10 @@ export function SkillsDrag() {
                   );
                 })}
               </div>
-            </motion.div>
+            </div>
           );
         })}
-      </motion.div>
+      </div>
     </section>
   );
 }

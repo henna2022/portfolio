@@ -1,13 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import { about, person, type ProseParagraph } from "@/lib/data";
 import { aboutKo } from "@/lib/data-ko";
 import { assetPath } from "@/lib/asset";
 import { useI18n } from "./lang-provider";
 import { DownloadIcon } from "./icons";
-import { ease, fadeUp, viewportOnce } from "@/lib/motion";
 
 // 산문 문단 — `b: true` 조각만 굵게. 훑어봐도 핵심 문장이 먼저 잡히도록.
 function Prose({ paragraph }: { paragraph: ProseParagraph }) {
@@ -54,9 +52,7 @@ export function About() {
   const { t, lang } = useI18n();
   const a = lang === "ko" ? aboutKo : about;
 
-  // '더 보기' 패널은 프레이머 모션을 쓰지 않는다 — 부모가 variants 를 쓰고 있어서
-  // 자식 motion 컴포넌트의 animate 가 variant 전파에 덮인다. 대신 내용 높이를
-  // 직접 재서 CSS 트랜지션으로 펼친다(폰트 로드·리사이즈는 ResizeObserver 로 추적).
+  // 내용 높이를 재서 펼친다. 폰트 로드·리사이즈도 추적한다.
   const moreRef = useRef<HTMLDivElement>(null);
   const [moreHeight, setMoreHeight] = useState(0);
 
@@ -88,18 +84,14 @@ export function About() {
 
       <div className="grid items-start gap-8 lg:grid-cols-[0.9fr_1.25fr] lg:gap-[clamp(2rem,5vw,4.5rem)]">
         {/* ── 좌: 초상 카드 (데스크톱에서는 스크롤을 따라 붙어 있음) ── */}
-        <motion.aside
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
+        <aside
           className="mx-auto w-full max-w-[440px] rounded-4xl bg-sand/40 p-6 text-center sm:p-8 lg:sticky lg:top-28 lg:mx-0 lg:max-w-none"
         >
           <div className="relative mx-auto mb-6 w-full max-w-[300px]">
             <img
               src={assetPath(a.photo)}
               alt={person.name}
-              // STATEMENT(220vh) 뒤라 확실히 폴드 아래 — 첫 화면 대역폭과 경쟁하지 않게 지연 로드
+              // 폴드 아래 사진은 지연 로드
               loading="lazy"
               decoding="async"
               className="relative aspect-[1/1.05] w-full rounded-[28px] object-cover object-[center_28%]"
@@ -137,15 +129,10 @@ export function About() {
             ))}
           </ul>
 
-        </motion.aside>
+        </aside>
 
         {/* ── 우: 인용문 + 산문 + 더 보기 ── */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
-        >
+        <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
             {t.nav.about}
           </p>
@@ -201,14 +188,12 @@ export function About() {
 
           {/* 더 보기는 왼쪽, 다운로드는 오른쪽 하단 */}
           <div className="mt-7 flex flex-wrap items-center justify-between gap-3">
-            <motion.button
+            <button
               type="button"
               onClick={toggle}
               aria-expanded={open}
               aria-controls="aboutMore"
-              whileTap={{ scale: 0.97 }}
-              transition={{ duration: 0.2, ease }}
-              className="inline-flex items-center gap-2 rounded-full bg-ink/5 px-[18px] py-2.5 text-[13px] font-semibold text-ink transition-colors hover:bg-lime/10 hover:text-lime"
+              className="inline-flex items-center gap-2 rounded-full bg-ink/5 px-[18px] py-2.5 text-[13px] font-semibold text-ink transition-colors hover:bg-lime/10 hover:text-blue-accessible dark:hover:text-lime"
             >
               {open ? t.seeLess : t.seeMore}
               <CurlyArrow
@@ -216,27 +201,27 @@ export function About() {
                   open ? "rotate-180" : ""
                 }`}
               />
-            </motion.button>
+            </button>
 
             {/* KO 모드에서는 국문 PDF, EN 모드에서는 영문 PDF 를 내려준다 */}
             <div className="flex flex-wrap items-center gap-2.5">
               <a
                 href={assetPath(lang === "ko" ? person.resumeKo : person.resume)}
                 download
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-lime px-5 py-2.5 text-[13px] font-semibold text-lime-ink transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-accessible dark:bg-lime px-5 py-2.5 text-[13px] font-semibold text-lime-ink transition-colors"
               >
                 <DownloadIcon /> {t.resume}
               </a>
               <a
                 href={assetPath(lang === "ko" ? person.cvKo : person.cv)}
                 download
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-lime/10 px-5 py-2.5 text-[13px] font-semibold text-lime transition-colors hover:bg-lime/20"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-lime/10 px-5 py-2.5 text-[13px] font-semibold text-blue-accessible dark:text-lime transition-colors hover:bg-lime/20"
               >
                 <DownloadIcon /> {t.cv}
               </a>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

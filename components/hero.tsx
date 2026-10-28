@@ -1,6 +1,7 @@
 "use client";
 
-import { Component, type ReactNode, type CSSProperties, useCallback, useEffect, useState } from "react";
+import { Component, type ReactNode, type CSSProperties, useCallback, useEffect, useLayoutEffect, useState } from "react";
+import { flushSync } from "react-dom";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { hero } from "@/lib/data";
@@ -81,10 +82,17 @@ export function Hero() {
   const onSceneError = useCallback(() => setSceneFailed(true), []);
   const desktopScene = gateOpen === true && !sceneFailed;
   const [headlineLanguage, setHeadlineLanguage] = useState<string | null>(null);
+  const [startedLanguage, setStartedLanguage] = useState<string | null>(null);
+  const onHeadlineStart = useCallback(() => flushSync(() => setStartedLanguage(lang)), [lang]);
   const onHeadlineShown = useCallback(() => setHeadlineLanguage(lang), [lang]);
-  useEffect(() => { if (!desktopScene) setHeadlineLanguage(null); }, [desktopScene]);
-  // 3D 제목이 한 번 올라온 뒤에는 언어를 바꿔도 DOM 제목을 다시 띄우지 않는다
-  // (방은 그대로고 벽 제목만 새로 올라오므로, 다시 띄우면 두 제목이 겹친다)
+  useLayoutEffect(() => {
+    if (!desktopScene) {
+      setStartedLanguage(null);
+      setHeadlineLanguage(null);
+    }
+  }, [desktopScene]);
+  // 언어별 진입 시작은 제목에, 완료는 기존 CTA에 적용
+  const headlineStarted = desktopScene && startedLanguage !== null;
   const headlineShown = desktopScene && headlineLanguage !== null;
   return (
     <section
@@ -108,10 +116,10 @@ export function Hero() {
           (desktopScene && compact ? " absolute inset-x-6 top-28" : " relative")}
       >
         <h1
-          // Keep the semantic heading after the wall text finishes its entrance.
+          // 3D 진입이 시작돼도 의미상 h1은 유지
           className={
             "intro-up font-display ko-hero-display text-balance max-w-4xl text-[2.75rem] font-semibold leading-[1.14] tracking-[-0.015em] text-ink sm:text-6xl md:text-7xl" +
-            (headlineShown ? " text-transparent" : "") +
+            (headlineStarted ? " text-transparent" : "") +
             (desktopScene && compact ? " !text-[clamp(1.75rem,5vw,3.5rem)]" : "")
           }
         >
@@ -131,7 +139,7 @@ export function Hero() {
           <motion.a
             whileTap={{ y: 3 }}
             href="#work"
-            className="group inline-flex whitespace-nowrap items-center gap-2 rounded-xl bg-lime px-7 py-3.5 text-sm font-semibold text-white shadow-[0_5px_0_#1d4ed8] transition-all hover:translate-y-[1px] hover:shadow-[0_4px_0_#1d4ed8]"
+            className="group inline-flex whitespace-nowrap items-center gap-2 rounded-xl bg-blue-accessible dark:bg-lime px-7 py-3.5 text-sm font-semibold text-white shadow-[0_5px_0_#1e3a8a] dark:shadow-[0_5px_0_#1d4ed8] transition-all hover:translate-y-[1px] hover:shadow-[0_4px_0_#1e3a8a] dark:hover:shadow-[0_4px_0_#1d4ed8]"
           >
             {t.viewWork}
             <ArrowIcon className="transition-transform group-hover:translate-x-0.5" />
@@ -148,7 +156,7 @@ export function Hero() {
 
       {desktopScene ? (
         <SceneGuard onFail={onSceneError}>
-          <HeroScene compact={compact} showText={true} ko={lang === "ko"} onSceneError={onSceneError} onHeadlineShown={onHeadlineShown} />
+          <HeroScene compact={compact} showText={true} ko={lang === "ko"} onSceneError={onSceneError} onHeadlineStart={onHeadlineStart} onHeadlineShown={onHeadlineShown} />
         </SceneGuard>
       ) : null}
     </section>

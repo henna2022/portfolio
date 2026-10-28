@@ -123,7 +123,7 @@ export function ImageCarousel({
             type="button"
             aria-label="Previous image"
             onClick={() => goTo(Math.max(0, idx - 1))}
-            className="absolute left-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-cream/90 text-ink shadow transition-opacity disabled:!opacity-0 sm:opacity-0 sm:group-hover/carousel:opacity-100"
+            className="absolute after:absolute after:-inset-1.5 after:content-[''] left-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-cream/90 text-ink shadow transition-opacity disabled:!opacity-0 sm:opacity-0 sm:group-hover/carousel:opacity-100"
             disabled={idx === 0}
           >
             <ArrowIcon className="h-4 w-4 rotate-180" />
@@ -132,7 +132,7 @@ export function ImageCarousel({
             type="button"
             aria-label="Next image"
             onClick={() => goTo(Math.min(images.length - 1, idx + 1))}
-            className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-cream/90 text-ink shadow transition-opacity disabled:!opacity-0 sm:opacity-0 sm:group-hover/carousel:opacity-100"
+            className="absolute after:absolute after:-inset-1.5 after:content-[''] right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-cream/90 text-ink shadow transition-opacity disabled:!opacity-0 sm:opacity-0 sm:group-hover/carousel:opacity-100"
             disabled={idx === images.length - 1}
           >
             <ArrowIcon className="h-4 w-4" />

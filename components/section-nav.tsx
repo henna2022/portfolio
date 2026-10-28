@@ -99,7 +99,7 @@ export function SectionNav() {
               // (Inter 는 가변 폰트라 800 까지 실제 굵기가 나온다)
               className={`relative shrink-0 px-1.5 py-1.5 text-xs transition-colors sm:px-2.5 sm:py-1 sm:text-sm ${
                 isActive
-                  ? "font-extrabold text-lime after:absolute after:inset-x-1.5 after:-bottom-0.5 after:h-[2px] after:rounded-full after:bg-lime after:content-[''] sm:after:inset-x-2.5"
+                  ? "font-extrabold text-blue-accessible dark:text-lime after:absolute after:inset-x-1.5 after:-bottom-0.5 after:h-[2px] after:rounded-full after:bg-lime after:content-[''] sm:after:inset-x-2.5"
                   : "font-semibold text-ink/60 hover:text-ink"
               }`}
             >

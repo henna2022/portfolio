@@ -16,27 +16,19 @@ export function Activities() {
 
   return (
     <section id="activities" className="mx-auto max-w-shell px-6 py-16">
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, ease }}
+      <h2
         className="font-display mb-8 text-3xl font-semibold tracking-[-0.02em] sm:text-4xl"
       >
         {t.activitiesHeading}
-      </motion.h2>
+      </h2>
 
       <div className="space-y-2">
         {items.map((a, i) => {
           const isOpen = open === i;
           return (
-            <motion.div
+            <div
               // 언어와 무관한 key (awards.tsx 와 같은 이유)
               key={i}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.04, ease }}
             >
               <button
                 onClick={() => setOpen(isOpen ? null : i)}
@@ -93,7 +85,7 @@ export function Activities() {
                   ) : null}
                 </div>
               </motion.div>
-            </motion.div>
+            </div>
           );
         })}
       </div>

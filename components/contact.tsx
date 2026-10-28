@@ -2,12 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { person } from "@/lib/data";
 import { assetPath } from "@/lib/asset";
 import { useI18n } from "./lang-provider";
 import { ArrowIcon, GithubIcon, LinkedinIcon, MailIcon } from "./icons";
-import { ease } from "@/lib/motion";
 
 const socials = [
   { label: "GitHub", href: person.github, Icon: GithubIcon },
@@ -37,12 +35,7 @@ export function Contact() {
     >
       <div className="mx-auto max-w-shell px-6 pt-16">
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-10%" }}
-          transition={{ duration: 0.7, ease }}
-        >
+        <div>
           <img
             src={assetPath(person.photoSm)}
             alt="Juwon Lee"
@@ -63,7 +56,7 @@ export function Contact() {
               <a
                 key={label}
                 href={`mailto:${person.email}?subject=${encodeURIComponent(subject)}`}
-                className="inline-flex items-center gap-2 rounded-full bg-cream px-6 py-3.5 text-sm font-medium text-ink transition-transform hover:scale-[1.03]"
+                className="inline-flex items-center gap-2 rounded-full bg-cream px-6 py-3.5 text-sm font-medium text-ink transition-colors"
               >
                 {label} <ArrowIcon />
               </a>
@@ -75,7 +68,7 @@ export function Contact() {
               {person.email}
             </a>
           </div>
-        </motion.div>
+        </div>
 
         {/* Divider + row */}
         <div className="mt-14 flex flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between">

@@ -12,9 +12,9 @@ export function Header() {
   const { t, lang, setLang } = useI18n();
   return (
     <header
-      // 반투명 바 — 뒤의 3D 씬이 은은하게 비친다.
+      // 본문이 비치지 않는 불투명 표면
       // 진입 모션은 CSS(intro-down) — JS 하이드레이션을 기다리지 않아 LCP 에 안전
-      className="intro-down fixed inset-x-0 top-0 z-40 bg-cream/40 backdrop-blur-md"
+      className="intro-down fixed inset-x-0 top-0 z-40 bg-cream"
     >
       {/* Row 1 — brand + downloads + theme */}
       <div className="mx-auto flex max-w-shell items-center justify-between gap-3 px-4 py-2.5 sm:gap-4 sm:px-6">

@@ -109,18 +109,18 @@ export const about = {
       { text: "." },
     ],
     [
-      { text: "My core is " },
+      { text: "I specialize in " },
       { text: "web and application development", b: true },
-      { text: ": Next.js and React on the front, with Supabase, Firebase and serverless functions behind them. I wire " },
-      { text: "AI in as a working feature", b: true },
-      { text: ", for example an in-browser MobileNet v2 module that students train themselves. The OpenAI image backend I built for the Art Lab generated 14,328 images on the Seoul Robot & AI Museum's exhibition floor from June to August 2026." },
+      { text: ". I use Next.js and React for the frontend, and Supabase, Firebase and serverless functions for the backend. I integrate " },
+      { text: "AI as a working feature", b: true },
+      { text: ", for example an in-browser MobileNet v2 module that students train themselves. The OpenAI image backend I built for Raimi's AI Art Lab generated 14,328 images on the Seoul Robot & AI Museum's exhibition floor from June to August 2026." },
     ],
   ] as ProseParagraph[],
   proseMore: [
     [
       { text: "Of those, " },
       { text: "9,865 were generated in July", b: true },
-      { text: " (counted by the app's own backend). Doctor-Green, my smart-farm platform, reaches down to " },
+      { text: " (counted by the app's own backend). My smart-farm platform, Doctor-Green, includes " },
       { text: "ESP32 sensor nodes", b: true },
       { text: "." },
     ],
@@ -219,12 +219,12 @@ const allProjects: Project[] = [
     image: "/portfolio_images/projects/raim-en-en.jpg",
     stat: "130 online seats a week",
     overview:
-      "The museum adopted this site as its official booking channel for foreign visitors. Guided exhibition tours at the museum are booked through Seoul's public reservation system, which requires identity verification with a Korean mobile number, so foreign visitors **could not book online at all** and complaints followed. On this site they book with an email address instead. For launch, the museum opens sessions 1, 3, and 6 of the Korean-guided Permanent Exhibition tour with 10 seats each, plus a Wednesday English-guided session with 10 more, up to 5 people per booking: **130 seats a week** that foreign visitors can now book online, where before they had none.\n\nThe museum decides each month which sessions open online and how many seats they have, and **each request waits for staff approval**. A pending request already holds its seat, so a session cannot be overbooked, and a cancellation returns the seat on its own. Online booking closes the day before the visit, leaving same-day seats to visitors on site. Visitors get a request-received email right away and a confirmation email with a calendar file once staff approve. They look up or cancel with their booking code and email.\n\nIn the admin, staff approve requests session by session, check bookings, mark visits and no-shows, and read booking and traffic statistics (where visitors came from, time spent on each page) with an Excel export. Personal data is deleted automatically 90 days after the visit (no-show records are kept longer), and visit statistics are counted on the server without storing IP addresses.",
+      "The museum adopted this site as its official booking channel for foreign visitors. Guided exhibition tours at the museum are booked through Seoul's public reservation system, which requires identity verification with a Korean mobile number, so foreign visitors **could not book online at all** and complaints followed. On this site they book with an email address instead. For launch, the museum opens sessions 1, 3, and 6 of the Korean-guided Permanent Exhibition tour with 10 seats each, plus a Wednesday English-guided session with 10 more, up to 5 people per booking: **130 seats a week** that foreign visitors can now book online, where before they had none.\n\nThe museum decides each month which sessions open online and how many seats they have, and **each request waits for staff approval**. A pending request already holds its seat, so a session cannot be overbooked, and a cancellation returns the seat on its own. Online booking closes the day before the visit, leaving same-day seats to visitors on site. Visitors get a request-received email right away and a confirmation email with a calendar file once staff approve. They look up or cancel with their booking code and email.\n\nIn the admin interface, staff approve requests by session, check bookings, mark visits and no-shows, and view booking and traffic statistics (where visitors came from and time spent on each page). They can export the statistics to Excel. Personal data is deleted automatically 90 days after the visit (no-show records are kept longer), and visit statistics are counted on the server without storing IP addresses.",
     highlights: [
       "Foreign visitors book tours online with an email address instead of the **Korean mobile identity check** the city reservation system requires.",
       "**Adopted as the museum's official booking channel for foreign visitors**: sessions 1, 3, and 6 with 10 seats each plus a Wednesday English-guided session, **130 online seats a week** where foreign visitors previously had none.",
       "Every request waits for **staff approval** within the museum's monthly seat allocation; a pending request already holds its seat, so sessions cannot be overbooked, and cancellations return seats automatically.",
-      "**Staff admin** where staff approve requests per session, mark visits and no-shows, and read booking and traffic statistics with an Excel export.",
+      "An admin interface for staff to approve requests by session, mark visits and no-shows, view booking and traffic statistics, and export them to Excel.",
       "Personal data is deleted automatically 90 days after the visit (no-show records are kept longer), a booking code alone shows only a masked summary, and visit statistics store no IP addresses.",
     ],
     flow: ["Email-only booking form", "Seat held while pending", "Staff approval in admin", "Confirmation email + calendar file"],
@@ -270,7 +270,7 @@ const allProjects: Project[] = [
     category: "Web App · Education",
     categories: ["AI", "Web", "Education"],
     kicker: "Seoul Robot & AI Museum · Jun–Aug 2026",
-    desc: "A guided prompt builder where visitors co-create AI artwork with the museum character Raimi. It ran on the museum floor from June to August 2026, and its backend counted 14,328 generated images, 9,865 of them in July.",
+    desc: "A guided prompt builder where visitors create AI artwork with guidance from the museum character Raimi. It ran on the museum floor from June to August 2026, and its backend counted 14,328 generated images, 9,865 of them in July.",
     year: "2026",
     role: "Planning · development · operations",
     tags: ["JavaScript", "OpenAI API", "Vercel Serverless", "Supabase", "Cloudflare R2", "PWA"],
@@ -278,12 +278,12 @@ const allProjects: Project[] = [
     image: "/portfolio_images/projects/artlab-mode-en.jpg",
     stat: "14,328 images · Jun–Aug 2026",
     overview:
-      "Visitors build a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI draws it. It ran on the museum floor from June to August 2026, and **the app's own backend recorded 14,328 generated images**: 3,049 from 17 June, 9,865 in July and 1,414 in August. One image is one successful generation; blocked or failed requests are not counted.\n\nThe app replaced an off-the-shelf GPT service that would stop responding mid-use and leave the station unusable until staff stepped in. **It has not frozen once since the switch.** The **10-step (+5 advanced) choice-based prompt builder** shows young visitors how a prompt is put together while they play. Every image is auto-watermarked with the museum logo, and visitors take their pictures home right away by QR code. Because it runs as a web app, the kiosk could be locked to a single full-screen browser.",
+      "Visitors build a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI draws it. It ran on the museum floor from June to August 2026, and **the app's own backend recorded 14,328 generated images**: 3,049 from 17 June, 9,865 in July and 1,414 in August.\n\nThe app replaced an off-the-shelf GPT service that would stop responding mid-use and leave the station unusable until staff stepped in. **It has not frozen once since the switch.** The **10-step (+5 advanced) choice-based prompt builder** shows young visitors how a prompt is put together while they play. Every image gets an automatic museum-logo watermark, and visitors download their pictures right away by QR code. Because it runs as a web app, the kiosk could be locked to a single full-screen browser.",
     highlights: [
       "**14,328 images generated from June to August 2026, 9,865 of them in July**, counted by the app's own backend.",
       "**Ended the freezes** of the off-the-shelf GPT service it replaced; none since the switch.",
       "**10-step (+5 advanced) choice-based prompt builder** that teaches visitors of all ages how a prompt is put together.",
-      "Every image is **auto-watermarked** with the museum logo, and visitors take it home by QR code.",
+      "Every image gets an automatic museum-logo watermark, and visitors download it by QR code.",
       "Running as a web app let the exhibition kiosk be locked to a single full-screen browser.",
     ],
     flow: ["10-step prompt builder", "OpenAI API", "Auto-watermark", "R2 + Supabase"],
@@ -319,7 +319,7 @@ const allProjects: Project[] = [
     image: "/portfolio_images/projects/raimapp_main.png",
     stat: "20 staff daily",
     overview:
-      "An internal app for managing the museum's docents and part-time staff, built to cut down on repetitive on-site work. **About 20 of them use it daily as an internal web app (PWA).**\n\nIt puts a per-date schedule grid, staff roster, live duty status and notices in one app, with a PC console for managers. I built it solo, from a single-HTML prototype to a Vite + React app with real-time data on Firebase (Firestore). A Capacitor setup is in place for mobile builds.",
+      "An internal app for managing the museum's docents and part-time staff, built to cut down on repetitive on-site work. **About 20 of them use it daily as an internal web app (PWA).**\n\nIt brings a schedule grid organized by date, a staff roster, live duty status and notices into one app, with a PC console for managers. I built it solo, from a single-HTML prototype to a Vite + React app with real-time data on Firebase (Firestore). A Capacitor setup is in place for mobile builds.",
     highlights: [
       "**Used daily by about 20 docents and part-time staff** as an internal web app (PWA).",
       "Schedule grid, roster, duty status and notices in one app, plus a PC console for managers.",
@@ -439,7 +439,7 @@ const allProjects: Project[] = [
     repo: "https://github.com/henna2022/maskbot-restart",
     stat: "1 machine → any staff phone",
     overview:
-      "A recovery system for MaskBot, a face- and voice-interaction robot exhibit on the museum floor. I installed it on the exhibit machine in July 2026, and it **still runs unattended in daily operation**.\n\nMaskBot's control software would sometimes freeze or exit mid-operation. The only fix was a manual restart through a remote session **from one specific machine**. Until someone got to that machine, visitors stood in front of an exhibit that could not hear them.\n\nNow a watchdog checks the program every 20 seconds and relaunches it within a minute when the process dies or its window stops responding. Scheduled restarts also run twice a day. **Any staff member can trigger recovery from their own phone** on a single-button page. Enrolled devices reach it through Tailscale, a WireGuard-based mesh VPN, with no port open to the internet.\n\nOne failure cannot be detected automatically: speech recognition stops while the process stays alive and the window keeps responding. Scheduled restarts and the phone button cover that case. I also wrote a handover document on configuration, logs, routine maintenance, a diagnosis playbook, and known limitations, so the maintenance technician can own the system without me.",
+      "A recovery system for MaskBot, a face- and voice-interaction robot exhibit on the museum floor. I installed it on the exhibit machine in July 2026, and it **still runs unattended in daily operation**.\n\nMaskBot's control software would sometimes freeze or exit mid-operation. The only fix was a manual restart through a remote session **from one specific machine**. Visitors could not use the exhibit's voice interaction until a staff member reached that machine.\n\nNow a watchdog checks the program every 20 seconds and relaunches it within a minute when the process dies or its window stops responding. Scheduled restarts also run twice a day. **Any staff member can trigger recovery from their own phone** on a single-button page. Enrolled devices reach it through Tailscale, a WireGuard-based mesh VPN, with no port open to the internet.\n\nOne failure cannot be detected automatically: speech recognition stops while the process stays alive and the window keeps responding. Scheduled restarts and the phone button cover that case. I also wrote a handover document on configuration, logs, routine maintenance, a diagnosis playbook, and known limitations, so the maintenance technician can own the system without me.",
     highlights: [
       "Every freeze or crash needed a manual restart, and it could only be done **from one specific machine**.",
       "A watchdog **relaunches the exhibit program within a minute** of a crash or hang it detects.",
@@ -487,7 +487,7 @@ const allProjects: Project[] = [
     category: "Photo Kiosk",
     categories: ["AI", "Web"],
     kicker: "Seoul Robot & AI Museum · seasonal use since Jun 2026",
-    desc: "A four-cut photo kiosk where visitors design a frame with the museum's robots and take the finished photo home by QR. It recorded 1,932 uses on 26 days between June 14 and September 6, 2026.",
+    desc: "A photo kiosk where visitors design a four-photo frame with the museum's robots and download the finished photo by QR code. It recorded 1,932 uses on 26 days between June 14 and September 6, 2026.",
     year: "2026",
     role: "Solo: planning, development, operations",
     tags: ["JavaScript", "MediaPipe", "Canvas", "Supabase", "QR", "PWA"],
@@ -499,7 +499,7 @@ const allProjects: Project[] = [
       "RAIM 4-Cut Studio recorded **1,932 uses on 26 days** between June 14 and September 6, 2026. It started as the photo kiosk for the museum's 2nd anniversary and runs on a portrait Galaxy Tab.\n\nVisitors choose a frame color, one of **ten museum robots** and an optional caption, then take six shots on a three-second countdown. A MediaPipe face model on the device marks the top four shots, and the visitor picks the final four. The finished 1080×1620 frame goes to their phone by QR code, and the link expires after two hours.\n\nStaff use a PIN-protected stats page with daily, weekly and monthly counts, robot popularity and frame colors, and can switch seasonal robot versions such as summer and Chuseok without a redeploy. The kiosk blocks long-press menus, zoom, auto-translation and back gestures, and the result screen returns to the start after 30 seconds.",
     highlights: [
       "**1,932 uses recorded on 26 days** between June 14 and September 6, 2026.",
-      "**On-device best-shot recommendation** from MediaPipe face scores; the visitor still picks the four cuts.",
+      "The device recommends the best shots using MediaPipe face scores; the visitor selects the final four photos.",
       "Staff switch seasonal robot versions and frame logos from the staff page without a redeploy.",
       "Kiosk guards against long-press, zoom, translation and back gestures, with auto-return to the start screen.",
     ],
@@ -511,7 +511,7 @@ const allProjects: Project[] = [
     category: "Exhibit Explainer Kiosk",
     categories: ["Web", "Education"],
     kicker: "Seoul Robot & AI Museum · LiDAR media art",
-    desc: "A self-touch explainer installed beside the museum's LiDAR media-art room in September 2026. Visitors often asked which AI model was recognizing them, and the kiosk answers in five steps, from raw sensor points to the waves projected on the wall and floor.",
+    desc: "A touchscreen explainer installed beside the museum's LiDAR media-art room in September 2026. Visitors often asked which AI model was recognizing them, and the kiosk answers in five steps, from raw sensor points to the waves projected on the wall and floor.",
     year: "2026",
     role: "Solo: planning, development, installation",
     tags: ["JavaScript", "Canvas 2D", "PWA", "Blender", "webOS"],
@@ -809,7 +809,7 @@ export const skillGroups: SkillGroup[] = [
     // Auto-Recovery 의 원격 접근(Tailscale)은 남기고 나머지는 뺀다.
     key: "back",
     title: "Backend, Infra & Ops",
-    capability: "I run the data, storage, and deploys behind them.",
+    capability: "I manage the data, storage and deployments behind my apps.",
     items: [
       "Supabase",
       "Firebase / Firestore",
@@ -857,7 +857,7 @@ export const experience = [
       "/portfolio_images/experience/docent_3.jpg",
     ],
     points: [
-      "Build and run the interactive AI education web apps visitors use on the exhibition floor. The Art Lab ran there from June to August 2026 and generated 14,328 images, 9,865 of them in July.",
+      "Build and run the interactive AI education web apps visitors use on the exhibition floor. Raimi's AI Art Lab ran there from June to August 2026 and generated 14,328 images, 9,865 of them in July.",
       "Plan and teach education programs, including the smart-farm class the Yangpyeong Education Office commissioned through the museum. Taught it as a demo class to 5 high-school students in August 2026; the 15-student class is scheduled for October 2026.",
       // 메타버스 전시는 어느 정도 완성되면 다시 추가한다 (data.ts 의 raim-metaverse 주석 블록과 함께)
       "Build internal ops tools, including the staff app that about 20 docents and part-time staff use daily.",
@@ -953,7 +953,7 @@ export const activities: Activity[] = [
     period: "2024.07 - 2025.02",
     title: "Hankyong Start-up Club (MAKENEW)",
     role: "Team leader",
-    desc: "Led team MAKENEW as team leader, the start-up club team behind our award-winning plant-disease diagnosis app and the YAKMOA medication-care service.",
+    desc: "Led MAKENEW, the start-up club team behind our award-winning plant-disease diagnosis app and the YAKMOA medication-management service.",
     photos: [],
   },
   {
@@ -1055,13 +1055,4 @@ export const awards: Award[] = [
     photos: [],
     relatedSlug: "doctor-green",
   },
-];
-
-export const marqueeWords = [
-  "AI EDUCATION",
-  "ROBOTICS",
-  "FULL-STACK",
-  "COMPUTER VISION",
-  "IoT",
-  "INTERACTIVE LEARNING",
 ];

@@ -41,12 +41,12 @@ export const ui = {
   awardsHeading: "Awards",
   comingSoon: "Coming soon",
 
-  contactHeading: "Hiring and education-program inquiries are welcome.",
+  contactHeading: "Hiring and education program inquiries are welcome.",
   availability: "Leave a message. I usually reply within a day or two.",
   // 채용 문의를 맨 앞에 (채용 담당자 검토 반영: 외주 홍보처럼 읽히지 않게)
   inquiries: [
     { label: "Hiring inquiry", subject: "juwonlee.dev: hiring inquiry" },
-    { label: "Education program", subject: "juwonlee.dev: education program inquiry" },
+    { label: "Education program inquiry", subject: "juwonlee.dev: education program inquiry" },
     { label: "Research / collaboration", subject: "juwonlee.dev: research or collaboration" },
   ],
   footerCopyright: "© 2026 Juwon Lee",
@@ -54,7 +54,7 @@ export const ui = {
   privacyNotice: "This site keeps anonymous visit statistics.",
   privacyLink: "Privacy",
 
-  allWork: "All work",
+  allWork: "All projects",
   year: "Year",
   role: "Role",
   focus: "Focus",
@@ -64,7 +64,7 @@ export const ui = {
   architectureSub: "How the app is structured: screens, roles, and data flow.",
   previous: "← Previous",
   next: "Next →",
-  live: "Live",
+  live: "Open site",
   github: "GitHub",
 };
 
@@ -94,12 +94,12 @@ export const uiKo: UiStrings = {
   seeLess: "접기",
 
   workHeading: "프로젝트",
-  filterAll: "All",
+  filterAll: "전체",
   view: "보기",
   viewProject: "프로젝트 보기 →",
   newsArticle: "언론 보도 ↗",
 
-  sideProjectsHeading: "More projects",
+  sideProjectsHeading: "다른 프로젝트",
   sideProjectsSub: "서울로봇인공지능과학관에 맞춰 만든 전시물, 관람객용 앱, 직원용 도구.",
 
   skillsHeading: "기술 스택",
@@ -133,6 +133,6 @@ export const uiKo: UiStrings = {
   architectureSub: "화면 · 역할 · 데이터 흐름으로 보는 앱 구조.",
   previous: "← 이전",
   next: "다음 →",
-  live: "라이브",
+  live: "사이트 열기",
   github: "GitHub",
 };

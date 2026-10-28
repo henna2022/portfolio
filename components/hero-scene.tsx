@@ -183,9 +183,9 @@ function Wall({ dark }: { dark: boolean }) {
       {/* 블루 라이트 라인 (전시관 무드) + 벽으로 새는 네온 번짐 */}
       <mesh position={[0, 0.5, 0.18]}>
         <boxGeometry args={[30, 0.05, 0.02]} />
-        <meshStandardMaterial color="#bcd6ff" emissive="#3B82F6" emissiveIntensity={2.2} />
+        <meshStandardMaterial color={dark ? "#3b4a66" : "#bcd6ff"} emissive="#3B82F6" emissiveIntensity={dark ? 0.35 : 2.2} />
       </mesh>
-      <Glow rgb="59,130,246" scale={[26, 1.4]} opacity={dark ? 0.5 : 0.32} position={[0, 0.5, 0.3]} />
+      {!dark ? <Glow rgb="59,130,246" scale={[26, 1.4]} opacity={0.32} position={[0, 0.5, 0.3]} /> : null}
 
       {/* 코너에서 만나는 오른쪽 벽 (원근 소실면) */}
       <group position={[9.2, 0, 9]} rotation-y={-Math.PI / 2}>
@@ -199,9 +199,9 @@ function Wall({ dark }: { dark: boolean }) {
         </mesh>
         <mesh position={[0, 0.5, 0.18]}>
           <boxGeometry args={[18, 0.05, 0.02]} />
-          <meshStandardMaterial color="#bcd6ff" emissive="#3B82F6" emissiveIntensity={2.2} />
+          <meshStandardMaterial color={dark ? "#3b4a66" : "#bcd6ff"} emissive="#3B82F6" emissiveIntensity={dark ? 0.35 : 2.2} />
         </mesh>
-        <Glow rgb="59,130,246" scale={[16, 1.4]} opacity={dark ? 0.5 : 0.32} position={[0, 0.5, 0.3]} />
+        {!dark ? <Glow rgb="59,130,246" scale={[16, 1.4]} opacity={0.32} position={[0, 0.5, 0.3]} /> : null}
       </group>
     </group>
   );
@@ -298,8 +298,11 @@ const TEXT_TARGET_Z = WALL_Z + 0.18; // 벽면보다 살짝 돌출
 // 헤드라인이 차지해도 되는 화면 폭 (NDC 기준, 1 = 화면 가장자리)
 const HEADLINE_WIDTH_RATIO = 0.94;
 
-function RisingHeadline({ dark, reduced, ko, compact, onHeadlineShown }: { dark: boolean; reduced: boolean; ko: boolean; compact: boolean; onHeadlineShown?: () => void }) {
+function RisingHeadline({ dark, reduced, ko, compact, onHeadlineStart, onHeadlineShown }: { dark: boolean; reduced: boolean; ko: boolean; compact: boolean; onHeadlineStart?: () => void; onHeadlineShown?: () => void }) {
   const notified = useRef(false);
+  const started = useRef(false);
+  const [layoutReady, setLayoutReady] = useState(false);
+  const firstLineFront = useRef<number | null>(null);
   const viewport = useThree((s) => s.size);
   const portraitLines = compact && viewport.width / viewport.height < 0.6;
   const lines = portraitLines
@@ -339,6 +342,30 @@ function RisingHeadline({ dark, reduced, ko, compact, onHeadlineShown }: { dark:
       if (cancelled) return;
       const g = groupRef.current;
       if (g) {
+        // 모든 줄의 지오메트리가 준비된 뒤 배치와 벽 밖 진입점을 잰다.
+        let readyLines = 0;
+        g.children.forEach((line, i) => {
+          line.updateWorldMatrix(true, true);
+          const inverse = line.matrixWorld.clone().invert();
+          const lineBox = new THREE.Box3();
+          line.traverse((o) => {
+            if (!(o instanceof THREE.Mesh)) return;
+            o.geometry.computeBoundingBox();
+            if (o.geometry.boundingBox) {
+              lineBox.union(o.geometry.boundingBox.clone().applyMatrix4(
+                inverse.clone().multiply(o.matrixWorld),
+              ));
+            }
+          });
+          if (!lineBox.isEmpty()) {
+            readyLines++;
+            if (i === 0) firstLineFront.current = lineBox.max.z;
+          }
+        });
+        if (readyLines < lines.length) {
+          if (tries++ < 40) setTimeout(measure, 100);
+          return;
+        }
         // 측정은 항상 "원래 크기 · 등장 완료" 상태 기준으로 한다.
         // (지금 스케일이나 등장 애니메이션 중간 z 로 재면 값이 계속 흔들린다)
         if (compact) {
@@ -395,6 +422,7 @@ function RisingHeadline({ dark, reduced, ko, compact, onHeadlineShown }: { dark:
           g.children.forEach((c, i) => (c.position.z = zs[i]));
           if (Number.isFinite(left) && right > left) {
             setFit(scale);
+            setLayoutReady(true);
             return;
           }
         }
@@ -421,6 +449,7 @@ function RisingHeadline({ dark, reduced, ko, compact, onHeadlineShown }: { dark:
 
         if (outermost > 0) {
           setFit(THREE.MathUtils.clamp(HEADLINE_WIDTH_RATIO / outermost, 0.35, 1));
+          setLayoutReady(true);
           return;
         }
       }
@@ -447,6 +476,8 @@ function RisingHeadline({ dark, reduced, ko, compact, onHeadlineShown }: { dark:
         return cur ? cur.type : null;
       });
     }
+    // 글꼴·지오메트리·배치가 준비된 뒤 기존 타이밍으로 시작
+    if (!layoutReady) return;
     elapsed.current += Math.min(delta, 0.1); // 백그라운드 복귀 시 점프 방지
     refs.forEach((r, i) => {
       const g = r.current;
@@ -457,6 +488,13 @@ function RisingHeadline({ dark, reduced, ko, compact, onHeadlineShown }: { dark:
         : THREE.MathUtils.clamp((elapsed.current - start) / TEXT_DURATION, 0, 1);
       g.position.z = THREE.MathUtils.lerp(TEXT_START_Z, TEXT_TARGET_Z, easeOutCubic(p));
     });
+    // 벽 속 이동 중에는 DOM 유지, 첫 글자가 보이는 프레임에 교대
+    const firstVisible = line0.current && firstLineFront.current !== null &&
+      line0.current.position.z + firstLineFront.current > WALL_Z + 0.15;
+    if (!started.current && firstVisible) {
+      started.current = true;
+      onHeadlineStart?.();
+    }
     if (!notified.current && (reduced || elapsed.current >= TEXT_START + (lines.length - 1) * TEXT_STAGGER + TEXT_DURATION)) {
       notified.current = true;
       onHeadlineShown?.();
@@ -806,21 +844,23 @@ function MuseumProps({ dark, reduced, compact }: { dark: boolean; reduced: boole
       </group>
 
       {/* 홀로그램 프로젝터 (왼쪽 중경 빈 바닥) */}
-      <group position={[-2.6, 0, 0.8]}>
-        <mesh position-y={0.14}>
-          <boxGeometry args={[0.95, 0.28, 0.95]} />
-          <meshStandardMaterial color={ped} roughness={0.85} />
-        </mesh>
-        <mesh position-y={0.8}>
-          <coneGeometry args={[0.44, 1.15, 24, 1, true]} />
-          <meshBasicMaterial color={holo} transparent opacity={0.2} side={THREE.DoubleSide} depthWrite={false} />
-        </mesh>
-        <Glow rgb="56,189,248" scale={1.1} opacity={0.75} position={[0, 1.02, 0]} />
-        <mesh ref={gem} position-y={1.02}>
-          <icosahedronGeometry args={[0.16, 0]} />
-          <meshStandardMaterial color="#a5e3ff" emissive="#38bdf8" emissiveIntensity={1.3} />
-        </mesh>
-      </group>
+      {!compact ? (
+        <group position={[-2.6, 0, 0.8]}>
+          <mesh position-y={0.14}>
+            <boxGeometry args={[0.95, 0.28, 0.95]} />
+            <meshStandardMaterial color={ped} roughness={0.85} />
+          </mesh>
+          <mesh position-y={0.8}>
+            <coneGeometry args={[0.44, 1.15, 24, 1, true]} />
+            <meshBasicMaterial color={holo} transparent opacity={0.2} side={THREE.DoubleSide} depthWrite={false} />
+          </mesh>
+          <Glow rgb="56,189,248" scale={1.1} opacity={0.75} position={[0, 1.02, 0]} />
+          <mesh ref={gem} position-y={1.02}>
+            <icosahedronGeometry args={[0.16, 0]} />
+            <meshStandardMaterial color="#a5e3ff" emissive="#38bdf8" emissiveIntensity={1.3} />
+          </mesh>
+        </group>
+      ) : null}
 
       {/* 유리 진열장 (벽 앞 좌우) */}
       {[
@@ -1013,6 +1053,7 @@ export default function HeroScene({
   compact = false,
   ko = false,
   onSceneError,
+  onHeadlineStart,
   onHeadlineShown,
 }: {
   showText: boolean;
@@ -1020,6 +1061,7 @@ export default function HeroScene({
   ko?: boolean;
   // 씬이 죽었을 때 부모가 DOM 헤드라인·CTA 를 되살리도록 알리는 콜백
   onSceneError?: () => void;
+  onHeadlineStart?: () => void;
   onHeadlineShown?: () => void;
 }) {
   const dark = useDark();
@@ -1137,7 +1179,7 @@ export default function HeroScene({
                   제목만 따로 기다리게 해서, 국문 글꼴을 받는 동안 방 전체가 사라지지 않게 한다 */}
               {showText ? (
                 <Suspense fallback={null}>
-                  <RisingHeadline key={ko ? "ko" : "en"} compact={compact} dark={dark} reduced={reduced} ko={ko} onHeadlineShown={onHeadlineShown} />
+                  <RisingHeadline key={ko ? "ko" : "en"} compact={compact} dark={dark} reduced={reduced} ko={ko} onHeadlineStart={onHeadlineStart} onHeadlineShown={onHeadlineShown} />
                 </Suspense>
               ) : null}
               {showText && !compact ? (

@@ -14,6 +14,9 @@ import { ease } from "@/lib/motion";
 // (프로젝트를 side 로 내리거나 카테고리를 바꾸면 여기가 조용히 빈 칩으로 남는다 —
 //  눌러도 아무것도 안 나오는 필터가 생기지 않도록 데이터에서 자동으로 맞춘다)
 const FILTER_ORDER = ["All", "AI", "Web", "IoT", "Ops", "Education"];
+const FILTER_LABELS_KO: Record<string, string> = {
+  AI: "AI", Web: "웹", IoT: "IoT", Ops: "운영", Education: "교육",
+};
 
 function initials(title: string) {
   return title
@@ -35,9 +38,11 @@ function firstSentence(text: string) {
 function MajorCard({
   p,
   t,
+  wide = false,
 }: {
   p: Project;
   t: UiStrings;
+  wide?: boolean;
 }) {
   const [showFlow, setShowFlow] = useState(false);
   // When a project has no screenshot but has an architecture diagram, the
@@ -48,12 +53,12 @@ function MajorCard({
   return (
     <Link
       href={`/work/${p.slug}`}
-      className="group flex h-full cursor-pointer flex-col rounded-4xl bg-sand/70 p-5 text-ink transition-transform duration-300 hover:-translate-y-1.5"
+      className={`group flex h-full cursor-pointer flex-col rounded-4xl bg-sand/70 p-5 text-ink transition-colors hover:bg-sand ${wide ? "sm:grid sm:grid-cols-2 sm:items-start sm:gap-6" : ""}`}
     >
       {/* Media: project image ↔ architecture diagram
           flow 다이어그램이 커버일 땐 다이어그램 비율에 맞춰 여백 없이 꽉 채움 */}
       <div
-        className={`relative mb-5 overflow-hidden rounded-2xl bg-sand-deep ${
+        className={`relative mb-5 overflow-hidden rounded-2xl bg-sand-deep ${wide ? "sm:mb-0" : ""} ${
           flowAsCover ? "aspect-[68/55]" : "aspect-[16/10]"
         }`}
       >
@@ -129,7 +134,7 @@ function MajorCard({
               e.stopPropagation();
               setShowFlow((v) => !v);
             }}
-            className={`absolute bottom-2 right-2 rounded-full px-2.5 py-1 text-[10px] font-semibold backdrop-blur transition-colors sm:hidden ${
+            className={`absolute bottom-2 right-2 rounded-full px-2.5 py-1 text-[10px] font-semibold backdrop-blur transition-colors after:absolute after:-inset-x-2 after:-bottom-2 after:-top-3.5 after:content-[''] sm:hidden ${
               showFlow ? "bg-ink text-cream" : "bg-cream/85 text-ink"
             }`}
           >
@@ -138,7 +143,7 @@ function MajorCard({
         ) : null}
       </div>
 
-      <div className="flex flex-1 flex-col px-2 pb-2">
+      <div className={`flex min-w-0 flex-1 flex-col px-2 pb-2 ${wide ? "sm:h-full" : ""}`}>
         <h3 className="font-display mt-1 text-2xl font-semibold">
           {p.title}
         </h3>
@@ -151,7 +156,7 @@ function MajorCard({
           {p.tags.slice(0, 4).map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-sand-deep px-2.5 py-1 text-[11px] text-ink/60"
+              className="rounded-full bg-sand-deep px-2.5 py-1 text-[11px] text-ink/75"
             >
               {tag}
             </span>
@@ -160,7 +165,7 @@ function MajorCard({
 
         {/* Always-visible CTA */}
         <div className="mt-auto pt-5">
-          <span className="inline-flex items-center rounded-full bg-ink px-3 py-1.5 text-xs font-medium text-cream transition-transform duration-300 group-hover:scale-[1.05]">
+          <span className="inline-flex items-center rounded-full bg-ink px-3 py-1.5 text-xs font-medium text-cream transition-colors">
             {t.viewProject}
           </span>
         </div>
@@ -177,14 +182,14 @@ function SideCard({ p, t }: { p: Project; t: UiStrings }) {
       className={`group flex h-full cursor-pointer rounded-3xl bg-sand/40 p-5 text-ink transition-colors duration-300 hover:bg-sand/80 ${p.imageTall ? "flex-row gap-4 sm:flex-col sm:gap-0" : "flex-col"}`}
     >
       {/* 사진 한 장: 대표 사진 → 없으면 구조도 → 없으면 이니셜 (메이저 카드와 같은 순서) */}
-      <div className={`relative overflow-hidden rounded-2xl bg-sand-deep ${p.imageTall ? "w-[38%] shrink-0 self-stretch sm:mb-4 sm:min-h-0 sm:w-full sm:flex-1" : "mb-4 aspect-[16/10] shrink-0"}`}>
+      <div className={`relative overflow-hidden rounded-2xl ${p.imageTall ? "bg-white w-[38%] shrink-0 self-stretch sm:mb-4 sm:min-h-0 sm:w-full sm:flex-1" : "bg-sand-deep mb-4 aspect-[16/10] shrink-0"}`}>
         {p.imageTall || p.image ? (
           <img
             src={assetPath((p.imageTall || p.image)!)}
             alt={p.title}
             loading="lazy"
             decoding="async"
-            className={p.imageTall ? "absolute inset-0 h-full w-full object-cover" : "h-full w-full object-cover"}
+            className={p.imageTall ? "absolute inset-0 h-full w-full object-contain" : "h-full w-full object-cover"}
           />
         ) : p.flowImage ? (
           <>
@@ -215,14 +220,14 @@ function SideCard({ p, t }: { p: Project; t: UiStrings }) {
             {p.title}
           </h4>
         </div>
-        <p className="mt-1.5 text-[13px] leading-relaxed text-ink/60">
+        <p className="mt-1.5 text-[13px] leading-relaxed text-ink/75">
           {firstSentence(p.desc)}
         </p>
         <div className="mt-3 flex flex-wrap gap-1.5">
           {p.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-sand-deep/70 px-2 py-0.5 text-[10px] text-ink/55"
+              className="rounded-full bg-sand-deep/70 px-2 py-0.5 text-[10px] text-ink/75"
             >
               {tag}
             </span>
@@ -230,7 +235,7 @@ function SideCard({ p, t }: { p: Project; t: UiStrings }) {
         </div>
         {/* 상세 페이지로 가는 명시적 CTA (메이저 카드와 동일 패턴) */}
         <div className="mt-auto pt-4">
-          <span className="inline-flex items-center rounded-full bg-ink px-3 py-1.5 text-xs font-medium text-cream transition-transform duration-300 group-hover:scale-[1.05]">
+          <span className="inline-flex items-center rounded-full bg-ink px-3 py-1.5 text-xs font-medium text-cream transition-colors">
             {t.viewProject}
           </span>
         </div>
@@ -262,15 +267,11 @@ export function SelectedWork() {
   return (
     <section id="work" className="mx-auto max-w-shell px-6 py-16">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease }}
+        <h2
           className="font-display text-2xl font-semibold tracking-[-0.02em] sm:text-4xl sm:whitespace-nowrap"
         >
           {t.workHeading}
-        </motion.h2>
+        </h2>
       </div>
 
       {/* Category filter — majors only */}
@@ -288,7 +289,7 @@ export function SelectedWork() {
                   : "bg-sand/60 text-ink/70 hover:bg-sand"
               }`}
             >
-              {f === "All" ? t.filterAll : f}
+              {f === "All" ? t.filterAll : lang === "ko" ? FILTER_LABELS_KO[f] ?? f : f}
             </button>
           );
         })}
@@ -296,46 +297,35 @@ export function SelectedWork() {
 
       {/* Major projects */}
       <motion.div layout className="grid gap-4 sm:grid-cols-2">
-        {visibleMajors.map((p) => (
+        {visibleMajors.map((p, i) => (
           <motion.div
             key={p.slug}
             layout
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            className={visibleMajors.length % 2 === 1 && i === visibleMajors.length - 1 ? "sm:col-span-2" : ""}
             transition={{ duration: 0.4, ease }}
           >
-            <MajorCard p={p} t={t} />
+            <MajorCard p={p} t={t} wide={visibleMajors.length % 2 === 1 && i === visibleMajors.length - 1} />
           </motion.div>
         ))}
       </motion.div>
 
       {/* Side & toy projects */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, ease }}
-        className="mb-6 mt-14"
-      >
+      <div className="mb-6 mt-14">
         <h3 className="font-display text-xl font-semibold tracking-[-0.01em] sm:text-2xl">
           {t.sideProjectsHeading}
         </h3>
         <p className="mt-1 text-sm text-muted">{t.sideProjectsSub}</p>
-      </motion.div>
+      </div>
 
       {/* 세로 카드는 두 행을 쓰고, 나머지는 빈칸부터 채운다 */}
       <div className="grid grid-flow-dense grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {orderedSides.map((p, i) => (
-          <motion.div
+        {orderedSides.map((p) => (
+          <div
             className={`min-w-0 ${p.imageTall ? "sm:row-span-2" : ""}`}
             key={p.slug}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-8%" }}
-            transition={{ duration: 0.5, delay: i * 0.05, ease }}
           >
             <SideCard p={p}  t={t} />
-          </motion.div>
+          </div>
         ))}
       </div>
     </section>

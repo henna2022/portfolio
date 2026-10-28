@@ -5,7 +5,6 @@ import { Hero } from "@/components/hero";
 import { Statement } from "@/components/statement";
 import { About } from "@/components/about";
 import { SelectedWork } from "@/components/selected-work";
-import { MarqueeStrip } from "@/components/marquee-strip";
 import { SkillsDrag } from "@/components/skills-drag";
 import { Experience } from "@/components/experience";
 import { Activities } from "@/components/activities";
@@ -33,7 +32,6 @@ export default function Home() {
       <Statement />
       <About />
       <SelectedWork />
-      <MarqueeStrip />
       <SkillsDrag />
       <Experience />
       <Activities />

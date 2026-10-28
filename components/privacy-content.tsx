@@ -53,7 +53,7 @@ export function PrivacyContent() {
             <>
               아래 스위치는 이 브라우저에만 저장되며, 다음에 여는 페이지부터
               적용됩니다. 아무 페이지나{" "}
-              <code className="text-ink/70">?notrack=1</code> 을 붙여 방문하는
+              <code className="text-ink/70">?notrack=1</code>을 붙여 방문하는
               것과 같습니다.
             </>
           ) : (
@@ -168,7 +168,7 @@ function EnBody({ heading }: { heading?: string }) {
           ]}
         />
         <p className="mt-4">
-          Everything else, fonts, images, 3D models, is served from this site
+          All other assets (fonts, images and 3D models) are served from this site
           itself, so no font or CDN provider is contacted while you read. The
           admin dashboard at <code className="text-ink/70">/admin</code> does
           load libraries from a CDN, but that page is only reachable by the site
@@ -257,15 +257,15 @@ function KoBody({ heading }: { heading?: string }) {
         <List
           items={[
             "Supabase(PostgreSQL): 기록이 저장되는 곳입니다. 행 수준 보안(RLS)으로 조회 권한이 운영자 본인의 구글 계정에만 열려 있어, 방문자나 다른 계정은 읽을 수 없습니다.",
-            "ipapi.co: 탭 세션당 1회 호출해 접속 정보를 국가명으로 변환합니다. 이 요청 특성상 ipapi.co 에는 방문자의 IP가 전달되며, 이 사이트가 저장하는 것은 국가명뿐입니다.",
-            "Vercel: 파일이 호스팅·전송되는 곳입니다. 모든 웹 호스트가 그렇듯 방문자의 요청이 IP 주소와 함께 이곳을 거치며, 단기간 보관되는 접속 로그에 남을 수 있습니다. 예전 사본이 GitHub Pages 에도 게시돼 있어 그곳 역시 같은 방식으로 요청을 확인합니다.",
+            "ipapi.co: 탭 세션당 1회 호출해 접속 정보를 국가명으로 변환합니다. 이 요청 특성상 ipapi.co에는 방문자의 IP가 전달되며, 이 사이트가 저장하는 것은 국가명뿐입니다.",
+            "Vercel: 파일이 호스팅·전송되는 곳입니다. 모든 웹 호스트가 그렇듯 방문자의 요청이 IP 주소와 함께 이곳을 거치며, 단기간 보관되는 접속 로그에 남을 수 있습니다. 예전 사본이 GitHub Pages에도 게시돼 있어 그곳 역시 같은 방식으로 요청을 확인합니다.",
           ]}
         />
         <p className="mt-4">
           그 밖의 폰트·이미지·3D 모델은 모두 이 사이트에서 직접
           제공하므로, 열람 중 폰트·CDN 업체로 나가는 요청은 없습니다. 관리자
           페이지(<code className="text-ink/70">/admin</code>)는 라이브러리를
-          CDN 에서 받아오지만, 로그인한 운영자만 여는 화면이라 방문자가 그
+          CDN에서 받아오지만, 로그인한 운영자만 여는 화면이라 방문자가 그
           페이지를 불러오는 일은 없습니다.
         </p>
       </Section>
