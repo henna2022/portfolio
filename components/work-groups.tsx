@@ -27,12 +27,12 @@ function ProjectRow({ project }: { project: Project }) {
   return (
     <li className="work-row">
       <WorkMedia project={project} thumbnail />
-      <div className="min-w-0">
+      <div className="work-row-copy">
         <h4 className="font-display text-lg font-semibold leading-snug">
           <Link href={`/work/${project.slug}`} className="hover:underline underline-offset-4">{project.title}</Link>
         </h4>
         <p className="home-meta mt-1">{projectLabel(project)}</p>
-        <p className="mt-2">{firstSentence(project.desc)}</p>
+        <p className="work-row-description mt-2">{firstSentence(project.desc)}</p>
         <Link href={`/work/${project.slug}`} className="home-link mt-3 inline-block text-[15px]">{t.viewProject}</Link>
       </div>
     </li>
@@ -119,10 +119,10 @@ export function WorkGroups({ photos }: { photos: Record<GroupId, ReactNode> }) {
                         {group.id === "teaching" ? activityItems.map((activity) => (
                           <li key={activity.title} className={`work-row${activity.photos.length ? "" : " work-row-text"}`}>
                             {activity.photos[0] ? <img src={assetPath(activity.photos[0])} alt="" loading="lazy" decoding="async" className="work-thumb object-cover" /> : null}
-                            <div className="min-w-0">
+                            <div className="work-row-copy">
                               <h4 className="font-display text-lg font-semibold leading-snug">{activity.title}</h4>
                               <p className="home-meta mt-1">{activity.period}</p>
-                              <p className="mt-2">{activity.role}</p>
+                              <p className="work-row-description mt-2">{activity.role}</p>
                             </div>
                           </li>
                         )) : group.items.map((project) => <ProjectRow key={project.slug} project={project} />)}

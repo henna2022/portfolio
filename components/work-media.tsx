@@ -13,8 +13,7 @@ export function WorkMedia({ project, thumbnail = false }: { project: Project; th
   const image = thumbnail ? project.imageTall ?? project.image : project.image;
   const tall = thumbnail && !!project.imageTall;
   return (
-    <div className={thumbnail ? `work-thumb${tall ? " work-thumb-phone" : ""}` : `work-cover${project.slug === "doctor-green" ? " work-cover-phone" : ""}`}
-      style={tall ? { aspectRatio: project.slug === "raim-4cut-studio" ? "587 / 1290" : "433 / 1056" } : undefined}>
+    <div className={thumbnail ? `work-thumb${tall ? " work-thumb-phone" : ""}` : `work-cover${project.slug === "doctor-green" ? " work-cover-phone" : ""}`}>
       {image ? (
         <img src={assetPath(image)} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />
       ) : project.flowImage ? (

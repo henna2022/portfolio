@@ -19,11 +19,11 @@ export function SelectedWork() {
               <Link href={`/work/${p.slug}`} aria-label={`${t.view}: ${p.title}`} className="block rounded-xl">
                 <WorkMedia project={p} />
               </Link>
-              <div className="pt-5">
+              <div className="selected-card-copy">
                 <h3 className="home-card-title"><Link href={`/work/${p.slug}`}>{p.title}</Link></h3>
                 <p className="home-meta mt-2">{projectLabel(p)}</p>
                 <p className="mt-4">{firstSentence(p.desc)}</p>
-                <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[15px]">
+                <div className="selected-card-actions">
                   <Link href={`/work/${p.slug}`} className="home-link">{t.viewProject}</Link>
                   {p.href ? <a href={p.href} target="_blank" rel="noreferrer" className="home-link">{t.live} <span aria-hidden="true">↗</span></a> : null}
                 </div>

@@ -20,7 +20,7 @@ export function SkyHero() {
         <div className="sky-copy">
           <h1 className="font-display ko-hero-display">{h.headline}</h1>
           <p className="sky-role">{lang === "ko" ? person.hangul : person.name}<br />{t.educationRole}</p>
-          <div className="mt-7 flex flex-wrap items-center gap-x-7 gap-y-4">
+          <div className="sky-actions">
             <a href="#work" className="home-primary">{t.viewWork} <span aria-hidden="true">↗</span></a>
             <a href="#contact" className="home-link">{t.nav.contact} <span aria-hidden="true">↗</span></a>
           </div>
