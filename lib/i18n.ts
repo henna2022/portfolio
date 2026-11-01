@@ -18,14 +18,6 @@ export const ui = {
   selectedWorkHeading: "Selected work",
   educationRole: "Education planning & development",
   heroCharacterAlt: "Illustration of Juwon coding at a desk with two small robots",
-  heroInterests: [
-    "AI education",
-    "Education programs",
-    "Smart farming & IoT",
-    "Interactive exhibits",
-    "Computer vision",
-    "Bilingual tours",
-  ],
   makeHeading: "What I make",
   workGroups: {
     learning: "Learning exhibits and programs",
@@ -117,14 +109,6 @@ export const uiKo: UiStrings = {
   selectedWorkHeading: "주요 작업",
   educationRole: "교육 기획 및 개발",
   heroCharacterAlt: "작은 로봇 둘과 책상에서 코딩하는 이주원 캐릭터 그림",
-  heroInterests: [
-    "AI 교육",
-    "교육 프로그램 기획",
-    "스마트팜·IoT",
-    "체험형 전시",
-    "컴퓨터 비전",
-    "영어 전시 해설",
-  ],
   makeHeading: "만드는 것들",
   workGroups: {
     learning: "학습 전시물·프로그램",
