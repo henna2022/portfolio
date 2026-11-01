@@ -23,8 +23,8 @@
 .layer[data-playing="true"] .item { animation-play-state: running; }
 
 .code {
-  left: 0;
-  top: 8%;
+  left: 30%;
+  top: 24%;
   padding: 7px 8px;
   border-radius: 10px;
   background: rgb(var(--cream));
@@ -46,14 +46,9 @@
 
 /* 6개 × 3.3초: 등장 0.4초, 유지 2.2초, 퇴장 0.4초, 쉼 0.3초. */
 @keyframes codeCycle {
-  0% { opacity: 0; top: 30%; transform: translateY(-100%) scale(0.96); }
-  2.020202%, 13.131313% { opacity: 1; top: var(--code-top, 8%); transform: translateY(-50%) scale(1); }
-  15.151515%, 100% { opacity: 0; top: var(--code-top, 8%); transform: translateY(-50%) scale(1); }
-}
-
-/* 그림이 좁은 폭에서는 머리를 가리지 않게 그림 위쪽 여백에 띄운다. */
-@media (max-width: 1099px) {
-  .code { --code-top: -8%; }
+  0% { opacity: 0; top: 39%; transform: translateY(-100%) scale(0.96); }
+  2.020202%, 13.131313% { opacity: 1; top: 24%; transform: translateY(-50%) scale(1); }
+  15.151515%, 100% { opacity: 0; top: 24%; transform: translateY(-50%) scale(1); }
 }
 
 @media (max-width: 767px) {

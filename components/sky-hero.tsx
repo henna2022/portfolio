@@ -2,9 +2,8 @@
 
 import { hero, person } from "@/lib/data";
 import { heroKo } from "@/lib/data-ko";
-import { assetPath } from "@/lib/asset";
 import { useI18n } from "./lang-provider";
-import { HeroIllustrationMotion } from "./hero-illustration-motion";
+import { HeroRobots } from "./hero-robots";
 
 export function SkyHero() {
   const { t, lang } = useI18n();
@@ -26,9 +25,7 @@ export function SkyHero() {
           </div>
         </div>
         <div className="sky-art relative min-w-0">
-          <img src={assetPath("/illustration/hero-character.webp")} alt={t.heroCharacterAlt}
-            width={1230} height={1037} decoding="async" className="sky-character" />
-          <HeroIllustrationMotion />
+          <HeroRobots label={t.heroCharacterAlt} />
         </div>
       </div>
     </section>

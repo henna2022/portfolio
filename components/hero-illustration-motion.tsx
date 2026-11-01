@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import styles from "./hero-illustration-motion.module.css";
 
 const codeLines = [
@@ -12,30 +11,9 @@ const codeLines = [
   ["<Mission", " id={6} />"],
 ] as const;
 
-export function HeroIllustrationMotion() {
-  const layer = useRef<HTMLDivElement>(null);
-  const [playing, setPlaying] = useState(false);
-
-  useEffect(() => {
-    const target = layer.current;
-    if (!target) return;
-
-    let inView = false;
-    const syncPlayback = () => setPlaying(inView && !document.hidden);
-    const observer = new IntersectionObserver(([entry]) => {
-      inView = entry.isIntersecting;
-      syncPlayback();
-    });
-    observer.observe(target);
-    document.addEventListener("visibilitychange", syncPlayback);
-    return () => {
-      observer.disconnect();
-      document.removeEventListener("visibilitychange", syncPlayback);
-    };
-  }, []);
-
+export function HeroIllustrationMotion({ playing }: { playing: boolean }) {
   return (
-    <div ref={layer} aria-hidden="true" className={styles.layer} data-playing={playing}>
+    <div aria-hidden="true" className={styles.layer} data-playing={playing}>
       {codeLines.map(([keyword, rest], index) => (
         <div key={index} className={`${styles.item} ${styles.code}`}
           style={{ animationDelay: `${800 + index * 3300}ms` }}>
