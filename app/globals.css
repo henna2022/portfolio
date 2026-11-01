@@ -41,31 +41,13 @@ body {
   font-family: var(--font-display), var(--font-inter), sans-serif;
 }
 
-/* ── 한국어 모드 타이포그래피 ─────────────────────────────────────
-   html.lang-ko 는 LangProvider(+페인트 전 langScript)가 붙인다.
-   한국어는 전부 프리텐다드로 통일한다. */
+/* Korean body and non-heading display labels retain Pretendard. */
 html.lang-ko body {
   font-family: "Pretendard Variable", var(--font-inter), system-ui, sans-serif;
-  /* 한국어 조판: 단어(어절) 중간에서 줄이 끊기지 않게 */
   word-break: keep-all;
 }
 html.lang-ko .font-display {
   font-family: "Pretendard Variable", var(--font-inter), sans-serif;
-}
-html.lang-ko .ko-hero-display {
-  font-family: "Pretendard Variable", var(--font-inter), sans-serif;
-}
-
-/* KO 행간 ─ 한글은 네모꼴이라 라틴 문자와 같은 행간을 쓰면 두 줄이 서로 붙어 보인다.
-   제목의 leading-[1.02~1.15] 는 영문 기준으로 잡은 값이다. 한국어에서는 풀어 준다.
-   글자가 클수록 상대 행간이 덜 필요하므로 히어로는 따로 잡는다. */
-html.lang-ko h1,
-html.lang-ko h2,
-html.lang-ko h3 {
-  line-height: 1.34;
-}
-html.lang-ko .ko-hero-display {
-  line-height: 1.22;
 }
 
 section[id] {
@@ -74,7 +56,6 @@ section[id] {
 
 /* KO: 프리텐다드 600 은 General Sans 600 보다 가늘어 보여
    프로젝트 이름(카드 제목·상세 제목·이전/다음)은 한 단계 굵게 */
-html.lang-ko #work h3,
 html.lang-ko article h1,
 html.lang-ko article nav p {
   font-weight: 700;
@@ -184,7 +165,6 @@ button.shrink-0.self-start { white-space: normal; }
   letter-spacing: -0.025em;
 }
 .home-card-title { font-family: var(--font-display), var(--font-inter), sans-serif; font-size: 24px; font-weight: 600; line-height: 1.3; }
-html.lang-ko .home-heading, html.lang-ko .home-card-title { font-family: "Pretendard Variable", var(--font-inter), sans-serif; }
 .home-meta { font-size: 15px; line-height: 1.65; color: rgb(var(--muted)); }
 .home-link { color: #1D4ED8; text-underline-offset: 5px; text-decoration: underline; }
 .dark .home-link { color: #3B82F6; }
@@ -342,4 +322,142 @@ html:has(.home-page) body { transition: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-page *, html:has(.home-page) body { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* Korean home type scale and rhythm. English keeps the base rules above. */
+html.lang-ko .home-page {
+  --ko-size-display: clamp(34px, 3.75vw, 52px);
+  --ko-size-heading: clamp(28px, 3vw, 36px);
+  --ko-size-card: clamp(22px, 2vw, 24px);
+  --ko-size-item: 18px;
+  --ko-size-quote: clamp(28px, 3vw, 40px);
+  --ko-size-contact: clamp(32px, 3.4vw, 46px);
+  --ko-leading-display: 1.28;
+  --ko-leading-title: 1.4;
+  --ko-leading-body: 1.75;
+  --ko-leading-meta: 1.6;
+  --ko-gap-meta: 8px;
+  --ko-gap-body: 12px;
+  --ko-gap-link: 16px;
+  font-size: 17px;
+  line-height: var(--ko-leading-body);
+  letter-spacing: 0;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+/* :where 로 묶어 아래 요소별 규칙(히어로·섹션 제목 굵기·행간)이 항상 이기게 한다. */
+html.lang-ko .home-page :where(
+  .ko-hero-display, .home-heading, .home-card-title, .group-title,
+  .group-panel h3, .group-panel h4, .skills-block h3,
+  .award-description h3, .about-copy blockquote, #contact h2
+) {
+  font-family: var(--font-ko-display), "Pretendard Variable", sans-serif;
+  font-weight: 800;
+  line-height: var(--ko-leading-title);
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+html.lang-ko .home-page .ko-hero-display {
+  max-width: 100%;
+  font-size: var(--ko-size-display);
+  font-weight: 800;
+  line-height: var(--ko-leading-display);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+html.lang-ko .home-page .home-heading {
+  font-size: var(--ko-size-heading);
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+html.lang-ko .home-page :is(
+  .home-card-title, .group-title, .group-panel h3, .skills-block h3
+) {
+  font-size: var(--ko-size-card);
+}
+html.lang-ko .home-page :is(.group-panel h4, .award-description h3) {
+  font-size: var(--ko-size-item);
+}
+html.lang-ko .home-page .about-copy blockquote {
+  font-size: var(--ko-size-quote);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+html.lang-ko .home-page #contact h2 {
+  font-size: var(--ko-size-contact);
+  font-weight: 800;
+  line-height: var(--ko-leading-display);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+html.lang-ko .home-page :is(.home-meta, .sky-role) {
+  font-size: 15px;
+  line-height: var(--ko-leading-meta);
+}
+html.lang-ko .home-page :is(.selected-card-actions, .work-row-copy > .home-link, .group-action) {
+  font-size: 15px;
+  line-height: var(--ko-leading-meta);
+}
+
+/* Every list follows title -> 8px -> meta -> 12px -> body -> 16px -> link. */
+html.lang-ko :is(
+  .selected-card-copy, .work-row-copy, .experience-row > div,
+  .award-description, .group-card-copy
+) > .home-meta {
+  margin-top: var(--ko-gap-meta);
+}
+html.lang-ko :is(
+  .selected-card-copy > p:not(.home-meta), .work-row-description,
+  .experience-row > div > ul, .award-description > p:not(.home-meta),
+  .group-card-copy > .home-meta + .home-meta
+) {
+  margin-top: var(--ko-gap-body);
+}
+html.lang-ko :is(.selected-card-actions, .work-row-copy > .home-link, .group-action) {
+  margin-top: var(--ko-gap-link);
+  padding-top: 0;
+}
+html.lang-ko .work-row-copy { height: auto; }
+html.lang-ko .experience-row > div > ul > li + li {
+  margin-top: var(--ko-gap-meta);
+}
+html.lang-ko :is(.work-row, .experience-row, .award-row) {
+  padding-block: 24px;
+}
+html.lang-ko .work-row:nth-child(-n+2) { padding-top: 0; }
+html.lang-ko .work-row:last-child { padding-bottom: 0; }
+html.lang-ko .home-page :is(.group-panel > h3, .skills-block > h3) {
+  margin-bottom: 24px;
+}
+
+@media (min-width: 768px) {
+  html.lang-ko .work-row:nth-last-child(2):nth-child(odd) { padding-bottom: 0; }
+  /* Keep the wide final row, with independent title/meta and body/link flow.
+     A short description never inherits the height of the title column. */
+  html.lang-ko .work-row:last-child:nth-child(odd) > .work-row-copy {
+    display: flow-root;
+    --ko-row-title-width: calc((100% - 140px) / 2);
+  }
+  html.lang-ko .work-row:last-child:nth-child(odd) > .work-row-copy > :is(h4, .home-meta) {
+    float: left;
+    clear: left;
+    width: var(--ko-row-title-width);
+  }
+  html.lang-ko .work-row:last-child:nth-child(odd) > .work-row-copy > :is(.work-row-description, .home-link) {
+    display: block;
+    margin-left: calc((100% - 140px) / 2 + 32px);
+  }
+  html.lang-ko .work-row:last-child:nth-child(odd) > .work-row-copy > .work-row-description {
+    margin-top: 0;
+  }
+}
+@media (max-width: 767px) {
+  html.lang-ko .home-page { --ko-size-display: clamp(34px, 7vw, 48px); }
+  html.lang-ko .work-row:nth-child(2) { padding-top: 24px; }
+  html.lang-ko .experience-row { gap: var(--ko-gap-meta); }
+  html.lang-ko .award-row { row-gap: var(--ko-gap-meta); }
 }

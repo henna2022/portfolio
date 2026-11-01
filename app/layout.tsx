@@ -28,6 +28,18 @@ const generalSans = localFont({
   display: "swap",
 });
 
+// 한국어 제목용 나눔스퀘어 네오(OFL). KS X 1001 한글 2,350자로 줄인 파일이고,
+// 한국어 규칙에서만 쓰이므로 preload 하지 않는다(EN 모드에선 받지 않음).
+const koDisplay = localFont({
+  src: [
+    { path: "../public/fonts/nanum-square-neo/NanumSquareNeo-cBd.woff2", weight: "700", style: "normal" },
+    { path: "../public/fonts/nanum-square-neo/NanumSquareNeo-dEb.woff2", weight: "800", style: "normal" },
+  ],
+  variable: "--font-ko-display",
+  display: "swap",
+  preload: false,
+});
+
 // ── 한국어 모드 전용 폰트 (모두 셀프호스팅 — QA의 서드파티 리소스 금지 준수) ──
 // 프리텐다드: 단일 가변 파일(2MB)은 KO 전환 시 수 초짜리 다운로드가 됐다.
 // 공식 다이내믹 서브셋(유니코드 범위별 92개 woff2)으로 교체 — 브라우저가
@@ -119,7 +131,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${generalSans.variable}`}
+      className={`${inter.variable} ${generalSans.variable} ${koDisplay.variable}`}
       suppressHydrationWarning
     >
       <head>
