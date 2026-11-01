@@ -11,7 +11,6 @@ import { firstSentence, projectLabel, WorkMedia } from "./work-media";
 
 const groups = [
   { id: "learning", slugs: ["raimi-art-lab", "im-a-restorer", "raimi-language-lab", "time-machine-ar", "mystery-playground-replay"] },
-  { id: "software", slugs: ["raim-staff-platform", "exhibit-auto-recovery", "ai-persona-web", "raim-4cut-studio", "lidar-explainer-kiosk"] },
   { id: "teaching", slugs: [] },
 ] as const;
 type GroupId = (typeof groups)[number]["id"];

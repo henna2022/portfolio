@@ -31,7 +31,6 @@ export default function Home() {
       <SelectedWork />
       <WorkGroups photos={{
         learning: <PhotoSlot name="group-learning" />,
-        software: <PhotoSlot name="group-software" />,
         teaching: <PhotoSlot name="group-teaching" />,
       }} />
       <Experience />

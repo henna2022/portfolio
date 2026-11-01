@@ -21,7 +21,6 @@ export const ui = {
   makeHeading: "What I make",
   workGroups: {
     learning: "Learning exhibits and programs",
-    software: "Visitor and staff software",
     teaching: "Teaching and mentoring",
   },
   itemCount: "{count} items",
@@ -112,7 +111,6 @@ export const uiKo: UiStrings = {
   makeHeading: "만드는 것들",
   workGroups: {
     learning: "학습 전시물·프로그램",
-    software: "관람객·직원용 소프트웨어",
     teaching: "강의·멘토링",
   },
   itemCount: "{count}개 항목",
