@@ -1,0 +1,28 @@
+import type { Project } from "@/lib/data";
+import { assetPath } from "@/lib/asset";
+
+export function firstSentence(text: string) {
+  return text.match(/^[\s\S]*?[.!?](?=\s|$)/)?.[0] ?? text;
+}
+
+export function projectLabel(project: Project) {
+  return project.kicker.includes(project.year) ? project.kicker : `${project.kicker} · ${project.year}`;
+}
+
+export function WorkMedia({ project, thumbnail = false }: { project: Project; thumbnail?: boolean }) {
+  const image = thumbnail ? project.imageTall ?? project.image : project.image;
+  const tall = thumbnail && !!project.imageTall;
+  return (
+    <div className={thumbnail ? `work-thumb${tall ? " work-thumb-phone" : ""}` : `work-cover${project.slug === "doctor-green" ? " work-cover-phone" : ""}`}
+      style={tall ? { aspectRatio: project.slug === "raim-4cut-studio" ? "587 / 1290" : "433 / 1056" } : undefined}>
+      {image ? (
+        <img src={assetPath(image)} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />
+      ) : project.flowImage ? (
+        <>
+          <img src={assetPath(project.flowImage.light)} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover dark:hidden" />
+          <img src={assetPath(project.flowImage.dark)} alt="" loading="lazy" decoding="async" className="hidden h-full w-full object-cover dark:block" />
+        </>
+      ) : null}
+    </div>
+  );
+}

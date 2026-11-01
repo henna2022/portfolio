@@ -1,0 +1,114 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.item {
+  position: absolute;
+  box-sizing: border-box;
+  width: max-content;
+  white-space: nowrap;
+  border: 1px solid rgb(var(--sand-deep));
+  color: rgb(var(--ink));
+  opacity: 0;
+  animation-duration: 19800ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+
+.layer[data-playing="true"] .item { animation-play-state: running; }
+
+.code {
+  left: 0;
+  top: 8%;
+  padding: 7px 8px;
+  border-radius: 10px;
+  background: rgb(var(--cream));
+  font-size: 14px;
+  line-height: 1.3;
+  transform: translateY(-50%);
+  transform-origin: 83% 100%;
+  animation-name: codeCycle;
+}
+
+.code code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  white-space: pre;
+}
+
+.keyword { color: #1d4ed8; }
+:global(.dark) .code { background: rgb(var(--sand)); }
+:global(.dark) .keyword { color: #93c5fd; }
+
+.bubble {
+  left: 62%;
+  top: 4%;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 9px 10px;
+  border-radius: 18px;
+  background: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+  transform-origin: 0 50%;
+  animation-name: bubbleCycle;
+}
+
+:global(.dark) .bubble { background: rgb(var(--sand)); }
+
+/* 꼬리는 얼굴 대신 머리 옆을 가리킨다. */
+.bubble::before {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 24px;
+  width: 10px;
+  height: 10px;
+  border-left: 1px solid rgb(var(--sand-deep));
+  border-bottom: 1px solid rgb(var(--sand-deep));
+  background: inherit;
+  transform: rotate(45deg);
+}
+
+.dot {
+  flex: 0 0 5px;
+  height: 5px;
+  margin-top: 0.48em;
+  border-radius: 50%;
+  background: #3b82f6;
+}
+
+/* 6개 × 3.3초: 등장 0.4초, 유지 2.2초, 퇴장 0.4초, 쉼 0.3초. */
+@keyframes codeCycle {
+  0% { opacity: 0; top: 30%; transform: translateY(-100%) scale(0.96); }
+  2.020202%, 13.131313% { opacity: 1; top: var(--code-top, 8%); transform: translateY(-50%) scale(1); }
+  15.151515%, 100% { opacity: 0; top: var(--code-top, 8%); transform: translateY(-50%) scale(1); }
+}
+
+@keyframes bubbleCycle {
+  0% { opacity: 0; transform: translateY(6px) scale(0.96); }
+  2.020202%, 13.131313% { opacity: 1; transform: translateY(0) scale(1); }
+  15.151515%, 100% { opacity: 0; transform: translateY(0) scale(1); }
+}
+
+@media (min-width: 768px) {
+  .bubble { font-size: 16px; }
+}
+
+/* 그림이 좁은 폭에서는 머리를 가리지 않게 그림 위쪽 여백에 띄운다. */
+@media (max-width: 1099px) {
+  .code { --code-top: -8%; }
+  .bubble { left: auto; right: 0; top: -14%; }
+  .bubble::before { left: 22px; top: auto; bottom: -6px; transform: rotate(-45deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item { animation: none; }
+  .item:first-child { opacity: 1; }
+}

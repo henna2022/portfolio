@@ -1,18 +1,48 @@
 // 한국어 버전 on/off 스위치. false 면 KO/EN 토글이 사라지고 항상 EN 으로 고정된다.
 export const KO_ENABLED = true;
 
-// Static UI strings (English-only). Content lives in lib/data.ts.
+// UI 문구. 본문 데이터는 lib/data.ts, lib/data-ko.ts에서 가져온다.
 export const ui = {
   nav: {
     top: "Home",
     about: "About",
-    work: "Projects",
+    work: "Selected work",
+    make: "What I make",
     skills: "Stack",
-    experience: "Work Experience",
+    experience: "Experience",
     activities: "Activities",
     awards: "Awards",
     contact: "Contact",
   } as Record<string, string>,
+
+  selectedWorkHeading: "Selected work",
+  educationRole: "Education planning & development",
+  heroCharacterAlt: "Illustration of Juwon coding at a desk with two small robots",
+  heroInterests: [
+    "AI education",
+    "Education programs",
+    "Smart farming & IoT",
+    "Interactive exhibits",
+    "Computer vision",
+    "Bilingual tours",
+  ],
+  makeHeading: "What I make",
+  workGroups: {
+    learning: "Learning exhibits and programs",
+    software: "Visitor and staff software",
+    teaching: "Teaching and mentoring",
+  },
+  itemCount: "{count} items",
+  groupOpen: "List open",
+  groupBrowse: "Explore the list",
+  downloadCv: "Download CV",
+  sectionNavLabel: "Page sections",
+  languageLabel: "Language",
+  themeLabel: "Toggle color theme",
+  photoLabel: "Photo",
+  photoLandscape: "Landscape",
+  photoPortrait: "Portrait",
+  photoMinimum: "or larger",
 
   resume: "Resume",
   cv: "CV",
@@ -72,17 +102,46 @@ export type UiStrings = typeof ui;
 
 // 한국어 UI 문자열 — 구조는 ui 와 1:1. 내용 번역은 lib/data-ko.ts 에 있다.
 export const uiKo: UiStrings = {
-  // 섹션 라벨은 KO 모드에서도 영어를 유지한다 (EN 라벨 + KO 본문 스타일)
   nav: {
-    top: "Home",
-    about: "About",
-    work: "Projects",
-    skills: "Stack",
-    experience: "Work Experience",
-    activities: "Activities",
-    awards: "Awards",
-    contact: "Contact",
+    top: "처음",
+    about: "소개",
+    work: "주요 작업",
+    make: "만드는 것들",
+    skills: "기술",
+    experience: "경력",
+    activities: "활동",
+    awards: "수상",
+    contact: "연락",
   } as Record<string, string>,
+
+  selectedWorkHeading: "주요 작업",
+  educationRole: "교육 기획 및 개발",
+  heroCharacterAlt: "작은 로봇 둘과 책상에서 코딩하는 이주원 캐릭터 그림",
+  heroInterests: [
+    "AI 교육",
+    "교육 프로그램 기획",
+    "스마트팜·IoT",
+    "체험형 전시",
+    "컴퓨터 비전",
+    "영어 전시 해설",
+  ],
+  makeHeading: "만드는 것들",
+  workGroups: {
+    learning: "학습 전시물·프로그램",
+    software: "관람객·직원용 소프트웨어",
+    teaching: "강의·멘토링",
+  },
+  itemCount: "{count}개 항목",
+  groupOpen: "목록 열림",
+  groupBrowse: "목록 살펴보기",
+  downloadCv: "CV 다운로드",
+  sectionNavLabel: "페이지 목차",
+  languageLabel: "언어",
+  themeLabel: "화면 테마 전환",
+  photoLabel: "사진",
+  photoLandscape: "가로",
+  photoPortrait: "세로",
+  photoMinimum: "이상",
 
   resume: "이력서",
   cv: "CV",

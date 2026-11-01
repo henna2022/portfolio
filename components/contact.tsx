@@ -33,7 +33,7 @@ export function Contact() {
       id="contact"
       className="relative mt-10 overflow-hidden bg-ink text-cream"
     >
-      <div className="mx-auto max-w-shell px-6 pt-16">
+      <div className="mx-auto max-w-[1280px] px-6 pt-16">
         {/* CTA */}
         <div>
           <img
@@ -46,7 +46,7 @@ export function Contact() {
           <h2 className="font-display mt-6 max-w-2xl text-4xl font-semibold leading-[1.05] tracking-[-0.02em] sm:text-5xl">
             {t.contactHeading}
           </h2>
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-cream/70">
+          <p className="mt-5 max-w-xl text-[17px] leading-[1.75] text-cream">
             {t.availability}
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -56,14 +56,14 @@ export function Contact() {
               <a
                 key={label}
                 href={`mailto:${person.email}?subject=${encodeURIComponent(subject)}`}
-                className="inline-flex items-center gap-2 rounded-full bg-cream px-6 py-3.5 text-sm font-medium text-ink transition-colors"
+                className="inline-flex items-center gap-2 rounded-lg bg-cream px-5 py-3 text-[15px] font-medium text-ink transition-colors"
               >
                 {label} <ArrowIcon />
               </a>
             ))}
             <a
               href={`mailto:${person.email}`}
-              className="text-sm text-cream/60 underline-offset-4 transition-colors hover:text-cream hover:underline"
+              className="text-[15px] text-cream underline-offset-4 transition-colors hover:text-cream hover:underline"
             >
               {person.email}
             </a>
@@ -86,14 +86,14 @@ export function Contact() {
               </a>
             ))}
           </div>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-1 text-sm text-cream/50">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-1 text-[15px] text-cream">
             <span>{t.footerCopyright}</span>
             {today ? <span>{today}</span> : null}
           </div>
         </div>
 
         {/* 수집 고지 — 눈에 띄지 않게, 그러나 항상 닿는 곳에 */}
-        <p className="pb-6 text-[11px] leading-relaxed text-cream/50">
+        <p className="pb-6 text-[14px] leading-relaxed text-cream">
           {t.privacyNotice}{" "}
           <Link
             href="/privacy"
@@ -105,7 +105,7 @@ export function Contact() {
       </div>
 
       {/* Giant faded name */}
-      <div className="pointer-events-none select-none px-6">
+      <div aria-hidden="true" className="pointer-events-none select-none px-6">
         <p className="font-display translate-y-[12%] whitespace-nowrap text-[18vw] font-bold leading-[0.8] tracking-[-0.03em] text-cream/10">
           {person.name}
         </p>

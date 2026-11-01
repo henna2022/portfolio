@@ -12,15 +12,13 @@ export function Header() {
   const { t, lang, setLang } = useI18n();
   return (
     <header
-      // 본문이 비치지 않는 불투명 표면
-      // 진입 모션은 CSS(intro-down) — JS 하이드레이션을 기다리지 않아 LCP 에 안전
-      className="intro-down fixed inset-x-0 top-0 z-40 bg-cream"
+      className="site-header fixed inset-x-0 top-0 z-40 bg-cream"
     >
       {/* Row 1 — brand + downloads + theme */}
-      <div className="mx-auto flex max-w-shell items-center justify-between gap-3 px-4 py-2.5 sm:gap-4 sm:px-6">
+      <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-2 px-4 py-2.5 sm:gap-4 sm:px-6">
         <a
           href={assetPath("/")}
-          className="flex shrink-0 items-center gap-2 font-display text-lg font-semibold text-ink"
+          className="flex shrink-0 items-center gap-2 font-display text-base font-semibold sm:text-lg text-ink"
         >
           {person.name}
         </a>
@@ -30,14 +28,14 @@ export function Header() {
           <a
             href={assetPath(lang === "ko" ? person.cvKo : person.cv)}
             download
-            className="hidden items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-ink/60 transition-colors hover:bg-ink/5 hover:text-ink sm:inline-flex"
+            className="hidden items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-muted transition-colors hover:bg-ink/5 hover:text-ink sm:inline-flex"
           >
             <DownloadIcon /> {t.cv}
           </a>
           <a
             href={assetPath(lang === "ko" ? person.resumeKo : person.resume)}
             download
-            className="inline-flex items-center gap-1.5 rounded-lg bg-ink/5 px-3 py-1.5 text-sm font-medium text-ink/80 transition-colors hover:bg-ink/10 hover:text-ink sm:px-3.5"
+            className="inline-flex shrink-0 items-center gap-1 rounded-lg bg-ink/5 px-2 py-1.5 text-sm font-medium text-ink transition-colors hover:bg-ink/10 hover:text-ink sm:px-3.5"
           >
             <DownloadIcon /> {t.resume}
           </a>
@@ -47,7 +45,7 @@ export function Header() {
           {KO_ENABLED ? (
             <div
               role="group"
-              aria-label="Language"
+              aria-label={t.languageLabel}
               className="flex h-9 items-center rounded-lg bg-ink/5 p-0.5"
             >
               {(["en", "ko"] as const).map((l) => (
@@ -56,10 +54,10 @@ export function Header() {
                   type="button"
                   onClick={() => setLang(l)}
                   aria-pressed={lang === l}
-                  className={`h-full rounded-md px-2 text-[12px] font-semibold uppercase transition-colors ${
+                  className={`h-full rounded-md px-1.5 text-[14px] font-semibold uppercase transition-colors ${
                     lang === l
                       ? "bg-ink text-cream"
-                      : "text-ink/50 hover:text-ink"
+                      : "text-muted hover:text-ink"
                   }`}
                 >
                   {l === "ko" ? "KO" : "EN"}
@@ -73,7 +71,7 @@ export function Header() {
 
       {/* Row 2 — section nav (scroll-spy + smooth-scroll) */}
       <div>
-        <div className="mx-auto max-w-shell px-4 py-1">
+        <div className="mx-auto max-w-[1280px] px-4 py-1">
           <SectionNav />
         </div>
       </div>

@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/seo";
 import { Header } from "@/components/header";
-import { Hero } from "@/components/hero";
-import { Statement } from "@/components/statement";
+import { SkyHero } from "@/components/sky-hero";
+import { PhotoSlot } from "@/components/photo-slot";
+import { WorkGroups } from "@/components/work-groups";
 import { About } from "@/components/about";
 import { SelectedWork } from "@/components/selected-work";
-import { SkillsDrag } from "@/components/skills-drag";
 import { Experience } from "@/components/experience";
-import { Activities } from "@/components/activities";
 import { Awards } from "@/components/awards";
 import { Contact } from "@/components/contact";
 
@@ -26,15 +25,17 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main id="main">
+    <main id="main" className="home-page">
       <Header />
-      <Hero />
-      <Statement />
-      <About />
+      <SkyHero />
       <SelectedWork />
-      <SkillsDrag />
+      <WorkGroups photos={{
+        learning: <PhotoSlot name="group-learning" />,
+        software: <PhotoSlot name="group-software" />,
+        teaching: <PhotoSlot name="group-teaching" />,
+      }} />
       <Experience />
-      <Activities />
+      <About photo={<PhotoSlot name="about-tour" />} />
       <Awards />
       <Contact />
     </main>

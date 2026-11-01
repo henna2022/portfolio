@@ -1,226 +1,29 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { about, person, type ProseParagraph } from "@/lib/data";
+import type { ReactNode } from "react";
+import { about, person } from "@/lib/data";
 import { aboutKo } from "@/lib/data-ko";
 import { assetPath } from "@/lib/asset";
 import { useI18n } from "./lang-provider";
-import { DownloadIcon } from "./icons";
 
-// 산문 문단 — `b: true` 조각만 굵게. 훑어봐도 핵심 문장이 먼저 잡히도록.
-function Prose({ paragraph }: { paragraph: ProseParagraph }) {
-  return (
-    <p className="max-w-[640px] text-[15px] leading-[1.95] tracking-[-0.01em] text-muted">
-      {paragraph.map((seg, i) =>
-        seg.b ? (
-          <strong key={i} className="font-semibold text-ink">
-            {seg.text}
-          </strong>
-        ) : (
-          <span key={i}>{seg.text}</span>
-        ),
-      )}
-    </p>
-  );
-}
-
-// 손으로 그린 듯한 화살표 — '더 보기' 토글에서 펼침/접힘을 표시
-function CurlyArrow({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} aria-hidden>
-      <path
-        d="M5 8c2.2 4.6 4.6 7.4 7 7.6 2.4.2 4.9-2.4 7-7.2"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-      <path
-        d="M15.4 14.3l3.6 1.3.8-4"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-export function About() {
-  const [open, setOpen] = useState(false);
+export function About({ photo }: { photo: ReactNode }) {
   const { t, lang } = useI18n();
-  const a = lang === "ko" ? aboutKo : about;
-
-  // 내용 높이를 재서 펼친다. 폰트 로드·리사이즈도 추적한다.
-  const moreRef = useRef<HTMLDivElement>(null);
-  const [moreHeight, setMoreHeight] = useState(0);
-
-  useEffect(() => {
-    const el = moreRef.current;
-    if (!el) return;
-    const measure = () => setMoreHeight(el.scrollHeight);
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-
-  // ResizeObserver 가 아직 한 번도 안 돌았으면 높이가 0 이라 눌러도 아무 일이
-  // 없는 것처럼 보인다. 토글하는 순간 다시 재서 그 경우를 막는다.
-  function toggle() {
-    setOpen((v) => {
-      if (!v) {
-        const h = moreRef.current?.scrollHeight ?? 0;
-        if (h > 0 && h !== moreHeight) setMoreHeight(h);
-      }
-      return !v;
-    });
-  }
-
+  const content = lang === "ko" ? aboutKo : about;
   return (
-    <section id="about" className="mx-auto max-w-shell px-6 py-20">
-      <h2 className="sr-only">{t.nav.about}</h2>
-
-      <div className="grid items-start gap-8 lg:grid-cols-[0.9fr_1.25fr] lg:gap-[clamp(2rem,5vw,4.5rem)]">
-        {/* ── 좌: 초상 카드 (데스크톱에서는 스크롤을 따라 붙어 있음) ── */}
-        <aside
-          className="mx-auto w-full max-w-[440px] rounded-4xl bg-sand/40 p-6 text-center sm:p-8 lg:sticky lg:top-28 lg:mx-0 lg:max-w-none"
-        >
-          <div className="relative mx-auto mb-6 w-full max-w-[300px]">
-            <img
-              src={assetPath(a.photo)}
-              alt={person.name}
-              // 폴드 아래 사진은 지연 로드
-              loading="lazy"
-              decoding="async"
-              className="relative aspect-[1/1.05] w-full rounded-[28px] object-cover object-[center_28%]"
-            />
+    <section id="about" className="home-section home-shell" aria-labelledby="about-title">
+      <div className="about-grid">
+        <div>{photo}</div>
+        <div className="about-copy">
+          <div className="mb-7 flex items-center gap-4">
+            <img src={assetPath(person.photoSm)} alt="" loading="lazy" decoding="async" className="h-16 w-16 rounded-full object-cover object-[center_28%]" />
+            <h2 id="about-title" className="home-heading !mb-0">{lang === "ko" ? person.hangul : person.name}</h2>
           </div>
-
-          <h3 className="font-display text-[26px] font-bold text-ink">
-            {person.name}
-          </h3>
-
-          <p className="mx-auto mb-5 mt-3 max-w-[340px] text-[13.5px] leading-[1.75] tracking-[-0.01em] text-muted">
-            {a.tagline}
-          </p>
-
-          <ul className="mx-auto mb-6 flex max-w-[340px] flex-col gap-2 text-left">
-            {a.info.map((item, i) => (
-              <li
-                key={i}
-                className="flex items-start gap-2 text-[12.5px] leading-[1.6] text-muted"
-              >
-                <span aria-hidden className="shrink-0">
-                  {item.icon}
-                </span>
-                <span className="flex flex-col gap-[3px]">
-                  {item.title ? (
-                    <b className="font-bold text-ink/80">{item.title}</b>
-                  ) : null}
-                  {item.lines.map((line) => (
-                    <span key={line} className="text-muted">
-                      {line}
-                    </span>
-                  ))}
-                </span>
-              </li>
-            ))}
-          </ul>
-
-        </aside>
-
-        {/* ── 우: 인용문 + 산문 + 더 보기 ── */}
-        <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
-            {t.nav.about}
-          </p>
-
-          <h3 className="font-display mb-9 mt-4 text-[clamp(1.4rem,2.6vw,2rem)] font-bold leading-[1.45] tracking-[-0.015em] text-ink">
-            {a.quote.map((part, i) =>
-              part.em ? (
-                // 액센트 컬러 + 뒤에 깔리는 형광펜 하이라이트
-                <span
-                  key={i}
-                  className="relative whitespace-nowrap text-lime before:absolute before:inset-x-[-1px] before:bottom-[0.02em] before:-z-10 before:h-[0.34em] before:rounded-sm before:bg-lime/20 before:content-['']"
-                >
-                  {part.text}
-                </span>
-              ) : (
-                <span key={i}>{part.text}</span>
-              ),
-            )}
-          </h3>
-
-          <div className="space-y-4">
-            {a.prose.map((p, i) => (
-              <Prose key={i} paragraph={p} />
-            ))}
-
-            {/* 항상 마운트해 두고 높이만 전환 — aria-controls 가 늘 유효하다 */}
-            <div
-              id="aboutMore"
-              className="overflow-hidden transition-[height,opacity] duration-500 ease-out motion-reduce:transition-none"
-              style={{ height: open ? moreHeight : 0, opacity: open ? 1 : 0 }}
-              aria-hidden={!open}
-            >
-              <div ref={moreRef} className="space-y-4 pt-4">
-                {a.proseMore.map((p, i) => (
-                  <Prose key={i} paragraph={p} />
-                ))}
-                {/* 카드에서 내려온 부차적 이력·자격 */}
-                <dl className="grid max-w-[640px] gap-x-10 gap-y-5 pt-6 sm:grid-cols-2">
-                  {a.facts.map((f) => (
-                    <div key={f.k}>
-                      <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
-                        {f.k}
-                      </dt>
-                      <dd className="mt-1.5 whitespace-pre-line text-[13px] leading-[1.7] text-ink/70">
-                        {f.v}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-            </div>
-          </div>
-
-          {/* 더 보기는 왼쪽, 다운로드는 오른쪽 하단 */}
-          <div className="mt-7 flex flex-wrap items-center justify-between gap-3">
-            <button
-              type="button"
-              onClick={toggle}
-              aria-expanded={open}
-              aria-controls="aboutMore"
-              className="inline-flex items-center gap-2 rounded-full bg-ink/5 px-[18px] py-2.5 text-[13px] font-semibold text-ink transition-colors hover:bg-lime/10 hover:text-blue-accessible dark:hover:text-lime"
-            >
-              {open ? t.seeLess : t.seeMore}
-              <CurlyArrow
-                className={`h-[18px] w-[18px] transition-transform duration-300 ${
-                  open ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-
-            {/* KO 모드에서는 국문 PDF, EN 모드에서는 영문 PDF 를 내려준다 */}
-            <div className="flex flex-wrap items-center gap-2.5">
-              <a
-                href={assetPath(lang === "ko" ? person.resumeKo : person.resume)}
-                download
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-accessible dark:bg-lime px-5 py-2.5 text-[13px] font-semibold text-lime-ink transition-colors"
-              >
-                <DownloadIcon /> {t.resume}
-              </a>
-              <a
-                href={assetPath(lang === "ko" ? person.cvKo : person.cv)}
-                download
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-lime/10 px-5 py-2.5 text-[13px] font-semibold text-blue-accessible dark:text-lime transition-colors hover:bg-lime/20"
-              >
-                <DownloadIcon /> {t.cv}
-              </a>
-            </div>
-          </div>
+          <blockquote className="font-display text-[clamp(1.75rem,3vw,2.75rem)] font-medium leading-tight">
+            {content.quote.map((part) => part.text).join("")}
+          </blockquote>
+          <p className="mt-7">{content.prose[0].map((part) => part.text).join("")}</p>
+          <p className="mt-5">{content.tagline}</p>
+          <a href={assetPath(lang === "ko" ? person.cvKo : person.cv)} download className="home-link mt-7 inline-block">{t.downloadCv} <span aria-hidden="true">↓</span></a>
         </div>
       </div>
     </section>

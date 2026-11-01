@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useI18n } from "./lang-provider";
 import { SunIcon, MoonIcon } from "./icons";
 
 export function ThemeToggle() {
+  const { t } = useI18n();
   const [dark, setDark] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -24,8 +26,8 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggle}
-      aria-label="Toggle color theme"
-      className="flex h-9 w-9 items-center justify-center rounded-full bg-sand/60 text-ink transition-colors hover:bg-sand"
+      aria-label={t.themeLabel}
+      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sand/60 text-ink transition-colors hover:bg-sand"
     >
       {mounted && dark ? <SunIcon /> : <MoonIcon />}
     </button>
