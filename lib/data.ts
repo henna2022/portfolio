@@ -127,9 +127,9 @@ export const about = {
     [
       { text: "For the smart-farm class the Yangpyeong Education Office commissioned through the museum, I wrote the curriculum and teach it on a lab platform I built from my own Doctor-Green work. I taught it as a demo class to " },
       { text: "5 high-school students in August 2026", b: true },
-      { text: ", and it runs with " },
+      { text: ", and it ran with " },
       { text: "a 15-student cohort in October 2026", b: true },
-      { text: ". At the museum I guide visitors in Korean and English, and I mentor students week to week." },
+      { text: ", taught by three instructors I trained. At the museum I guide visitors in Korean and English, and I mentor students week to week." },
     ],
   ] as ProseParagraph[],
 };
@@ -169,16 +169,16 @@ const allProjects: Project[] = [
     category: "Education Program",
     categories: ["AI", "IoT", "Education"],
     kicker: "Museum × Yangpyeong Education Office",
-    desc: "A hands-on program where students try IoT smart farming and AI crop diagnosis. The Yangpyeong Education Office commissioned it, and I planned and built it solo, server and web app included. It was taught as a demo class to 5 high-school students in August 2026, ahead of the 15-student cohort in October 2026.",
+    desc: "A hands-on program where students try IoT smart farming and AI crop diagnosis. The Yangpyeong Education Office commissioned it, and I planned and built it solo, server and web app included. It ran as a demo class for 5 high-school students in August 2026, then as the full class for a selected 15-student cohort in October 2026, taught by three instructors I trained.",
     year: "2026",
     role: "Solo: planning & development",
     tags: ["TensorFlow.js", "MobileNet v2", "Next.js", "Supabase", "ESP32", "Arduino / C++", "Weather API"],
     href: "https://doctor-green-edu.vercel.app/",
     stat: "15-student cohort · Oct 2026",
     overview:
-      "A hands-on education program, commissioned by the Yangpyeong Education Office through the museum, where students work with an IoT smart farm and AI crop diagnosis. **It was taught as a demo class to 5 high-school students in August 2026** and is scheduled to run in **October 2026** for a **cohort of 15 Yangpyeong high-school students**, selected by application.\n\nI planned and built it solo: **a Next.js web app with server API routes on Vercel, and Arduino (C++) firmware for the class's 15 ESP32 student boards (one per student), which write sensor readings straight to Supabase**. Students move through four STEPs (weather, AI vision, IoT and camera) and watch **sensor values change in real time**. In the capstone they code if-then automation rules and run them on the real board. They also **train a model themselves inside the browser** with TensorFlow.js transfer learning on MobileNet v2, so the epoch and loss numbers they watch come from their own run.",
+      "A hands-on education program, commissioned by the Yangpyeong Education Office through the museum, where students work with an IoT smart farm and AI crop diagnosis. **It was taught as a demo class to 5 high-school students in August 2026** and ran in **October 2026** for a **cohort of 15 Yangpyeong high-school students**, selected by application, taught by **three instructors I trained**.\n\nI planned and built it solo: **a Next.js web app with server API routes on Vercel, and Arduino (C++) firmware for the class's 15 ESP32 student boards (one per student), which write sensor readings straight to Supabase**. Students move through four STEPs (weather, AI vision, IoT and camera) and watch **sensor values change in real time**. In the capstone they code if-then automation rules and run them on the real board. They also **train a model themselves inside the browser** with TensorFlow.js transfer learning on MobileNet v2, so the epoch and loss numbers they watch come from their own run.",
     highlights: [
-      "**Taught as a demo class to 5 high-school students in August 2026** on the museum's education floor; the full class is **scheduled for October 2026** with a 15-student cohort of Yangpyeong high-school students, selected by application.",
+      "**Taught as a demo class to 5 high-school students in August 2026** on the museum's education floor; the full class **ran in October 2026** for a 15-student cohort of Yangpyeong high-school students, selected by application, taught by **three instructors I trained**.",
       "Commissioned by the Yangpyeong Education Office through the museum; **planned and built solo**, server and web app included.",
       "Students **train a model in the browser** with TensorFlow.js transfer learning on MobileNet v2 and read epoch and loss from their own run.",
       "Students watch sensor values from the 15 ESP32 boards **change in real time** in the lab database.",
@@ -858,7 +858,7 @@ export const experience = [
     ],
     points: [
       "Build and run the interactive AI education web apps visitors use on the exhibition floor. Raimi's AI Art Lab ran there from June to August 2026 and generated 14,328 images, 9,865 of them in July.",
-      "Plan and teach education programs, including the smart-farm class the Yangpyeong Education Office commissioned through the museum. Taught it as a demo class to 5 high-school students in August 2026; the 15-student class is scheduled for October 2026.",
+      "Plan and teach education programs, including the smart-farm class the Yangpyeong Education Office commissioned through the museum. Taught it as a demo class to 5 high-school students in August 2026, then trained the three instructors who taught the 15-student class in October 2026.",
       // 메타버스 전시는 어느 정도 완성되면 다시 추가한다 (data.ts 의 raim-metaverse 주석 블록과 함께)
       "Build internal ops tools, including the staff app that about 20 docents and part-time staff use daily.",
       "Guide exhibitions in Korean and English, and support the multipurpose education rooms.",
@@ -891,10 +891,10 @@ export type Activity = {
 
 export const activities: Activity[] = [
   {
-    period: "2026.09 - Present",
+    period: "2026.09 - 2026.10",
     title: "2026 SW·AI Donghaeng Project",
     role: "Youth mentor for makerthon mentoring and self-directed inquiry (KOFAC program, run by Elice Group)",
-    desc: "Coached middle-school students in person at the program's makerthon on October 11, 2026. I also mentor a middle-school class's self-directed inquiry online, with four live sessions scheduled for October 2026, one of them a career-mentoring session I lead on my own.",
+    desc: "Coached middle-school students in person at the program's makerthon on October 11, 2026, then mentored a middle-school class's self-directed inquiry in four live online sessions in October 2026, including a career-mentoring session I led on my own.",
     photos: [
       "/portfolio_images/activities/act_aidonghaeng_1.jpg",
       "/portfolio_images/activities/act_aidonghaeng_2.jpg",

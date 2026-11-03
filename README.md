@@ -1,66 +1,34 @@
-# Juwon Lee — Portfolio
+# juwonlee.dev
 
-A Next.js re-creation of a Framer-style minimalist portfolio (cream / black / lime),
-filled with content from [portfoliojuwonlee211.vercel.app](https://portfoliojuwonlee211.vercel.app/)
-and built with **rich, orchestrated motion**.
+Portfolio site of Juwon Lee, Education R&D · Developer at the Seoul Robot & AI Museum (서울로봇인공지능과학관). It shows the education programs and AI learning apps I planned, built and ran, with English as the default language and a Korean version.
+
+**Live:** https://juwonlee.dev
+
+## What is on the site
+
+- **Selected work:** the smart-farm education program, RAIM EN (the museum's English tour-booking site) and Doctor-Green, each with its own case page under `/work/[slug]`
+- **What I make:** learning exhibits and programs, plus teaching and mentoring
+- Work experience, tech stack, awards, and downloadable CV and résumé (EN·KO PDF)
 
 ## Stack
 
-- **Next.js 14** (App Router, TypeScript)
-- **Tailwind CSS** — design tokens for the cream/ink/lime palette
-- **Framer Motion** — staggered reveals, scroll parallax, gestures, animated counters
-- **Lenis** — smooth (inertia) scrolling, matching the Framer feel
-- **Fonts** — General Sans (Fontshare) for display, Inter for body
+- Next.js 14 (App Router) with static export, TypeScript, Tailwind CSS
+- Framer Motion and Lenis for light motion, React Three Fiber for the 3D robot on the error page
+- Supabase for anonymous visit statistics, the contact form and the admin dashboard (`/admin`)
+- Hosted on Vercel, security headers in `vercel.json`
 
-## Motion (level: rich)
+## Where to edit
 
-| Technique | Where |
-| --- | --- |
-| Staggered entrance | Hero, project grid |
-| Scroll-reveal (`whileInView`) | Every section |
-| Scroll parallax (`useScroll`/`useTransform`) | Featured case mockup |
-| Gesture — drag + inertia | Skills strip ("drag to explore") |
-| Gesture — hover/tap | Cards, buttons |
-| Animated counters | Featured metrics (0.95 mAP, 7 classes) |
-| Scroll progress bar | Fixed top |
-| Smooth inertia scroll | Whole page (Lenis) |
+- Content: `lib/data.ts` (English) and `lib/data-ko.ts` (Korean overrides). Project slugs listed in `hiddenSlugs` stay off the site.
+- UI text and the footer's last-updated date: `lib/i18n.ts`
+- Page sections: `components/`, styles: `app/globals.css` and `tailwind.config.ts`
+- CV and résumé PDFs: `public/files/` (generated outside this repo)
+- Analytics and admin setup: `ADMIN-SETUP.md`
 
 ## Run
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000
+npm run dev        # http://localhost:3000
+npm run preview    # static build served from out/
 ```
-
-Build for production:
-
-```bash
-npm run build && npm start
-```
-
-Deploy: push to GitHub and import into **Vercel** (zero config).
-
-## Where to edit
-
-All content lives in **`lib/data.ts`** — person info, hero copy, the featured case,
-the 8 project cards, skills, experience, and awards. Colors/fonts are in
-`tailwind.config.ts` + `app/globals.css`. Each section is its own component in
-`components/`.
-
-> Note: some figures (e.g. `140+/day`, `0.95 mAP50`) come from the reference site.
-> Update them in `lib/data.ts` if the real numbers have changed.
-
-## Images
-
-All images live in **`public/portfolio_images/`** (profile photo, project shots,
-Doctor-Green logo) — imported from your existing portfolio. To swap any image:
-
-1. Drop the new file into `public/portfolio_images/...`
-2. Point to it in `lib/data.ts`:
-   - **Profile photo** → `about.photo` / `person.photo`
-   - **Featured logo** → `featured.logo`
-   - **Project card image** → each project's `image` field
-     (projects without an `image` show a clean lettermark fallback — add a path to
-     give `Smart-Farm Education`, `RAIM AI Photo Booth`, and `RAIM Metaverse` real shots)
-
-Paths are served from `/` (e.g. `/portfolio_images/profile/juwonlee.jpg`).
