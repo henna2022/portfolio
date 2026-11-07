@@ -34,7 +34,7 @@ export function ProjectDetail({
   const shots = p.gallery?.length ? p.gallery : p.image ? [p.image] : [];
 
   return (
-    <article className="mx-auto max-w-shell px-6 pb-8 pt-28">
+    <article className="mx-auto max-w-[1280px] px-6 pb-8 pt-28">
       <Link
         href="/#work"
         // -my/py 상쇄: 보이는 위치는 그대로 두고 모바일 터치 타깃만 44px 로 확보
@@ -172,14 +172,14 @@ export function ProjectDetail({
           <div className="mx-auto mt-6 max-w-[620px] overflow-hidden rounded-3xl bg-sand/40">
             <img
               src={assetPath(p.flowImage.light)}
-              alt={`${p.title} architecture flow`}
+              alt={`${p.title} ${t.architecture}`}
               loading="lazy"
               decoding="async"
               className="block w-full dark:hidden"
             />
             <img
               src={assetPath(p.flowImage.dark)}
-              alt={`${p.title} architecture flow`}
+              alt={`${p.title} ${t.architecture}`}
               loading="lazy"
               decoding="async"
               className="hidden w-full dark:block"
@@ -200,7 +200,7 @@ export function ProjectDetail({
           <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
             {p.flow.map((step, i) => (
               <div key={step} className="flex min-w-0 flex-col items-center gap-3 sm:flex-1 sm:flex-row">
-                <span className="w-full min-w-0 whitespace-normal break-words rounded-2xl bg-cream/10 px-4 py-3 text-center text-sm font-medium text-cream sm:w-auto sm:flex-1 sm:text-left">
+                <span className="w-full min-w-0 whitespace-normal break-words [text-wrap:balance] rounded-2xl bg-cream/10 px-4 py-3 text-center text-sm font-medium text-cream sm:w-auto sm:flex-1 sm:text-left">
                   {step}
                 </span>
                 {i < p.flow!.length - 1 ? (

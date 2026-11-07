@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { assetPath } from "@/lib/asset";
 import { ArrowIcon } from "./icons";
+import { useI18n } from "./lang-provider";
 
 // Horizontal, snap-scrolling gallery. Touch devices swipe natively;
 // mouse users can drag or use the arrows. Dots show position for 2+ images.
@@ -27,6 +28,21 @@ export function ImageCarousel({
   const drag = useRef({ active: false, moved: false, startX: 0, startLeft: 0 });
   const [idx, setIdx] = useState(0);
   const multiple = images.length > 1;
+  const { t } = useI18n();
+  // 끝에 닿아 화살표가 비활성화되면 포커스가 사라지지 않게 반대쪽 화살표로 옮긴다.
+  const prevRef = useRef<HTMLButtonElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
+  const focusAfter = useRef<"prev" | "next" | null>(null);
+  // 넘김이 끝나 idx 가 바뀐 뒤에야 반대쪽 화살표가 활성화되므로 그때 포커스를 옮긴다.
+  useEffect(() => {
+    const want = focusAfter.current;
+    if (!want || idx !== (want === "prev" ? images.length - 1 : 0)) return;
+    focusAfter.current = null;
+    // 비활성화로 포커스를 잃었을 때만 옮긴다(그사이 Tab 으로 나갔으면 그대로 둔다).
+    const active = document.activeElement as HTMLButtonElement | null;
+    if (active && active !== document.body && !active.disabled) return;
+    (want === "prev" ? prevRef : nextRef).current?.focus();
+  }, [idx, images.length]);
 
   function onScroll() {
     const el = ref.current;
@@ -121,18 +137,20 @@ export function ImageCarousel({
           {/* prev / next — 모바일은 항상 표시(호버가 없으므로), 데스크톱은 호버 시 표시 */}
           <button
             type="button"
-            aria-label="Previous image"
-            onClick={() => goTo(Math.max(0, idx - 1))}
-            className="absolute after:absolute after:-inset-1.5 after:content-[''] left-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-cream/90 text-ink shadow transition-opacity disabled:!opacity-0 sm:opacity-0 sm:group-hover/carousel:opacity-100"
+            ref={prevRef}
+            aria-label={t.prevImage}
+            onClick={() => { const n = Math.max(0, idx - 1); goTo(n); if (n === 0) focusAfter.current = "next"; }}
+            className="absolute after:absolute after:-inset-1.5 after:content-[''] left-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-cream/90 text-ink shadow transition-opacity disabled:!opacity-0 sm:opacity-0 sm:group-hover/carousel:opacity-100 sm:focus-visible:opacity-100"
             disabled={idx === 0}
           >
             <ArrowIcon className="h-4 w-4 rotate-180" />
           </button>
           <button
             type="button"
-            aria-label="Next image"
-            onClick={() => goTo(Math.min(images.length - 1, idx + 1))}
-            className="absolute after:absolute after:-inset-1.5 after:content-[''] right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-cream/90 text-ink shadow transition-opacity disabled:!opacity-0 sm:opacity-0 sm:group-hover/carousel:opacity-100"
+            ref={nextRef}
+            aria-label={t.nextImage}
+            onClick={() => { const n = Math.min(images.length - 1, idx + 1); goTo(n); if (n === images.length - 1) focusAfter.current = "prev"; }}
+            className="absolute after:absolute after:-inset-1.5 after:content-[''] right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-cream/90 text-ink shadow transition-opacity disabled:!opacity-0 sm:opacity-0 sm:group-hover/carousel:opacity-100 sm:focus-visible:opacity-100"
             disabled={idx === images.length - 1}
           >
             <ArrowIcon className="h-4 w-4" />
@@ -145,7 +163,7 @@ export function ImageCarousel({
               <button
                 key={i}
                 type="button"
-                aria-label={`Go to image ${i + 1}`}
+                aria-label={t.goToImage.replace("{n}", String(i + 1))}
                 aria-current={i === idx ? "true" : undefined}
                 onClick={() => goTo(i)}
                 className="flex h-6 w-6 items-center justify-center"

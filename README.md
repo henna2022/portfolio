@@ -14,7 +14,7 @@ Portfolio site of Juwon Lee, Education R&D · Developer at the Seoul Robot & AI 
 
 - Next.js 14 (App Router) with static export, TypeScript, Tailwind CSS
 - Framer Motion and Lenis for light motion, React Three Fiber for the 3D robot on the error page
-- Supabase for anonymous visit statistics, the contact form and the admin dashboard (`/admin`)
+- Supabase for anonymous visit statistics and the admin dashboard (`/admin`)
 - Hosted on Vercel, security headers in `vercel.json`
 
 ## Where to edit

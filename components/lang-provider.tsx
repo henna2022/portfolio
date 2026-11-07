@@ -35,7 +35,16 @@ export function LangProvider({ children }: { children: ReactNode }) {
     // 예전에 localStorage 에 영구 저장된 KO 선택은 지운다.
     try {
       localStorage.removeItem("pf_lang");
-      if (sessionStorage.getItem("pf_lang") === "ko") setLang("ko");
+      if (sessionStorage.getItem("pf_lang") === "ko") {
+        setLang("ko");
+        // 해시 주소로 들어오면 브라우저가 영어 배치 기준으로 먼저 스크롤한다.
+        // 한글 배치와 글꼴이 다 들어온 뒤 한 번만 다시 맞춘다.
+        const id = decodeURIComponent(location.hash.slice(1));
+        if (id) requestAnimationFrame(() => document.fonts.ready.then(() => {
+          if (decodeURIComponent(location.hash.slice(1)) !== id || document.documentElement.lang !== "ko") return;
+          document.getElementById(id)?.scrollIntoView({ block: "start", behavior: "instant" });
+        }));
+      }
     } catch {}
   }, []);
 

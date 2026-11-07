@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useState, type ReactNode } from "react";
+import { Fragment, useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useIsPresent, useReducedMotion } from "framer-motion";
 import { activities, projects, type Project } from "@/lib/data";
@@ -21,10 +21,23 @@ function hashGroup(): GroupId | undefined {
   return groups.find((group) => group.id === hash)?.id;
 }
 
-function ProjectRow({ project }: { project: Project }) {
+const rowVariants = {
+  hidden: { opacity: 0, y: 14 },
+  visible: (index: number) => ({
+    opacity: 1, y: 0,
+    transition: { duration: 0.18, delay: Math.min(index * 0.04, 0.08), ease: "easeOut" },
+  }),
+};
+
+function AnimatedRow({ index, children, className = "work-row" }: { index: number; children: ReactNode; className?: string }) {
+  const reduced = useReducedMotion();
+  return <motion.li className={className} custom={index} variants={reduced ? undefined : rowVariants}>{children}</motion.li>;
+}
+
+function ProjectRow({ project, index }: { project: Project; index: number }) {
   const { t } = useI18n();
   return (
-    <li className="work-row">
+    <AnimatedRow index={index}>
       <WorkMedia project={project} thumbnail />
       <div className="work-row-copy">
         <h4 className="font-display text-lg font-semibold leading-snug">
@@ -34,25 +47,66 @@ function ProjectRow({ project }: { project: Project }) {
         <p className="work-row-description mt-2">{firstSentence(project.desc)}</p>
         <Link href={`/work/${project.slug}`} className="home-link mt-3 inline-block text-[15px]">{t.viewProject}</Link>
       </div>
-    </li>
+    </AnimatedRow>
   );
 }
 
-function GroupPanel({ children }: { children: ReactNode }) {
+// 모바일 아코디언: 닫히는 쪽은 바로 빠지고(화면 출렁임 방지) 여는 쪽만 펼친다.
+function GroupPanel({ children, appear }: { children: ReactNode; appear: boolean }) {
+  const reduced = useReducedMotion();
+  return (
+    <motion.div className="group-accordion"
+      initial={appear && !reduced ? { height: 0, opacity: 0 } : false}
+      animate={{ height: "auto", opacity: 1 }}
+      transition={{ height: { duration: reduced ? 0 : 0.32, ease: "easeInOut" }, opacity: { duration: reduced ? 0 : 0.08 } }}>
+      <div className="group-panel">{children}</div>
+    </motion.div>
+  );
+}
+
+function DesktopList({ group, children }: { group: GroupId; children: ReactNode }) {
+  const reduced = useReducedMotion();
+  const [height, setHeight] = useState<number>();
+  const observer = useRef<ResizeObserver>();
+  const measure = useCallback((node: HTMLUListElement | null) => {
+    observer.current?.disconnect();
+    if (!node) return;
+    const update = () => setHeight(node.getBoundingClientRect().height + 16);
+    update();
+    observer.current = new ResizeObserver(update);
+    observer.current.observe(node);
+  }, []);
+  useEffect(() => () => observer.current?.disconnect(), []);
+
+  return (
+    <motion.div className="group-list-viewport" initial={false} animate={{ height: height ?? "auto" }}
+      transition={{ duration: reduced ? 0 : 0.24, ease: "easeInOut" }}>
+      {/* 퇴장 중에도 목록 높이를 유지한다. */}
+      <AnimatePresence initial={false} mode="wait">
+        <PanelRows key={group} measure={measure}>{children}</PanelRows>
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
+function PanelRows({ children, measure, appear = true }: { children: ReactNode; measure?: (node: HTMLUListElement | null) => void; appear?: boolean }) {
   const present = useIsPresent();
   const reduced = useReducedMotion();
   return (
-    <motion.div className="group-panel" aria-hidden={!present}
-      ref={(node) => { if (node) node.inert = !present; }}
-      initial={{ opacity: reduced ? 1 : 0 }} animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }} transition={{ duration: reduced ? 0 : 0.16 }}>
+    <motion.ul className="work-rows" aria-hidden={!present}
+      ref={(node) => { if (node) node.inert = !present; measure?.(node); }}
+      initial={appear ? "hidden" : false} animate="visible" exit="leaving"
+      variants={{ hidden: { opacity: reduced ? 1 : 0 }, visible: { opacity: 1 }, leaving: { opacity: 0 } }}
+      transition={{ duration: reduced ? 0 : 0.08 }}>
       {children}
-    </motion.div>
+    </motion.ul>
   );
 }
 
 export function WorkGroups({ photos }: { photos: Record<GroupId, ReactNode> }) {
   const { t, lang } = useI18n();
+  const reduced = useReducedMotion();
+  const pendingScroll = useRef(false);
   const [open, setOpen] = useState<GroupId>("learning");
   const activityItems = lang === "ko" ? activitiesKo : activities;
   const localizedGroups = groups.map((group) => ({
@@ -74,10 +128,62 @@ export function WorkGroups({ photos }: { photos: Record<GroupId, ReactNode> }) {
     };
   }, []);
 
+  useEffect(() => {
+    if (!pendingScroll.current) return;
+    const timer = window.setTimeout(() => {
+      pendingScroll.current = false;
+      if (window.location.hash !== `#${open}`) return; // 그사이 다른 곳으로 이동했으면 두기
+      const desktop = window.matchMedia("(min-width: 768px)").matches;
+      const panel = document.getElementById(desktop ? "work-group-panel-desktop" : `work-group-panel-${open}`);
+      const card = document.getElementById(`group-${open}`);
+      if (!panel || !card) return;
+      const top = panel.getBoundingClientRect().top;
+      if (top < window.innerHeight - 64) return;
+      const header = document.querySelector(".site-header")?.getBoundingClientRect().height ?? 0;
+      const cardTarget = window.scrollY + card.getBoundingClientRect().top - header - 16;
+      const panelTarget = window.scrollY + top - Math.max(header + 16, window.innerHeight * 0.3);
+      // 모바일은 누른 카드가 헤더 밑으로 사라지지 않는 데까지만 올린다.
+      const target = Math.max(window.scrollY, desktop ? panelTarget : Math.min(cardTarget, panelTarget));
+      // 필요한 경우에만 아래로 이동한다.
+      window.scrollTo({ top: target, behavior: reduced ? "instant" : "smooth" });
+    }, reduced ? 0 : 380);
+    return () => window.clearTimeout(timer);
+  }, [open, reduced]);
+
+  // 모바일: 위쪽 목록이 빠지면서 누른 카드가 밀려 올라가지 않게, 그리기 전에 스크롤을 맞춘다.
+  const anchor = useRef<{ id: GroupId; top: number } | null>(null);
+  // 사용자가 카드를 누른 뒤부터만 펼침 애니메이션을 쓴다(첫 화면·해시 복원은 바로 보여 줌).
+  const [appear, setAppear] = useState(false);
+  useLayoutEffect(() => {
+    const a = anchor.current;
+    anchor.current = null;
+    const card = a && document.getElementById(`group-${a.id}`);
+    if (!a || !card) return;
+    const delta = card.getBoundingClientRect().top - a.top;
+    if (Math.abs(delta) > 0.5) window.scrollTo({ top: window.scrollY + delta, behavior: "instant" });
+  }, [open]);
+
   function selectGroup(id: GroupId) {
+    if (open === id) return;
+    setAppear(true);
+    const card = document.getElementById(`group-${id}`);
+    if (card && !window.matchMedia("(min-width: 768px)").matches) anchor.current = { id, top: card.getBoundingClientRect().top };
+    pendingScroll.current = true;
     setOpen(id);
-    // 스크롤 위치를 유지하고 주소만 바꾼다.
     history.replaceState(null, "", `#${id}`);
+  }
+
+  function rows(id: GroupId) {
+    return id === "teaching" ? activityItems.map((activity, index) => (
+      <AnimatedRow key={activity.title} index={index} className={`work-row${activity.photos.length ? "" : " work-row-text"}`}>
+        {activity.photos[0] ? <img src={assetPath(activity.photos[0])} alt="" loading="lazy" decoding="async" className="work-thumb object-cover" /> : null}
+        <div className="work-row-copy">
+          <h4 className="font-display text-lg font-semibold leading-snug">{activity.title}</h4>
+          <p className="home-meta mt-1">{activity.period}</p>
+          <p className="work-row-description mt-2">{activity.role}</p>
+        </div>
+      </AnimatedRow>
+    )) : localizedGroups.find((group) => group.id === id)!.items.map((project, index) => <ProjectRow key={project.slug} project={project} index={index} />);
   }
 
   return (
@@ -89,12 +195,12 @@ export function WorkGroups({ photos }: { photos: Record<GroupId, ReactNode> }) {
           const selected = open === group.id;
           return (
             <Fragment key={group.id}>
-              <div id={group.id} className="group-anchor">
+              <div id={group.id} className="group-anchor" data-selected={selected}>
                 {group.id === "teaching" ? <span id="activities" className="anchor-alias" /> : null}
                 <button type="button" id={`group-${group.id}`} className="group-card"
                   aria-labelledby={`group-title-${group.id}`}
                   aria-describedby={`group-count-${group.id} group-preview-${group.id}`}
-                  aria-expanded={selected} aria-controls={`work-group-panel-${group.id}`}
+                  aria-expanded={selected} aria-controls={`work-group-panel-${group.id} work-group-panel-desktop`}
                   onClick={() => selectGroup(group.id)}>
                   {photos[group.id]}
                   <span className="group-card-copy">
@@ -107,32 +213,22 @@ export function WorkGroups({ photos }: { photos: Record<GroupId, ReactNode> }) {
                   </span>
                 </button>
               </div>
-              {/* 모바일에서는 카드 바로 아래, 데스크톱에서는 행 전체에 배치한다. */}
-              <div id={`work-group-panel-${group.id}`} className="group-panel-stage" role="region"
-                aria-labelledby={`group-${group.id}`} aria-hidden={!selected}>
-                <AnimatePresence initial={false}>
-                  {selected ? (
-                    <GroupPanel key={group.id}>
-                      <h3 id={`panel-title-${group.id}`} className="font-display mb-6 text-2xl font-semibold">{t.workGroups[group.id]}</h3>
-                      <ul className="work-rows">
-                        {group.id === "teaching" ? activityItems.map((activity) => (
-                          <li key={activity.title} className={`work-row${activity.photos.length ? "" : " work-row-text"}`}>
-                            {activity.photos[0] ? <img src={assetPath(activity.photos[0])} alt="" loading="lazy" decoding="async" className="work-thumb object-cover" /> : null}
-                            <div className="work-row-copy">
-                              <h4 className="font-display text-lg font-semibold leading-snug">{activity.title}</h4>
-                              <p className="home-meta mt-1">{activity.period}</p>
-                              <p className="work-row-description mt-2">{activity.role}</p>
-                            </div>
-                          </li>
-                        )) : group.items.map((project) => <ProjectRow key={project.slug} project={project} />)}
-                      </ul>
-                    </GroupPanel>
-                  ) : null}
-                </AnimatePresence>
+              <div id={`work-group-panel-${group.id}`} className="group-panel-mobile" role="region"
+                aria-labelledby={`group-title-${group.id}`} aria-hidden={!selected}>
+                {selected ? (
+                  <GroupPanel key={group.id} appear={appear}>
+                    <h3 className="group-panel-heading font-display mb-6 text-2xl font-semibold">{t.workGroups[group.id]}</h3>
+                    <PanelRows appear={appear}>{rows(group.id)}</PanelRows>
+                  </GroupPanel>
+                ) : null}
               </div>
             </Fragment>
           );
         })}
+        <div id="work-group-panel-desktop" className="group-panel group-panel-desktop" role="region" aria-labelledby={`group-title-${open}`}>
+          <h3 className="group-panel-heading font-display mb-6 text-2xl font-semibold">{t.workGroups[open]}</h3>
+          <DesktopList group={open}>{rows(open)}</DesktopList>
+        </div>
       </div>
     </section>
   );

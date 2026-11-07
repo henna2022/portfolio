@@ -2,6 +2,7 @@
 
 import { experience, skillGroups } from "@/lib/data";
 import { experienceKo, skillGroupsKo } from "@/lib/data-ko";
+import { assetPath } from "@/lib/asset";
 import { useI18n } from "./lang-provider";
 
 export function Experience() {
@@ -14,7 +15,13 @@ export function Experience() {
       <ol className="experience-list">
         {jobs.map((job) => (
           <li key={job.org} className="experience-row">
-            <p className="home-meta">{job.period}</p>
+            <div className="experience-date">
+              <p className="home-meta">{job.period}</p>
+              <div className="experience-logo" aria-hidden="true">
+                <img src={assetPath(job.logo.light)} alt="" loading="lazy" decoding="async" className="logo-light" />
+                <img src={assetPath(job.logo.dark)} alt="" loading="lazy" decoding="async" className="logo-dark" />
+              </div>
+            </div>
             <div>
               <h3 className="home-card-title"><a href={job.site} target="_blank" rel="noreferrer" className="hover:underline underline-offset-4">{job.org} <span aria-hidden="true">↗</span></a></h3>
               <p className="home-meta mt-2">{job.role}</p>
@@ -31,7 +38,7 @@ export function Experience() {
           {skills.map((skill) => (
             <div key={skill.key}>
               <dt className="font-semibold">{skill.title}</dt>
-              <dd>{skill.items.join(" · ")}</dd>
+              <dd>{skill.items.map((item) => item.replaceAll(" ", "\u00A0")).join("\u00A0· ")}</dd>
             </div>
           ))}
         </dl>

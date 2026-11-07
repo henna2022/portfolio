@@ -48,6 +48,9 @@ export const ui = {
   filterAll: "All",
   view: "View",
   viewProject: "View project →",
+  prevImage: "Previous image",
+  nextImage: "Next image",
+  goToImage: "Go to image {n}",
   newsArticle: "Press coverage ↗",
 
   sideProjectsHeading: "More projects",
@@ -110,8 +113,8 @@ export const uiKo: UiStrings = {
   heroCharacterAlt: "노트북이 놓인 책상과 작은 로봇 둘 그림",
   makeHeading: "만드는 것들",
   workGroups: {
-    learning: "학습 전시물·프로그램",
-    teaching: "강의·멘토링",
+    learning: "학습 전시물⁠·⁠프로그램",
+    teaching: "강의⁠·⁠멘토링",
   },
   itemCount: "{count}개 항목",
   groupOpen: "목록 열림",
@@ -138,6 +141,9 @@ export const uiKo: UiStrings = {
   filterAll: "전체",
   view: "보기",
   viewProject: "프로젝트 보기 →",
+  prevImage: "이전 이미지",
+  nextImage: "다음 이미지",
+  goToImage: "이미지 {n}번 보기",
   newsArticle: "언론 보도 ↗",
 
   sideProjectsHeading: "다른 프로젝트",
@@ -152,12 +158,12 @@ export const uiKo: UiStrings = {
   awardsHeading: "수상",
   comingSoon: "준비 중",
 
-  contactHeading: "채용·교육 프로그램 문의를 기다립니다.",
+  contactHeading: "채용⁠·⁠교육 프로그램 문의를 기다립니다.",
   availability: "메시지를 남겨 주세요. 보통 1~2일 안에 답장드립니다.",
   inquiries: [
     { label: "채용 문의", subject: "juwonlee.dev 채용 문의" },
     { label: "교육 프로그램 문의", subject: "juwonlee.dev 교육 프로그램 문의" },
-    { label: "연구·협업 제안", subject: "juwonlee.dev 연구·협업 제안" },
+    { label: "연구⁠·⁠협업 제안", subject: "juwonlee.dev 연구⁠·⁠협업 제안" },
   ],
   footerCopyright: "© 2026 이주원",
   lastUpdated: "최종 업데이트 2026.11.03",

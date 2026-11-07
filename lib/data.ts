@@ -62,7 +62,7 @@ export type ProseParagraph = ProseSegment[];
 export const about = {
   photo: "/portfolio_images/profile/juwonlee.jpg",
   tagline:
-    "I plan education programs, build the AI products behind them from sensor to interface, and keep them running where real users are: exhibition floors, classrooms and hardware in the field.",
+    "I build the AI products behind those programs from sensor to interface, and keep them running where real users are: exhibition floors, classrooms and hardware in the field.",
   // 카드 하단 요약 — 정체성과 "지금"만 짧게. 나머지 이력은 아래 facts 로 내린다.
   info: [
     {
@@ -173,10 +173,10 @@ const allProjects: Project[] = [
     year: "2026",
     role: "Solo: planning & development",
     tags: ["TensorFlow.js", "MobileNet v2", "Next.js", "Supabase", "ESP32", "Arduino / C++", "Weather API"],
-    href: "https://doctor-green-edu.vercel.app/",
+    href: "https://smartfarm-lab.com",
     stat: "15-student cohort · Oct 2026",
     overview:
-      "A hands-on education program, commissioned by the Yangpyeong Education Office through the museum, where students work with an IoT smart farm and AI crop diagnosis. **It was taught as a demo class to 5 high-school students in August 2026** and ran in **October 2026** for a **cohort of 15 Yangpyeong high-school students**, selected by application, taught by **three instructors I trained**.\n\nI planned and built it solo: **a Next.js web app with server API routes on Vercel, and Arduino (C++) firmware for the class's 15 ESP32 student boards (one per student), which write sensor readings straight to Supabase**. Students move through four STEPs (weather, AI vision, IoT and camera) and watch **sensor values change in real time**. In the capstone they code if-then automation rules and run them on the real board. They also **train a model themselves inside the browser** with TensorFlow.js transfer learning on MobileNet v2, so the epoch and loss numbers they watch come from their own run.",
+      "A hands-on education program, commissioned by the Yangpyeong Education Office through the museum, where students work with an IoT smart farm and AI crop diagnosis. **It was taught as a demo class to 5 high-school students in August 2026** and ran in **October 2026** for a **cohort of 15 Yangpyeong high-school students**, selected by application, taught by **three instructors I trained**.\n\nI planned and built it solo: **a Next.js web app with server API routes on Vercel, and Arduino (C++) firmware for the class's 15 ESP32 student boards (one per student), which write sensor readings straight to Supabase**. Students move through four STEPs (weather, AI transfer learning, IoT sensors and automation) and watch **sensor values change in real time**. In the last STEP they set thresholds for light, humidity and soil moisture, and the real board switches its LED, fan and pump on its own. They also **train a model themselves inside the browser** with TensorFlow.js transfer learning on MobileNet v2, so the epoch and loss numbers they watch come from their own run.",
     highlights: [
       "**Taught as a demo class to 5 high-school students in August 2026** on the museum's education floor; the full class **ran in October 2026** for a 15-student cohort of Yangpyeong high-school students, selected by application, taught by **three instructors I trained**.",
       "Commissioned by the Yangpyeong Education Office through the museum; **planned and built solo**, server and web app included.",
@@ -188,20 +188,23 @@ const allProjects: Project[] = [
       light: "/portfolio_images/flow-reborn/smart-farm-education-flow-light.svg",
       dark: "/portfolio_images/flow-reborn/smart-farm-education-flow-dark.svg",
     },
-    image: "/portfolio_images/projects/smartfarm-edu-weather-en.jpg",
+    // 실습실 화면은 피그마 새 디자인 시안(2026-11)에서 가져온 것이라 언어 구분 없이 한 벌만 쓴다
+    image: "/portfolio_images/projects/smartfarm-lab-dashboard.jpg",
     gallery: [
       // 데모 수업 현장 — 학생 얼굴은 게시 전 마스킹했다
       "/portfolio_images/projects/smartfarm-edu-class.jpg",
-      "/portfolio_images/projects/smartfarm-edu-hub-en.jpg",
-      "/portfolio_images/projects/smartfarm-edu-weather-en.jpg",
-      "/portfolio_images/projects/smartfarm-edu-vision-en.jpg",
-      "/portfolio_images/projects/smartfarm-edu-sensor-en.jpg",
-      "/portfolio_images/projects/smartfarm-edu-camera-en.jpg",
-      "/portfolio_images/projects/smartfarm-edu-app-en.jpg",
+      "/portfolio_images/projects/smartfarm-lab-dashboard.jpg",
+      "/portfolio_images/projects/smartfarm-lab-weather.jpg",
+      "/portfolio_images/projects/smartfarm-lab-vision.jpg",
+      "/portfolio_images/projects/smartfarm-lab-sensor.jpg",
     ],
     galleryAlts: {
       "/portfolio_images/projects/smartfarm-edu-class.jpg":
         "Demo class in August 2026 on the museum's education floor: students watch their own in-browser model training reach 87.5% accuracy, each with a mini smart-farm sensor rig beside them.",
+      "/portfolio_images/projects/smartfarm-lab-dashboard.jpg": "Smart Farm Lab dashboard in the new interface design: progress through STEP 1 to 4 and the next task.",
+      "/portfolio_images/projects/smartfarm-lab-weather.jpg": "STEP 1 in the new interface design: students call the public weather API with their own key and see the data land in a table.",
+      "/portfolio_images/projects/smartfarm-lab-vision.jpg": "STEP 2 in the new interface design: students set the epochs and learning rate, train the AI vision model and read its accuracy.",
+      "/portfolio_images/projects/smartfarm-lab-sensor.jpg": "STEP 3 in the new interface design: students query their board's sensor readings with SQL.",
     },
   },
   {
@@ -211,23 +214,31 @@ const allProjects: Project[] = [
     category: "Web Service · Reservations",
     categories: ["Web", "Ops"],
     kicker: "Seoul Robot & AI Museum · live since October 2026",
-    desc: "An English guide and tour-booking site that the museum adopted as its official booking channel for foreign visitors. They book with an email address instead of the Korean mobile identity verification that Seoul's public reservation system requires. Online seats for foreign visitors went from none to 130 a week.",
+    desc: "An English guide and tour-booking site that the museum adopted as its official booking channel for foreign visitors. They book with an email address instead of the Korean mobile identity verification that Seoul's public reservation system requires. It opened 130 online seats a week at launch, where foreign visitors had none, and now runs as a pilot for the Wednesday English-guided tour.",
     year: "2026",
     role: "Solo: planning, development, deployment",
     tags: ["Node.js", "Express", "SQLite", "EJS", "Fly.io"],
     href: "https://visitseoulraim.com",
-    image: "/portfolio_images/projects/raim-en-en.jpg",
-    stat: "130 online seats a week",
+    image: "/portfolio_images/projects/raim-en-home.jpg",
+    gallery: [
+      "/portfolio_images/projects/raim-en-home.jpg",
+      "/portfolio_images/projects/raim-en-calendar.jpg",
+    ],
+    galleryAlts: {
+      "/portfolio_images/projects/raim-en-home.jpg": "RAIM EN home page: the museum's English guide and tour booking.",
+      "/portfolio_images/projects/raim-en-calendar.jpg": "Booking calendar for November 2026: the Wednesday English docent tours are marked Full.",
+    },
+    stat: "130 seats/week at launch",
     overview:
-      "The museum adopted this site as its official booking channel for foreign visitors. Guided exhibition tours at the museum are booked through Seoul's public reservation system, which requires identity verification with a Korean mobile number, so foreign visitors **could not book online at all** and complaints followed. On this site they book with an email address instead. For launch, the museum opens sessions 1, 3, and 6 of the Korean-guided Permanent Exhibition tour with 10 seats each, plus a Wednesday English-guided session with 10 more, up to 5 people per booking: **130 seats a week** that foreign visitors can now book online, where before they had none.\n\nThe museum decides each month which sessions open online and how many seats they have, and **each request waits for staff approval**. A pending request already holds its seat, so a session cannot be overbooked, and a cancellation returns the seat on its own. Online booking closes the day before the visit, leaving same-day seats to visitors on site. Visitors get a request-received email right away and a confirmation email with a calendar file once staff approve. They look up or cancel with their booking code and email.\n\nIn the admin interface, staff approve requests by session, check bookings, mark visits and no-shows, and view booking and traffic statistics (where visitors came from and time spent on each page). They can export the statistics to Excel. Personal data is deleted automatically 90 days after the visit (no-show records are kept longer), and visit statistics are counted on the server without storing IP addresses.",
+      "The museum adopted this site as its official booking channel for foreign visitors. Guided exhibition tours at the museum are booked through Seoul's public reservation system, which requires identity verification with a Korean mobile number, so foreign visitors **could not book online at all** and complaints followed. On this site they book with an email address instead. At launch on October 15, 2026, the museum opened sessions 1, 3, and 6 of the Korean-guided Permanent Exhibition tour with 10 seats each, plus a Wednesday English-guided session with 10 more: **130 seats a week** that foreign visitors could book online, where before they had none. Since October 23 it has run as a pilot through December 2026 for the Wednesday 15:40 English-guided tour only (10 seats in November, 15 in December), up to 5 people per booking.\n\nThe museum decides each month which sessions open online and how many seats they have. Requests for November visits wait for **staff approval**, and from December visits a request is **confirmed as soon as it is sent**. A pending request already holds its seat, so a session cannot be overbooked, and a cancellation returns the seat on its own. Online booking closes two days before the visit, and the rest of each session stays open to visitors on site. Visitors get a request-received email right away and a confirmation email with a calendar file once the booking is confirmed. They look up or cancel with their booking code and email.\n\nIn the admin interface, staff approve requests by session, check bookings, mark visits and no-shows, and view booking and traffic statistics (where visitors came from and time spent on each page). They can export the statistics to Excel. Personal data is deleted automatically 90 days after the visit (no-show records are kept longer), and visit statistics are counted on the server without storing IP addresses.",
     highlights: [
       "Foreign visitors book tours online with an email address instead of the **Korean mobile identity check** the city reservation system requires.",
-      "**Adopted as the museum's official booking channel for foreign visitors**: sessions 1, 3, and 6 with 10 seats each plus a Wednesday English-guided session, **130 online seats a week** where foreign visitors previously had none.",
-      "Every request waits for **staff approval** within the museum's monthly seat allocation; a pending request already holds its seat, so sessions cannot be overbooked, and cancellations return seats automatically.",
+      "**Adopted as the museum's official booking channel for foreign visitors**: **130 online seats a week** at launch where foreign visitors previously had none, now a pilot for the Wednesday English-guided tour through December 2026.",
+      "Requests for November visits wait for **staff approval** and bookings from December are confirmed instantly, within the museum's monthly seat allocation; a pending request already holds its seat, so sessions cannot be overbooked, and cancellations return seats automatically.",
       "An admin interface for staff to approve requests by session, mark visits and no-shows, view booking and traffic statistics, and export them to Excel.",
       "Personal data is deleted automatically 90 days after the visit (no-show records are kept longer), a booking code alone shows only a masked summary, and visit statistics store no IP addresses.",
     ],
-    flow: ["Email-only booking form", "Seat held while pending", "Staff approval in admin", "Confirmation email + calendar file"],
+    flow: ["Email booking, no Korean phone", "Seat held on request", "Staff approval or instant confirmation", "Confirmation email + calendar file"],
   },
   // 규모로는 major 후보(온디바이스 모델 5종·서버리스 API·현장 로그 보정). 승격은 본인이 정한다.
   {
@@ -270,15 +281,14 @@ const allProjects: Project[] = [
     category: "Web App · Education",
     categories: ["AI", "Web", "Education"],
     kicker: "Seoul Robot & AI Museum · Jun–Aug 2026",
-    desc: "A guided prompt builder where visitors create AI artwork with guidance from the museum character Raimi. It ran on the museum floor from June to August 2026, and its backend counted 14,328 generated images, 9,865 of them in July.",
+    desc: "A step-by-step prompt builder where visitors create AI artwork with the museum character Raimi as their guide. It ran on the museum floor from June to August 2026, and its backend counted 14,328 generated images, 9,865 of them in July.",
     year: "2026",
     role: "Planning · development · operations",
     tags: ["JavaScript", "OpenAI API", "Vercel Serverless", "Supabase", "Cloudflare R2", "PWA"],
-    repo: "https://github.com/henna2022/raim-ai-artstudio",
     image: "/portfolio_images/projects/artlab-mode-en.jpg",
     stat: "14,328 images · Jun–Aug 2026",
     overview:
-      "Visitors build a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI draws it. It ran on the museum floor from June to August 2026, and **the app's own backend recorded 14,328 generated images**: 3,049 from 17 June, 9,865 in July and 1,414 in August.\n\nThe app replaced an off-the-shelf GPT service that would stop responding mid-use and leave the station unusable until staff stepped in. **It has not frozen once since the switch.** The **10-step (+5 advanced) choice-based prompt builder** shows young visitors how a prompt is put together while they play. Every image gets an automatic museum-logo watermark, and visitors download their pictures right away by QR code. Because it runs as a web app, the kiosk could be locked to a single full-screen browser.",
+      "Visitors build a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI draws it. It ran on the museum floor from June to August 2026, and **the app's own backend recorded 14,328 generated images**: 3,049 from June 17, 9,865 in July and 1,414 in August.\n\nThe app replaced an off-the-shelf GPT service that would stop responding mid-use and leave the station unusable until staff stepped in. **It has not frozen once since the switch.** The **10-step (+5 advanced) choice-based prompt builder** shows young visitors how a prompt is put together while they play. Every image gets an automatic museum-logo watermark, and visitors download their pictures right away by QR code. Because it runs as a web app, the kiosk could be locked to a single full-screen browser.",
     highlights: [
       "**14,328 images generated from June to August 2026, 9,865 of them in July**, counted by the app's own backend.",
       "**Ended the freezes** of the off-the-shelf GPT service it replaced; none since the switch.",
@@ -302,7 +312,7 @@ const allProjects: Project[] = [
     ],
     galleryAlts: {
       "/portfolio_images/projects/artlab-usage-chart.png":
-        "Art Lab admin dashboard: daily image generation over the last 30 days (30 June–29 July 2026), peaking above 700 in a single day.",
+        "Art Lab admin dashboard: daily image generation over the last 30 days (June 30 to July 29, 2026), peaking above 700 in a single day.",
     },
   },
   {
@@ -436,14 +446,12 @@ const allProjects: Project[] = [
       "Tailscale",
       "WireGuard",
     ],
-    repo: "https://github.com/henna2022/maskbot-restart",
     stat: "1 machine → any staff phone",
     overview:
       "A recovery system for MaskBot, a face- and voice-interaction robot exhibit on the museum floor. I installed it on the exhibit machine in July 2026, and it **still runs unattended in daily operation**.\n\nMaskBot's control software would sometimes freeze or exit mid-operation. The only fix was a manual restart through a remote session **from one specific machine**. Visitors could not use the exhibit's voice interaction until a staff member reached that machine.\n\nNow a watchdog checks the program every 20 seconds and relaunches it within a minute when the process dies or its window stops responding. Scheduled restarts also run twice a day. **Any staff member can trigger recovery from their own phone** on a single-button page. Enrolled devices reach it through Tailscale, a WireGuard-based mesh VPN, with no port open to the internet.\n\nOne failure cannot be detected automatically: speech recognition stops while the process stays alive and the window keeps responding. Scheduled restarts and the phone button cover that case. I also wrote a handover document on configuration, logs, routine maintenance, a diagnosis playbook, and known limitations, so the maintenance technician can own the system without me.",
     highlights: [
-      "Every freeze or crash needed a manual restart, and it could only be done **from one specific machine**.",
       "A watchdog **relaunches the exhibit program within a minute** of a crash or hang it detects.",
-      "**Any staff member can restart the exhibit from their own phone** on a one-button page served from the exhibit machine.",
+      "**Any staff member can restart the exhibit from their own phone** on a one-button page served from the exhibit machine, where before only one specific machine could.",
       "Shipped with a **maintenance handover document**: configuration, logs, diagnosis playbook, and known limitations.",
     ],
     flow: ["Watchdog + schedule", "Restart service", "Mesh VPN", "Staff phone"],
@@ -486,7 +494,7 @@ const allProjects: Project[] = [
     title: "RAIM 4-Cut Studio",
     category: "Photo Kiosk",
     categories: ["AI", "Web"],
-    kicker: "Seoul Robot & AI Museum · seasonal use since Jun 2026",
+    kicker: "Seoul Robot & AI Museum · seasonal use in 2026",
     desc: "A photo kiosk where visitors design a four-photo frame with the museum's robots and download the finished photo by QR code. It recorded 1,932 uses on 26 days between June 14 and September 6, 2026.",
     year: "2026",
     role: "Solo: planning, development, operations",
@@ -496,7 +504,7 @@ const allProjects: Project[] = [
     imageTall: "/portfolio_images/projects/raim-4cut-studio-en-tall.jpg",
     stat: "1,932 uses · 26 days",
     overview:
-      "RAIM 4-Cut Studio recorded **1,932 uses on 26 days** between June 14 and September 6, 2026. It started as the photo kiosk for the museum's 2nd anniversary and runs on a portrait Galaxy Tab.\n\nVisitors choose a frame color, one of **ten museum robots** and an optional caption, then take six shots on a three-second countdown. A MediaPipe face model on the device marks the top four shots, and the visitor picks the final four. The finished 1080×1620 frame goes to their phone by QR code, and the link expires after two hours.\n\nStaff use a PIN-protected stats page with daily, weekly and monthly counts, robot popularity and frame colors, and can switch seasonal robot versions such as summer and Chuseok without a redeploy. The kiosk blocks long-press menus, zoom, auto-translation and back gestures, and the result screen returns to the start after 30 seconds.",
+      "RAIM 4-Cut Studio recorded **1,932 uses on 26 days** between June 14 and September 6, 2026. It started as the photo kiosk for the museum's 2nd anniversary and ran on a portrait Galaxy Tab.\n\nVisitors choose a frame color, one of **ten museum robots** and an optional caption, then take six shots on a three-second countdown. A MediaPipe face model on the device marks the top four shots, and the visitor picks the final four. The finished 1080×1620 frame goes to their phone by QR code, and the link expires after two hours.\n\nStaff used a PIN-protected stats page with daily, weekly and monthly counts, robot popularity and frame colors, and could switch seasonal robot versions such as summer and Chuseok without a redeploy. The kiosk blocks long-press menus, zoom, auto-translation and back gestures, and the result screen returns to the start after 30 seconds.",
     highlights: [
       "**1,932 uses recorded on 26 days** between June 14 and September 6, 2026.",
       "The device recommends the best shots using MediaPipe face scores; the visitor selects the final four photos.",
@@ -522,7 +530,7 @@ const allProjects: Project[] = [
     highlights: [
       "**Five-step walkthrough** from sensor points to projected waves, driven by the visitor's own finger.",
       "A camera vs LiDAR panel shows that a camera image keeps the face while LiDAR keeps only points.",
-      "**Installed beside the exhibit in September 2026**, followed by a Korean/English toggle.",
+      "**Installed beside the exhibit in September 2026**, with a Korean/English toggle.",
       "An offline PWA that runs on the TV's built-in browser, which is older than Chromium 84.",
     ],
   },
@@ -658,7 +666,17 @@ const allProjects: Project[] = [
     role: "Solo: planning, development",
     tags: ["MindAR", "Three.js", "WebGL", "JavaScript", "PWA", "Headless Chrome"],
     href: "https://raim-jobs.vercel.app",
-    image: "/portfolio_images/projects/time-machine-ar.jpg",
+    image: "/portfolio_images/projects/time-machine-ar-intro.jpg",
+    gallery: [
+      "/portfolio_images/projects/time-machine-ar-intro.jpg",
+      "/portfolio_images/projects/time-machine-ar-city.jpg",
+      "/portfolio_images/projects/time-machine-ar-home.jpg",
+    ],
+    galleryAlts: {
+      "/portfolio_images/projects/time-machine-ar-intro.jpg": "The intro time machine has landed and Raimi greets the child before the video.",
+      "/portfolio_images/projects/time-machine-ar-city.jpg": "The time machine for the Readable City spot, with Raimi introducing its future scenario.",
+      "/portfolio_images/projects/time-machine-ar-home.jpg": "Home screen: the five time machines to find and the camera button.",
+    },
     stat: "5 spots · tablet AR",
     overview:
       "First Time in the Future? is an education program that links 5 spots in the permanent exhibition at the Seoul Robot & AI Museum. Each spot gets a time-machine poster. When a child scans it with a tablet, a 3D time machine flies in for six seconds and lands on screen, Raimi steps out to introduce a future scenario, a short video plays, and the stop ends with a question to answer on a paper worksheet. Finding all five time machines completes the tour. I built the app solo as a web app for a landscape Galaxy Tab A9+, using MindAR image tracking and Three.js.\n\nThe app tells the five spots apart by **the color of the time machine's band** on each poster, corrected for exhibit lighting. Every library is self-hosted with an offline cache in case the museum network blocks CDNs.\n\nThe app is deployed with all five videos and scripts in place. **Printing and mounting the markers and the first on-site session are still pending**, so it has not yet run with visitors.",
@@ -847,6 +865,7 @@ export const experience = [
   {
     org: "Seoul Robot & AI Museum (via operator FNJ Co., Ltd.)",
     site: "https://science.seoul.go.kr/RAIM/index.do",
+    logo: { light: "/logos/seoul-raim.png", dark: "/logos/seoul-raim-dark.png", alt: "Seoul Robot & AI Museum logo" },
     role: "Education R&D · Developer",
     period: "2026.03 - Present",
     // 행사 보도 링크(본인 실명은 기사에 없음). 사진은 뉴스1 저작물이라 싣지 않고 링크만 건다.
@@ -870,6 +889,7 @@ export const experience = [
   {
     org: "Ministry of Science and ICT",
     site: "https://www.msit.go.kr/index.do",
+    logo: { light: "/logos/msit.svg", dark: "/logos/msit-dark.svg", alt: "Ministry of Science and ICT logo" },
     role: "Youth Intern",
     period: "2025.04 - 2025.08",
     points: [
@@ -893,8 +913,8 @@ export const activities: Activity[] = [
   {
     period: "2026.09 - 2026.10",
     title: "2026 SW·AI Donghaeng Project",
-    role: "Youth mentor for makerthon mentoring and self-directed inquiry (KOFAC program, run by Elice Group)",
-    desc: "Coached middle-school students in person at the program's makerthon on October 11, 2026, then mentored a middle-school class's self-directed inquiry in four live online sessions in October 2026, including a career-mentoring session I led on my own.",
+    role: "Youth mentor for the makerthon and self-directed inquiry (KOFAC program, run by Elice Group)",
+    desc: "Coached middle-school students in person at the program's makerthon on October 11, 2026, then mentored a middle-school class's self-directed inquiry in four live online sessions in October 2026, leading the last one on my own.",
     photos: [
       "/portfolio_images/activities/act_aidonghaeng_1.jpg",
       "/portfolio_images/activities/act_aidonghaeng_2.jpg",
@@ -987,7 +1007,18 @@ export type Award = {
   photos: string[];
   relatedSlug?: string;
   news?: string; // external press coverage
+  // 어떤 아이디어(프로젝트)로 받은 상인지. 수상 목록을 이 단위로 묶는다.
+  project: AwardProjectId;
 };
+
+export type AwardProjectId = "yakmoa" | "doctor-green" | "ai-docent";
+
+// 수상 묶음 머리. 순서가 화면 순서다.
+export const awardProjects: { id: AwardProjectId; title: string; desc: string; slug?: string }[] = [
+  { id: "yakmoa", title: "YAKMOA", desc: "A medication-management service for digitally vulnerable users (team MAKENEW)." },
+  { id: "doctor-green", title: "Doctor-Green", desc: "A plant-disease diagnosis app built on an image classifier.", slug: "doctor-green" },
+  { id: "ai-docent", title: "AI docent", desc: "An AI docent concept that connects science museum exhibitions with their local communities." },
+];
 
 // 최신순으로 적어 둔다. 화면 정렬은 Awards 컴포넌트가 따로 한다
 // (2열 그리드라 사진 있는 카드끼리 같은 행에 와야 높이가 맞는다).
@@ -995,6 +1026,7 @@ export const awards: Award[] = [
   {
     year: "2026",
     title: "2025 GH Youth Build-Up Start-up Competition (GH Corp.)",
+    project: "yakmoa",
     detail: "Prize: YAKMOA medication-management service (team MAKENEW)",
     result: "Prize winner",
     role: "PM & Developer",
@@ -1008,11 +1040,12 @@ export const awards: Award[] = [
     // 2025.09~10 공백(대회 준비 기간) 설명은 이력서/CV 타임라인에서 다룬다.
     year: "2025",
     title: "2025 Science Museum & Community AI Hackathon (National Science Museum)",
+    project: "ai-docent",
     detail: "Excellence Award (2nd place, finals): AI docent for museum-community co-prosperity",
     result: "Excellence Award",
     role: "PM & Developer",
     topic:
-      "An AI docent concept that connects the museum's exhibitions with the local community.",
+      "An AI docent concept that connects science museum exhibitions with their local communities.",
     news: "https://www.ttlnews.com/news/articleView.html?idxno=3030969",
     photos: [
       "/portfolio_images/awards/award2_science_museum_1.jpg",
@@ -1022,6 +1055,7 @@ export const awards: Award[] = [
   {
     year: "2024",
     title: "2024 Chungnam Generative AI Technology Start-up Idea Competition",
+    project: "doctor-green",
     detail: "Encouragement Award (장려상): VGG16 plant-disease diagnosis app",
     result: "Encouragement Award",
     role: "PM & Developer",
@@ -1036,6 +1070,7 @@ export const awards: Award[] = [
   {
     year: "2024",
     title: "HKNU HK StartUP&GO Audition",
+    project: "doctor-green",
     detail: "Excellence Award (우수상): start-up competition",
     result: "Excellence Award",
     role: "PM & Developer",
@@ -1047,6 +1082,7 @@ export const awards: Award[] = [
   {
     year: "2024",
     title: "ICT·SW Women's Start-up Competition",
+    project: "doctor-green",
     detail: "Excellence Award (우수상): VGG16 plant-disease diagnosis app",
     result: "Excellence Award",
     role: "PM & Developer",

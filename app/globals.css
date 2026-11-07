@@ -136,7 +136,8 @@ button.shrink-0.self-start { white-space: normal; }
 
 /* 하늘 교실 홈 */
 .home-page {
-  padding-top: 100px;
+  --site-header-height: 100px;
+  padding-top: var(--site-header-height);
   font-size: 17px;
   line-height: 1.75;
 }
@@ -155,7 +156,7 @@ button.shrink-0.self-start { white-space: normal; }
   height: 1px;
   background: rgb(var(--sand-deep));
 }
-.home-page [id] { scroll-margin-top: 116px; }
+.home-page [id] { scroll-margin-top: calc(var(--site-header-height) + 16px); }
 .home-heading {
   margin-bottom: 28px;
   font-family: var(--font-display), var(--font-inter), sans-serif;
@@ -187,10 +188,21 @@ button.shrink-0.self-start { white-space: normal; }
   outline-offset: 5px;
 }
 .dark .home-page :is(a, button):focus-visible { outline-color: #3B82F6; }
-.sky-band { position: relative; background: color-mix(in srgb, #3B82F6 18%, #FFFFFF); }
+.sky-band {
+  --sky-viewport: 100vh;
+  position: relative;
+  display: grid;
+  align-items: center;
+  min-height: calc(var(--sky-viewport) - var(--site-header-height));
+  background: color-mix(in srgb, #3B82F6 18%, #FFFFFF); }
+@supports (height: 100svh) { .sky-band { --sky-viewport: 100svh; } }
 .dark .sky-band { background: rgb(59 130 246 / 0.08); }
 .sky-clouds { position: absolute; inset: 0 0 auto; width: 100%; height: 80px; fill: rgb(var(--cream)); pointer-events: none; }
-.sky-content { position: relative; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; gap: 48px; padding-block: 80px 60px; }
+/* 배경은 화면을 채우고 내부 높이만 제한한다. */
+.sky-content { position: relative; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; gap: 48px; min-height: min(1100px, calc(var(--sky-viewport) - var(--site-header-height))); align-content: center; padding-block: 80px; }
+.sky-copy-versions { display: grid; min-width: 0; }
+.sky-copy { grid-area: 1 / 1; align-self: center; min-width: 0; }
+.sky-copy[aria-hidden="true"] { visibility: hidden; pointer-events: none; }
 .sky-character { display: block; width: 100%; height: auto; }
 .sky-copy h1 { font-size: clamp(38px, 4.1vw, 56px); font-weight: 600; line-height: 1.12; letter-spacing: -0.035em; text-wrap: balance; }
 .sky-role { margin-top: 24px; color: rgb(var(--muted)); font-size: 17px; line-height: 1.75; }
@@ -243,8 +255,22 @@ button.shrink-0.self-start { white-space: normal; }
   .group-card:hover { border-color: #3B82F6; background: color-mix(in srgb, #3B82F6 8%, rgb(var(--cream))); }
   .group-card[aria-expanded="true"]:hover { background: color-mix(in srgb, #3B82F6 18%, rgb(var(--cream))); }
 }
-.group-panel-stage { display: contents; }
-.group-panel { grid-area: 6 / 1 / 7 / -1; align-self: start; margin-top: 28px; background: rgb(var(--cream)); border-top: 1px solid rgb(var(--sand-deep)); padding-top: 28px; }
+.group-panel-mobile { display: none; }
+.group-panel-heading { display: flex; align-items: baseline; gap: 12px; }
+.group-panel-heading::before { content: ""; flex: 0 0 24px; height: 3px; background: #3B82F6; align-self: center; }
+.group-list-viewport, .group-accordion { overflow: hidden; }
+.group-list-viewport { padding: 8px; margin: -8px; }
+.group-anchor[data-selected="true"]::after {
+  content: "";
+  position: absolute;
+  bottom: -29px;
+  left: 32px;
+  width: 2px;
+  height: 29px;
+  background: #3B82F6;
+  pointer-events: none;
+}
+.group-panel { grid-area: 6 / 1 / 7 / -1; align-self: start; margin-top: 28px; background: rgb(var(--cream)); border-top: 2px solid #3B82F6; padding-top: 28px; }
 .group-panel[aria-hidden="true"] { pointer-events: none; }
 .work-rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
 .work-row { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 20px; align-items: start; padding-block: 24px; border-top: 1px solid rgb(var(--sand-deep)); }
@@ -269,15 +295,27 @@ button.shrink-0.self-start { white-space: normal; }
 .work-thumb { width: 88px; height: 88px; border: 1px solid rgb(var(--sand-deep)); overflow: hidden; border-radius: 8px; background: rgb(var(--sand)); }
 .work-thumb-phone > img { object-fit: contain; object-position: center; }
 .experience-row { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 32px; border-top: 1px solid rgb(var(--sand-deep)); padding-block: 28px; }
+.experience-date { min-width: 0; }
+.experience-logo { margin-top: 16px; height: 30px; max-width: 100%; }
+.experience-logo img { width: auto; height: 100%; max-width: 100%; object-fit: contain; object-position: left center; }
+.logo-light { display: block; }
+.logo-dark { display: none; }
+.dark .logo-light { display: none; }
+.dark .logo-dark { display: block; }
 .skills-block { margin-top: 24px; padding: 28px; border-radius: 16px; background: rgb(var(--sand) / 0.55); }
 .skills-lines > div { display: grid; grid-template-columns: minmax(210px, 1fr) minmax(0, 3fr); gap: 24px; padding-block: 10px; }
 .skills-lines > div + div { border-top: 1px solid rgb(var(--sand-deep)); }
 .about-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 64px; align-items: center; }
 .about-copy { min-width: 0; }
+.award-group + .award-group { margin-top: 32px; }
+.award-group-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px 32px; margin-bottom: 20px; }
+.award-group-heading > div { min-width: 0; }
+.award-group-heading > a { flex-shrink: 0; }
+.award-project-title { font-size: clamp(24px, 2.4vw, 28px); font-weight: 600; line-height: 1.35; }
 .award-row { display: grid; grid-template-columns: 90px minmax(0, 1fr) 96px; gap: 24px; align-items: start; padding-block: 24px; border-top: 1px solid rgb(var(--sand-deep)); }
 .award-photo { width: 96px; height: 72px; border-radius: 6px; object-fit: cover; }
 .award-row:not(:has(.award-photo)) .award-description { grid-column: 2 / -1; }
-.home-page #contact { scroll-margin-top: 100px; }
+.home-page #contact { scroll-margin-top: var(--site-header-height); }
 /* 홈의 공통 효과는 정지한다. */
 html:has(.home-page) body { transition: none; }
 .home-page :is(a, button) { transition: background-color 160ms, color 160ms; }
@@ -293,14 +331,20 @@ html:has(.home-page) body { transition: none; }
   .home-section { padding-block: 48px; }
   .home-section + .home-section::before { inset-inline: 20px; }
   .home-heading { margin-bottom: 24px; }
-  .sky-content { grid-template-columns: minmax(0, 1fr); gap: 36px; padding-block: 56px 28px; }
-  .sky-art { width: min(100%, 280px); justify-self: center; margin-top: 12px; }
+  .sky-content { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-block: 56px; }
+  .sky-art { width: min(100%, 280px); justify-self: center; }
   .sky-role { margin-top: 20px; font-size: 16px; }
   .sky-actions { margin-top: 24px; gap: 16px 24px; }
   .sky-copy h1 { max-width: 620px; font-size: clamp(36px, 7vw, 50px); }
   .sky-clouds { height: 50px; }
   .selected-grid, .group-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
-  .group-grid { grid-template-rows: none; row-gap: 20px; }
+  .group-grid { grid-template-rows: none; row-gap: 0; }
+  .group-anchor ~ .group-anchor { margin-top: 20px; }
+  .group-anchor[data-selected="true"]::after { bottom: -20px; height: 20px; }
+  .group-panel-desktop { display: none; }
+  .group-panel-mobile { display: block; min-width: 0; }
+  .group-panel-mobile:empty { display: none; }
+  .group-accordion > .group-panel { margin-top: 20px; }
   .group-anchor { grid-row: auto; display: block; }
   .group-card { display: flex; flex-direction: column; height: auto; }
   .group-card .photo-slot { aspect-ratio: 16 / 9 !important; flex-shrink: 0; }
@@ -313,6 +357,10 @@ html:has(.home-page) body { transition: none; }
   .work-thumb { width: 64px; height: 64px; }
   .work-row:last-child:nth-child(odd) { grid-column: auto; }
   .experience-row { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .experience-date { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+  .experience-logo { height: 24px; margin-top: 0; }
+  .award-group-heading { flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .award-group + .award-group { margin-top: 24px; }
   .skills-block { padding: 22px 20px; }
   .skills-lines > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
   .about-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
@@ -352,7 +400,7 @@ html.lang-ko .home-page {
 html.lang-ko .home-page :where(
   .ko-hero-display, .home-heading, .home-card-title, .group-title,
   .group-panel h3, .group-panel h4, .skills-block h3,
-  .award-description h3, .about-copy blockquote, #contact h2
+  .award-description h4, .award-project-title, .about-copy blockquote, #contact h2
 ) {
   font-family: var(--font-ko-display), "Pretendard Variable", sans-serif;
   font-weight: 800;
@@ -380,7 +428,7 @@ html.lang-ko .home-page :is(
 ) {
   font-size: var(--ko-size-card);
 }
-html.lang-ko .home-page :is(.group-panel h4, .award-description h3) {
+html.lang-ko .home-page :is(.group-panel h4, .award-description h4) {
   font-size: var(--ko-size-item);
 }
 html.lang-ko .home-page .about-copy blockquote {
@@ -462,4 +510,32 @@ html.lang-ko .home-page :is(.group-panel > h3, .skills-block > h3) {
   html.lang-ko .work-row:nth-child(2) { padding-top: 24px; }
   html.lang-ko .experience-row { gap: var(--ko-gap-meta); }
   html.lang-ko .award-row { row-gap: var(--ko-gap-meta); }
+}
+
+/* 숨긴 언어도 같은 글꼴과 크기로 측정한다. */
+html .home-page .sky-copy[lang="en"] { font-family: var(--font-inter), sans-serif; }
+html .home-page .sky-copy[lang="en"] .ko-hero-display {
+  font-family: var(--font-display), var(--font-inter), sans-serif;
+  font-size: clamp(38px, 4.1vw, 56px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+html .home-page .sky-copy[lang="ko"] { word-break: keep-all; overflow-wrap: normal; }
+/* 한글 글꼴은 한국어 화면에서만 건다(영어 방문자가 숨은 한글 사본 때문에 글꼴을 받지 않게). */
+html.lang-ko .home-page .sky-copy[lang="ko"] { font-family: "Pretendard Variable", var(--font-inter), sans-serif; }
+html.lang-ko .home-page .sky-copy[lang="ko"] .ko-hero-display { font-family: var(--font-ko-display), "Pretendard Variable", sans-serif; }
+html .home-page .sky-copy[lang="ko"] .ko-hero-display {
+  font-size: clamp(34px, 3.75vw, 52px);
+  font-weight: 800;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+}
+html .home-page .sky-copy[lang="en"] .sky-role { font-size: 17px; line-height: 1.75; }
+html .home-page .sky-copy[lang="ko"] .sky-role { font-size: 15px; line-height: 1.6; }
+html.lang-ko .experience-date > .home-meta { margin-top: 0; }
+@media (max-width: 767px) {
+  html .home-page .sky-copy[lang="en"] .ko-hero-display { font-size: clamp(36px, 7vw, 50px); }
+  html .home-page .sky-copy[lang="ko"] .ko-hero-display { font-size: clamp(34px, 7vw, 48px); }
+  html .home-page .sky-copy[lang="en"] .sky-role { font-size: 16px; }
 }
