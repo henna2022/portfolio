@@ -50,17 +50,12 @@ export function Contact() {
             {t.availability}
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            {/* 문의 종류별로 메일 제목을 미리 채운다. 받은편지함에서 바로 분류되고,
-                보내는 쪽도 "뭐라고 써야 하지"를 건너뛴다. 아래 주소 링크는 복사용. */}
-            {t.inquiries.map(({ label, subject }) => (
-              <a
-                key={label}
-                href={`mailto:${person.email}?subject=${encodeURIComponent(subject)}`}
-                className="inline-flex items-center gap-2 rounded-lg bg-cream px-5 py-3 text-[15px] font-medium text-ink transition-colors"
-              >
-                {label} <ArrowIcon />
-              </a>
-            ))}
+            <a
+              href={`mailto:${person.email}`}
+              className="inline-flex items-center gap-2 rounded-lg bg-cream px-5 py-3 text-[15px] font-medium text-ink transition-colors"
+            >
+              {t.nav.contact} <ArrowIcon />
+            </a>
             <a
               href={`mailto:${person.email}`}
               className="text-[15px] text-cream underline-offset-4 transition-colors hover:text-cream hover:underline"

@@ -125,11 +125,11 @@ export const about = {
       { text: "." },
     ],
     [
-      { text: "For the smart-farm class the Yangpyeong Education Office commissioned through the museum, I wrote the curriculum and teach it on a lab platform I built from my own Doctor-Green work. I taught it as a demo class to " },
-      { text: "5 high-school students in August 2026", b: true },
-      { text: ", and it ran with " },
-      { text: "a 15-student cohort in October 2026", b: true },
-      { text: ", taught by three instructors I trained. At the museum I guide visitors in Korean and English, and I mentor students week to week." },
+      { text: "For the smart-farm class the Yangpyeong Education Office commissioned through the museum, I wrote the curriculum and teach it on a lab platform I built from my own Doctor-Green work. In October 2026, three instructors I trained taught it to " },
+      { text: "a 15-student cohort at Gyeonggi Shared School in Yangpyeong", b: true },
+      { text: ", and in November it ran for " },
+      { text: "Geochang Daesung High School", b: true },
+      { text: ". At the museum I guide visitors in Korean and English, and I mentor students week to week." },
     ],
   ] as ProseParagraph[],
 };
@@ -169,16 +169,16 @@ const allProjects: Project[] = [
     category: "Education Program",
     categories: ["AI", "IoT", "Education"],
     kicker: "Museum × Yangpyeong Education Office",
-    desc: "A hands-on program where students try IoT smart farming and AI crop diagnosis. The Yangpyeong Education Office commissioned it, and I planned and built it solo, server and web app included. It ran as a demo class for 5 high-school students in August 2026, then as the full class for a selected 15-student cohort in October 2026, taught by three instructors I trained.",
+    desc: "A hands-on program where students try IoT smart farming and AI crop diagnosis. The Yangpyeong Education Office commissioned it, and I planned and built it solo, server and web app included. In October 2026, three instructors I trained taught it to a selected 15-student cohort at Gyeonggi Shared School in Yangpyeong, and in November 2026 it ran for Geochang Daesung High School.",
     year: "2026",
     role: "Solo: planning & development",
     tags: ["TensorFlow.js", "MobileNet v2", "Next.js", "Supabase", "ESP32", "Arduino / C++", "Weather API"],
     href: "https://smartfarm-lab.com",
     stat: "15-student cohort · Oct 2026",
     overview:
-      "A hands-on education program, commissioned by the Yangpyeong Education Office through the museum, where students work with an IoT smart farm and AI crop diagnosis. **It was taught as a demo class to 5 high-school students in August 2026** and ran in **October 2026** for a **cohort of 15 Yangpyeong high-school students**, selected by application, taught by **three instructors I trained**.\n\nI planned and built it solo: **a Next.js web app with server API routes on Vercel, and Arduino (C++) firmware for the class's 15 ESP32 student boards (one per student), which write sensor readings straight to Supabase**. Students move through four STEPs (weather, AI transfer learning, IoT sensors and automation) and watch **sensor values change in real time**. In the last STEP they set thresholds for light, humidity and soil moisture, and the real board switches its LED, fan and pump on its own. They also **train a model themselves inside the browser** with TensorFlow.js transfer learning on MobileNet v2, so the epoch and loss numbers they watch come from their own run.",
+      "A hands-on education program, commissioned by the Yangpyeong Education Office through the museum, where students work with an IoT smart farm and AI crop diagnosis. It ran in **October 2026** for a **cohort of 15 high-school students at Gyeonggi Shared School in Yangpyeong**, selected by application, taught by **three instructors I trained**, and in **November 2026** for students from **Geochang Daesung High School**.\n\nI planned and built it solo: **a Next.js web app with server API routes on Vercel, and Arduino (C++) firmware for the class's 15 ESP32 student boards (one per student), which write sensor readings straight to Supabase**. Students move through four STEPs (weather, AI transfer learning, IoT sensors and automation) and watch **sensor values change in real time**. In the last STEP they set thresholds for light, humidity and soil moisture, and the real board switches its LED, fan and pump on its own. They also **train a model themselves inside the browser** with TensorFlow.js transfer learning on MobileNet v2, so the epoch and loss numbers they watch come from their own run.",
     highlights: [
-      "**Taught as a demo class to 5 high-school students in August 2026** on the museum's education floor; the full class **ran in October 2026** for a 15-student cohort of Yangpyeong high-school students, selected by application, taught by **three instructors I trained**.",
+      "**Ran in October 2026** for a 15-student cohort at Gyeonggi Shared School in Yangpyeong, selected by application, taught by **three instructors I trained**; **in November 2026** it ran for **Geochang Daesung High School**.",
       "Commissioned by the Yangpyeong Education Office through the museum; **planned and built solo**, server and web app included.",
       "Students **train a model in the browser** with TensorFlow.js transfer learning on MobileNet v2 and read epoch and loss from their own run.",
       "Students watch sensor values from the 15 ESP32 boards **change in real time** in the lab database.",
@@ -191,7 +191,7 @@ const allProjects: Project[] = [
     // 실습실 화면은 피그마 새 디자인 시안(2026-11)에서 가져온 것이라 언어 구분 없이 한 벌만 쓴다
     image: "/portfolio_images/projects/smartfarm-lab-dashboard.jpg",
     gallery: [
-      // 데모 수업 현장 — 학생 얼굴은 게시 전 마스킹했다
+      // 수업 현장, 학생 얼굴은 게시 전 마스킹했다
       "/portfolio_images/projects/smartfarm-edu-class.jpg",
       "/portfolio_images/projects/smartfarm-lab-dashboard.jpg",
       "/portfolio_images/projects/smartfarm-lab-weather.jpg",
@@ -200,7 +200,7 @@ const allProjects: Project[] = [
     ],
     galleryAlts: {
       "/portfolio_images/projects/smartfarm-edu-class.jpg":
-        "Demo class in August 2026 on the museum's education floor: students watch their own in-browser model training reach 87.5% accuracy, each with a mini smart-farm sensor rig beside them.",
+        "A class on the museum's education floor: students watch their own in-browser model training reach 87.5% accuracy, each with a mini smart-farm sensor rig beside them.",
       "/portfolio_images/projects/smartfarm-lab-dashboard.jpg": "Smart Farm Lab dashboard in the new interface design: progress through STEP 1 to 4 and the next task.",
       "/portfolio_images/projects/smartfarm-lab-weather.jpg": "STEP 1 in the new interface design: students call the public weather API with their own key and see the data land in a table.",
       "/portfolio_images/projects/smartfarm-lab-vision.jpg": "STEP 2 in the new interface design: students set the epochs and learning rate, train the AI vision model and read its accuracy.",
@@ -877,7 +877,7 @@ export const experience = [
     ],
     points: [
       "Build and run the interactive AI education web apps visitors use on the exhibition floor. Raimi's AI Art Lab ran there from June to August 2026 and generated 14,328 images, 9,865 of them in July.",
-      "Plan and teach education programs, including the smart-farm class the Yangpyeong Education Office commissioned through the museum. Taught it as a demo class to 5 high-school students in August 2026, then trained the three instructors who taught the 15-student class in October 2026.",
+      "Plan and teach education programs, including the smart-farm class the Yangpyeong Education Office commissioned through the museum. Trained the three instructors who taught it to a 15-student cohort at Gyeonggi Shared School in Yangpyeong in October 2026, and ran it for Geochang Daesung High School in November 2026.",
       // 메타버스 전시는 어느 정도 완성되면 다시 추가한다 (data.ts 의 raim-metaverse 주석 블록과 함께)
       "Build internal ops tools, including the staff app that about 20 docents and part-time staff use daily.",
       "Guide exhibitions in Korean and English, and support the multipurpose education rooms.",

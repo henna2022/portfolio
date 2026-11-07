@@ -246,7 +246,6 @@ button.shrink-0.self-start { white-space: normal; }
 .group-card[aria-expanded="true"] {
   border-color: #3B82F6;
   background: color-mix(in srgb, #3B82F6 14%, rgb(var(--cream)));
-  box-shadow: inset 0 -2px #3B82F6;
 }
 .group-card[aria-expanded="true"] :is(.group-title, .group-action) { color: #1D4ED8; }
 .dark .group-card[aria-expanded="true"] { background: color-mix(in srgb, #3B82F6 18%, rgb(var(--cream))); }
@@ -260,17 +259,17 @@ button.shrink-0.self-start { white-space: normal; }
 .group-panel-heading::before { content: ""; flex: 0 0 24px; height: 3px; background: #3B82F6; align-self: center; }
 .group-list-viewport, .group-accordion { overflow: hidden; }
 .group-list-viewport { padding: 8px; margin: -8px; }
-.group-anchor[data-selected="true"]::after {
-  content: "";
+.group-indicator {
   position: absolute;
-  bottom: -29px;
-  left: 32px;
-  width: 2px;
-  height: 29px;
+  bottom: -16px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  border-radius: 999px;
   background: #3B82F6;
   pointer-events: none;
 }
-.group-panel { grid-area: 6 / 1 / 7 / -1; align-self: start; margin-top: 28px; background: rgb(var(--cream)); border-top: 2px solid #3B82F6; padding-top: 28px; }
+.group-panel { grid-area: 6 / 1 / 7 / -1; align-self: start; margin-top: 28px; background: rgb(var(--cream)); padding-top: 28px; }
 .group-panel[aria-hidden="true"] { pointer-events: none; }
 .work-rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
 .work-row { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 20px; align-items: start; padding-block: 24px; border-top: 1px solid rgb(var(--sand-deep)); }
@@ -340,7 +339,7 @@ html:has(.home-page) body { transition: none; }
   .selected-grid, .group-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .group-grid { grid-template-rows: none; row-gap: 0; }
   .group-anchor ~ .group-anchor { margin-top: 20px; }
-  .group-anchor[data-selected="true"]::after { bottom: -20px; height: 20px; }
+  .group-indicator { display: none; }
   .group-panel-desktop { display: none; }
   .group-panel-mobile { display: block; min-width: 0; }
   .group-panel-mobile:empty { display: none; }

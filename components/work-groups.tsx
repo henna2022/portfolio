@@ -212,6 +212,10 @@ export function WorkGroups({ photos }: { photos: Record<GroupId, ReactNode> }) {
                     </span>
                   </span>
                 </button>
+                {selected ? (
+                  <motion.span layoutId="group-indicator" layout="position" className="group-indicator" aria-hidden="true"
+                    initial={false} transition={{ layout: { type: "tween", duration: reduced ? 0 : 0.35, ease: "easeInOut" } }} />
+                ) : null}
               </div>
               <div id={`work-group-panel-${group.id}`} className="group-panel-mobile" role="region"
                 aria-labelledby={`group-title-${group.id}`} aria-hidden={!selected}>

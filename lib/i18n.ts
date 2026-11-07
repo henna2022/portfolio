@@ -67,12 +67,6 @@ export const ui = {
 
   contactHeading: "Hiring and education program inquiries are welcome.",
   availability: "Leave a message. I usually reply within a day or two.",
-  // 채용 문의를 맨 앞에 (채용 담당자 검토 반영: 외주 홍보처럼 읽히지 않게)
-  inquiries: [
-    { label: "Hiring inquiry", subject: "juwonlee.dev: hiring inquiry" },
-    { label: "Education program inquiry", subject: "juwonlee.dev: education program inquiry" },
-    { label: "Research / collaboration", subject: "juwonlee.dev: research or collaboration" },
-  ],
   footerCopyright: "© 2026 Juwon Lee",
   lastUpdated: "Last updated 2026.11.03",
   privacyNotice: "This site keeps anonymous visit statistics.",
@@ -160,11 +154,6 @@ export const uiKo: UiStrings = {
 
   contactHeading: "채용⁠·⁠교육 프로그램 문의를 기다립니다.",
   availability: "메시지를 남겨 주세요. 보통 1~2일 안에 답장드립니다.",
-  inquiries: [
-    { label: "채용 문의", subject: "juwonlee.dev 채용 문의" },
-    { label: "교육 프로그램 문의", subject: "juwonlee.dev 교육 프로그램 문의" },
-    { label: "연구⁠·⁠협업 제안", subject: "juwonlee.dev 연구⁠·⁠협업 제안" },
-  ],
   footerCopyright: "© 2026 이주원",
   lastUpdated: "최종 업데이트 2026.11.03",
   privacyNotice: "이 사이트는 익명 방문 통계를 수집합니다.",
