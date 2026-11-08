@@ -713,26 +713,25 @@ const allProjects: Project[] = [
       "Korean line-break settings in DOCX and PPTX output so lines do not break mid-word.",
     ],
   },
-  // 볼트 resume: 예정형으로만. 직원 전용(비밀번호 게이트)이라 href·캡처 없이 둔다.
+  // 본인 2026-11-08: 11월 4일 시작, 매주 수요일 2시간 진행 중. 직원 전용(비밀번호 게이트)이라 href·캡처 없이 둔다.
   {
     slug: "staff-ai-class",
     tier: "side",
     title: "RAIM AI Coding Class",
     category: "Staff Training · Practice Site",
     categories: ["Education", "Web"],
-    kicker: "Museum staff course · Oct 23 to Dec 23, 2026 (planned)",
-    desc: "A ten-session AI and coding course I planned for museum staff, scheduled from October 23 to December 23, 2026, with a practice site where staff sign in, work through hands-on activities and have their results saved.",
+    kicker: "Museum staff course · Wednesdays from Nov 4, 2026",
+    desc: "A ten-session AI and coding course I planned for museum staff, running every Wednesday since November 4, 2026, with a practice site where staff sign in, work through hands-on activities and have their results saved.",
     year: "2026",
     role: "Solo: curriculum, materials, practice-site development",
-    tags: ["JavaScript", "HTML/CSS", "Supabase", "Google Sheets", "Vercel"],
+    tags: ["JavaScript", "HTML/CSS", "Supabase", "Vercel"],
     stat: "10 sessions · 20 hours",
     overview:
-      "I planned a **ten-session, 20-hour course** on AI and coding for museum staff, scheduled on weekday evenings from October 23 to December 23, 2026. Each session is one hour of theory and one hour of solo practice. Five sessions (2, 5, 6, 8 and 9) are AI technology trend studies: a map of generative AI models, agents and tool calling, on-device and small models, physical AI and robot models, and multimodal generation and AI coding. The other five cover what happens inside generative AI and what must never be typed into it, fact-checking and search, how machines learn, the inside of a neural network, and planning AI exhibits around on-device models or server APIs.\n\nThe course runs on a practice site I built for it. Staff sign in with their staff-app ID and a PIN they set themselves, then work through **33 hands-on activities**. **Their results are saved to Supabase**, and an admin view shows each person's progress with CSV export. Session dates and status come from a Google Sheet, so schedule changes need no redeploy.\n\nThe site is deployed, and the first session is on October 23, 2026.",
+      "I planned a **ten-session, 20-hour course** on AI and coding for museum staff. It started on November 4, 2026 and runs every Wednesday for two hours: one hour of theory and one hour of solo practice. Five sessions (2, 5, 6, 8 and 9) are AI technology trend studies: a map of generative AI models, agents and tool calling, on-device and small models, physical AI and robot models, and multimodal generation and AI coding. The other five cover what happens inside generative AI and what must never be typed into it, fact-checking and search, how machines learn, the inside of a neural network, and planning AI exhibits around on-device models or server APIs.\n\nThe course runs on a practice site I built for it. Staff sign in with their staff-app ID and a PIN they set themselves, then work through **33 hands-on activities**. **Their results are saved to Supabase**, and an admin view shows each person's progress with CSV export.",
     highlights: [
-      "Planned a **10-session, 20-hour** staff course for October 23 to December 23, 2026: one hour of theory and one hour of solo practice each session, with five sessions given to AI technology trend study.",
+      "Planned a **10-session, 20-hour** staff course, running every Wednesday since November 4, 2026: one hour of theory and one hour of solo practice each session, with five sessions given to AI technology trend study.",
       "Practice site with personal sign-in (staff-app ID and a self-set PIN), **33 hands-on activities** and results saved to Supabase.",
       "Admin view of each person's progress by activity, with CSV export.",
-      "The practice site is deployed, and the first session is on October 23, 2026.",
     ],
   },
   // 기록(볼트 노트) 없음, 현장 검증 전 프로토타입. 정확도 수치는 쓰지 않는다. 저장소 비공개.
