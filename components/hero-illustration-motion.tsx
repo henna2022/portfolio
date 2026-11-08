@@ -6,19 +6,19 @@ import { useI18n } from "./lang-provider";
 const profileChips = {
   en: [
     ["Role", "Education R&D · Developer"],
-    ["Role", "Product planning (PM)"],
+    ["Field", "Education program planning"],
     ["Field", "AI & coding education"],
     ["Field", "Science museum exhibits"],
     ["Field", "Smart farm & IoT"],
-    ["Interest", "EdTech"],
+    ["Field", "Exhibit operations software"],
   ],
   ko: [
     ["직무", "교육 R&D \u2060·\u2060 개발자"],
-    ["직무", "서비스 기획(PM)"],
+    ["분야", "교육 프로그램 기획"],
     ["분야", "AI\u2060·\u2060코딩 교육"],
     ["분야", "과학관 전시"],
     ["분야", "스마트팜\u2060·\u2060IoT"],
-    ["관심", "에듀테크"],
+    ["분야", "전시 운영 소프트웨어"],
   ],
 } as const;
 
