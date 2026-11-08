@@ -39,7 +39,10 @@ export function SkyHero() {
               <div key={language} lang={language} className="sky-copy" aria-hidden={lang !== language}
                 ref={(node) => { if (node) node.inert = lang !== language; }}>
                 <h1 className="font-display ko-hero-display">{copy.headline}</h1>
-                <p className="sky-role">{language === "ko" ? person.hangul : person.name}<br />{strings.educationRole}</p>
+                <div className="sky-identity">
+                  <p className="sky-name">{language === "ko" ? person.hangul : person.name}</p>
+                  <p className="sky-role">{strings.educationRole}</p>
+                </div>
                 <div className="sky-actions">
                   <a href="#work" className="home-primary">{strings.viewWork} <span aria-hidden="true">↗</span></a>
                   <a href="#contact" className="home-link">{strings.nav.contact} <span aria-hidden="true">↗</span></a>

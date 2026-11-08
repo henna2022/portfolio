@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import type { Project } from "@/lib/data";
 import { useI18n } from "./lang-provider";
+import { KoSentences } from "./ko-sentences";
 import { koProjectTitle, localizeProject } from "@/lib/data-ko";
 import { ArrowIcon } from "./icons";
 import { ImageCarousel } from "./image-carousel";
@@ -51,10 +52,7 @@ export function ProjectDetail({
         animate="show"
         className="mt-8"
       >
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-          {p.category}
-        </p>
-        <h1 className="font-display mt-3 text-4xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-5xl md:text-6xl">
+        <h1 className="font-display text-4xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-5xl md:text-6xl">
           {p.title}
         </h1>
         <div
@@ -77,7 +75,7 @@ export function ProjectDetail({
             <div className="space-y-4 text-lg leading-relaxed text-muted">
               {p.overview.split("\n\n").map((para) => (
                 <p key={para}>
-                  <Rich text={para} />
+                  <KoSentences lang={lang} text={para}>{(sentence) => <Rich text={sentence} />}</KoSentences>
                 </p>
               ))}
             </div>
@@ -90,7 +88,7 @@ export function ProjectDetail({
 
             {p.tags.length > 0 ? (
               <div>
-                <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
+                <h2 className="project-meta-label text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
                   {t.stack}
                 </h2>
                 <div className="mt-2 flex flex-wrap gap-2">
@@ -150,7 +148,7 @@ export function ProjectDetail({
             <li key={h} className="flex gap-3 text-[15px] leading-relaxed text-ink/75">
               <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-lime" />
               <span>
-                <Rich text={h} />
+                <KoSentences lang={lang} text={h}>{(sentence) => <Rich text={sentence} />}</KoSentences>
               </span>
             </li>
           ))}
@@ -217,7 +215,7 @@ function Rich({ text }: { text: string }) {
 function Meta({ k, v }: { k: string; v: string }) {
   return (
     <div>
-      <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
+      <p className="project-meta-label text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
         {k}
       </p>
       <p className="mt-1 text-sm text-ink/80">{v}</p>

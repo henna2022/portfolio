@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { person } from "@/lib/data";
 import { assetPath } from "@/lib/asset";
 import { useI18n } from "./lang-provider";
+import { KoSentences } from "./ko-sentences";
 import { ArrowIcon, GithubIcon, LinkedinIcon, MailIcon } from "./icons";
 
 const socials = [
@@ -14,19 +14,7 @@ const socials = [
 ];
 
 export function Contact() {
-  const [today, setToday] = useState("");
   const { t, lang } = useI18n();
-
-  useEffect(() => {
-    setToday(
-      new Date().toLocaleDateString(lang === "ko" ? "ko-KR" : "en-US", {
-        weekday: "long",
-        year: "numeric",
-        month: "numeric",
-        day: "numeric",
-      }),
-    );
-  }, [lang]);
 
   return (
     <footer
@@ -46,8 +34,8 @@ export function Contact() {
           <h2 className="font-display mt-6 max-w-2xl text-4xl font-semibold leading-[1.05] tracking-[-0.02em] sm:text-5xl">
             {t.contactHeading}
           </h2>
-          <p className="mt-5 max-w-xl text-[17px] leading-[1.75] text-cream">
-            {t.availability}
+          <p className="mt-5 text-[17px] leading-[1.75] text-cream">
+            <KoSentences lang={lang} text={t.availability} />
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
@@ -83,7 +71,7 @@ export function Contact() {
           </div>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-1 text-[15px] text-cream">
             <span>{t.footerCopyright}</span>
-            {today ? <span>{today}</span> : null}
+            <span>{t.lastUpdated}</span>
           </div>
         </div>
 
@@ -96,13 +84,6 @@ export function Contact() {
           >
             {t.privacyLink}
           </Link>
-        </p>
-      </div>
-
-      {/* Giant faded name */}
-      <div aria-hidden="true" className="pointer-events-none select-none px-6">
-        <p className="font-display translate-y-[12%] whitespace-nowrap text-[18vw] font-bold leading-[0.8] tracking-[-0.03em] text-cream/10">
-          {person.name}
         </p>
       </div>
     </footer>

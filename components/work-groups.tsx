@@ -212,16 +212,11 @@ export function WorkGroups({ photos }: { photos: Record<GroupId, ReactNode> }) {
                     </span>
                   </span>
                 </button>
-                {selected ? (
-                  <motion.span layoutId="group-indicator" layout="position" className="group-indicator" aria-hidden="true"
-                    initial={false} transition={{ layout: { type: "tween", duration: reduced ? 0 : 0.35, ease: "easeInOut" } }} />
-                ) : null}
               </div>
               <div id={`work-group-panel-${group.id}`} className="group-panel-mobile" role="region"
                 aria-labelledby={`group-title-${group.id}`} aria-hidden={!selected}>
                 {selected ? (
                   <GroupPanel key={group.id} appear={appear}>
-                    <h3 className="group-panel-heading font-display mb-6 text-2xl font-semibold">{t.workGroups[group.id]}</h3>
                     <PanelRows appear={appear}>{rows(group.id)}</PanelRows>
                   </GroupPanel>
                 ) : null}
@@ -230,7 +225,6 @@ export function WorkGroups({ photos }: { photos: Record<GroupId, ReactNode> }) {
           );
         })}
         <div id="work-group-panel-desktop" className="group-panel group-panel-desktop" role="region" aria-labelledby={`group-title-${open}`}>
-          <h3 className="group-panel-heading font-display mb-6 text-2xl font-semibold">{t.workGroups[open]}</h3>
           <DesktopList group={open}>{rows(open)}</DesktopList>
         </div>
       </div>

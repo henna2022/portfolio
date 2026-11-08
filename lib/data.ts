@@ -178,10 +178,10 @@ const allProjects: Project[] = [
     overview:
       "A hands-on program, commissioned by the Yangpyeong Education Office through the museum, where students work with an IoT smart farm and AI crop diagnosis. In October 2026 three instructors I trained taught it to a selected **cohort of 15 high-school students** at Gyeonggi Shared School in Yangpyeong, and in November 2026 it ran for Geochang Daesung High School. I planned and built it solo, from the web app and its server to the firmware for 15 student ESP32 boards.",
     highlights: [
-      "**Ran in October 2026** for a 15-student cohort at Gyeonggi Shared School in Yangpyeong, selected by application, taught by **three instructors I trained**; **in November 2026** it ran for **Geochang Daesung High School**.",
-      "Commissioned by the Yangpyeong Education Office through the museum; **planned and built solo**, server and web app included.",
-      "Students **train a model in the browser** with TensorFlow.js transfer learning on MobileNet v2 and read epoch and loss from their own run.",
-      "Students watch sensor values from the 15 ESP32 boards **change in real time** in the lab database.",
+      "Ran in October 2026 for a 15-student cohort at Gyeonggi Shared School in Yangpyeong, selected by application, taught by three instructors I trained; in November 2026 it ran for Geochang Daesung High School.",
+      "Commissioned by the Yangpyeong Education Office through the museum; planned and built solo, server and web app included.",
+      "Students train a model in the browser with TensorFlow.js transfer learning on MobileNet v2 and read epoch and loss from their own run.",
+      "Students watch sensor values from the 15 ESP32 boards change in real time in the lab database.",
     ],
     flow: ["ESP32 boards", "Supabase", "Weather API", "Student web app"],
     flowImage: {
@@ -232,9 +232,9 @@ const allProjects: Project[] = [
     overview:
       "The museum adopted this site as its official booking channel for foreign visitors, who could not book guided tours online before because Seoul's public reservation system requires a Korean mobile identity check. Here they book with an email address. It opened **130 seats a week** to foreign visitors at launch on October 15, 2026, and since October 23 it has run as a pilot for the Wednesday 15:40 English-guided tour through December 2026 (10 seats in November, 15 in December).",
     highlights: [
-      "Foreign visitors book tours online with an email address instead of the **Korean mobile identity check** the city reservation system requires.",
-      "**Adopted as the museum's official booking channel for foreign visitors**: **130 online seats a week** at launch where foreign visitors previously had none, now a pilot for the Wednesday English-guided tour through December 2026.",
-      "Requests for November visits wait for **staff approval** and bookings from December are confirmed instantly, within the museum's monthly seat allocation; a pending request already holds its seat, so sessions cannot be overbooked, and cancellations return seats automatically.",
+      "Foreign visitors book tours online with an email address instead of the Korean mobile identity check the city reservation system requires.",
+      "Adopted as the museum's official booking channel for foreign visitors: 130 online seats a week at launch where foreign visitors previously had none, now a pilot for the Wednesday English-guided tour through December 2026.",
+      "Requests for November visits wait for staff approval and bookings from December are confirmed instantly, within the museum's monthly seat allocation; a pending request already holds its seat, so sessions cannot be overbooked, and cancellations return seats automatically.",
       "An admin interface for staff to approve requests by session, mark visits and no-shows, view booking and traffic statistics, and export them to Excel.",
       "Personal data is deleted automatically 90 days after the visit (no-show records are kept longer), a booking code alone shows only a masked summary, and visit statistics store no IP addresses.",
     ],
@@ -259,10 +259,10 @@ const allProjects: Project[] = [
     overview:
       "Doctor-Green is a smart-farm platform that brings crop-disease diagnosis and IoT environment control onto one screen. The IoT side runs as a live demo on Vercel; the diagnosis model is being rebuilt from **39,889 image crops**, and with classifier training still ahead there are no results yet. Its 2024 prototype with team MAKENEW won the Excellence Award at the 2024 ICT·SW Women's Start-up Competition.",
     highlights: [
-      "**Data flow built end to end**: ESP32 posting directly to Supabase over Wi-Fi → Next.js dashboard on 5-second polling.",
-      "**LED and fan control from the app**.",
-      "The 2024 prototype, built with team MAKENEW, won the **Excellence Award at the 2024 ICT·SW Women's Start-up Competition**.",
-      "Built the training set: **39.9K image crops** (train 32.2K / val 4,326 / test 3,408) across 5 classes (healthy plus 4 diseases).",
+      "Data flow built end to end: ESP32 posting directly to Supabase over Wi-Fi → Next.js dashboard on 5-second polling.",
+      "LED and fan control from the app.",
+      "The 2024 prototype, built with team MAKENEW, won the Excellence Award at the 2024 ICT·SW Women's Start-up Competition.",
+      "Built the training set: 39.9K image crops (train 32.2K / val 4,326 / test 3,408) across 5 classes (healthy plus 4 diseases).",
       "Next.js 16 + TypeScript + Tailwind web app deployed on Vercel as a live demo.",
     ],
     flow: ["ESP32 direct POST", "Supabase", "Next.js · 5s polling", "Desired-state control"],
@@ -290,9 +290,9 @@ const allProjects: Project[] = [
     overview:
       "Visitors build a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI draws it. It ran on the museum floor from June to August 2026, and the app's own backend recorded **14,328 generated images**: 3,049 from June 17, 9,865 in July and 1,414 in August. It replaced an off-the-shelf GPT service that would stop responding mid-use and leave the station unusable until staff stepped in.",
     highlights: [
-      "**14,328 images generated from June to August 2026, 9,865 of them in July**, counted by the app's own backend.",
-      "**Ended the freezes** of the off-the-shelf GPT service it replaced; none since the switch.",
-      "**10-step (+5 advanced) choice-based prompt builder** that teaches visitors of all ages how a prompt is put together.",
+      "14,328 images generated from June to August 2026, 9,865 of them in July, counted by the app's own backend.",
+      "Replaced an off-the-shelf GPT service that froze mid-use.",
+      "10-step (+5 advanced) choice-based prompt builder that teaches visitors of all ages how a prompt is put together.",
       "Every image gets an automatic museum-logo watermark, and visitors download it by QR code.",
       "Running as a web app let the exhibition kiosk be locked to a single full-screen browser.",
     ],
@@ -331,9 +331,9 @@ const allProjects: Project[] = [
     overview:
       "An internal app for managing the museum's docents and part-time staff, built to cut down on repetitive on-site work. **About 20 of them use it daily as an internal web app (PWA).**\n\nIt brings a schedule grid organized by date, a staff roster, live duty status and notices into one app, with a PC console for managers. I built it solo, from a single-HTML prototype to a Vite + React app with real-time data on Firebase (Firestore). A Capacitor setup is in place for mobile builds.",
     highlights: [
-      "**Used daily by about 20 docents and part-time staff** as an internal web app (PWA).",
+      "Used daily by about 20 docents and part-time staff as an internal web app (PWA).",
       "Schedule grid, roster, duty status and notices in one app, plus a PC console for managers.",
-      "**Real-time** roster and duty status backed by Firebase / Firestore.",
+      "Real-time roster and duty status backed by Firebase / Firestore.",
       "Planned and built solo, from a single-HTML prototype to a Vite + React app, with a Capacitor setup for mobile builds.",
     ],
     flow: ["React + Vite", "Firebase / Firestore", "Internal web app (PWA)"],
@@ -364,9 +364,9 @@ const allProjects: Project[] = [
     highlights: [
       "Planned and built as exhibition-education content for the museum.",
       "A game that links the exhibition to hands-on pattern restoration.",
-      "Built with JavaScript + HTML/CSS and **runs without a server**.",
-      "Deployed via GitHub Pages to run directly on **8 exhibition tablets**.",
-      "**Operating live** in a once-daily exhibition-linked program with **~15 participants per session**.",
+      "Built with JavaScript + HTML/CSS and runs without a server.",
+      "Deployed via GitHub Pages to run directly on 8 exhibition tablets.",
+      "Operating live in a once-daily exhibition-linked program with ~15 participants per session.",
     ],
     gallery: [
       "/portfolio_images/restorer1.jpg",
@@ -389,11 +389,11 @@ const allProjects: Project[] = [
     overview:
       "A game-style web app where visitors find out how language AI learns by playing. With the museum character Raimi, they go through **five touch mini-games**, each covering one NLP concept: **tokenization** (slicing a sentence into pieces), **embeddings** (sorting words by meaning), **word order**, **attention** (spotting the word that matters), and **next-word prediction** with live probability bars.\n\nIt ran on **3 exhibition tablets** from June to October 8, 2026, as an **offline-capable PWA** in Korean and English. Staff tracked per-device usage in a PIN-protected panel and exported reports to Excel.",
     highlights: [
-      "**5 touch mini-games**, one per NLP concept: tokenization, embeddings, word order, attention, and next-word prediction with live probability bars.",
+      "5 touch mini-games, one per NLP concept: tokenization, embeddings, word order, attention, and next-word prediction with live probability bars.",
       "Visitors play with the museum character Raimi through a stamp-based lesson menu.",
-      "**Runs entirely in the browser** on plain JavaScript, with no framework or server.",
-      "Works in **Korean and English**.",
-      "Ran on **3 exhibition tablets** from June to October 8, 2026, as an **offline-capable PWA** that reset to the start screen after 2 idle minutes.",
+      "Runs entirely in the browser on plain JavaScript, with no framework or server.",
+      "Works in Korean and English.",
+      "Ran on 3 exhibition tablets from June to October 8, 2026, as an offline-capable PWA that reset to the start screen after 2 idle minutes.",
       "Staff tracked per-device usage in a PIN-protected panel and exported it to Excel.",
     ],
     flow: ["5 NLP mini-games", "Plain JS · no server", "Offline PWA kiosk"],
@@ -450,9 +450,9 @@ const allProjects: Project[] = [
     overview:
       "A recovery system for MaskBot, a face- and voice-interaction robot exhibit on the museum floor. I installed it on the exhibit machine in July 2026, and it **still runs unattended in daily operation**.\n\nMaskBot's control software would sometimes freeze or exit mid-operation. The only fix was a manual restart through a remote session **from one specific machine**. Visitors could not use the exhibit's voice interaction until a staff member reached that machine.\n\nNow a watchdog checks the program every 20 seconds and relaunches it within a minute when the process dies or its window stops responding. Scheduled restarts also run twice a day. **Any staff member can trigger recovery from their own phone** on a single-button page. Enrolled devices reach it through Tailscale, a WireGuard-based mesh VPN, with no port open to the internet.\n\nOne failure cannot be detected automatically: speech recognition stops while the process stays alive and the window keeps responding. Scheduled restarts and the phone button cover that case. I also wrote a handover document on configuration, logs, routine maintenance, a diagnosis playbook, and known limitations, so the maintenance technician can own the system without me.",
     highlights: [
-      "A watchdog **relaunches the exhibit program within a minute** of a crash or hang it detects.",
-      "**Any staff member can restart the exhibit from their own phone** on a one-button page served from the exhibit machine, where before only one specific machine could.",
-      "Shipped with a **maintenance handover document**: configuration, logs, diagnosis playbook, and known limitations.",
+      "A watchdog relaunches the exhibit program within a minute of a crash or hang it detects.",
+      "Any staff member can restart the exhibit from their own phone on a one-button page served from the exhibit machine, where before only one specific machine could.",
+      "Shipped with a maintenance handover document: configuration, logs, diagnosis playbook, and known limitations.",
     ],
     flow: ["Watchdog + schedule", "Restart service", "Mesh VPN", "Staff phone"],
     flowImage: {
@@ -480,9 +480,9 @@ const allProjects: Project[] = [
     overview:
       "A kiosk game that archives Mystery Playground RE:PLAY, the museum's 4th-floor special exhibition on entertainment technology, as **ten missions** on a floor map redrawn from the real exhibition signage. Its camera missions run five Google MediaPipe models on the tablet, and the whole app installs on a Galaxy Tab as an offline PWA. Tablets upload daily mission stats on their own for staff to review.",
     highlights: [
-      "**Ten missions on one floor map** redrawn from the exhibition signage, each with the same play, principle and quiz flow.",
-      "**Five MediaPipe models run on-device** alongside Three.js, packaged as an offline PWA so the kiosk keeps working without a network.",
-      "Mission 6 turns a camera shot into a **pixel-art avatar** from a numeric record that holds no photo pixels.",
+      "Ten missions on one floor map redrawn from the exhibition signage, each with the same play, principle and quiz flow.",
+      "Five MediaPipe models run on-device alongside Three.js, packaged as an offline PWA so the kiosk keeps working without a network.",
+      "Mission 6 turns a camera shot into a pixel-art avatar from a numeric record that holds no photo pixels.",
       "Self-reporting tablets, a token-protected stats page with CSV export, 90-day log expiry and a KO/EN toggle that resets for the next visitor.",
     ],
   },
@@ -506,7 +506,7 @@ const allProjects: Project[] = [
     overview:
       "RAIM 4-Cut Studio was the photo kiosk for the museum's 2nd anniversary, running on a portrait Galaxy Tab, and it recorded **1,932 uses on 26 days** between June 14 and September 6, 2026. Visitors picked one of ten museum robots and a frame color, took six shots, and saved the final four-cut frame to their phone by QR code.",
     highlights: [
-      "**1,932 uses recorded on 26 days** between June 14 and September 6, 2026.",
+      "1,932 uses recorded on 26 days between June 14 and September 6, 2026.",
       "The device recommends the best shots using MediaPipe face scores; the visitor selects the final four photos.",
       "Staff switch seasonal robot versions and frame logos from the staff page without a redeploy.",
       "Kiosk guards against long-press, zoom, translation and back gestures, with auto-return to the start screen.",
@@ -528,9 +528,9 @@ const allProjects: Project[] = [
     overview:
       "A touch kiosk installed in September 2026 beside the museum's media-art room, where two LiDAR sensors turn visitors' movement into trails and particles. Visitors often asked which AI model was recognizing them, and the kiosk answers that the input is **a cloud of points**, in five steps from scan to projection. It runs offline as a PWA with a Korean/English toggle.",
     highlights: [
-      "**Five-step walkthrough** from sensor points to projected waves, driven by the visitor's own finger.",
+      "Five-step walkthrough from sensor points to projected waves, driven by the visitor's own finger.",
       "A camera vs LiDAR panel shows that a camera image keeps the face while LiDAR keeps only points.",
-      "**Installed beside the exhibit in September 2026**, with a Korean/English toggle.",
+      "Installed beside the exhibit in September 2026, with a Korean/English toggle.",
       "An offline PWA that runs on the TV's built-in browser, which is older than Chromium 84.",
     ],
   },
@@ -551,9 +551,9 @@ const allProjects: Project[] = [
     overview:
       "A mobile web guide for the museum's four floors. Each floor has its own QR code and page (/1f to /4f), so a visitor who scans it lands on **that floor's programs for today**, its exhibits, and facilities. Hours, notices, directions, and booking sit on a separate Info tab.\n\nPast sessions are dimmed and **the next one is highlighted**. Wednesday evening extended sessions appear only on Wednesdays. In English mode, programs run only in Korean are hidden, and booking buttons go to the English booking site (RAIM EN) instead of the city system foreign visitors cannot use.",
     highlights: [
-      "**One QR per floor**, each opening its own floor page; a script generates the four QR images and an A4 print sheet.",
-      "Past sessions dimmed, **the next one highlighted**, and Wednesday evening sessions shown only on Wednesdays.",
-      "**Korean / English toggle** that also hides Korean-only programs and sends booking to the English reservation site.",
+      "One QR per floor, each opening its own floor page; a script generates the four QR images and an A4 print sheet.",
+      "Past sessions dimmed, the next one highlighted, and Wednesday evening sessions shown only on Wednesdays.",
+      "Korean / English toggle that also hides Korean-only programs and sends booking to the English reservation site.",
       "Runs as two static files on Vercel, with light and dark themes that follow the system setting.",
     ],
   },
@@ -573,8 +573,8 @@ const allProjects: Project[] = [
     overview:
       "A hub where every interactive exhibit I built for the museum reports to one endpoint, so **a single dashboard shows daily totals**. Before it, each exhibit recorded usage its own way: some on a server, some only in each tablet's browser storage, and one not at all. I'm a Restorer! runs on 8 tablets, so a total meant opening an admin screen on every device and adding the numbers by hand.\n\nEach exhibit was connected with a one-line hook, leaving its existing stats code untouched. Tablet exhibits that lose their connection **queue events and send them later**. The database keeps one row per exhibit, day, and event, so a full year from the six exhibits still collecting tops out at 6,570 rows on a free tier.\n\nFor two archived exhibits, I moved their past records into the hub: **14,328 generated images over 47 days** for Raimi's AI Art Lab and 1,932 uses over 26 days for RAIM 4-Cut Studio. The numbers are for internal operations, not official figures.",
     highlights: [
-      "**Offline queue in the collector**, so tablet exhibits without a connection keep counting and report later.",
-      "**Migrated past records** from two archived exhibits: 14,328 generated images over 47 days (Art Lab) and 1,932 uses over 26 days (4-Cut).",
+      "Offline queue in the collector, so tablet exhibits without a connection keep counting and report later.",
+      "Migrated past records from two archived exhibits: 14,328 generated images over 47 days (Art Lab) and 1,932 uses over 26 days (4-Cut).",
     ],
     flow: ["Exhibit + collect.js", "POST /api/collect", "Supabase daily counters", "Dashboard"],
   },
@@ -594,7 +594,7 @@ const allProjects: Project[] = [
     overview:
       "A tablet board for the museum's 2F education rooms. It shows today's timetable for three multipurpose rooms and **seats left per class** (capacity minus bookings), and greys out slots that have passed. The data comes from the booking kiosk's schedule server, which the board reads but **never writes to**.\n\n**A single Galaxy Tab** runs it, keeping the screen on and starting the board at boot, so no PC has to stay on. If the server cannot be reached, the board shows sample data with a 'waiting for server' badge. I also wrote a **handover document** that walks staff through setting up a new tablet, fixing common failures and maintaining the file.",
     highlights: [
-      "Reads the booking server and **never writes to it**.",
+      "Reads the booking server and never writes to it.",
       "Refreshes every 10 seconds, calculates seats left per class and marks past slots as closed.",
       "One-tablet deployment with Fully Kiosk Browser: always on, starts at boot, no PC required.",
       "Handover document covering setup, troubleshooting and maintenance.",
@@ -619,10 +619,10 @@ const allProjects: Project[] = [
     overview:
       "This kiosk turns the questions of the Robot & AI Ethics exhibit into a vote on a portrait 1080×1920 touchscreen. It has stood beside the exhibit since September 2026. Four topics (an AI judge, a robot's feelings, disappearing jobs and AI-made art) each pose one either-or question with no right answer yet, illustrated with Raimi and a person side by side. Visitors can **switch any screen between Korean and English** in place.\n\nTo avoid steering answers, both choices share one color, and results for other topics show **only a vote count until you vote on that topic yourself**. The screen returns to the cover when the visitor walks away.\n\nVotes go to an API I added to the exhibit usage hub, which keeps daily per-topic totals in Supabase. **If the network drops, votes queue on the device and upload without duplicates when it reconnects.** The kiosk opens offline after one online visit, and a staff view charts votes by day, week or month with CSV export.",
     highlights: [
-      "**Korean/English toggle** that switches the current screen in place, one language per screen.",
-      "Same-color choices, with other topics' splits **hidden until you vote on them**, so the kiosk does not steer answers.",
-      "Votes are **tallied on a server** and wait on the device while the network is down.",
-      "**Opens offline** as a full-screen portrait PWA and resets to the cover when the visitor walks away.",
+      "Korean/English toggle that switches the current screen in place, one language per screen.",
+      "Same-color choices, with other topics' splits hidden until you vote on them, so the kiosk does not steer answers.",
+      "Votes are tallied on a server and wait on the device while the network is down.",
+      "Opens offline as a full-screen portrait PWA and resets to the cover when the visitor walks away.",
       "Staff view with daily, weekly and monthly charts and CSV export.",
     ],
   },
@@ -647,8 +647,8 @@ const allProjects: Project[] = [
     highlights: [
       "Opens on the visitor's phone from a QR code beside the exhibit and redraws their face as randomized geometric shapes.",
       "The icon above the head changes with the visitor's expression: smile, frown, surprise or neutral.",
-      "A **30-second animation** of a pen plotter and a Doosan collaborative robot drawing the visitor's result.",
-      "**Video and face data stay on the phone**: tracking runs in the browser with MediaPipe Face Landmarker, the camera stops right after capture, and only an anonymous usage count is sent out.",
+      "A 30-second animation of a pen plotter and a Doosan collaborative robot drawing the visitor's result.",
+      "Video and face data stay on the phone: tracking runs in the browser with MediaPipe Face Landmarker, the camera stops right after capture, and only an anonymous usage count is sent out.",
       "Deployed on GitHub Pages in September 2026, with an A3 QR poster I designed for the exhibit floor.",
     ],
   },
@@ -683,7 +683,7 @@ const allProjects: Project[] = [
     highlights: [
       "Tablet AR at 5 exhibition spots: a 3D time machine lands, Raimi introduces a future scenario, and a short video leads to a question for the paper worksheet.",
       "Tells the five spots apart by the color of the time machine's band, corrected for exhibit lighting.",
-      "**Offline-capable PWA** with self-hosted MindAR and Three.js, sized to the Galaxy Tab A9+ visible area.",
+      "Offline-capable PWA with self-hosted MindAR and Three.js, sized to the Galaxy Tab A9+ visible area.",
       "Deployed with all five videos and scripts; marker installation and the first on-site session are still pending.",
     ],
   },
@@ -707,8 +707,8 @@ const allProjects: Project[] = [
       "The museum had settled on a standard layout for its operating manuals, but existing documents came as Word files, slide decks and Hangul files in every style. This tool takes one of those files and lays it out again in the chosen template. There are **four document templates (A to D) and four slide templates (P1 to P4)** for photo-heavy equipment manuals, and the output can be Word, PowerPoint (16:9) or PDF.\n\n**No AI is involved and nothing is uploaded.** It reads DOCX, PPTX, HWPX and legacy binary HWP, keeping merged tables in HWP files intact. In the preview, text can be corrected and photos reordered or replaced, and the PowerPoint file comes out the same as the preview. The output uses Korean line-break settings so lines do not split mid-word.\n\n**The tool is live on GitHub Pages; handing it over for day-to-day staff use is the remaining step.**",
     highlights: [
       "Converts documents entirely in the browser; nothing is uploaded.",
-      "Reads **DOCX, PPTX, HWPX and binary HWP**, including merged tables in HWP files.",
-      "**Eight templates** (four document layouts and four slide layouts for photo manuals), exported as DOCX, PPTX or PDF.",
+      "Reads DOCX, PPTX, HWPX and binary HWP, including merged tables in HWP files.",
+      "Eight templates (four document layouts and four slide layouts for photo manuals), exported as DOCX, PPTX or PDF.",
       "Editable preview for text and photos, with PowerPoint output that matches it.",
       "Korean line-break settings in DOCX and PPTX output so lines do not break mid-word.",
     ],
@@ -729,8 +729,8 @@ const allProjects: Project[] = [
     overview:
       "I planned a **ten-session, 20-hour course** on AI and coding for museum staff. It started on November 4, 2026 and runs every Wednesday for two hours: one hour of theory and one hour of solo practice. Five sessions (2, 5, 6, 8 and 9) are AI technology trend studies: a map of generative AI models, agents and tool calling, on-device and small models, physical AI and robot models, and multimodal generation and AI coding. The other five cover what happens inside generative AI and what must never be typed into it, fact-checking and search, how machines learn, the inside of a neural network, and planning AI exhibits around on-device models or server APIs.\n\nThe course runs on a practice site I built for it. Staff sign in with their staff-app ID and a PIN they set themselves, then work through **33 hands-on activities**. **Their results are saved to Supabase**, and an admin view shows each person's progress with CSV export.",
     highlights: [
-      "Planned a **10-session, 20-hour** staff course, running every Wednesday since November 4, 2026: one hour of theory and one hour of solo practice each session, with five sessions given to AI technology trend study.",
-      "Practice site with personal sign-in (staff-app ID and a self-set PIN), **33 hands-on activities** and results saved to Supabase.",
+      "Planned a 10-session, 20-hour staff course, running every Wednesday since November 4, 2026: one hour of theory and one hour of solo practice each session, with five sessions given to AI technology trend study.",
+      "Practice site with personal sign-in (staff-app ID and a self-set PIN), 33 hands-on activities and results saved to Supabase.",
       "Admin view of each person's progress by activity, with CSV export.",
     ],
   },
@@ -754,7 +754,7 @@ const allProjects: Project[] = [
       "Nine exhibits, seven robot parts, one part per exhibit, with a warning before a choice makes the set impossible to finish.",
       "In-browser exhibit recognition against 31 reference photos, with a pick-from-list fallback so the tour never dead-ends.",
       "Staff curator mode for adding reference photos on site, since recognition is not yet reliable enough on its own.",
-      "**Offline-ready**: self-hosted model and libraries, service worker caching, and local progress with no login.",
+      "Offline-ready: self-hosted model and libraries, service worker caching, and local progress with no login.",
     ],
   },
 ];
@@ -795,14 +795,13 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     // 모델을 만드는 일과 데이터를 만드는 일은 성격이 달라 따로 둔다.
-    // 근거: Select Star 의 ETRI VQA 데이터셋 구축·검수, Doctor-Green 의
-    // AI Hub 다운로더·라벨 변환과 그룹 인식 층화 분할(크롭 39,889장).
+    // 근거: Doctor-Green 의 AI Hub 다운로더·라벨 변환과 그룹 인식 층화 분할(크롭 39,889장).
+    // VQA 데이터셋·검수(유베이스 파견 경력)는 사이트에서 경력을 뺐으므로 2026-11-08 함께 뺐다.
     key: "data",
     title: "Data & Datasets",
-    capability: "I build and check the datasets models learn from.",
+    capability: "I build the datasets models learn from.",
     items: [
-      "VQA Datasets",
-      "Dataset QA",
+      "Dataset building",
       "AI Hub",
       "Stratified Splits",
     ],

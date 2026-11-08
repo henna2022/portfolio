@@ -4,6 +4,7 @@ import { experience, skillGroups } from "@/lib/data";
 import { experienceKo, skillGroupsKo } from "@/lib/data-ko";
 import { assetPath } from "@/lib/asset";
 import { useI18n } from "./lang-provider";
+import { KoSentences } from "./ko-sentences";
 
 export function Experience() {
   const { t, lang } = useI18n();
@@ -26,7 +27,7 @@ export function Experience() {
               <h3 className="home-card-title"><a href={job.site} target="_blank" rel="noreferrer" className="hover:underline underline-offset-4">{job.org} <span aria-hidden="true">↗</span></a></h3>
               <p className="home-meta mt-2">{job.role}</p>
               <ul className="mt-4 list-disc space-y-2 pl-5">
-                {job.points.slice(0, 2).map((point) => <li key={point}>{point}</li>)}
+                {job.points.slice(0, 2).map((point) => <li key={point}><KoSentences lang={lang} text={point} /></li>)}
               </ul>
             </div>
           </li>
@@ -38,7 +39,14 @@ export function Experience() {
           {skills.map((skill) => (
             <div key={skill.key}>
               <dt className="font-semibold">{skill.title}</dt>
-              <dd>{skill.items.map((item) => item.replaceAll(" ", "\u00A0")).join("\u00A0· ")}</dd>
+              <dd className="min-w-0">
+                <p className="text-muted">{skill.capability}</p>
+                <ul className="mt-3 flex flex-wrap gap-2">
+                  {skill.items.map((item) => (
+                    <li key={item} className="rounded-full bg-sand/60 px-3 py-1.5 text-xs text-ink/75">{item}</li>
+                  ))}
+                </ul>
+              </dd>
             </div>
           ))}
         </dl>

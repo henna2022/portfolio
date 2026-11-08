@@ -204,14 +204,23 @@ button.shrink-0.self-start { white-space: normal; }
 .sky-copy { grid-area: 1 / 1; align-self: center; min-width: 0; }
 .sky-copy[aria-hidden="true"] { visibility: hidden; pointer-events: none; }
 .sky-character { display: block; width: 100%; height: auto; }
-.sky-copy h1 { font-size: clamp(38px, 4.1vw, 56px); font-weight: 600; line-height: 1.12; letter-spacing: -0.035em; text-wrap: balance; }
-.sky-role { margin-top: 24px; color: rgb(var(--muted)); font-size: 17px; line-height: 1.75; }
+.sky-copy h1 { font-size: clamp(38px, 4.1vw, 56px); font-weight: 600; line-height: 1.12; letter-spacing: -0.035em; text-wrap-style: balance; }
+.sky-identity { margin-top: 24px; }
+.sky-name { color: rgb(var(--ink)); font-size: 22px; font-weight: 600; line-height: 1.5; }
+.sky-role { margin-top: 4px; color: rgb(var(--muted)); font-size: 17px; line-height: 1.75; }
 .sky-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 28px; }
 .photo-slot { width: 100%; position: relative; overflow: hidden; border-radius: 12px; background: rgb(var(--sand)); }
 .photo-slot > img { position: absolute; inset: 0; }
 .photo-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px; padding: 20px 12px; border: 1px dashed rgb(var(--muted) / 0.65); border-radius: inherit; text-align: center; color: rgb(var(--muted)); font-size: 15px; line-height: 1.7; }
 .photo-path { overflow-wrap: anywhere; font-size: 14px; }
-.selected-grid, .group-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.selected-grid, .group-grid { display: grid; gap: 28px; }
+.selected-grid { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+.selected-card-featured { grid-column: 1; grid-row: 1 / span 2; }
+.selected-card-featured > a { display: flex; flex: 1; min-height: 420px; }
+.selected-card-featured .work-cover { position: relative; width: 100%; aspect-ratio: auto; }
+.selected-card-featured .work-cover > img { position: absolute; inset: 0; object-position: center; }
+.selected-card-featured .selected-card-copy { flex: none; }
+.selected-card-featured .selected-card-actions { margin-top: 0; }
 /* 묶음 카드는 두 장이라 두 칸으로 넓게 쓴다. */
 .group-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .selected-card { min-width: 0; display: flex; flex-direction: column; }
@@ -221,8 +230,10 @@ button.shrink-0.self-start { white-space: normal; }
 .dark .selected-card h3 a:hover { color: #3B82F6; }
 .selected-card > a:hover { box-shadow: 0 0 0 2px rgb(59 130 246 / 0.5); }
 .work-cover { aspect-ratio: 16 / 10; border-radius: 12px; background: rgb(var(--sand)); overflow: hidden; }
-/* 원본의 투명 여백을 잘라 두 앱 화면을 크게 보여 준다. */
-.work-cover-phone > img { transform: scale(1.75); transform-origin: 50% 14%; }
+/* 주요 작업의 작은 화면은 제목과 한 휴대폰의 일부를 크게 보여 준다. */
+.selected-card:not(.selected-card-featured) .work-cover { position: relative; aspect-ratio: 2 / 1; }
+.work-cover-raim-en > img { position: absolute; width: 200%; max-width: none; height: auto; left: -20%; top: -14%; }
+.work-cover-doctor-green > img { position: absolute; width: 400%; max-width: none; height: auto; left: -205%; top: -240%; }
 /* Shared tracks keep photo edges, labels and actions aligned across cards. */
 .group-grid { grid-template-rows: auto repeat(4, auto); row-gap: 0; }
 .group-anchor { min-width: 0; position: relative; grid-row: 1 / span 5; display: grid; grid-template-rows: subgrid; }
@@ -247,28 +258,14 @@ button.shrink-0.self-start { white-space: normal; }
   border-color: #3B82F6;
   background: color-mix(in srgb, #3B82F6 14%, rgb(var(--cream)));
 }
-.group-card[aria-expanded="true"] :is(.group-title, .group-action) { color: #1D4ED8; }
 .dark .group-card[aria-expanded="true"] { background: color-mix(in srgb, #3B82F6 18%, rgb(var(--cream))); }
-.dark .group-card[aria-expanded="true"] :is(.group-title, .group-action) { color: #3B82F6; }
 @media (hover: hover) {
   .group-card:hover { border-color: #3B82F6; background: color-mix(in srgb, #3B82F6 8%, rgb(var(--cream))); }
   .group-card[aria-expanded="true"]:hover { background: color-mix(in srgb, #3B82F6 18%, rgb(var(--cream))); }
 }
 .group-panel-mobile { display: none; }
-.group-panel-heading { display: flex; align-items: baseline; gap: 12px; }
-.group-panel-heading::before { content: ""; flex: 0 0 24px; height: 3px; background: #3B82F6; align-self: center; }
 .group-list-viewport, .group-accordion { overflow: hidden; }
 .group-list-viewport { padding: 8px; margin: -8px; }
-.group-indicator {
-  position: absolute;
-  bottom: -16px;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  border-radius: 999px;
-  background: #3B82F6;
-  pointer-events: none;
-}
 .group-panel { grid-area: 6 / 1 / 7 / -1; align-self: start; margin-top: 28px; background: rgb(var(--cream)); padding-top: 28px; }
 .group-panel[aria-hidden="true"] { pointer-events: none; }
 .work-rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
@@ -280,15 +277,6 @@ button.shrink-0.self-start { white-space: normal; }
 .work-row:last-child { padding-bottom: 0; }
 @media (min-width: 768px) {
   .work-row:nth-last-child(2):nth-child(odd) { padding-bottom: 0; }
-  .work-row:last-child:nth-child(odd) > .work-row-copy {
-    display: grid;
-    grid-template-columns: minmax(0, calc((100% - 140px) / 2)) minmax(0, 1fr);
-    column-gap: 32px;
-    align-content: start;
-  }
-  .work-row:last-child:nth-child(odd) > .work-row-copy > :is(h4, .home-meta) { grid-column: 1; }
-  .work-row:last-child:nth-child(odd) > .work-row-copy > .work-row-description { grid-column: 2; grid-row: 1 / span 2; margin-top: 0; }
-  .work-row:last-child:nth-child(odd) > .work-row-copy > .home-link { grid-column: 2; }
 }
 .work-row-text { grid-template-columns: minmax(0, 1fr); }
 .work-thumb { width: 88px; height: 88px; border: 1px solid rgb(var(--sand-deep)); overflow: hidden; border-radius: 8px; background: rgb(var(--sand)); }
@@ -321,6 +309,11 @@ html:has(.home-page) body { transition: none; }
 @media (max-width: 1023px) {
   .sky-content { gap: 32px; }
   .selected-grid, .group-grid { column-gap: 20px; }
+  .selected-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .selected-card-featured { grid-column: 1 / -1; grid-row: auto; }
+  .selected-card-featured > a { display: block; flex: none; min-height: 0; }
+  .selected-card-featured .work-cover { aspect-ratio: 16 / 9; }
+  .selected-card-featured .work-cover > img { position: static; }
   .group-card-copy { padding: 16px; }
   .group-title { font-size: 21px; }
   .about-grid { gap: 36px; }
@@ -332,14 +325,16 @@ html:has(.home-page) body { transition: none; }
   .home-heading { margin-bottom: 24px; }
   .sky-content { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-block: 56px; }
   .sky-art { width: min(100%, 280px); justify-self: center; }
-  .sky-role { margin-top: 20px; font-size: 16px; }
+  .sky-identity { margin-top: 20px; }
+  .sky-name { font-size: 20px; }
+  .sky-role { font-size: 16px; }
   .sky-actions { margin-top: 24px; gap: 16px 24px; }
   .sky-copy h1 { max-width: 620px; font-size: clamp(36px, 7vw, 50px); }
   .sky-clouds { height: 50px; }
   .selected-grid, .group-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .selected-card-featured { grid-column: auto; }
   .group-grid { grid-template-rows: none; row-gap: 0; }
   .group-anchor ~ .group-anchor { margin-top: 20px; }
-  .group-indicator { display: none; }
   .group-panel-desktop { display: none; }
   .group-panel-mobile { display: block; min-width: 0; }
   .group-panel-mobile:empty { display: none; }
@@ -414,7 +409,7 @@ html.lang-ko .home-page .ko-hero-display {
   font-weight: 800;
   line-height: var(--ko-leading-display);
   letter-spacing: -0.02em;
-  text-wrap: balance;
+  text-wrap-style: balance;
 }
 html.lang-ko .home-page .home-heading {
   font-size: var(--ko-size-heading);
@@ -434,16 +429,16 @@ html.lang-ko .home-page .about-copy blockquote {
   font-size: var(--ko-size-quote);
   line-height: 1.3;
   letter-spacing: -0.02em;
-  text-wrap: balance;
+  text-wrap-style: balance;
 }
 html.lang-ko .home-page #contact h2 {
   font-size: var(--ko-size-contact);
   font-weight: 800;
   line-height: var(--ko-leading-display);
   letter-spacing: -0.02em;
-  text-wrap: balance;
+  text-wrap-style: balance;
 }
-html.lang-ko .home-page :is(.home-meta, .sky-role) {
+html.lang-ko .home-page .home-meta {
   font-size: 15px;
   line-height: var(--ko-leading-meta);
 }
@@ -485,24 +480,6 @@ html.lang-ko .home-page :is(.group-panel > h3, .skills-block > h3) {
 
 @media (min-width: 768px) {
   html.lang-ko .work-row:nth-last-child(2):nth-child(odd) { padding-bottom: 0; }
-  /* Keep the wide final row, with independent title/meta and body/link flow.
-     A short description never inherits the height of the title column. */
-  html.lang-ko .work-row:last-child:nth-child(odd) > .work-row-copy {
-    display: flow-root;
-    --ko-row-title-width: calc((100% - 140px) / 2);
-  }
-  html.lang-ko .work-row:last-child:nth-child(odd) > .work-row-copy > :is(h4, .home-meta) {
-    float: left;
-    clear: left;
-    width: var(--ko-row-title-width);
-  }
-  html.lang-ko .work-row:last-child:nth-child(odd) > .work-row-copy > :is(.work-row-description, .home-link) {
-    display: block;
-    margin-left: calc((100% - 140px) / 2 + 32px);
-  }
-  html.lang-ko .work-row:last-child:nth-child(odd) > .work-row-copy > .work-row-description {
-    margin-top: 0;
-  }
 }
 @media (max-width: 767px) {
   html.lang-ko .home-page { --ko-size-display: clamp(34px, 7vw, 48px); }
@@ -530,11 +507,21 @@ html .home-page .sky-copy[lang="ko"] .ko-hero-display {
   line-height: 1.28;
   letter-spacing: -0.02em;
 }
-html .home-page .sky-copy[lang="en"] .sky-role { font-size: 17px; line-height: 1.75; }
-html .home-page .sky-copy[lang="ko"] .sky-role { font-size: 15px; line-height: 1.6; }
 html.lang-ko .experience-date > .home-meta { margin-top: 0; }
 @media (max-width: 767px) {
   html .home-page .sky-copy[lang="en"] .ko-hero-display { font-size: clamp(36px, 7vw, 50px); }
   html .home-page .sky-copy[lang="ko"] .ko-hero-display { font-size: clamp(34px, 7vw, 48px); }
-  html .home-page .sky-copy[lang="en"] .sky-role { font-size: 16px; }
 }
+
+/* Measure the original inline paragraph at its available width, even while split. */
+.ko-sentences { display: block; position: relative; }
+.ko-sentences-multiline > .ko-sentence { display: block; }
+.ko-sentences-probe {
+  display: block;
+  position: absolute;
+  inset: 0 0 auto;
+  visibility: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+html.lang-ko .project-meta-label { letter-spacing: 0; text-transform: none; }

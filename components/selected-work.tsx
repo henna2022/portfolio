@@ -15,9 +15,9 @@ export function SelectedWork() {
         {projects.filter((p) => p.tier === "major").map((project) => {
           const p = localizeProject(project, lang);
           return (
-            <article key={p.slug} className="selected-card">
+            <article key={p.slug} className={`selected-card${p.slug === "smart-farm-education" ? " selected-card-featured" : ""}`}>
               <Link href={`/work/${p.slug}`} aria-label={`${t.view}: ${p.title}`} className="block rounded-xl">
-                <WorkMedia project={p} />
+                <WorkMedia project={p} image={p.slug === "smart-farm-education" ? "/portfolio_images/projects/smartfarm-edu-class.jpg" : undefined} selected />
               </Link>
               <div className="selected-card-copy">
                 <h3 className="home-card-title"><Link href={`/work/${p.slug}`}>{p.title}</Link></h3>

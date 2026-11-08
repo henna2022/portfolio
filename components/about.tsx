@@ -5,6 +5,7 @@ import { about, person } from "@/lib/data";
 import { aboutKo } from "@/lib/data-ko";
 import { assetPath } from "@/lib/asset";
 import { useI18n } from "./lang-provider";
+import { KoSentences } from "./ko-sentences";
 
 export function About({ photo }: { photo: ReactNode }) {
   const { t, lang } = useI18n();
@@ -21,8 +22,8 @@ export function About({ photo }: { photo: ReactNode }) {
           <blockquote className="font-display text-[clamp(1.75rem,3vw,2.75rem)] font-medium leading-tight">
             {content.quote.map((part) => part.text).join("")}
           </blockquote>
-          <p className="mt-7">{content.prose[0].map((part) => part.text).join("")}</p>
-          <p className="mt-5">{content.tagline}</p>
+          <p className="mt-7"><KoSentences lang={lang} text={content.prose[0].map((part) => part.text).join("")} /></p>
+          <p className="mt-5"><KoSentences lang={lang} text={content.tagline} /></p>
           <a href={assetPath(lang === "ko" ? person.cvKo : person.cv)} download className="home-link mt-7 inline-block">{t.downloadCv} <span aria-hidden="true">↓</span></a>
         </div>
       </div>
