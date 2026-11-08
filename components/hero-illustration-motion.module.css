@@ -22,37 +22,50 @@
 
 .layer[data-playing="true"] .item { animation-play-state: running; }
 
-.code {
-  left: 30%;
-  top: 24%;
-  padding: 7px 8px;
+.chip {
+  --chip-top: 24%;
+  --chip-rise-top: 39%;
+  --chip-x: -50%;
+  /* 문구 길이가 달라도 그림 가운데 위에 놓는다. */
+  left: 50%;
+  top: var(--chip-top);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
   border-radius: 10px;
   background: rgb(var(--cream));
-  font-size: 14px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
   line-height: 1.3;
-  transform: translateY(-50%);
-  transform-origin: 83% 100%;
-  animation-name: codeCycle;
+  transform: translate(var(--chip-x), -50%);
+  transform-origin: 50% 100%;
+  animation-name: chipCycle;
 }
 
-.code code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  white-space: pre;
+.label {
+  color: #1d4ed8;
+  font-size: 12px;
 }
 
-.keyword { color: #1d4ed8; }
-:global(.dark) .code { background: rgb(var(--sand)); }
-:global(.dark) .keyword { color: #3B82F6; }
+.layer[lang="en"] .label { letter-spacing: 0.025em; }
+.value { padding-left: 8px; border-left: 1px solid rgb(var(--sand-deep)); }
+:global(.dark) .chip { background: rgb(var(--sand)); }
+:global(.dark) .label { color: #60A5FA; }
 
 /* 6개 × 3.3초: 등장 0.4초, 유지 2.2초, 퇴장 0.4초, 쉼 0.3초. */
-@keyframes codeCycle {
-  0% { opacity: 0; top: 39%; transform: translateY(-100%) scale(0.96); }
-  2.020202%, 13.131313% { opacity: 1; top: 24%; transform: translateY(-50%) scale(1); }
-  15.151515%, 100% { opacity: 0; top: 24%; transform: translateY(-50%) scale(1); }
+@keyframes chipCycle {
+  0% { opacity: 0; top: var(--chip-rise-top); transform: translate(var(--chip-x), -100%) scale(0.96); }
+  2.020202%, 13.131313% { opacity: 1; top: var(--chip-top); transform: translate(var(--chip-x), -50%) scale(1); }
+  15.151515%, 100% { opacity: 0; top: var(--chip-top); transform: translate(var(--chip-x), -50%) scale(1); }
 }
 
-@media (max-width: 767px) {
-  .code { padding: 6px 8px; font-size: 12px; }
+@media (max-width: 1199px) {
+  /* 작은 그림에서는 오른쪽 끝에 붙여, 등장 중에도 로봇 얼굴과 머리 위로 드는 화분을 가리지 않는다. */
+  .chip { --chip-top: 18%; --chip-rise-top: 25%; --chip-x: 0%; left: auto; right: 0; padding: 6px 8px; font-size: 13px; gap: 6px; }
+  .label { font-size: 11px; }
+  .value { padding-left: 6px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

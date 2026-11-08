@@ -66,7 +66,7 @@ export const ui = {
   comingSoon: "Coming soon",
 
   contactHeading: "Hiring and education program inquiries are welcome.",
-  availability: "Leave a message. I usually reply within a day or two.",
+  availability: "Feel free to drop me a line. I usually get back within a day or two.",
   footerCopyright: "© 2026 Juwon Lee",
   lastUpdated: "Last updated 2026.11.03",
   privacyNotice: "This site keeps anonymous visit statistics.",
@@ -153,7 +153,7 @@ export const uiKo: UiStrings = {
   comingSoon: "준비 중",
 
   contactHeading: "채용⁠·⁠교육 프로그램 문의를 기다립니다.",
-  availability: "메시지를 남겨 주세요. 보통 1~2일 안에 답장드립니다.",
+  availability: "편하게 메일 주세요. 보통 하루 이틀 안에 답장드립니다.",
   footerCopyright: "© 2026 이주원",
   lastUpdated: "최종 업데이트 2026.11.03",
   privacyNotice: "이 사이트는 익명 방문 통계를 수집합니다.",
