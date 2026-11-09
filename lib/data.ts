@@ -83,20 +83,16 @@ export const about = {
   facts: [
     {
       k: "Education",
-      v: "Hankyong National University (2022–2027.02, expected to complete graduation requirements; graduation deferred)\nRutgers University · Winter Intensive English (2025)\nCheongwon Girls' High School (2019–2022)",
+      v: "Hankyong National University (2022-2027.02, expected to complete graduation requirements; graduation deferred)\nRutgers University · Winter Intensive English (2025)\nCheongwon Girls' High School (2019-2022)",
     },
     {
       k: "Languages & Certifications",
       v: "Korean (native) · English (fluent) · TOEIC Speaking AL · OPIc AL",
     },
   ],
-  // 인용문 — `em` 로 감싼 조각은 액센트 하이라이트 처리
+  // 소개 머리 글(2026-11-08 본인 선택: 기획+개발). 따옴표 없는 평서문.
   quote: [
-    { text: "“I " },
-    { text: "teach", em: true },
-    { text: " with the " },
-    { text: "software I build", em: true },
-    { text: ".”" },
+    { text: "I plan education programs and build the software they run on." },
   ],
   // 앞 2문단은 항상 노출, 나머지는 '더 보기' 안쪽.
   // `b: true` 조각은 굵게 — 훑어봐도 핵심 문장이 먼저 눈에 들어오게 한다.
@@ -280,13 +276,13 @@ const allProjects: Project[] = [
     title: "Raimi's AI Art Lab",
     category: "Web App · Education",
     categories: ["AI", "Web", "Education"],
-    kicker: "Seoul Robot & AI Museum · Jun–Aug 2026",
+    kicker: "Seoul Robot & AI Museum · Jun-Aug 2026",
     desc: "A step-by-step prompt builder where visitors create AI artwork with the museum character Raimi as their guide. It ran on the museum floor from June to August 2026, and its backend counted 14,328 generated images, 9,865 of them in July.",
     year: "2026",
     role: "Planning · development · operations",
     tags: ["JavaScript", "OpenAI API", "Vercel Serverless", "Supabase", "Cloudflare R2", "PWA"],
     image: "/portfolio_images/projects/artlab-mode-en.jpg",
-    stat: "14,328 images · Jun–Aug 2026",
+    stat: "14,328 images · Jun-Aug 2026",
     overview:
       "Visitors build a prompt step by step with the museum character Raimi, choosing what they want to draw, and an AI draws it. It ran on the museum floor from June to August 2026, and the app's own backend recorded **14,328 generated images**: 3,049 from June 17, 9,865 in July and 1,414 in August. It replaced an off-the-shelf GPT service that would stop responding mid-use and leave the station unusable until staff stepped in.",
     highlights: [
@@ -1086,7 +1082,7 @@ export const awards: Award[] = [
     role: "PM & Developer",
     topic:
       "A plant-disease diagnosis app powered by a VGG16 image classifier, the predecessor of Doctor-Green (Korea IT Businesswomen's Association).",
-    photos: [],
+    photos: ["/portfolio_images/awards/ict_sw_women_deck.jpg"],
     relatedSlug: "doctor-green",
   },
 ];

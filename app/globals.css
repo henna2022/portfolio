@@ -4,6 +4,7 @@
 
 :root {
   --font-inter: "Inter", system-ui, sans-serif;
+  --site-header-height: 78px;
 
   /* Light theme */
   --cream: 245 241 232;
@@ -51,8 +52,34 @@ html.lang-ko .font-display {
 }
 
 section[id] {
-  scroll-margin-top: 6.5rem;
+  scroll-margin-top: calc(var(--site-header-height) + 16px);
 }
+
+@media (min-width: 1280px) {
+  :root { --site-header-height: 68px; }
+}
+
+.section-nav::before,
+.section-nav::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  pointer-events: none;
+  opacity: 0;
+}
+.section-nav::before {
+  left: 0;
+  background: linear-gradient(to right, rgb(var(--cream)), rgb(var(--cream) / 0));
+}
+.section-nav::after {
+  right: 0;
+  background: linear-gradient(to left, rgb(var(--cream)), rgb(var(--cream) / 0));
+}
+.section-nav[data-fade-left="true"]::before,
+.section-nav[data-fade-right="true"]::after { opacity: 1; }
 
 /* KO: 프리텐다드 600 은 General Sans 600 보다 가늘어 보여
    프로젝트 이름(카드 제목·상세 제목·이전/다음)은 한 단계 굵게 */
@@ -136,7 +163,6 @@ button.shrink-0.self-start { white-space: normal; }
 
 /* 하늘 교실 홈 */
 .home-page {
-  --site-header-height: 100px;
   padding-top: var(--site-header-height);
   font-size: 17px;
   line-height: 1.75;
@@ -176,13 +202,13 @@ button.shrink-0.self-start { white-space: normal; }
   gap: 18px;
   border-radius: 10px;
   background: #1D4ED8;
-  color: rgb(var(--cream));
+  color: #FFFFFF;
   padding: 12px 20px;
   font-size: 17px;
   font-weight: 600;
 }
 .home-primary:hover { background: #1D4ED8; box-shadow: 0 0 0 3px rgb(59 130 246 / 0.2); }
-.dark .home-primary { color: rgb(var(--ink)); }
+.dark .home-primary { background: #3B82F6; }
 .home-page :is(a, button):focus-visible {
   outline: 2px solid #1D4ED8;
   outline-offset: 5px;
@@ -294,6 +320,12 @@ button.shrink-0.self-start { white-space: normal; }
 .skills-lines > div + div { border-top: 1px solid rgb(var(--sand-deep)); }
 .about-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 64px; align-items: center; }
 .about-copy { min-width: 0; }
+.about-intro {
+  font-size: clamp(26px, 2.6vw, 34px);
+  font-weight: 500;
+  line-height: 1.3;
+  text-wrap-style: balance;
+}
 .award-group + .award-group { margin-top: 32px; }
 .award-group-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px 32px; margin-bottom: 20px; }
 .award-group-heading > div { min-width: 0; }
@@ -374,7 +406,6 @@ html.lang-ko .home-page {
   --ko-size-heading: clamp(28px, 3vw, 36px);
   --ko-size-card: clamp(22px, 2vw, 24px);
   --ko-size-item: 18px;
-  --ko-size-quote: clamp(28px, 3vw, 40px);
   --ko-size-contact: clamp(32px, 3.4vw, 46px);
   --ko-leading-display: 1.28;
   --ko-leading-title: 1.4;
@@ -394,7 +425,7 @@ html.lang-ko .home-page {
 html.lang-ko .home-page :where(
   .ko-hero-display, .home-heading, .home-card-title, .group-title,
   .group-panel h3, .group-panel h4, .skills-block h3,
-  .award-description h4, .award-project-title, .about-copy blockquote, #contact h2
+  .award-description h4, .award-project-title, .about-intro, #contact h2
 ) {
   font-family: var(--font-ko-display), "Pretendard Variable", sans-serif;
   font-weight: 800;
@@ -425,8 +456,9 @@ html.lang-ko .home-page :is(
 html.lang-ko .home-page :is(.group-panel h4, .award-description h4) {
   font-size: var(--ko-size-item);
 }
-html.lang-ko .home-page .about-copy blockquote {
-  font-size: var(--ko-size-quote);
+html.lang-ko .home-page .about-intro {
+  font-size: clamp(26px, 2.6vw, 34px);
+  font-weight: 500;
   line-height: 1.3;
   letter-spacing: -0.02em;
   text-wrap-style: balance;

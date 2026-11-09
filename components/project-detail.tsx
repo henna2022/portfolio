@@ -111,9 +111,9 @@ export function ProjectDetail({
                     href={p.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-cream transition-colors hover:bg-ink/90"
+                    className="home-primary"
                   >
-                    {t.live} <ArrowIcon className="h-3.5 w-3.5 text-lime" />
+                    {t.live} <ArrowIcon className="h-3.5 w-3.5" />
                   </a>
                 ) : null}
                 {p.repo ? (

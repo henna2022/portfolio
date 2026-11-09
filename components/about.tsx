@@ -15,13 +15,10 @@ export function About({ photo }: { photo: ReactNode }) {
       <div className="about-grid">
         <div>{photo}</div>
         <div className="about-copy">
-          <div className="mb-7 flex items-center gap-4">
-            <img src={assetPath(person.photoSm)} alt="" loading="lazy" decoding="async" className="h-16 w-16 rounded-full object-cover object-[center_28%]" />
-            <h2 id="about-title" className="home-heading !mb-0">{lang === "ko" ? person.hangul : person.name}</h2>
-          </div>
-          <blockquote className="font-display text-[clamp(1.75rem,3vw,2.75rem)] font-medium leading-tight">
+          <h2 id="about-title" className="home-heading">{lang === "ko" ? person.hangul : person.name}</h2>
+          <p className="about-intro font-display">
             {content.quote.map((part) => part.text).join("")}
-          </blockquote>
+          </p>
           <p className="mt-7"><KoSentences lang={lang} text={content.prose[0].map((part) => part.text).join("")} /></p>
           <p className="mt-5"><KoSentences lang={lang} text={content.tagline} /></p>
           <a href={assetPath(lang === "ko" ? person.cvKo : person.cv)} download className="home-link mt-7 inline-block">{t.downloadCv} <span aria-hidden="true">↓</span></a>

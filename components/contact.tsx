@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { person } from "@/lib/data";
-import { assetPath } from "@/lib/asset";
 import { useI18n } from "./lang-provider";
 import { KoSentences } from "./ko-sentences";
 import { ArrowIcon, GithubIcon, LinkedinIcon, MailIcon } from "./icons";
@@ -24,14 +23,7 @@ export function Contact() {
       <div className="mx-auto max-w-[1280px] px-6 pt-16">
         {/* CTA */}
         <div>
-          <img
-            src={assetPath(person.photoSm)}
-            alt="Juwon Lee"
-            loading="lazy"
-            decoding="async"
-            className="h-14 w-14 rounded-2xl object-cover object-[center_28%]"
-          />
-          <h2 className="font-display mt-6 max-w-2xl text-4xl font-semibold leading-[1.05] tracking-[-0.02em] sm:text-5xl">
+          <h2 className="font-display max-w-2xl text-4xl font-semibold leading-[1.05] tracking-[-0.02em] sm:text-5xl">
             {t.contactHeading}
           </h2>
           <p className="mt-5 text-[17px] leading-[1.75] text-cream">

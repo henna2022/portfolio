@@ -14,16 +14,19 @@ export function Header() {
     <header
       className="site-header fixed inset-x-0 top-0 z-40 bg-cream"
     >
-      {/* Row 1 — brand + downloads + theme */}
-      <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-2 px-4 py-2.5 sm:gap-4 sm:px-6">
+      <div className="mx-auto grid max-w-[1280px] grid-cols-[auto_minmax(0,1fr)] items-center gap-x-2 px-4 py-1 sm:gap-x-4 sm:px-6 xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:py-4">
         <a
           href={assetPath("/")}
-          className="flex shrink-0 items-center gap-2 font-display text-base font-semibold sm:text-lg text-ink"
+          className="flex shrink-0 items-center gap-2 whitespace-nowrap font-display text-base font-semibold sm:text-lg text-ink"
         >
           {person.name}
         </a>
 
-        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+        <div className="col-span-2 row-start-2 min-w-0 xl:col-span-1 xl:col-start-2 xl:row-start-1">
+          <SectionNav />
+        </div>
+
+        <div className="col-start-2 row-start-1 flex shrink-0 items-center justify-self-end gap-1.5 whitespace-nowrap sm:gap-2 xl:col-start-3">
           {/* 미니멀 네비에 맞춘 차분한 고스트 스타일 */}
           <a
             href={assetPath(lang === "ko" ? person.cvKo : person.cv)}
@@ -66,13 +69,6 @@ export function Header() {
             </div>
           ) : null}
           <ThemeToggle />
-        </div>
-      </div>
-
-      {/* Row 2 — section nav (scroll-spy + smooth-scroll) */}
-      <div>
-        <div className="mx-auto max-w-[1280px] px-4 py-1">
-          <SectionNav />
         </div>
       </div>
     </header>
