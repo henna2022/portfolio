@@ -49,11 +49,25 @@ export function SectionNav() {
   useEffect(() => {
     if (!isHome) return;
     const elements = sectionIds.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
+    // 맨 아래에 닿으면 마지막 구획(연락)은 관찰 띠(화면 위 20~35%)까지 올라오지 못한다.
+    // 바닥에서는 마지막 구획을 표시하고, 벗어나면 관찰자가 마지막으로 알린 구획으로 되돌린다.
+    const last = sectionIds[sectionIds.length - 1];
+    let spied = "";
+    const atBottom = () => window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
     const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) if (entry.isIntersecting) setActive(entry.target.id);
+      for (const entry of entries) if (entry.isIntersecting) spied = entry.target.id;
+      if (spied && !atBottom()) setActive(spied);
     }, { rootMargin: "-20% 0px -65% 0px", threshold: 0 });
     elements.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
+    const onScroll = () => {
+      if (atBottom()) setActive(last);
+      else if (spied) setActive(spied);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    };
   }, [isHome]);
 
   return (

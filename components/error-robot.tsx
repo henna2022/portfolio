@@ -146,7 +146,9 @@ export default function ErrorRobot() {
   }, [sized]);
 
   return (
-    <div ref={host} className="h-full w-full">
+    // zoom 되돌리기: R3F 는 캔버스 크기와 포인터 위치를 화면 값으로 잰다. 페이지 zoom 안에 두면 캔버스가 칸보다 작아지고
+    // 호버·클릭 자리가 20% 어긋나니 이 칸만 배율 1로 둔다(화면에 보이는 크기는 그대로)
+    <div ref={host} className="h-full w-full [zoom:calc(1/var(--page-zoom))]">
       <Boundary>
         {/* 카메라 거리 7.2 — 손 흔들 때 올라가는 팔이 캔버스 밖으로 잘리지 않는 여백 */}
         {sized ? (

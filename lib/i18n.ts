@@ -51,6 +51,9 @@ export const ui = {
   prevImage: "Previous image",
   nextImage: "Next image",
   goToImage: "Go to image {n}",
+  tour: "Video tour",
+  pauseVideo: "Pause video",
+  playVideo: "Play video",
   newsArticle: "Press coverage ↗",
 
   sideProjectsHeading: "More projects",
@@ -138,6 +141,9 @@ export const uiKo: UiStrings = {
   prevImage: "이전 이미지",
   nextImage: "다음 이미지",
   goToImage: "이미지 {n}번 보기",
+  tour: "영상으로 둘러보기",
+  pauseVideo: "영상 멈추기",
+  playVideo: "영상 재생",
   newsArticle: "언론 보도 ↗",
 
   sideProjectsHeading: "다른 프로젝트",

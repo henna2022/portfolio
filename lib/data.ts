@@ -154,6 +154,9 @@ export type Project = {
   gallery?: string[];
   // 갤러리 이미지 경로 → 대체 텍스트. 자동 생성 alt 로는 설명이 안 되는 것만 적는다.
   galleryAlts?: Record<string, string>;
+  // 소개 영상. 자막이 구워져 있어 언어별로 따로 둔다(첫 장면 그림은 같은 경로의 .jpg).
+  // 홈 카드 표지와 상세 「둘러보기」에 쓴다. at 은 그 장이 시작하는 초.
+  tour?: { video: string; note: string; chapters: { at: number; title: string; text: string }[] };
 };
 
 const allProjects: Project[] = [
@@ -186,13 +189,27 @@ const allProjects: Project[] = [
     },
     // 실습실 화면은 피그마 새 디자인 시안(2026-11)에서 가져온 것이라 언어 구분 없이 한 벌만 쓴다
     image: "/portfolio_images/projects/smartfarm-lab-dashboard.jpg",
+    // 본인 2026-11-09: 학생 사진을 메인으로 띄우지 않는다. 홈 카드 표지는 소개 영상, 수업 현장 사진은 갤러리 맨 뒤.
+    // 영상은 실제 앱(smartfarm-lab)을 체험 모드로 조작해 찍었다. 다시 만들기: MAKENEW/스마트팜/소개영상(2026.11)/제작도구
+    tour: {
+      video: "/portfolio_images/projects/smartfarm-lab-intro-en.mp4",
+      note: "Recorded in the app's practice mode with sample data.",
+      chapters: [
+        { at: 3.2, title: "Dashboard", text: "Students work through four steps from one dashboard." },
+        { at: 13.2, title: "STEP 1 · Public data", text: "They call the national weather API and store each response as a row." },
+        { at: 33.4, title: "STEP 2 · AI vision training", text: "They build a photo set, train a strawberry-ripeness model in the browser, then test it on held-out photos and a live camera." },
+        { at: 95.8, title: "STEP 3 · IoT sensors", text: "They send sensor readings into a table, then query them with SQL." },
+        { at: 124.2, title: "STEP 4 · Capstone automation", text: "They set thresholds, and the board runs the fan and pump." },
+        { at: 138.7, title: "Teacher view", text: "The teacher sees each room's progress and who is stuck." },
+      ],
+    },
     gallery: [
-      // 수업 현장, 학생 얼굴은 게시 전 마스킹했다
-      "/portfolio_images/projects/smartfarm-edu-class.jpg",
       "/portfolio_images/projects/smartfarm-lab-dashboard.jpg",
       "/portfolio_images/projects/smartfarm-lab-weather.jpg",
       "/portfolio_images/projects/smartfarm-lab-vision.jpg",
       "/portfolio_images/projects/smartfarm-lab-sensor.jpg",
+      // 수업 현장, 학생 얼굴은 게시 전 마스킹했다
+      "/portfolio_images/projects/smartfarm-edu-class.jpg",
     ],
     galleryAlts: {
       "/portfolio_images/projects/smartfarm-edu-class.jpg":

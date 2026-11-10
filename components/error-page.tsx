@@ -76,7 +76,8 @@ export function ErrorPage({ code }: { code: ErrorCode }) {
   const showRobot = mascot === "robot" && robotCapable === true;
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-cream px-6 text-center text-ink">
+    // 페이지 zoom 안에서는 100vh 도 같이 줄어든다. 화면 높이를 채우려면 배율로 나눈다
+    <main className="flex min-h-[calc(100vh/var(--page-zoom))] flex-col items-center justify-center bg-cream px-6 text-center text-ink">
       {/* 마스코트 + 인사 말풍선 */}
       <div className="relative flex items-end justify-center">
         <span className="error-bubble font-display absolute -top-5 left-1/2 z-10 whitespace-nowrap rounded-full bg-ink px-4 py-2 text-sm font-semibold text-cream">

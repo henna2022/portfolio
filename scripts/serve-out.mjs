@@ -24,6 +24,7 @@ const types = {
   ".wasm": "application/wasm",
   ".pdf": "application/pdf",
   ".xml": "application/xml",
+  ".mp4": "video/mp4",
 };
 
 async function resolve(p) {
@@ -57,12 +58,28 @@ http
       res.end(page || "Not found");
       return;
     }
-    res.writeHead(200, {
+    const headers = {
       "content-type": types[extname(file).toLowerCase()] || "application/octet-stream",
       "cache-control": file.includes(`${sep}_next${sep}static${sep}`)
         ? "public, max-age=31536000, immutable"
         : "no-cache",
-    });
-    res.end(await readFile(file));
+      "accept-ranges": "bytes",
+    };
+    const body = await readFile(file);
+    // 영상은 구간 요청(Range)을 받아야 사파리에서 재생되고 장 이동이 된다(배포 서버는 원래 지원한다)
+    const range = /^bytes=(\d*)-(\d*)$/.exec(req.headers.range || "");
+    if (range && (range[1] || range[2])) {
+      const start = range[1] ? Number(range[1]) : Math.max(0, body.length - Number(range[2]));
+      const end = range[1] && range[2] ? Math.min(Number(range[2]), body.length - 1) : body.length - 1;
+      if (start > end) {
+        res.writeHead(416, { "content-range": `bytes */${body.length}` }).end();
+        return;
+      }
+      res.writeHead(206, { ...headers, "content-range": `bytes ${start}-${end}/${body.length}` });
+      res.end(body.subarray(start, end + 1));
+      return;
+    }
+    res.writeHead(200, headers);
+    res.end(body);
   })
   .listen(port, () => console.log(`preview: http://localhost:${port}`));

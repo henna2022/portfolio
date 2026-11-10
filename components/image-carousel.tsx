@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { assetPath } from "@/lib/asset";
 import { ArrowIcon } from "./icons";
 import { useI18n } from "./lang-provider";
+import { pageZoom } from "@/lib/zoom";
 
 // Horizontal, snap-scrolling gallery. Touch devices swipe natively;
 // mouse users can drag or use the arrows. Dots show position for 2+ images.
@@ -82,7 +83,8 @@ export function ImageCarousel({
     if (!drag.current.active || !ref.current) return;
     const dx = e.clientX - drag.current.startX;
     if (Math.abs(dx) > 4) drag.current.moved = true;
-    ref.current.scrollLeft = drag.current.startLeft - dx;
+    // clientX 는 화면 값, scrollLeft 는 zoom 전 값이라 끄는 만큼 따라오게 나눠 준다
+    ref.current.scrollLeft = drag.current.startLeft - dx / pageZoom();
   }
   function onPointerUp(e: React.PointerEvent<HTMLDivElement>) {
     const el = ref.current;
@@ -158,7 +160,9 @@ export function ImageCarousel({
 
           {/* dots — 점 자체는 작게 두되 버튼은 24px 이상으로 키워 탭 영역을 확보한다
               (WCAG 2.5.8 최소 타겟 크기. 6px 점은 모바일에서 사실상 못 누른다) */}
+          {/* 흰 화면 캡처 위에서도 보이게 어두운 바탕을 깔고 점은 흰색으로 둔다 */}
           <div className="absolute inset-x-0 bottom-1 flex items-center justify-center">
+            <div className="flex rounded-full bg-black/40 px-1">
             {images.map((_, i) => (
               <button
                 key={i}
@@ -170,11 +174,12 @@ export function ImageCarousel({
               >
                 <span
                   className={`h-1.5 rounded-full transition-all ${
-                    i === idx ? "w-4 bg-cream" : "w-1.5 bg-cream/50"
+                    i === idx ? "w-4 bg-white" : "w-1.5 bg-white/60"
                   }`}
                 />
               </button>
             ))}
+            </div>
           </div>
         </>
       ) : null}

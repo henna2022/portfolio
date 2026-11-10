@@ -26,8 +26,16 @@
 }
 
 html {
+  --page-zoom: 1;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+/* 본인 2026-11-09: 100%는 꽉 차고 어지럽다 → 데스크톱 기본을 브라우저 80% 배율로 본 화면과 같게.
+   마우스를 쓰는 넓은 화면에만 건다(가로로 든 태블릿은 글자와 누를 자리가 작아지니 그대로).
+   zoom 안에서는 vh 도 같이 줄어드니 화면 높이를 쓰는 곳은 --page-zoom 으로 나눈다.
+   JS 에서 화면 값(getBoundingClientRect)과 CSS 값을 섞을 때는 lib/zoom.ts 의 pageZoom() 으로 맞춘다. */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  html { --page-zoom: 0.8; zoom: var(--page-zoom); }
 }
 
 body {
@@ -215,13 +223,13 @@ button.shrink-0.self-start { white-space: normal; }
 }
 .dark .home-page :is(a, button):focus-visible { outline-color: #3B82F6; }
 .sky-band {
-  --sky-viewport: 100vh;
+  --sky-viewport: calc(100vh / var(--page-zoom));
   position: relative;
   display: grid;
   align-items: center;
   min-height: calc(var(--sky-viewport) - var(--site-header-height));
   background: color-mix(in srgb, #3B82F6 18%, #FFFFFF); }
-@supports (height: 100svh) { .sky-band { --sky-viewport: 100svh; } }
+@supports (height: 100svh) { .sky-band { --sky-viewport: calc(100svh / var(--page-zoom)); } }
 .dark .sky-band { background: rgb(59 130 246 / 0.08); }
 .sky-clouds { position: absolute; inset: 0 0 auto; width: 100%; height: 80px; fill: rgb(var(--cream)); pointer-events: none; }
 /* 배경은 화면을 채우고 내부 높이만 제한한다. */
@@ -245,6 +253,18 @@ button.shrink-0.self-start { white-space: normal; }
 .selected-card-featured > a { display: flex; flex: 1; min-height: 420px; }
 .selected-card-featured .work-cover { position: relative; width: 100%; aspect-ratio: auto; }
 .selected-card-featured .work-cover > img { position: absolute; inset: 0; object-position: center; }
+/* 영상 표지: 링크(영상)와 멈춤 단추를 한 칸에 겹쳐 둔다. 단추는 링크 밖 형제.
+   표지는 늘 영상 비율(8:7)로 둬 화면이 잘리지 않게 하고, 옆 칸보다 짧으면 남는 높이는 글 칸이 받아 링크 줄이 바닥에 붙는다. */
+.cover-video { position: relative; }
+.cover-video > a { display: block; }
+.cover-video > a:hover { box-shadow: 0 0 0 2px rgb(59 130 246 / 0.5); }
+.selected-card-featured .cover-video .work-cover { aspect-ratio: 8 / 7; }
+.cover-video video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.selected-card-featured:has(.cover-video) .selected-card-copy { flex: 1; }
+.selected-card-featured:has(.cover-video) .selected-card-actions { margin-top: auto; }
+/* 단추가 영상 위에 떠 있어 포커스 테두리가 어두운 장면에 묻힌다 → 테두리 안쪽에 바탕색 띠를 둔다 */
+.home-page .cover-video-toggle:focus-visible { outline-offset: 2px; box-shadow: 0 0 0 2px rgb(var(--cream)); }
+.cover-video-toggle { position: absolute; right: 12px; bottom: 12px; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 999px; background: rgb(var(--cream) / 0.92); color: rgb(var(--ink)); box-shadow: 0 1px 3px rgb(0 0 0 / 0.18); }
 .selected-card-featured .selected-card-copy { flex: none; }
 .selected-card-featured .selected-card-actions { margin-top: 0; }
 /* 묶음 카드는 두 장이라 두 칸으로 넓게 쓴다. */
@@ -259,7 +279,8 @@ button.shrink-0.self-start { white-space: normal; }
 /* 주요 작업의 작은 화면은 제목과 한 휴대폰의 일부를 크게 보여 준다. */
 .selected-card:not(.selected-card-featured) .work-cover { position: relative; aspect-ratio: 2 / 1; }
 .work-cover-raim-en > img { position: absolute; width: 200%; max-width: none; height: auto; left: -20%; top: -14%; }
-.work-cover-doctor-green > img { position: absolute; width: 400%; max-width: none; height: auto; left: -205%; top: -240%; }
+/* 본인 2026-11-09: 휴대폰 두 화면이 다 보이게(투명 배경 그림이라 남는 칸은 카드 바탕색) */
+.work-cover-doctor-green > img { object-fit: contain; object-position: center; }
 /* Shared tracks keep photo edges, labels and actions aligned across cards. */
 .group-grid { grid-template-rows: auto repeat(4, auto); row-gap: 0; }
 .group-anchor { min-width: 0; position: relative; grid-row: 1 / span 5; display: grid; grid-template-rows: subgrid; }
@@ -346,11 +367,16 @@ html:has(.home-page) body { transition: none; }
   .selected-card-featured > a { display: block; flex: none; min-height: 0; }
   .selected-card-featured .work-cover { aspect-ratio: 16 / 9; }
   .selected-card-featured .work-cover > img { position: static; }
+  /* 가로로 넓고 낮은 창에서는 표지가 화면보다 길어진다 → 높이를 묶고 영상은 잘리지 않게 안에 맞춘다 */
+  .selected-card-featured .cover-video .work-cover { max-height: 80svh; }
+  .cover-video video { object-fit: contain; }
   .group-card-copy { padding: 16px; }
   .group-title { font-size: 21px; }
   .about-grid { gap: 36px; }
 }
 @media (max-width: 767px) {
+  /* 좁은 화면에서는 영상 자막 알약이 오른쪽 아래 끝까지 와서 멈춤 단추와 겹친다 → 단추를 왼쪽 위로(앱 화면의 접힌 메뉴 자리) */
+  .cover-video-toggle { top: 10px; left: 10px; right: auto; bottom: auto; }
   .home-shell { padding-inline: 20px; }
   .home-section { padding-block: 48px; }
   .home-section + .home-section::before { inset-inline: 20px; }

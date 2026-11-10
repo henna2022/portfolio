@@ -126,6 +126,18 @@ const projectsKo: Record<string, Partial<Project>> = {
       "학생이 브라우저에서 직접 전이학습 실행⁠(MobileNet v2 + TensorFlow.js), 자기 학습의 epoch⁠·⁠loss 수치를 그대로 확인.",
       "학생용 ESP32 보드 15대의 센서 값이 실습 데이터베이스에서 실시간으로 바뀌는 모습을 직접 확인.",
     ],
+    tour: {
+      video: "/portfolio_images/projects/smartfarm-lab-intro-ko.mp4",
+      note: "앱의 체험 모드에서 예시 데이터로 녹화한 화면입니다.",
+      chapters: [
+        { at: 3.2, title: "대시보드", text: "학생은 대시보드에서 네 단계 실습을 순서대로 진행합니다." },
+        { at: 13.2, title: "STEP 1 · 공공데이터 연결", text: "기상청 공공 API로 지금 날씨를 받아 표에 한 줄씩 쌓습니다." },
+        { at: 33.4, title: "STEP 2 · AI 비전 학습", text: "사진을 모아 브라우저에서 모델을 학습시키고, 시험 사진과 카메라로 직접 평가합니다." },
+        { at: 95.8, title: "STEP 3 · IoT 센서 연결", text: "센서 측정값을 보내 표에 기록하고, SQL로 직접 조회합니다." },
+        { at: 124.2, title: "STEP 4 · 캡스톤 자동화", text: "기준값을 정해 저장하면 보드가 스스로 팬과 펌프를 움직입니다." },
+        { at: 138.7, title: "선생님 화면", text: "방마다 어디까지 했는지, 누가 막혔는지 한 화면에서 봅니다." },
+      ],
+    },
     galleryAlts: {
       "/portfolio_images/projects/smartfarm-edu-class.jpg": "과학관 교육장 수업 현장: 학생들이 브라우저에서 직접 돌린 학습이 정확도 87.5%에 이르는 화면을 보고 있고, 자리마다 미니 스마트팜 센서 키트가 놓여 있다.",
       "/portfolio_images/projects/smartfarm-lab-dashboard.jpg": "새 화면 디자인의 스마트팜 실습실 대시보드: STEP 1~4 진행 상황과 다음 할 일.",

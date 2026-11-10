@@ -15,7 +15,8 @@ export function SkyHero() {
     const home = band.current?.closest<HTMLElement>(".home-page");
     const header = home?.querySelector<HTMLElement>(".site-header");
     if (!home || !header) return;
-    const measure = () => home.style.setProperty("--site-header-height", `${header.getBoundingClientRect().height}px`);
+    // offsetHeight: 페이지 zoom 이 걸려도 CSS 값과 같은 단위(getBoundingClientRect 는 줄어든 화면 값)
+    const measure = () => home.style.setProperty("--site-header-height", `${header.offsetHeight}px`);
     measure();
     const observer = new ResizeObserver(measure);
     observer.observe(header);

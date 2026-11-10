@@ -5,6 +5,7 @@
 //    한 줄로 붙인다(-0.01 ~ -0.05em). 안 되면 window.koTailReport 에 남긴다.
 //    글자는 건드리지 않고 style.letterSpacing 만 바꾸므로 React 렌더와 충돌하지 않는다.
 import { useEffect } from "react";
+import { pageZoom } from "@/lib/zoom";
 
 // 제목(h1~h3)은 text-wrap: balance 로 처리하고 여기서는 본문 블록만 본다
 const TAIL_SEL = "main p:not(.mono), main li, main dd, main .sent";
@@ -14,7 +15,8 @@ function lineBoxes(el: Element) {
   range.selectNodeContents(el);
   const rects = Array.from(range.getClientRects()).filter((r) => r.width > 0.5);
   if (!rects.length) return [];
-  const lh = parseFloat(getComputedStyle(el).lineHeight) || rects[0].height;
+  // 줄 상자(rects)는 화면 값이라 CSS 줄 높이도 zoom 을 곱해 같은 단위로 본다
+  const lh = parseFloat(getComputedStyle(el).lineHeight) * pageZoom() || rects[0].height;
   const lines: { top: number; left: number; right: number }[] = [];
   for (const r of rects) {
     const hit = lines.find((l) => Math.abs(l.top - r.top) < lh * 0.4);
@@ -51,8 +53,8 @@ function hasTail(el: HTMLElement) {
   const width = el.getBoundingClientRect().width;
   const last = lines[lines.length - 1];
   const cs = getComputedStyle(el);
-  const fs = parseFloat(cs.fontSize) || 16;
-  const lh = parseFloat(cs.lineHeight) || fs * 1.5;
+  const fs = (parseFloat(cs.fontSize) || 16) * pageZoom();
+  const lh = parseFloat(cs.lineHeight) * pageZoom() || fs * 1.5;
   const lastW = last.right - last.left;
   if (lastW < Math.max(width * 0.22, fs * 3.2)) return { tail: true, count: lines.length };
   // 한두 어절만 내려간 줄도 꼬리로 본다 (줄 폭이 45% 넘으면 제외)

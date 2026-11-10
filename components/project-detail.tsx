@@ -9,6 +9,7 @@ import { koProjectTitle, localizeProject } from "@/lib/data-ko";
 import { ArrowIcon } from "./icons";
 import { ImageCarousel } from "./image-carousel";
 import { FlowDiagram } from "./flow-diagram";
+import { TourSection } from "./tour-video";
 import { ease } from "@/lib/motion";
 
 const reveal: Variants = {
@@ -131,6 +132,8 @@ export function ProjectDetail({
           </div>
         </div>
       </motion.header>
+
+      {p.tour ? <TourSection tour={p.tour} label={p.title} /> : null}
 
       {/* Highlights */}
       <motion.section

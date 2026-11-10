@@ -5,6 +5,7 @@ import { projects } from "@/lib/data";
 import { localizeProject } from "@/lib/data-ko";
 import { useI18n } from "./lang-provider";
 import { firstSentence, projectLabel, WorkMedia } from "./work-media";
+import { CoverVideo } from "./tour-video";
 
 export function SelectedWork() {
   const { t, lang } = useI18n();
@@ -16,9 +17,13 @@ export function SelectedWork() {
           const p = localizeProject(project, lang);
           return (
             <article key={p.slug} className={`selected-card${p.slug === "smart-farm-education" ? " selected-card-featured" : ""}`}>
-              <Link href={`/work/${p.slug}`} aria-label={`${t.view}: ${p.title}`} className="block rounded-xl">
-                <WorkMedia project={p} image={p.slug === "smart-farm-education" ? "/portfolio_images/projects/smartfarm-edu-class.jpg" : undefined} selected />
-              </Link>
+              {p.tour ? (
+                <CoverVideo src={p.tour.video} href={`/work/${p.slug}`} label={`${t.view}: ${p.title}`} />
+              ) : (
+                <Link href={`/work/${p.slug}`} aria-label={`${t.view}: ${p.title}`} className="block rounded-xl">
+                  <WorkMedia project={p} selected />
+                </Link>
+              )}
               <div className="selected-card-copy">
                 <h3 className="home-card-title"><Link href={`/work/${p.slug}`}>{p.title}</Link></h3>
                 <p className="home-meta mt-2">{projectLabel(p)}</p>

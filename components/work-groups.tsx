@@ -66,26 +66,34 @@ function GroupPanel({ children, appear }: { children: ReactNode; appear: boolean
 
 function DesktopList({ group, children }: { group: GroupId; children: ReactNode }) {
   const reduced = useReducedMotion();
-  const [height, setHeight] = useState<number>();
-  const observer = useRef<ResizeObserver>();
-  const measure = useCallback((node: HTMLUListElement | null) => {
-    observer.current?.disconnect();
-    if (!node) return;
-    const update = () => setHeight(node.getBoundingClientRect().height + 16);
-    update();
-    observer.current = new ResizeObserver(update);
-    observer.current.observe(node);
+  // 평소에는 높이를 정하지 않는다(auto): 언어·글꼴·창 크기가 바뀌면 배치가 바로 따라가 해시 이동 위치가 어긋나지 않는다.
+  // 묶음을 바꿀 때만 px 높이를 걸어 CSS 로 잇는다: 바꾸기 직전 높이로 묶고 → 새 목록 높이로 옮기고 → 끝나면 다시 auto.
+  // 높이는 offsetHeight 로 잰다(getBoundingClientRect 나 framer-motion 의 "auto" 측정은 화면 값이라 페이지 zoom 안에서 20% 어긋난다).
+  const viewport = useRef<HTMLDivElement>(null);
+  const [fixed, setFixed] = useState<number | null>(null);
+  const mounted = useRef(false);
+  useLayoutEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
+    }
+    if (viewport.current) setFixed(viewport.current.offsetHeight); // 옛 목록이 아직 퇴장 중이라 바꾸기 전 높이다
+    const release = window.setTimeout(() => setFixed(null), 600); // 퇴장 0.08초 + 높이 0.24초가 끝난 뒤
+    return () => window.clearTimeout(release);
+  }, [group]);
+  // 새 목록이 붙으면 그 높이(+ 위아래 안쪽 여백 16)로 옮긴다. 평소(null)에는 건드리지 않는다
+  const measure = useCallback((list: HTMLUListElement | null) => {
+    if (list) setFixed((height) => (height === null ? null : list.offsetHeight + 16));
   }, []);
-  useEffect(() => () => observer.current?.disconnect(), []);
 
   return (
-    <motion.div className="group-list-viewport" initial={false} animate={{ height: height ?? "auto" }}
-      transition={{ duration: reduced ? 0 : 0.24, ease: "easeInOut" }}>
+    <div ref={viewport} className="group-list-viewport"
+      style={fixed === null ? undefined : { height: fixed, transition: reduced ? undefined : "height 0.24s ease-in-out" }}>
       {/* 퇴장 중에도 목록 높이를 유지한다. */}
       <AnimatePresence initial={false} mode="wait">
         <PanelRows key={group} measure={measure}>{children}</PanelRows>
       </AnimatePresence>
-    </motion.div>
+    </div>
   );
 }
 
