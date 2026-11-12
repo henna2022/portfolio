@@ -278,7 +278,9 @@ button.shrink-0.self-start { white-space: normal; }
 .work-cover { aspect-ratio: 16 / 10; border-radius: 12px; background: rgb(var(--sand)); overflow: hidden; }
 /* 주요 작업의 작은 화면은 제목과 한 휴대폰의 일부를 크게 보여 준다. */
 .selected-card:not(.selected-card-featured) .work-cover { position: relative; aspect-ratio: 2 / 1; }
-.work-cover-raim-en > img { position: absolute; width: 200%; max-width: none; height: auto; left: -20%; top: -14%; }
+/* 본인 2026-11-10: 화면 전체가 보이게. 남는 좌우 띠는 캡처 바탕색과 같게 둬 이어져 보이게 한다 */
+.work-cover-raim-en { background: #12151A; }
+.work-cover-raim-en > img { object-fit: contain; object-position: center; }
 /* 본인 2026-11-09: 휴대폰 두 화면이 다 보이게(투명 배경 그림이라 남는 칸은 카드 바탕색) */
 .work-cover-doctor-green > img { object-fit: contain; object-position: center; }
 /* Shared tracks keep photo edges, labels and actions aligned across cards. */
@@ -337,7 +339,7 @@ button.shrink-0.self-start { white-space: normal; }
 .dark .logo-light { display: none; }
 .dark .logo-dark { display: block; }
 .skills-block { margin-top: 24px; padding: 28px; border-radius: 16px; background: rgb(var(--sand) / 0.55); }
-.skills-lines > div { display: grid; grid-template-columns: minmax(210px, 1fr) minmax(0, 3fr); gap: 24px; padding-block: 10px; }
+.skills-lines > div { display: grid; grid-template-columns: minmax(210px, 1fr) minmax(0, 3fr); align-items: center; gap: 24px; padding-block: 12px; }
 .skills-lines > div + div { border-top: 1px solid rgb(var(--sand-deep)); }
 .about-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 64px; align-items: center; }
 .about-copy { min-width: 0; }

@@ -40,8 +40,8 @@ export function Experience() {
             <div key={skill.key}>
               <dt className="font-semibold">{skill.title}</dt>
               <dd className="min-w-0">
-                <p className="text-muted">{skill.capability}</p>
-                <ul className="mt-3 flex flex-wrap gap-2">
+                {/* 본인 2026-11-10: 분야별 한 줄 소개는 빼고 기술 이름만 */}
+                <ul className="flex flex-wrap gap-2">
                   {skill.items.map((item) => (
                     <li key={item} className="rounded-full bg-sand/60 px-3 py-1.5 text-xs text-ink/75">{item}</li>
                   ))}
